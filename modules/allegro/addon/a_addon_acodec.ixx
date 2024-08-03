@@ -7,7 +7,7 @@ namespace al
 {
 	namespace acodec_addon
 	{
-		export inline bool ini()
+		export inline bool init()
 		{
 			return al_init_acodec_addon();
 		}
