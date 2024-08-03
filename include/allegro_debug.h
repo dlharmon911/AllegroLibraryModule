@@ -1,8 +1,7 @@
 #ifndef _allegro_library_debug_h_
 #define _allegro_library_debug_h_
 
-#include <assert.h>
-
+import <cassert>;
 import allegro:base;
 import allegro:debug;
 
