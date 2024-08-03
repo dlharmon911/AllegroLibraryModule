@@ -22,6 +22,9 @@
     <Filter Include="Modules Files\Partition Files">
       <UniqueIdentifier>{ee4b3189-5bfc-4d50-a9e0-577f300283e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Modules Files\Platform Files">
+      <UniqueIdentifier>{e97dac85-058b-468f-950e-08c7e4ffe885}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -180,9 +183,9 @@
     <ClCompile Include="modules\application.ixx">
       <Filter>Modules Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ClCompile Include="modules\allegro\a_platform.ixx">
+      <Filter>Modules Files\Partition Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\allegro_debug.h">
@@ -191,5 +194,8 @@
     <ClInclude Include="include\allegro_memory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

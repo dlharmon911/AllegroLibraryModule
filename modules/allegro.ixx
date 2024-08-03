@@ -28,6 +28,7 @@ export import :monitor;
 export import :mouse;
 export import :mouse_cursor;
 export import :path;
+export import :platform;
 export import :render_state;
 export import :shader;
 export import :system;

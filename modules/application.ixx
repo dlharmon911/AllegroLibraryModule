@@ -125,7 +125,7 @@ private:
 		}
 		al::set_window_title(this->m_display, APPNAME);
 
-		std::cout << "Creating Buffer Bitmap: ";
+		std::cout << "Creating Bitmap Buffer: ";
 		this->m_buffer = al::create_bitmap(SCREEN_W, SCREEN_H);
 		if (!this->m_buffer)
 		{
@@ -176,6 +176,10 @@ private:
 
 		this->m_queue.reset();
 		std::cout << "Event Queue Destroyed\n";
+
+		this->m_buffer.reset();
+		std::cout << "Bitmap Buffer Destroyed\n";
+
 
 		this->m_display.reset();
 		std::cout << "Display Destroyed\n";

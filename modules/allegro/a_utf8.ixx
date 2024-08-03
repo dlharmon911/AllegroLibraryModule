@@ -16,7 +16,7 @@ namespace ALLEGRO
 
 namespace al
 {
-    const ALLEGRO::USTRING make_const_ustring(const ALLEGRO::USTRING_DATA* data)
+    inline const ALLEGRO::USTRING make_const_ustring(const ALLEGRO::USTRING_DATA* data)
     {
         return ALLEGRO::USTRING(const_cast<ALLEGRO::USTRING_DATA*>(data), internal::deleter_empty<ALLEGRO::USTRING_DATA>);
     }

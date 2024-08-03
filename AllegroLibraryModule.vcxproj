@@ -177,6 +177,7 @@
     <ClCompile Include="modules\allegro\a_mouse.ixx" />
     <ClCompile Include="modules\allegro\a_mouse_cursor.ixx" />
     <ClCompile Include="modules\allegro\a_path.ixx" />
+    <ClCompile Include="modules\allegro\a_platform.ixx" />
     <ClCompile Include="modules\allegro\a_render_state.ixx" />
     <ClCompile Include="modules\allegro\a_shader.ixx" />
     <ClCompile Include="modules\allegro\a_system.ixx" />
@@ -190,11 +191,11 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="include\allegro_debug.h" />
     <ClInclude Include="include\allegro_memory.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
