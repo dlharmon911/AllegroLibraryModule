@@ -58,9 +58,9 @@ namespace al
 		return ALLEGRO::FS_ENTRY(al_create_fs_entry(path), internal::destroy_fs_entry);
 	}
 
-	export inline std::string get_fs_entry_name(ALLEGRO::FS_ENTRY& e)
+	export inline const char* get_fs_entry_name(ALLEGRO::FS_ENTRY& e)
 	{
-		return std::string(al_get_fs_entry_name(e.get()));
+		return al_get_fs_entry_name(e.get());
 	}
 
 	export inline bool update_fs_entry(ALLEGRO::FS_ENTRY& e)
@@ -128,9 +128,9 @@ namespace al
 		return al_remove_filename(path);
 	}
 
-	export inline std::string get_current_directory()
+	export inline const char* get_current_directory()
 	{
-		return std::string(al_get_current_directory());
+		return al_get_current_directory();
 	}
 
 	export inline bool change_directory(const char* path)

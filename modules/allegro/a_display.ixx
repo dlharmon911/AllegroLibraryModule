@@ -146,9 +146,9 @@ namespace al
 		al_set_new_window_title(title);
 	}
 
-	export inline const std::string get_new_window_title()
+	export inline const char* get_new_window_title()
 	{
-		return std::string(al_get_new_window_title());
+		return al_get_new_window_title();
 	}
 
 	export inline int32_t get_display_width(const ALLEGRO::DISPLAY& display)

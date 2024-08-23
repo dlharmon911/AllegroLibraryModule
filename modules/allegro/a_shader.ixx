@@ -10,18 +10,18 @@ import :transformations;
 
 namespace ALLEGRO
 {
-	export inline const std::string SHADER_VAR_COLOR = ALLEGRO_SHADER_VAR_COLOR;
-	export inline const std::string SHADER_VAR_POS = ALLEGRO_SHADER_VAR_POS;
-	export inline const std::string SHADER_VAR_PROJVIEW_MATRIX = ALLEGRO_SHADER_VAR_PROJVIEW_MATRIX;
-	export inline const std::string SHADER_VAR_TEX = ALLEGRO_SHADER_VAR_TEX;
-	export inline const std::string SHADER_VAR_TEXCOORD = ALLEGRO_SHADER_VAR_TEXCOORD;
-	export inline const std::string SHADER_VAR_TEX_MATRIX = ALLEGRO_SHADER_VAR_TEX_MATRIX;
-	export inline const std::string SHADER_VAR_USER_ATTR = ALLEGRO_SHADER_VAR_USER_ATTR;
-	export inline const std::string SHADER_VAR_USE_TEX = ALLEGRO_SHADER_VAR_USE_TEX;
-	export inline const std::string SHADER_VAR_USE_TEX_MATRIX = ALLEGRO_SHADER_VAR_USE_TEX_MATRIX;
-	export inline const std::string SHADER_VAR_ALPHA_TEST = ALLEGRO_SHADER_VAR_ALPHA_TEST;
-	export inline const std::string SHADER_VAR_ALPHA_FUNCTION = ALLEGRO_SHADER_VAR_ALPHA_FUNCTION;
-	export inline const std::string SHADER_VAR_ALPHA_TEST_VALUE = ALLEGRO_SHADER_VAR_ALPHA_TEST_VALUE;
+	export inline const char* SHADER_VAR_COLOR = ALLEGRO_SHADER_VAR_COLOR;
+	export inline const char* SHADER_VAR_POS = ALLEGRO_SHADER_VAR_POS;
+	export inline const char* SHADER_VAR_PROJVIEW_MATRIX = ALLEGRO_SHADER_VAR_PROJVIEW_MATRIX;
+	export inline const char* SHADER_VAR_TEX = ALLEGRO_SHADER_VAR_TEX;
+	export inline const char* SHADER_VAR_TEXCOORD = ALLEGRO_SHADER_VAR_TEXCOORD;
+	export inline const char* SHADER_VAR_TEX_MATRIX = ALLEGRO_SHADER_VAR_TEX_MATRIX;
+	export inline const char* SHADER_VAR_USER_ATTR = ALLEGRO_SHADER_VAR_USER_ATTR;
+	export inline const char* SHADER_VAR_USE_TEX = ALLEGRO_SHADER_VAR_USE_TEX;
+	export inline const char* SHADER_VAR_USE_TEX_MATRIX = ALLEGRO_SHADER_VAR_USE_TEX_MATRIX;
+	export inline const char* SHADER_VAR_ALPHA_TEST = ALLEGRO_SHADER_VAR_ALPHA_TEST;
+	export inline const char* SHADER_VAR_ALPHA_FUNCTION = ALLEGRO_SHADER_VAR_ALPHA_FUNCTION;
+	export inline const char* SHADER_VAR_ALPHA_TEST_VALUE = ALLEGRO_SHADER_VAR_ALPHA_TEST_VALUE;
 
 	export using SHADER_DATA = ALLEGRO_SHADER;
 	export using SHADER = std::shared_ptr<ALLEGRO::SHADER_DATA>;
@@ -76,7 +76,7 @@ namespace al
 		return al_build_shader(shader.get());
 	}
 
-	export inline std::string get_shader_log(ALLEGRO::SHADER& shader)
+	export inline const char* get_shader_log(ALLEGRO::SHADER& shader)
 	{
 		return al_get_shader_log(shader.get());
 	}
@@ -131,8 +131,8 @@ namespace al
 		return al_set_shader_bool(name, b);
 	}
 
-	export inline std::string get_default_shader_source(ALLEGRO_SHADER_PLATFORM platform, ALLEGRO_SHADER_TYPE type)
+	export inline const char* get_default_shader_source(ALLEGRO_SHADER_PLATFORM platform, ALLEGRO_SHADER_TYPE type)
 	{
-		return std::string(al_get_default_shader_source(platform, type));
+		return al_get_default_shader_source(platform, type);
 	}
 }

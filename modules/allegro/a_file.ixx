@@ -84,7 +84,7 @@ namespace al
 		return al_ferror(file.get());
 	}
 
-	export inline const std::string ferrmsg(ALLEGRO::FILE& file)
+	export inline const char* ferrmsg(ALLEGRO::FILE& file)
 	{
 		return al_ferrmsg(file.get());
 	}
@@ -171,7 +171,7 @@ namespace al
 
 	export inline int32_t fput_ustr(ALLEGRO::FILE& file, const ALLEGRO::USTRING& p)
 	{
-		return al_fputs(file.get(), al::cstr(p));
+		return al_fwrite(file.get(), (const void*)al::c_str(p), al::ustr_size(p));
 	}
 
 	export inline int32_t fprintf(ALLEGRO::FILE& file, const char* format, ...)

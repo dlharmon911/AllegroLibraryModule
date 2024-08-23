@@ -39,12 +39,12 @@ namespace al
 		_al_user_assert_handler(expr, file, line, func);
 	}
 
-	export inline void register_assert_handler(void (*handler)(char const* expr, char const* file, int32_t line, char const* func))
+	export inline void register_assert_handler(void (*handler)(const char* expr, const char* file, int32_t line, const char* func))
 	{
 		al_register_assert_handler(handler);
 	}
 
-	export inline void register_trace_handler(void (*handler)(char const*))
+	export inline void register_trace_handler(void (*handler)(const char*))
 	{
 		al_register_trace_handler(handler);
 	}

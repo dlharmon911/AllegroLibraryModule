@@ -45,9 +45,9 @@ namespace al
 		return al_get_path_num_components(path.get());
 	}
 
-	export inline std::string get_path_component(const ALLEGRO::PATH& path, int32_t i)
+	export inline const char* get_path_component(const ALLEGRO::PATH& path, int32_t i)
 	{
-		return std::string(al_get_path_component(path.get(), i));
+		return al_get_path_component(path.get(), i);
 	}
 	
 	export inline void replace_path_component(ALLEGRO::PATH& path, int32_t i, const char* s)
@@ -65,9 +65,9 @@ namespace al
 		al_insert_path_component(path.get(), i, s);
 	}
 	
-	export inline std::string get_path_tail(const ALLEGRO::PATH& path)
+	export inline const char* get_path_tail(const ALLEGRO::PATH& path)
 	{
-		return std::string(al_get_path_tail(path.get()));
+		return al_get_path_tail(path.get());
 	}
 	
 	export inline void drop_path_tail(ALLEGRO::PATH& path)
@@ -90,9 +90,9 @@ namespace al
 		return al_rebase_path(head.get(), tail.get());
 	}
 	
-	export inline std::string path_cstr(const ALLEGRO::PATH& path, char delim)
+	export inline const char* path_cstr(const ALLEGRO::PATH& path, char delim)
 	{
-		return std::string(al_path_cstr(path.get(), delim));
+		return al_path_cstr(path.get(), delim);
 	}
 	
 	export inline ALLEGRO::USTRING path_ustr(const ALLEGRO::PATH& path, char delim)
@@ -105,9 +105,9 @@ namespace al
 		al_set_path_drive(path.get(), drive);
 	}
 	
-	export inline std::string get_path_drive(const ALLEGRO::PATH& path)
+	export inline const char* get_path_drive(const ALLEGRO::PATH& path)
 	{
-		return std::string(al_get_path_drive(path.get()));
+		return al_get_path_drive(path.get());
 	}
 	
 	export inline void set_path_filename(ALLEGRO::PATH& path, const char* filename)
@@ -115,14 +115,14 @@ namespace al
 		al_set_path_filename(path.get(), filename);
 	}
 	
-	export inline std::string get_path_filename(const ALLEGRO::PATH& path)
+	export inline const char* get_path_filename(const ALLEGRO::PATH& path)
 	{
-		return std::string(al_get_path_filename(path.get()));
+		return al_get_path_filename(path.get());
 	}
 	
-	export inline std::string get_path_extension(const ALLEGRO::PATH& path)
+	export inline const char* get_path_extension(const ALLEGRO::PATH& path)
 	{
-		return std::string(al_get_path_extension(path.get()));
+		return al_get_path_extension(path.get());
 	}
 	
 	export inline bool set_path_extension(ALLEGRO::PATH& path, const char* extension)
@@ -130,9 +130,9 @@ namespace al
 		return al_set_path_extension(path.get(), extension);
 	}
 	
-	export inline std::string get_path_basename(const ALLEGRO::PATH& path)
+	export inline const char* get_path_basename(const ALLEGRO::PATH& path)
 	{
-		return std::string(al_get_path_basename(path.get()));
+		return al_get_path_basename(path.get());
 	}
 
 	export inline bool make_path_canonical(ALLEGRO::PATH& path)

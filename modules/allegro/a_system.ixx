@@ -96,14 +96,14 @@ namespace al
 		al_set_app_name(app_name);
 	}
 
-	export inline std::string get_org_name()
+	export inline const char* get_org_name()
 	{
-		return std::string(al_get_org_name());
+		return al_get_org_name();
 	}
 
-	export inline std::string al_get_app_name()
+	export inline const char* al_get_app_name()
 	{
-		return std::string(al_get_app_name());
+		return al_get_app_name();
 	}
 
 	export inline bool inhibit_screensaver(bool inhibit)

@@ -110,7 +110,7 @@ namespace al
 		return al_draw_justified_ustr(font.get(), (ALLEGRO::COLOR_DATA)color, x1, x2, y, diff, flags, ustring.get());
 	}
 
-	export inline void draw_textf(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, const ALLEGRO::POINT<float> pos, int32_t flags, char const* format, ...)
+	export inline void draw_textf(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, const ALLEGRO::POINT<float> pos, int32_t flags, const char* format, ...)
 	{
 		va_list args;
 		int len;
@@ -130,7 +130,7 @@ namespace al
 		va_end(args);
 	}
 
-	export inline void draw_justified_textf(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, float x1, float x2, float y, float diff, int32_t flags, char const* format, ...)
+	export inline void draw_justified_textf(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, float x1, float x2, float y, float diff, int32_t flags, const char* format, ...)
 	{
 		va_list args;
 		int len;

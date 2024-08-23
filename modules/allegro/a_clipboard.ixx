@@ -9,10 +9,10 @@ import :debug;
 
 namespace al
 {
-	export inline std::string get_clipboard_text(const ALLEGRO::DISPLAY& display)
+	export inline char* get_clipboard_text(const ALLEGRO::DISPLAY& display)
 	{
 		char* text = al_get_clipboard_text(display.get());
-		std::string rv;
+		char* rv;
 
 		if (text)
 		{

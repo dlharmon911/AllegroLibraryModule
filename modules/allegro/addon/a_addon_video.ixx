@@ -129,14 +129,14 @@ namespace al
 		return al_seek_video(video.get(), pos_in_seconds);
 	}
 
-	export inline std::string identify_video_f(ALLEGRO::FILE& fp)
+	export inline const char* identify_video_f(ALLEGRO::FILE& fp)
 	{
-		return std::string(al_identify_video_f(fp.get()));
+		return al_identify_video_f(fp.get());
 	}
 
-	export inline std::string identify_video(const char* filename)
+	export inline const char* identify_video(const char* filename)
 	{
-		return std::string(al_identify_video(filename));
+		return al_identify_video(filename);
 	}
 }
 

@@ -106,9 +106,9 @@ namespace al
             al_android_set_apk_file_interface();
         }
         
-        export inline std::string get_os_version()
+        export inline char* get_os_version()
         {
-            return std::string(al_android_get_os_version());
+            return char*(al_android_get_os_version());
         }
         
         export inline void set_apk_fs_interface()

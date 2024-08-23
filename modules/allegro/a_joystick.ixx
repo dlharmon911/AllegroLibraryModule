@@ -57,9 +57,9 @@ namespace al
 		return al_get_joystick_active(joystick.get());
 	}
 
-	export inline std::string get_joystick_name(ALLEGRO::JOYSTICK& joystick)
+	export inline const char* get_joystick_name(ALLEGRO::JOYSTICK& joystick)
 	{
-		return std::string(al_get_joystick_name(joystick.get()));
+		return al_get_joystick_name(joystick.get());
 	}
 
 	export inline int32_t get_joystick_num_sticks(ALLEGRO::JOYSTICK& joystick)
@@ -72,9 +72,9 @@ namespace al
 		return al_get_joystick_stick_flags(joystick.get(), stick);
 	}
 
-	export inline std::string get_joystick_stick_name(ALLEGRO::JOYSTICK& joystick, int32_t stick)
+	export inline const char* get_joystick_stick_name(ALLEGRO::JOYSTICK& joystick, int32_t stick)
 	{
-		return std::string(al_get_joystick_stick_name(joystick.get(), stick));
+		return al_get_joystick_stick_name(joystick.get(), stick);
 	}
 
 	export inline int32_t get_joystick_num_axes(ALLEGRO::JOYSTICK& joystick, int32_t stick)
@@ -82,9 +82,9 @@ namespace al
 		return al_get_joystick_num_axes(joystick.get(), stick);
 	}
 
-	export inline std::string get_joystick_axis_name(ALLEGRO::JOYSTICK& joystick, int32_t stick, int32_t axis)
+	export inline const char* get_joystick_axis_name(ALLEGRO::JOYSTICK& joystick, int32_t stick, int32_t axis)
 	{
-		return std::string(al_get_joystick_axis_name(joystick.get(), stick, axis));
+		return al_get_joystick_axis_name(joystick.get(), stick, axis);
 	}
 
 	export inline int32_t get_joystick_num_buttons(ALLEGRO::JOYSTICK& joystick)
@@ -92,9 +92,9 @@ namespace al
 		return al_get_joystick_num_buttons(joystick.get());
 	}
 
-	export inline std::string get_joystick_button_name(ALLEGRO::JOYSTICK& joystick, int32_t button)
+	export inline const char* get_joystick_button_name(ALLEGRO::JOYSTICK& joystick, int32_t button)
 	{
-		return std::string(al_get_joystick_button_name(joystick.get(), button));
+		return al_get_joystick_button_name(joystick.get(), button);
 	}
 
 	export inline void get_joystick_state(ALLEGRO::JOYSTICK& joystick, ALLEGRO::JOYSTICK_STATE& state)

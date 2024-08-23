@@ -53,14 +53,9 @@ namespace al
         return rv;
     }
 
-    export inline const char* cstr(const ALLEGRO::USTRING& ustring)
+    export inline const char* c_str(const ALLEGRO::USTRING& ustring)
     {
         return al_cstr(ustring.get());
-    }
-
-    export inline std::string str(const ALLEGRO::USTRING& ustring)
-    {
-        return std::string(al_cstr(ustring.get()));
     }
 
     export inline void ustr_to_buffer(const ALLEGRO::USTRING& ustring, char* buffer, int32_t size)
@@ -68,9 +63,9 @@ namespace al
         al_ustr_to_buffer(ustring.get(), buffer, size);
     }
 
-    export inline std::string cstr_dup(const ALLEGRO::USTRING& ustring)
+    export inline char* cstr_dup(const ALLEGRO::USTRING& ustring)
     {
-        return std::string(al_cstr_dup(ustring.get()));
+        return al_cstr_dup(ustring.get());
     }
 
     export inline ALLEGRO::USTRING ustr_dup(const ALLEGRO::USTRING& ustring)
@@ -415,7 +410,7 @@ namespace std
                 return 0;
             }
 
-            return std::hash<const char*>{}(al::cstr(str));
+            return std::hash<const char*>{}(al::c_str(str));
         }
     };
 }
@@ -423,7 +418,7 @@ namespace std
 export template <class E, class TR = std::char_traits<E>>
 std::basic_ostream<E, TR>& operator << (std::basic_ostream<E, TR>& stream, const ALLEGRO::USTRING& str)
 {
-    stream << al::cstr(str);
+    stream << al::c_str(str);
     return stream;
 }
 

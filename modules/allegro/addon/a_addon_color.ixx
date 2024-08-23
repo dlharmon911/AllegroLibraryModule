@@ -99,9 +99,9 @@ namespace al
 		return al_color_name_to_rgb(name, &rgb.red, &rgb.green, &rgb.blue);
 	}
 
-	export inline std::string color_rgb_to_name(const ALLEGRO::COLOR_RGB& rgb)
+	export inline const char* color_rgb_to_name(const ALLEGRO::COLOR_RGB& rgb)
 	{
-		return std::string(al_color_rgb_to_name(rgb.red, rgb.green, rgb.blue));
+		return al_color_rgb_to_name(rgb.red, rgb.green, rgb.blue);
 	}
 
 	export inline void color_cmyk_to_rgb(const ALLEGRO::COLOR_CMYK cmyk, ALLEGRO::COLOR_RGB& rgb)

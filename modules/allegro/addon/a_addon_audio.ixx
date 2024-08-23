@@ -659,9 +659,9 @@ namespace al
 		return ALLEGRO::AUDIO_DEVICE(al_get_audio_output_device(index), internal::deleter_empty<ALLEGRO::AUDIO_DEVICE_DATA>);
 	}
 
-	export inline std::string get_audio_device_name(const ALLEGRO::AUDIO_DEVICE& device)
+	export inline const char* get_audio_device_name(const ALLEGRO::AUDIO_DEVICE& device)
 	{
-		return std::string(al_get_audio_device_name(device.get()));
+		return al_get_audio_device_name(device.get());
 	}
 
 	export inline bool reserve_samples(int32_t reserve_samples)
@@ -786,14 +786,14 @@ namespace al
 		return ALLEGRO::AUDIO_STREAM(al_load_audio_stream_f(fp.get(), ident, buffer_count, samples), internal::destroy_audio_stream);
 	}
 
-	export inline std::string identify_sample_f(ALLEGRO::FILE& fp)
+	export inline const char* identify_sample_f(ALLEGRO::FILE& fp)
 	{
-		return std::string(al_identify_sample_f(fp.get()));
+		return al_identify_sample_f(fp.get());
 	}
 
-	export inline std::string identify_sample(const char* filename)
+	export inline const char* identify_sample(const char* filename)
 	{
-		return std::string(al_identify_sample(filename));
+		return al_identify_sample(filename);
 	}
 
 

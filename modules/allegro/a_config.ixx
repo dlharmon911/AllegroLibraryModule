@@ -44,16 +44,9 @@ namespace al
 		al_add_config_comment(config.get(), section, comment);
 	}
 
-	export inline const std::string get_config_value(const ALLEGRO::CONFIG& config, const char* section, const char* key)
+	export inline const char* get_config_value(const ALLEGRO::CONFIG& config, const char* section, const char* key)
 	{
-		const char* v = al_get_config_value(config.get(), section, key);
-
-		if (v)
-		{
-			return std::string(v);
-		}
-
-		return std::string();
+		return al_get_config_value(config.get(), section, key);
 	}
 
 	export inline ALLEGRO::CONFIG load_config_file(const char* filename)
@@ -96,56 +89,28 @@ namespace al
 		return al_remove_config_key(config.get(), section, key);
 	}
 
-	export inline const std::string get_first_config_section(const ALLEGRO::CONFIG& config, ALLEGRO::CONFIG_SECTION& iterator)
+	export inline const char* get_first_config_section(const ALLEGRO::CONFIG& config, ALLEGRO::CONFIG_SECTION& iterator)
 	{
 		ALLEGRO_CONFIG_SECTION* section = &iterator;
-		const char* v = al_get_first_config_section(config.get(), &section);
-
-		if (v)
-		{
-			return std::string(v);
-		}
-
-		return std::string();
+		return al_get_first_config_section(config.get(), &section);
 	}
 
-	export inline const std::string get_next_config_section(ALLEGRO::CONFIG_SECTION& iterator)
+	export inline const char* get_next_config_section(ALLEGRO::CONFIG_SECTION& iterator)
 	{
 		ALLEGRO_CONFIG_SECTION* section = &iterator;
-		const char* v = al_get_next_config_section(&section);
-
-		if (v)
-		{
-			return std::string(v);
-		}
-
-		return std::string();
+		return al_get_next_config_section(&section);
 	}
 
-	export inline const std::string get_first_config_entry(const ALLEGRO::CONFIG& config, const char* section, ALLEGRO::CONFIG_ENTRY& iterator)
+	export inline const char* get_first_config_entry(const ALLEGRO::CONFIG& config, const char* section, ALLEGRO::CONFIG_ENTRY& iterator)
 	{
 		ALLEGRO_CONFIG_ENTRY* entry = &iterator;
-		const char* v = al_get_first_config_entry(config.get(), section, &entry);
-
-		if (v)
-		{
-			return std::string(v);
-		}
-
-		return std::string();
+		return al_get_first_config_entry(config.get(), section, &entry);
 	}
 
-	export inline const std::string get_next_config_entry(ALLEGRO::CONFIG_ENTRY& iterator)
+	export inline const char* get_next_config_entry(ALLEGRO::CONFIG_ENTRY& iterator)
 	{
 		ALLEGRO_CONFIG_ENTRY* entry = &iterator;
-		const char* v = al_get_next_config_entry(&entry);
-
-		if (v)
-		{
-			return std::string(v);
-		}
-
-		return std::string();
+		return al_get_next_config_entry(&entry);
 	}
 }
 

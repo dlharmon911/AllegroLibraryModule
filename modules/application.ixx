@@ -15,7 +15,7 @@ export class application
 public:
 	static int32_t run(int32_t argc, char** argv)
 	{
-		std::vector<std::string> args;
+		std::vector<char*> args;
 		int32_t rv = 0;
 		std::fstream fileOut;
 		std::streambuf* streamBuf = nullptr;
@@ -59,7 +59,7 @@ private:
 	{
 	}
 
-	int32_t init(const std::vector<std::string>& args)
+	int32_t init(const std::vector<char*>& args)
 	{
 		std::cout << "Initialization Begin\n";
 

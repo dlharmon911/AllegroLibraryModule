@@ -85,12 +85,12 @@ namespace al
 		return al_save_bitmap_f(fp, ident, bitmap.get());
 	}
 
-	export inline std::string identify_bitmap_f(ALLEGRO::FILE_DATA* fp)
+	export inline const char* identify_bitmap_f(ALLEGRO::FILE_DATA* fp)
 	{
 		return al_identify_bitmap_f(fp);
 	}
 
-	export inline std::string identify_bitmap(char const* filename)
+	export inline const char* identify_bitmap(const char* filename)
 	{
 		return al_identify_bitmap(filename);
 	}
