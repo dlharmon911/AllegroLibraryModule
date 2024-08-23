@@ -53,9 +53,9 @@ namespace al
 		}
 	}
 
-	export inline ALLEGRO::FS_ENTRY create_fs_entry(const std::string& path)
+	export inline ALLEGRO::FS_ENTRY create_fs_entry(const char* path)
 	{
-		return ALLEGRO::FS_ENTRY(al_create_fs_entry(path.c_str()), internal::destroy_fs_entry);
+		return ALLEGRO::FS_ENTRY(al_create_fs_entry(path), internal::destroy_fs_entry);
 	}
 
 	export inline std::string get_fs_entry_name(ALLEGRO::FS_ENTRY& e)
@@ -118,14 +118,14 @@ namespace al
 		return al_close_directory(e.get());
 	}
 
-	export inline bool filename_exists(const std::string& path)
+	export inline bool filename_exists(const char* path)
 	{
-		return al_filename_exists(path.c_str());
+		return al_filename_exists(path);
 	}
 
-	export inline bool remove_filename(const std::string& path)
+	export inline bool remove_filename(const char* path)
 	{
-		return al_remove_filename(path.c_str());
+		return al_remove_filename(path);
 	}
 
 	export inline std::string get_current_directory()
@@ -133,19 +133,19 @@ namespace al
 		return std::string(al_get_current_directory());
 	}
 
-	export inline bool change_directory(const std::string& path)
+	export inline bool change_directory(const char* path)
 	{
-		return al_change_directory(path.c_str());
+		return al_change_directory(path);
 	}
 
-	export inline bool make_directory(const std::string& path)
+	export inline bool make_directory(const char* path)
 	{
-		return al_make_directory(path.c_str());
+		return al_make_directory(path);
 	}
 
-	export inline ALLEGRO::FILE open_fs_entry(ALLEGRO::FS_ENTRY& e, const std::string& mode)
+	export inline ALLEGRO::FILE open_fs_entry(ALLEGRO::FS_ENTRY& e, const char* mode)
 	{
-		return ALLEGRO::FILE(al_open_fs_entry(e.get(), mode.c_str()), internal::destroy_file);
+		return ALLEGRO::FILE(al_open_fs_entry(e.get(), mode), internal::destroy_file);
 	}
 
 	export inline int32_t for_each_fs_entry(ALLEGRO::FS_ENTRY& dir, int32_t(*callback)(ALLEGRO_FS_ENTRY* entry, void* extra), void* extra)

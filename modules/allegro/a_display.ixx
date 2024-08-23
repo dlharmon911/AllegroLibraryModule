@@ -136,14 +136,14 @@ namespace al
 		return al_get_new_display_flags();
 	}
 
-	export inline void set_window_title(ALLEGRO::DISPLAY& display, const std::string& title)
+	export inline void set_window_title(ALLEGRO::DISPLAY& display, const char* title)
 	{
-		al_set_window_title(display.get(), title.c_str());
+		al_set_window_title(display.get(), title);
 	}
 
-	export inline void set_new_window_title(const std::string& title)
+	export inline void set_new_window_title(const char* title)
 	{
-		al_set_new_window_title(title.c_str());
+		al_set_new_window_title(title);
 	}
 
 	export inline const std::string get_new_window_title()
@@ -328,7 +328,7 @@ namespace al
 
 	export inline void set_new_display_option(int32_t option, int32_t value, int32_t importance)
 	{
-		set_new_display_option(option, value, importance);
+		al_set_new_display_option(option, value, importance);
 	}
 
 	export inline std::tuple<int32_t, int32_t> get_new_display_option(int32_t option)

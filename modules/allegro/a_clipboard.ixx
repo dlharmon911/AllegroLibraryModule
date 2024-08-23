@@ -23,9 +23,9 @@ namespace al
 		return rv;
 	}
 
-	export inline void set_clipboard_text(const ALLEGRO::DISPLAY& display, const std::string& text)
+	export inline void set_clipboard_text(const ALLEGRO::DISPLAY& display, const char* text)
 	{
-		al_set_clipboard_text(display.get(), text.c_str());
+		al_set_clipboard_text(display.get(), text);
 	}
 
 	export inline bool clipboard_has_text(const ALLEGRO::DISPLAY& display)

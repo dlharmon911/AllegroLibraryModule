@@ -40,49 +40,49 @@ namespace al
 		return al_register_bitmap_saver(ext, (saver_func_t)saver);
 	}
 
-	export inline bool register_bitmap_loader_f(const std::string& ext, ALLEGRO::IIO_FS_LOADER_FUNCTION loader)
+	export inline bool register_bitmap_loader_f(const char* ext, ALLEGRO::IIO_FS_LOADER_FUNCTION loader)
 	{
-		return al_register_bitmap_loader_f(ext.c_str(), (fs_loader_func_t)loader);
+		return al_register_bitmap_loader_f(ext, (fs_loader_func_t)loader);
 	}
 
-	export inline bool register_bitmap_saver_f(const std::string& ext, ALLEGRO::IIO_FS_SAVER_FUNCTION saver)
+	export inline bool register_bitmap_saver_f(const char* ext, ALLEGRO::IIO_FS_SAVER_FUNCTION saver)
 	{
-		return al_register_bitmap_saver_f(ext.c_str(), (fs_saver_func_t)saver);
+		return al_register_bitmap_saver_f(ext, (fs_saver_func_t)saver);
 	}
 
-	export inline bool register_bitmap_identifier(const std::string& ext, ALLEGRO::IIO_IDENTIFIER_FUNCTION identifier)
+	export inline bool register_bitmap_identifier(const char* ext, ALLEGRO::IIO_IDENTIFIER_FUNCTION identifier)
 	{
-		return al_register_bitmap_identifier(ext.c_str(), (identifier_func_t)identifier);
+		return al_register_bitmap_identifier(ext, (identifier_func_t)identifier);
 	}
 
-	export inline ALLEGRO::BITMAP load_bitmap(const std::string& filename)
+	export inline ALLEGRO::BITMAP load_bitmap(const char* filename)
 	{
-		return ALLEGRO::BITMAP(al_load_bitmap(filename.c_str()), internal::destroy_bitmap);
+		return ALLEGRO::BITMAP(al_load_bitmap(filename), internal::destroy_bitmap);
 	}
 
-	export inline ALLEGRO::BITMAP load_bitmap_flags(const std::string& filename, int32_t flags)
+	export inline ALLEGRO::BITMAP load_bitmap_flags(const char* filename, int32_t flags)
 	{
-		return ALLEGRO::BITMAP(al_load_bitmap_flags(filename.c_str(), flags), internal::destroy_bitmap);
+		return ALLEGRO::BITMAP(al_load_bitmap_flags(filename, flags), internal::destroy_bitmap);
 	}
 
-	export inline ALLEGRO::BITMAP load_bitmap_f(ALLEGRO::FILE_DATA* fp, const std::string& ident)
+	export inline ALLEGRO::BITMAP load_bitmap_f(ALLEGRO::FILE_DATA* fp, const char* ident)
 	{
-		return ALLEGRO::BITMAP(al_load_bitmap_f(fp, ident.c_str()), internal::destroy_bitmap);
+		return ALLEGRO::BITMAP(al_load_bitmap_f(fp, ident), internal::destroy_bitmap);
 	}
 
-	export inline ALLEGRO::BITMAP load_bitmap_flags_f(ALLEGRO::FILE_DATA* fp, const std::string& ident, int32_t flags)
+	export inline ALLEGRO::BITMAP load_bitmap_flags_f(ALLEGRO::FILE_DATA* fp, const char* ident, int32_t flags)
 	{
-		return ALLEGRO::BITMAP(al_load_bitmap_flags_f(fp, ident.c_str(), flags), internal::destroy_bitmap);
+		return ALLEGRO::BITMAP(al_load_bitmap_flags_f(fp, ident, flags), internal::destroy_bitmap);
 	}
 
-	export inline bool save_bitmap(const std::string& filename, const ALLEGRO::BITMAP& bitmap)
+	export inline bool save_bitmap(const char* filename, const ALLEGRO::BITMAP& bitmap)
 	{
-		return al_save_bitmap(filename.c_str(), bitmap.get());
+		return al_save_bitmap(filename, bitmap.get());
 	}
 
-	export inline bool save_bitmap_f(ALLEGRO::FILE_DATA* fp, const std::string& ident, const ALLEGRO::BITMAP& bitmap)
+	export inline bool save_bitmap_f(ALLEGRO::FILE_DATA* fp, const char* ident, const ALLEGRO::BITMAP& bitmap)
 	{
-		return al_save_bitmap_f(fp, ident.c_str(), bitmap.get());
+		return al_save_bitmap_f(fp, ident, bitmap.get());
 	}
 
 	export inline std::string identify_bitmap_f(ALLEGRO::FILE_DATA* fp)

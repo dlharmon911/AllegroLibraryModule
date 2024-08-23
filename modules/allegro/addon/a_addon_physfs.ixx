@@ -1,4 +1,4 @@
-export module allegro.phyfs_addon;
+export module allegro.physfs_addon;
 
 import allegro;
 import <allegro5/allegro_physfs.h>;
@@ -12,10 +12,10 @@ namespace al
 		{
 			return al_get_allegro_physfs_version();
 		}
-	}
 
 	export inline void set_file_interface()
 	{
 		al_set_physfs_file_interface();
+	}
 	}
 }

@@ -61,14 +61,14 @@ namespace al
 		return ALLEGRO::SHADER(al_create_shader(platform), internal::destroy_shader);
 	}
 
-	export inline bool attach_shader_source(ALLEGRO::SHADER& shader, ALLEGRO_SHADER_TYPE type, const std::string& source)
+	export inline bool attach_shader_source(ALLEGRO::SHADER& shader, ALLEGRO_SHADER_TYPE type, const char* source)
 	{
-		return al_attach_shader_source(shader.get(), type, source.c_str());
+		return al_attach_shader_source(shader.get(), type, source);
 	}
 
-	export inline bool attach_shader_source_file(ALLEGRO::SHADER& shader, ALLEGRO_SHADER_TYPE type, const std::string& filename)
+	export inline bool attach_shader_source_file(ALLEGRO::SHADER& shader, ALLEGRO_SHADER_TYPE type, const char* filename)
 	{
-		return al_attach_shader_source_file(shader.get(), type, filename.c_str());
+		return al_attach_shader_source_file(shader.get(), type, filename);
 	}
 
 	export inline bool build_shader(ALLEGRO::SHADER& shader)
@@ -96,39 +96,39 @@ namespace al
 		return ALLEGRO::SHADER(al_get_current_shader(), internal::deleter_empty<ALLEGRO::SHADER_DATA>);
 	}
 
-	export inline bool set_shader_sampler(const std::string& name, ALLEGRO::BITMAP& bitmap, int32_t unit)
+	export inline bool set_shader_sampler(const char* name, ALLEGRO::BITMAP& bitmap, int32_t unit)
 	{
-		return al_set_shader_sampler(name.c_str(), bitmap.get(), unit);
+		return al_set_shader_sampler(name, bitmap.get(), unit);
 	}
 
-	export inline bool set_shader_matrix(const std::string& name, const ALLEGRO::TRANSFORM& matrix)
+	export inline bool set_shader_matrix(const char* name, const ALLEGRO::TRANSFORM& matrix)
 	{
-		return al_set_shader_matrix(name.c_str(), &matrix);
+		return al_set_shader_matrix(name, &matrix);
 	}
 
-	export inline bool set_shader_int(const std::string& name, int32_t i)
+	export inline bool set_shader_int(const char* name, int32_t i)
 	{
-		return al_set_shader_int(name.c_str(), i);
+		return al_set_shader_int(name, i);
 	}
 
-	export inline bool set_shader_float(const std::string& name, float f)
+	export inline bool set_shader_float(const char* name, float f)
 	{
-		return al_set_shader_float(name.c_str(), f);
+		return al_set_shader_float(name, f);
 	}
 
-	export inline bool set_shader_int_vector(const std::string& name, int32_t num_components, const int32_t* i, int32_t num_elems)
+	export inline bool set_shader_int_vector(const char* name, int32_t num_components, const int32_t* i, int32_t num_elems)
 	{
-		return al_set_shader_int_vector(name.c_str(), num_components, i, num_elems);
+		return al_set_shader_int_vector(name, num_components, i, num_elems);
 	}
 
-	export inline bool set_shader_float_vector(const std::string& name, int32_t num_components, const float* f, int32_t num_elems)
+	export inline bool set_shader_float_vector(const char* name, int32_t num_components, const float* f, int32_t num_elems)
 	{
-		return al_set_shader_float_vector(name.c_str(), num_components, f, num_elems);
+		return al_set_shader_float_vector(name, num_components, f, num_elems);
 	}
 
-	export inline bool set_shader_bool(const std::string& name, bool b)
+	export inline bool set_shader_bool(const char* name, bool b)
 	{
-		return al_set_shader_bool(name.c_str(), b);
+		return al_set_shader_bool(name, b);
 	}
 
 	export inline std::string get_default_shader_source(ALLEGRO_SHADER_PLATFORM platform, ALLEGRO_SHADER_TYPE type)

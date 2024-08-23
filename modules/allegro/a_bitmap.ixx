@@ -147,14 +147,14 @@ namespace al
 		return ::al_get_bitmap_height(bitmap.get());
 	}
 
-	export inline ALLEGRO::COLOR get_bitmap_pixel(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::POINT<float> point)
+	export inline ALLEGRO::COLOR get_pixel(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::POINT<float> point)
 	{
 		return (ALLEGRO::COLOR)al_get_pixel(bitmap.get(), point.x, point.y);
 	}
 
-	export inline ALLEGRO::BITMAP create_bitmap(int32_t width, int32_t height)
+	export inline ALLEGRO::BITMAP create_bitmap(const ALLEGRO::SIZE<int32_t> size)
 	{
-		return ALLEGRO::BITMAP(::al_create_bitmap(width, height), internal::destroy_bitmap);
+		return ALLEGRO::BITMAP(::al_create_bitmap(size.width, size.height), internal::destroy_bitmap);
 	}
 
 	export inline ALLEGRO::BITMAP create_sub_bitmap(ALLEGRO::BITMAP& parent, const ALLEGRO::RECTANGLE<int32_t> rectangle)

@@ -48,9 +48,6 @@
     <ClCompile Include="modules\allegro\addon\a_addon_memfile.ixx">
       <Filter>Modules Files\Addon Files</Filter>
     </ClCompile>
-    <ClCompile Include="modules\allegro\addon\a_addon_phyfs.ixx">
-      <Filter>Modules Files\Addon Files</Filter>
-    </ClCompile>
     <ClCompile Include="modules\allegro\addon\a_addon_primitives.ixx">
       <Filter>Modules Files\Addon Files</Filter>
     </ClCompile>
@@ -185,6 +182,9 @@
     </ClCompile>
     <ClCompile Include="modules\allegro\a_platform.ixx">
       <Filter>Modules Files\Partition Files</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\allegro\addon\a_addon_physfs.ixx">
+      <Filter>Modules Files\Addon Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

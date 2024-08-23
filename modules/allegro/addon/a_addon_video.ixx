@@ -64,9 +64,9 @@ namespace al
 		}
 	}
 
-	export inline ALLEGRO::VIDEO open_video(const std::string& filename)
+	export inline ALLEGRO::VIDEO open_video(const char* filename)
 	{
-		return ALLEGRO::VIDEO(al_open_video(filename.c_str()), internal::destroy_video);
+		return ALLEGRO::VIDEO(al_open_video(filename), internal::destroy_video);
 	}
 
 	export inline void start_video(ALLEGRO::VIDEO& video, ALLEGRO::MIXER& mixer)
@@ -134,9 +134,9 @@ namespace al
 		return std::string(al_identify_video_f(fp.get()));
 	}
 
-	export inline std::string identify_video(const std::string& filename)
+	export inline std::string identify_video(const char* filename)
 	{
-		return std::string(al_identify_video(filename.c_str()));
+		return std::string(al_identify_video(filename));
 	}
 }
 

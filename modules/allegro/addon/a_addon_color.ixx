@@ -94,9 +94,9 @@ namespace al
 		al_color_hsl_to_rgb(hsl.hue, hsl.saturation, hsl.lightness, &rgb.red, &rgb.green, &rgb.blue);
 	}
 
-	export inline bool color_name_to_rgb(const std::string& name, ALLEGRO::COLOR_RGB& rgb)
+	export inline bool color_name_to_rgb(const char* name, ALLEGRO::COLOR_RGB& rgb)
 	{
-		return al_color_name_to_rgb(name.c_str(), &rgb.red, &rgb.green, &rgb.blue);
+		return al_color_name_to_rgb(name, &rgb.red, &rgb.green, &rgb.blue);
 	}
 
 	export inline std::string color_rgb_to_name(const ALLEGRO::COLOR_RGB& rgb)
@@ -124,17 +124,14 @@ namespace al
 		al_color_rgb_to_yuv(rgb.red, rgb.green, rgb.blue, &yuv.y, &yuv.u, &yuv.vec);
 	}
 
-	export inline void color_rgb_to_html(const ALLEGRO::COLOR_RGB rgb, std::string& string)
+	export inline void color_rgb_to_html(const ALLEGRO::COLOR_RGB rgb, char* string)
 	{
-		char buffer[256] = "";
-
-		al_color_rgb_to_html(rgb.red, rgb.green, rgb.blue, buffer);
-		string.append(buffer);
+		al_color_rgb_to_html(rgb.red, rgb.green, rgb.blue, string);
 	}
 
-	export inline bool color_html_to_rgb(const std::string& string, ALLEGRO::COLOR_RGB& rgb)
+	export inline bool color_html_to_rgb(const char* string, ALLEGRO::COLOR_RGB& rgb)
 	{
-		return al_color_html_to_rgb(string.c_str(), &rgb.red, &rgb.green, &rgb.blue);
+		return al_color_html_to_rgb(string, &rgb.red, &rgb.green, &rgb.blue);
 	}
 
 	export inline ALLEGRO::COLOR color_yuv(const ALLEGRO::COLOR_YUV& yuv)
@@ -157,14 +154,14 @@ namespace al
 		return (ALLEGRO::COLOR)al_color_hsv(hsv.hue, hsv.saturation, hsv.value);
 	}
 
-	export inline ALLEGRO::COLOR color_name(const std::string& name)
+	export inline ALLEGRO::COLOR color_name(const char* name)
 	{
-		return (ALLEGRO::COLOR)al_color_name(name.c_str());
+		return (ALLEGRO::COLOR)al_color_name(name);
 	}
 
-	export inline ALLEGRO::COLOR color_html(const std::string& string)
+	export inline ALLEGRO::COLOR color_html(const char* string)
 	{
-		return (ALLEGRO::COLOR)al_color_html(string.c_str());
+		return (ALLEGRO::COLOR)al_color_html(string);
 	}
 
 	export inline void color_xyz_to_rgb(const ALLEGRO::VECTOR3<float> vec, ALLEGRO::COLOR_RGB& rgb)

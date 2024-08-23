@@ -143,7 +143,7 @@
     <ClCompile Include="modules\allegro\addon\a_addon_font.ixx" />
     <ClCompile Include="modules\allegro\addon\a_addon_image.ixx" />
     <ClCompile Include="modules\allegro\addon\a_addon_memfile.ixx" />
-    <ClCompile Include="modules\allegro\addon\a_addon_phyfs.ixx" />
+    <ClCompile Include="modules\allegro\addon\a_addon_physfs.ixx" />
     <ClCompile Include="modules\allegro\addon\a_addon_primitives.ixx" />
     <ClCompile Include="modules\allegro\addon\a_addon_ttf.ixx" />
     <ClCompile Include="modules\allegro\addon\a_addon_video.ixx" />

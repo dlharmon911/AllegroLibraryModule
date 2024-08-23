@@ -17,14 +17,14 @@ namespace ALLEGRO
 
 namespace al
 {
-	export inline void draw_pixel(const ALLEGRO::POINT<int32_t> point, ALLEGRO::COLOR color)
+	export inline void put_pixel(const ALLEGRO::POINT<int32_t> point, ALLEGRO::COLOR color)
 	{
 		al_put_pixel(point.x, point.y, (ALLEGRO::COLOR_DATA)color);
 	}
 
-	export inline void draw_blended_pixel(const ALLEGRO::POINT<int32_t> point, ALLEGRO::COLOR color)
+	export inline void put_blended_pixel(const ALLEGRO::POINT<int32_t> point, ALLEGRO::COLOR color)
 	{
-		al_put_pixel(point.x, point.y, (ALLEGRO::COLOR_DATA)color);
+		al_put_blended_pixel(point.x, point.y, (ALLEGRO::COLOR_DATA)color);
 	}
 
 	export inline void draw_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::POINT<float> destination, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE)

@@ -1,5 +1,9 @@
+module;
+
+
 export module allegro:utf8;
 
+import <map>;
 import <string>;
 import <memory>;
 import <cstdarg>;
@@ -21,14 +25,14 @@ namespace al
         return ALLEGRO::USTRING(const_cast<ALLEGRO::USTRING_DATA*>(data), internal::deleter_empty<ALLEGRO::USTRING_DATA>);
     }
 
-	export inline ALLEGRO::USTRING ustr_new(const std::string& string)
+	export inline ALLEGRO::USTRING ustr_new(const char* string)
 	{
-		return ALLEGRO::USTRING(al_ustr_new(string.c_str()), al_ustr_free);
+		return ALLEGRO::USTRING(al_ustr_new(string), al_ustr_free);
 	}
 
-    export inline ALLEGRO::USTRING ustr_new_from_buffer(const std::string& string, size_t size)
+    export inline ALLEGRO::USTRING ustr_new_from_buffer(const char* string, size_t size)
     {
-        return ALLEGRO::USTRING(al_ustr_new_from_buffer(string.c_str(), size), al_ustr_free);
+        return ALLEGRO::USTRING(al_ustr_new_from_buffer(string, size), al_ustr_free);
     }
 
     export inline ALLEGRO::USTRING ustr_newf(const char* format, ...)
@@ -149,9 +153,9 @@ namespace al
         return al_ustr_insert(ustring1.get(), pos, ustring2.get());
     }
 
-    export inline bool ustr_insert_cstr(ALLEGRO::USTRING& ustring, int32_t pos, const std::string& string)
+    export inline bool ustr_insert_cstr(ALLEGRO::USTRING& ustring, int32_t pos, const char* string)
     {
-        return al_ustr_insert_cstr(ustring.get(), pos, string.c_str());
+        return al_ustr_insert_cstr(ustring.get(), pos, string);
     }
 
     export inline size_t ustr_insert_chr(ALLEGRO::USTRING& ustring, int32_t pos, int32_t c)
@@ -164,9 +168,9 @@ namespace al
         return al_ustr_append(ustring1.get(), ustring2.get());
     }
 
-    export inline bool ustr_append_cstr(ALLEGRO::USTRING& ustring, const std::string& string)
+    export inline bool ustr_append_cstr(ALLEGRO::USTRING& ustring, const char* string)
     {
-        return al_ustr_append_cstr(ustring.get(), string.c_str());
+        return al_ustr_append_cstr(ustring.get(), string);
     }
 
     export inline size_t ustr_append_chr(ALLEGRO::USTRING& ustring, int32_t c)
@@ -229,9 +233,9 @@ namespace al
         return al_ustr_assign_substr(ustring1.get(), ustring2.get(), start_pos, end_pos);
     }
 
-    export inline bool ustr_assign_cstr(ALLEGRO::USTRING& ustring, const std::string& string)
+    export inline bool ustr_assign_cstr(ALLEGRO::USTRING& ustring, const char* string)
     {
-        return al_ustr_assign_cstr(ustring.get(), string.c_str());
+        return al_ustr_assign_cstr(ustring.get(), string);
     }
 
     export inline size_t ustr_set_chr(ALLEGRO::USTRING& ustring, int32_t pos, int32_t c)
@@ -259,9 +263,9 @@ namespace al
         return al_ustr_find_set(ustring.get(), start_pos, accept.get());
     }
 
-    export inline int32_t ustr_find_set_cstr(const ALLEGRO::USTRING& ustring, int32_t start_pos, const std::string& accept)
+    export inline int32_t ustr_find_set_cstr(const ALLEGRO::USTRING& ustring, int32_t start_pos, const char* accept)
     {
-        return al_ustr_find_cstr(ustring.get(), start_pos, accept.c_str());
+        return al_ustr_find_cstr(ustring.get(), start_pos, accept);
     }
 
     export inline int32_t ustr_find_cset(const ALLEGRO::USTRING& ustring, int32_t start_pos, const ALLEGRO::USTRING& reject)
@@ -269,9 +273,9 @@ namespace al
         return al_ustr_find_cset(ustring.get(), start_pos, reject.get());
     }
 
-    export inline int32_t ustr_find_cset_cstr(const ALLEGRO::USTRING& ustring, int32_t start_pos, const std::string& reject)
+    export inline int32_t ustr_find_cset_cstr(const ALLEGRO::USTRING& ustring, int32_t start_pos, const char* reject)
     {
-        return al_ustr_find_cset_cstr(ustring.get(), start_pos, reject.c_str());
+        return al_ustr_find_cset_cstr(ustring.get(), start_pos, reject);
     }
 
     export inline int32_t ustr_find_str(const ALLEGRO::USTRING& haystack, int32_t start_pos, const ALLEGRO::USTRING& needle)
@@ -279,9 +283,9 @@ namespace al
         return al_ustr_find_str(haystack.get(), start_pos, needle.get());
     }
 
-    export inline int32_t ustr_find_cstr(const ALLEGRO::USTRING& haystack, int32_t start_pos, const std::string& needle)
+    export inline int32_t ustr_find_cstr(const ALLEGRO::USTRING& haystack, int32_t start_pos, const char* needle)
     {
-        return al_ustr_find_cstr(haystack.get(), start_pos, needle.c_str());
+        return al_ustr_find_cstr(haystack.get(), start_pos, needle);
     }
 
     export inline int32_t ustr_rfind_str(const ALLEGRO::USTRING& haystack, int32_t start_pos, const ALLEGRO::USTRING& needle)
@@ -289,9 +293,9 @@ namespace al
         return al_ustr_rfind_str(haystack.get(), start_pos, needle.get());
     }
 
-    export inline int32_t ustr_rfind_cstr(const ALLEGRO::USTRING& haystack, int32_t start_pos, const std::string& needle)
+    export inline int32_t ustr_rfind_cstr(const ALLEGRO::USTRING& haystack, int32_t start_pos, const char* needle)
     {
-        return al_ustr_rfind_cstr(haystack.get(), start_pos, needle.c_str());
+        return al_ustr_rfind_cstr(haystack.get(), start_pos, needle);
     }
 
     export inline bool ustr_find_replace(ALLEGRO::USTRING& ustring, int32_t start_pos, const ALLEGRO::USTRING& find, const ALLEGRO::USTRING& replace)
@@ -299,9 +303,9 @@ namespace al
         return al_ustr_find_replace(ustring.get(), start_pos, find.get(), replace.get());
     }
 
-    export inline bool ustr_find_replace_cstr(ALLEGRO::USTRING& ustring, int32_t start_pos, const std::string& find, const std::string& replace)
+    export inline bool ustr_find_replace_cstr(ALLEGRO::USTRING& ustring, int32_t start_pos, const char* find, const char* replace)
     {
-        return al_ustr_find_replace_cstr(ustring.get(), start_pos, find.c_str(), replace.c_str());
+        return al_ustr_find_replace_cstr(ustring.get(), start_pos, find, replace);
     }
 
     export inline bool ustr_equal(const ALLEGRO::USTRING& ustring1, const ALLEGRO::USTRING& ustring2)
@@ -324,9 +328,9 @@ namespace al
         return al_ustr_has_prefix(ustring1.get(), ustring2.get());
     }
 
-    export inline bool ustr_has_prefix_cstr(const ALLEGRO::USTRING& ustring, const std::string& string)
+    export inline bool ustr_has_prefix_cstr(const ALLEGRO::USTRING& ustring, const char* string)
     {
-        return al_ustr_has_prefix_cstr(ustring.get(), string.c_str());
+        return al_ustr_has_prefix_cstr(ustring.get(), string);
     }
 
     export inline bool ustr_has_suffix(const ALLEGRO::USTRING& ustring1, const ALLEGRO::USTRING& ustring2)
@@ -334,9 +338,9 @@ namespace al
         return al_ustr_has_suffix(ustring1.get(), ustring2.get());
     }
 
-    export inline bool ustr_has_suffix_cstr(const ALLEGRO::USTRING& ustring, const std::string& string)
+    export inline bool ustr_has_suffix_cstr(const ALLEGRO::USTRING& ustring, const char* string)
     {
-        return al_ustr_has_suffix_cstr(ustring.get(), string.c_str());
+        return al_ustr_has_suffix_cstr(ustring.get(), string);
     }
 
     export inline size_t utf8_width(int32_t c)
@@ -374,3 +378,62 @@ namespace al
         return al_utf16_encode(s, c);
     }
 }
+
+
+namespace al
+{
+    export inline ALLEGRO::USTRING create_ustring_from_char(int32_t c)
+    {
+        ALLEGRO::USTRING u(al_ustr_dup(al_ustr_empty_string()), al_ustr_free);
+
+        if (u)
+        {
+            if (al_ustr_append_chr(u.get(), c) == 0)
+            {
+                u.reset();
+            }
+        }
+
+        return u;
+    }
+
+    export inline ALLEGRO::USTRING create_ustring_from_string(const char* string)
+    {
+        return ALLEGRO::USTRING(al_ustr_new(string), al_ustr_free);
+    }
+}
+
+namespace std
+{
+    export template <> struct hash<ALLEGRO::USTRING>
+    {
+    public:
+        std::size_t operator ()(const ALLEGRO::USTRING& str) const
+        {
+            if (!str)
+            {
+                return 0;
+            }
+
+            return std::hash<const char*>{}(al::cstr(str));
+        }
+    };
+}
+
+export template <class E, class TR = std::char_traits<E>>
+std::basic_ostream<E, TR>& operator << (std::basic_ostream<E, TR>& stream, const ALLEGRO::USTRING& str)
+{
+    stream << al::cstr(str);
+    return stream;
+}
+
+export template <class E, class TR = std::char_traits<E>>
+std::basic_ostream<E, TR>& operator >> (std::basic_ostream<E, TR>& stream, ALLEGRO::USTRING& str) {
+    std::basic_string<E, TR> temp;
+    stream >> temp;
+    str = al::create_ustring_from_string(temp);
+    return stream;
+}
+
+
+

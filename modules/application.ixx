@@ -126,7 +126,7 @@ private:
 		al::set_window_title(this->m_display, APPNAME);
 
 		std::cout << "Creating Bitmap Buffer: ";
-		this->m_buffer = al::create_bitmap(SCREEN_W, SCREEN_H);
+		this->m_buffer = al::create_bitmap({ SCREEN_W, SCREEN_H });
 		if (!this->m_buffer)
 		{
 			std::cout << "failed\n";

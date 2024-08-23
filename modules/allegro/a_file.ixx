@@ -34,14 +34,14 @@ namespace al
 		}
 	}
 
-	export inline ALLEGRO::FILE fopen(const std::string& path, const std::string& mode)
+	export inline ALLEGRO::FILE fopen(const char* path, const char* mode)
 	{
-		return ALLEGRO::FILE(al_fopen(path.c_str(), mode.c_str()), internal::destroy_file);
+		return ALLEGRO::FILE(al_fopen(path, mode), internal::destroy_file);
 	}
 
-	export inline ALLEGRO::FILE fopen_interface(const ALLEGRO::FILE_INTERFACE& vtable, const std::string& path, const std::string& mode)
+	export inline ALLEGRO::FILE fopen_interface(const ALLEGRO::FILE_INTERFACE& vtable, const char* path, const char* mode)
 	{
-		return ALLEGRO::FILE(al_fopen_interface(&vtable, path.c_str(), mode.c_str()), internal::destroy_file);
+		return ALLEGRO::FILE(al_fopen_interface(&vtable, path, mode), internal::destroy_file);
 	}
 
 	export inline ALLEGRO::FILE create_file_handle(const ALLEGRO::FILE_INTERFACE& vtable, void* userdata)
@@ -164,9 +164,14 @@ namespace al
 		return ALLEGRO::USTRING(al_fget_ustr(file.get()), al_ustr_free);
 	}
 
-	export inline int32_t fputs(ALLEGRO::FILE& file, const std::string& p)
+	export inline int32_t fputs(ALLEGRO::FILE& file, const char* p)
 	{
-		return al_fputs(file.get(), p.c_str());
+		return al_fputs(file.get(), p);
+	}
+
+	export inline int32_t fput_ustr(ALLEGRO::FILE& file, const ALLEGRO::USTRING& p)
+	{
+		return al_fputs(file.get(), al::cstr(p));
 	}
 
 	export inline int32_t fprintf(ALLEGRO::FILE& file, const char* format, ...)
@@ -184,28 +189,28 @@ namespace al
 		return al_vfprintf(file.get(), format, args);
 	}
 
-	export inline ALLEGRO::FILE fopen_fd(int32_t fd, const std::string& mode)
+	export inline ALLEGRO::FILE fopen_fd(int32_t fd, const char* mode)
 	{
-		return ALLEGRO::FILE(al_fopen_fd(fd, mode.c_str()), internal::destroy_file);
+		return ALLEGRO::FILE(al_fopen_fd(fd, mode), internal::destroy_file);
 	}
 
-	export inline ALLEGRO::FILE make_temp_file(const std::string& filename_template, ALLEGRO::PATH& return_path)
+	export inline ALLEGRO::FILE make_temp_file(const char* filename_template, ALLEGRO::PATH& return_path)
 	{
 		ALLEGRO::FILE file;
 
 		if (return_path)
 		{
 			ALLEGRO_PATH* path = return_path.get();
-			file.reset(al_make_temp_file(filename_template.c_str(), &path), internal::destroy_file);
+			file.reset(al_make_temp_file(filename_template, &path), internal::destroy_file);
 			return_path.reset(path, internal::destroy_path);
 		}
 
 		return file;
 	}
 
-	export inline ALLEGRO::FILE fopen_slice(ALLEGRO::FILE& file, size_t initial_size, const std::string& mode)
+	export inline ALLEGRO::FILE fopen_slice(ALLEGRO::FILE& file, size_t initial_size, const char* mode)
 	{
-		return ALLEGRO::FILE(al_fopen_slice(file.get(), initial_size, mode.c_str()), internal::destroy_file);
+		return ALLEGRO::FILE(al_fopen_slice(file.get(), initial_size, mode), internal::destroy_file);
 	}
 
 	export inline const ALLEGRO::FILE_INTERFACE& get_new_file_interface()

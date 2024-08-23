@@ -81,19 +81,19 @@ namespace al
 		return ALLEGRO::PATH(al_get_standard_path(id), internal::deleter_empty<ALLEGRO_PATH>);
 	}
 
-	export inline void set_exe_name(const std::string& path)
+	export inline void set_exe_name(const char* path)
 	{
-		al_set_exe_name(path.c_str());
+		al_set_exe_name(path);
 	}
 
-	export inline void set_org_name(const std::string& org_name)
+	export inline void set_org_name(const char* org_name)
 	{
-		al_set_org_name(org_name.c_str());
+		al_set_org_name(org_name);
 	}
 
-	export inline void set_app_name(const std::string& app_name)
+	export inline void set_app_name(const char* app_name)
 	{
-		al_set_app_name(app_name.c_str());
+		al_set_app_name(app_name);
 	}
 
 	export inline std::string get_org_name()

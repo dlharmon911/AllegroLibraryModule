@@ -29,24 +29,24 @@ namespace al
 		return ALLEGRO::CONFIG(al_create_config(), internal::destroy_config);
 	}
 
-	export inline void add_config_section(ALLEGRO::CONFIG& config, const std::string& name)
+	export inline void add_config_section(ALLEGRO::CONFIG& config, const char* name)
 	{
-		al_add_config_section(config.get(), name.c_str());
+		al_add_config_section(config.get(), name);
 	}
 
-	export inline void set_config_value(ALLEGRO::CONFIG& config, const std::string& section, const std::string& key, const std::string& value)
+	export inline void set_config_value(ALLEGRO::CONFIG& config, const char* section, const char* key, const char* value)
 	{
-		al_set_config_value(config.get(), section.c_str(), key.c_str(), value.c_str());
+		al_set_config_value(config.get(), section, key, value);
 	}
 
-	export inline void add_config_comment(ALLEGRO::CONFIG& config, const std::string& section, const std::string& comment)
+	export inline void add_config_comment(ALLEGRO::CONFIG& config, const char* section, const char* comment)
 	{
-		al_add_config_comment(config.get(), section.c_str(), comment.c_str());
+		al_add_config_comment(config.get(), section, comment);
 	}
 
-	export inline const std::string get_config_value(const ALLEGRO::CONFIG& config, const std::string& section, const std::string& key)
+	export inline const std::string get_config_value(const ALLEGRO::CONFIG& config, const char* section, const char* key)
 	{
-		const char* v = al_get_config_value(config.get(), section.c_str(), key.c_str());
+		const char* v = al_get_config_value(config.get(), section, key);
 
 		if (v)
 		{
@@ -56,9 +56,9 @@ namespace al
 		return std::string();
 	}
 
-	export inline ALLEGRO::CONFIG load_config_file(const std::string& filename)
+	export inline ALLEGRO::CONFIG load_config_file(const char* filename)
 	{
-		return ALLEGRO::CONFIG(al_load_config_file(filename.c_str()), internal::destroy_config);
+		return ALLEGRO::CONFIG(al_load_config_file(filename), internal::destroy_config);
 	}
 
 	export inline ALLEGRO::CONFIG load_config_file_f(ALLEGRO_FILE* file)
@@ -66,9 +66,9 @@ namespace al
 		return ALLEGRO::CONFIG(al_load_config_file_f(file), internal::destroy_config);
 	}
 
-	export inline bool save_config_file(const std::string& filename, const ALLEGRO::CONFIG& config)
+	export inline bool save_config_file(const char* filename, const ALLEGRO::CONFIG& config)
 	{
-		return al_save_config_file(filename.c_str(), config.get());
+		return al_save_config_file(filename, config.get());
 	}
 
 	export inline bool save_config_file_f(ALLEGRO_FILE* file, const ALLEGRO::CONFIG& config)
@@ -86,14 +86,14 @@ namespace al
 		return ALLEGRO::CONFIG(al_merge_config(cfg1.get(), cfg2.get()), internal::destroy_config);
 	}
 
-	export inline bool remove_config_section(ALLEGRO::CONFIG& config, const std::string& section)
+	export inline bool remove_config_section(ALLEGRO::CONFIG& config, const char* section)
 	{
-		return al_remove_config_section(config.get(), section.c_str());
+		return al_remove_config_section(config.get(), section);
 	}
 
-	export inline bool remove_config_key(ALLEGRO::CONFIG& config, const std::string& section, const std::string& key)
+	export inline bool remove_config_key(ALLEGRO::CONFIG& config, const char* section, const char* key)
 	{
-		return al_remove_config_key(config.get(), section.c_str(), key.c_str());
+		return al_remove_config_key(config.get(), section, key);
 	}
 
 	export inline const std::string get_first_config_section(const ALLEGRO::CONFIG& config, ALLEGRO::CONFIG_SECTION& iterator)
@@ -122,10 +122,10 @@ namespace al
 		return std::string();
 	}
 
-	export inline const std::string get_first_config_entry(const ALLEGRO::CONFIG& config, const std::string& section, ALLEGRO::CONFIG_ENTRY& iterator)
+	export inline const std::string get_first_config_entry(const ALLEGRO::CONFIG& config, const char* section, ALLEGRO::CONFIG_ENTRY& iterator)
 	{
 		ALLEGRO_CONFIG_ENTRY* entry = &iterator;
-		const char* v = al_get_first_config_entry(config.get(), section.c_str(), &entry);
+		const char* v = al_get_first_config_entry(config.get(), section, &entry);
 
 		if (v)
 		{

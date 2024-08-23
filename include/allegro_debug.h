@@ -2,8 +2,7 @@
 #define _allegro_library_debug_h_
 
 import <cassert>;
-import allegro:base;
-import allegro:debug;
+import allegro;
 
 #if defined(DEBUGMODE) || defined(ALLEGRO_CFG_RELEASE_LOGGING)
     /* Must not be used with a trailing semicolon. */
@@ -38,8 +37,8 @@ import allegro:debug;
 #else
 #define ALLEGRO_ASSERT(e)                                                  \
          ((e) ? (void) 0                                                         \
-         : (_al_user_assert_handler) ?                                           \
-            _al_user_assert_handler(#e, __FILE__, __LINE__, __func__)            \
+         : (al::_user_assert_handler) ?                                           \
+            al::_user_assert_handler(#e, __FILE__, __LINE__, __func__)            \
          : assert(e))
 #endif
 #endif

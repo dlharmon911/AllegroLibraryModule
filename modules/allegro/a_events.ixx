@@ -81,7 +81,7 @@ namespace al
     { 
         ALLEGRO_EVENT_SOURCE* source = new ALLEGRO_EVENT_SOURCE;
 
-        //ALLEGRO_ASSERT(source);
+        //ALLEGRO::ASSERT(source);
 
         al_init_user_event_source(source);
 

@@ -31,16 +31,14 @@ namespace al
 		return ALLEGRO_RELEASE_NUMBER;
 	}
 
-	export inline const std::string& get_version_string()
+	export inline const char* get_version_string()
 	{
-		static const std::string rv((const char*)ALLEGRO_VERSION_STR);
-		return rv;
+		return (const char*)ALLEGRO_VERSION_STR;
 	}
 
-	export inline const std::string& get_version_date_string()
+	export inline const char* get_version_date_string()
 	{
-		static const std::string rv((const char*)ALLEGRO_DATE_STR);
-		return rv;
+		return (const char*)ALLEGRO_DATE_STR;
 	}
 
 	export inline constexpr int32_t get_version_date()

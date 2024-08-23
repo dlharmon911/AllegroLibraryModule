@@ -467,14 +467,14 @@ namespace al
 		return al_set_audio_stream_channel_matrix(stream.get(), matrix);
 	}
 
-	export inline ALLEGRO::AUDIO_STREAM play_audio_stream(const std::string& filename)
+	export inline ALLEGRO::AUDIO_STREAM play_audio_stream(const char* filename)
 	{
-		return ALLEGRO::AUDIO_STREAM(al_play_audio_stream(filename.c_str()), internal::deleter_empty<ALLEGRO::AUDIO_STREAM_DATA>);
+		return ALLEGRO::AUDIO_STREAM(al_play_audio_stream(filename), internal::deleter_empty<ALLEGRO::AUDIO_STREAM_DATA>);
 	}
 
-	export inline ALLEGRO::AUDIO_STREAM play_audio_stream_f(ALLEGRO::FILE& fp, const std::string& ident)
+	export inline ALLEGRO::AUDIO_STREAM play_audio_stream_f(ALLEGRO::FILE& fp, const char* ident)
 	{
-		return ALLEGRO::AUDIO_STREAM(al_play_audio_stream_f(fp.get(), ident.c_str()), internal::deleter_empty<ALLEGRO::AUDIO_STREAM_DATA>);
+		return ALLEGRO::AUDIO_STREAM(al_play_audio_stream_f(fp.get(), ident), internal::deleter_empty<ALLEGRO::AUDIO_STREAM_DATA>);
 	}
 #endif
 
@@ -721,69 +721,69 @@ namespace al
 	}
 #endif
 
-	export inline bool register_sample_loader(const std::string& ext, ALLEGRO::SAMPLE_DATA* (*loader)(const char* filename))
+	export inline bool register_sample_loader(const char* ext, ALLEGRO::SAMPLE_DATA* (*loader)(const char* filename))
 	{
-		return al_register_sample_loader(ext.c_str(), loader);
+		return al_register_sample_loader(ext, loader);
 	}
 
-	export inline bool register_sample_saver(const std::string& ext, bool (*saver)(const char* filename, ALLEGRO::SAMPLE_DATA* sample_instance))
+	export inline bool register_sample_saver(const char* ext, bool (*saver)(const char* filename, ALLEGRO::SAMPLE_DATA* sample_instance))
 	{
-		return al_register_sample_saver(ext.c_str(), saver);
+		return al_register_sample_saver(ext, saver);
 	}
 
-	export inline bool register_audio_stream_loader(const std::string& ext, ALLEGRO::AUDIO_STREAM_DATA* (*stream_loader)(const char* filename, size_t buffer_count, uint32_t samples))
+	export inline bool register_audio_stream_loader(const char* ext, ALLEGRO::AUDIO_STREAM_DATA* (*stream_loader)(const char* filename, size_t buffer_count, uint32_t samples))
 	{
-		return al_register_audio_stream_loader(ext.c_str(), stream_loader);
+		return al_register_audio_stream_loader(ext, stream_loader);
 	}
 
-	export inline bool register_sample_loader_f(const std::string& ext, ALLEGRO::SAMPLE_DATA* (*loader)(ALLEGRO::FILE_DATA* fp))
+	export inline bool register_sample_loader_f(const char* ext, ALLEGRO::SAMPLE_DATA* (*loader)(ALLEGRO::FILE_DATA* fp))
 	{
-		return al_register_sample_loader_f(ext.c_str(), loader);
+		return al_register_sample_loader_f(ext, loader);
 	}
 
-	export inline bool register_sample_saver_f(const std::string& ext, bool (*saver)(ALLEGRO::FILE_DATA* fp, ALLEGRO::SAMPLE_DATA* sample_instance))
+	export inline bool register_sample_saver_f(const char* ext, bool (*saver)(ALLEGRO::FILE_DATA* fp, ALLEGRO::SAMPLE_DATA* sample_instance))
 	{
-		return al_register_sample_saver_f(ext.c_str(), saver);
+		return al_register_sample_saver_f(ext, saver);
 	}
 
-	export inline bool register_audio_stream_loader_f(const std::string& ext, ALLEGRO::AUDIO_STREAM_DATA* (*stream_loader)(ALLEGRO::FILE_DATA* fp, size_t buffer_count, uint32_t samples))
+	export inline bool register_audio_stream_loader_f(const char* ext, ALLEGRO::AUDIO_STREAM_DATA* (*stream_loader)(ALLEGRO::FILE_DATA* fp, size_t buffer_count, uint32_t samples))
 	{
-		return al_register_audio_stream_loader_f(ext.c_str(), stream_loader);
+		return al_register_audio_stream_loader_f(ext, stream_loader);
 	}
 
-	export inline bool register_sample_identifier(const std::string& ext, bool (*identifier)(ALLEGRO::FILE_DATA* fp))
+	export inline bool register_sample_identifier(const char* ext, bool (*identifier)(ALLEGRO::FILE_DATA* fp))
 	{
-		return al_register_sample_identifier(ext.c_str(), identifier);
+		return al_register_sample_identifier(ext, identifier);
 	}
 
-	export inline ALLEGRO::SAMPLE load_sample(const std::string& filename)
+	export inline ALLEGRO::SAMPLE load_sample(const char* filename)
 	{
-		return ALLEGRO::SAMPLE(al_load_sample(filename.c_str()), internal::destroy_sample);
+		return ALLEGRO::SAMPLE(al_load_sample(filename), internal::destroy_sample);
 	}
 
-	export inline bool save_sample(const std::string& filename, ALLEGRO::SAMPLE& sample_instance)
+	export inline bool save_sample(const char* filename, ALLEGRO::SAMPLE& sample_instance)
 	{
-		return al_save_sample(filename.c_str(), sample_instance.get());
+		return al_save_sample(filename, sample_instance.get());
 	}
 
-	export inline ALLEGRO::AUDIO_STREAM load_audio_stream(const std::string& filename, size_t buffer_count, uint32_t samples)
+	export inline ALLEGRO::AUDIO_STREAM load_audio_stream(const char* filename, size_t buffer_count, uint32_t samples)
 	{
-		return ALLEGRO::AUDIO_STREAM(al_load_audio_stream(filename.c_str(), buffer_count, samples), internal::destroy_audio_stream);
+		return ALLEGRO::AUDIO_STREAM(al_load_audio_stream(filename, buffer_count, samples), internal::destroy_audio_stream);
 	}
 
-	export inline ALLEGRO::SAMPLE load_sample_f(ALLEGRO::FILE& fp, const std::string& ident)
+	export inline ALLEGRO::SAMPLE load_sample_f(ALLEGRO::FILE& fp, const char* ident)
 	{
-		return ALLEGRO::SAMPLE(al_load_sample_f(fp.get(), ident.c_str()), internal::destroy_sample);
+		return ALLEGRO::SAMPLE(al_load_sample_f(fp.get(), ident), internal::destroy_sample);
 	}
 
-	export inline bool save_sample_f(ALLEGRO::FILE& fp, const std::string& ident, ALLEGRO::SAMPLE& sample_instance)
+	export inline bool save_sample_f(ALLEGRO::FILE& fp, const char* ident, ALLEGRO::SAMPLE& sample_instance)
 	{
-		return al_save_sample_f(fp.get(), ident.c_str(), sample_instance.get());
+		return al_save_sample_f(fp.get(), ident, sample_instance.get());
 	}
 
-	export inline ALLEGRO::AUDIO_STREAM load_audio_stream_f(ALLEGRO::FILE& fp, const std::string& ident, size_t buffer_count, uint32_t samples)
+	export inline ALLEGRO::AUDIO_STREAM load_audio_stream_f(ALLEGRO::FILE& fp, const char* ident, size_t buffer_count, uint32_t samples)
 	{
-		return ALLEGRO::AUDIO_STREAM(al_load_audio_stream_f(fp.get(), ident.c_str(), buffer_count, samples), internal::destroy_audio_stream);
+		return ALLEGRO::AUDIO_STREAM(al_load_audio_stream_f(fp.get(), ident, buffer_count, samples), internal::destroy_audio_stream);
 	}
 
 	export inline std::string identify_sample_f(ALLEGRO::FILE& fp)
@@ -791,9 +791,9 @@ namespace al
 		return std::string(al_identify_sample_f(fp.get()));
 	}
 
-	export inline std::string identify_sample(const std::string& filename)
+	export inline std::string identify_sample(const char* filename)
 	{
-		return std::string(al_identify_sample(filename.c_str()));
+		return std::string(al_identify_sample(filename));
 	}
 
 

@@ -27,6 +27,12 @@ namespace ALLEGRO
 {
     export enum
     {
+        LITTLE_ENDIAN,
+        BIG_ENDIAN
+    };
+
+    export enum
+    {
         PLATFORM_WINDOWS,
         PLATFORM_ANDROID,
         PLATFORM_IPHONE,
@@ -46,6 +52,15 @@ namespace ALLEGRO
 
 namespace al
 {
+    export int32_t get_platform_endianness()
+    {
+        return
+#ifdef ALLEGRO_LITTLE_ENDIAN
+            ALLEGRO::LITTLE_ENDIAN;
+#endif
+        ALLEGRO::BIG_ENDIAN;
+    }
+
     export inline int32_t get_platform_type()
     {
 #ifdef ALLEGRO_WINDOWS

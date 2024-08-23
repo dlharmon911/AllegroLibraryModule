@@ -32,12 +32,12 @@ import allegro:debug;
 #ifdef __clang_analyzer__
     /* Clang doesn't understand _al_user_assert_handler, so we simplify the
      * definition for analysis purposes. */
-#define ALLEGRO_ASSERT(e) assert(e)
+#define ALLEGRO::ASSERT(e) assert(e)
 #else
 #ifdef NDEBUG
-#define ALLEGRO_ASSERT(e)	((void)(0 && (e)))
+#define ALLEGRO::ASSERT(e)	((void)(0 && (e)))
 #else
-#define ALLEGRO_ASSERT(e)                                                  \
+#define ALLEGRO::ASSERT(e)                                                  \
          ((e) ? (void) 0                                                         \
          : (_al_user_assert_handler) ?                                           \
             _al_user_assert_handler(#e, __FILE__, __LINE__, __func__)            \
@@ -54,7 +54,7 @@ import allegro:debug;
 
 /* We are lazy and use just ASSERT while Allegro itself is compiled. */
 #ifdef ALLEGRO_LIB_BUILD
-#define ASSERT(x) ALLEGRO_ASSERT(x)
+#define ASSERT(x) ALLEGRO::ASSERT(x)
 #endif
 
 #endif // !_allegro_library_debug_h_
