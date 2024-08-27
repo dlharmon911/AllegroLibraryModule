@@ -9,11 +9,11 @@ import :altime;
 namespace ALLEGRO
 {
 	export using THREAD_DATA = ALLEGRO_THREAD;
-	export using THREAD = std::shared_ptr<ALLEGRO::THREAD_DATA>;
+	export using THREAD = ALLEGRO::OBJECT_TYPE;
 	export using MUTEX_DATA = ALLEGRO_MUTEX;
-	export using MUTEX = std::shared_ptr<ALLEGRO::MUTEX_DATA>;
+	export using MUTEX = ALLEGRO::OBJECT_TYPE;
 	export using COND_DATA = ALLEGRO_COND;
-	export using COND = std::shared_ptr<ALLEGRO::COND_DATA>;
+	export using COND = ALLEGRO::OBJECT_TYPE;
 }
 
 namespace al
@@ -50,22 +50,22 @@ namespace al
 
 	export inline void start_thread(ALLEGRO::THREAD& outer)
 	{
-		al_start_thread(outer.get());
+		al_start_thread((ALLEGRO::THREAD_DATA*)outer.get());
 	}
 
 	export inline void join_thread(ALLEGRO::THREAD& outer, void** ret_value)
 	{
-		return al_join_thread(outer.get(), ret_value);
+		return al_join_thread((ALLEGRO::THREAD_DATA*)outer.get(), ret_value);
 	}
 
 	export inline void set_thread_should_stop(ALLEGRO::THREAD& outer)
 	{
-		al_set_thread_should_stop(outer.get());
+		al_set_thread_should_stop((ALLEGRO::THREAD_DATA*)outer.get());
 	}
 
 	export inline bool get_thread_should_stop(ALLEGRO::THREAD& outer)
 	{
-		return al_get_thread_should_stop(outer.get());
+		return al_get_thread_should_stop((ALLEGRO::THREAD_DATA*)outer.get());
 	}
 
 	export inline void run_detached_thread(void* (*proc)(void* arg), void* arg)
@@ -85,12 +85,12 @@ namespace al
 
 	export inline void lock_mutex(ALLEGRO::MUTEX& mutex)
 	{
-		al_lock_mutex(mutex.get());
+		al_lock_mutex((ALLEGRO::MUTEX_DATA*)mutex.get());
 	}
 
 	export inline void unlock_mutex(ALLEGRO::MUTEX& mutex)
 	{
-		al_unlock_mutex(mutex.get());
+		al_unlock_mutex((ALLEGRO::MUTEX_DATA*)mutex.get());
 	}
 
 	export inline ALLEGRO::COND create_cond()
@@ -100,21 +100,21 @@ namespace al
 
 	export inline void wait_cond(ALLEGRO::COND& cond, ALLEGRO::MUTEX& mutex)
 	{
-		return al_wait_cond(cond.get(), mutex.get());
+		return al_wait_cond((ALLEGRO::COND_DATA*)cond.get(), (ALLEGRO::MUTEX_DATA*)mutex.get());
 	}
 
 	export inline int32_t wait_cond_until(ALLEGRO::COND& cond, ALLEGRO::MUTEX& mutex, const ALLEGRO::TIMEOUT& timeout)
 	{
-		return al_wait_cond_until(cond.get(), mutex.get(), &timeout);
+		return al_wait_cond_until((ALLEGRO::COND_DATA*)cond.get(), (ALLEGRO::MUTEX_DATA*)mutex.get(), &timeout);
 	}
 
 	export inline void broadcast_cond(ALLEGRO::COND& cond)
 	{
-		return al_broadcast_cond(cond.get());
+		return al_broadcast_cond((ALLEGRO::COND_DATA*)cond.get());
 	}
 
 	export inline void signal_cond(ALLEGRO::COND& cond)
 	{
-		return al_signal_cond(cond.get());
+		return al_signal_cond((ALLEGRO::COND_DATA*)cond.get());
 	}
 }

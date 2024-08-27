@@ -65,27 +65,27 @@ namespace ALLEGRO
 	export using SAMPLE_ID = ALLEGRO_SAMPLE_ID;
 
 	export using SAMPLE_DATA = ALLEGRO_SAMPLE;
-	export using SAMPLE = std::shared_ptr<SAMPLE_DATA>;
+	export using SAMPLE = ALLEGRO::OBJECT_TYPE;
 
 	export using SAMPLE_INSTANCE_DATA = ALLEGRO_SAMPLE_INSTANCE;
-	export using SAMPLE_INSTANCE = std::shared_ptr<SAMPLE_INSTANCE_DATA>;
+	export using SAMPLE_INSTANCE = ALLEGRO::OBJECT_TYPE;
 
 	export using AUDIO_STREAM_DATA = ALLEGRO_AUDIO_STREAM;
-	export using AUDIO_STREAM = std::shared_ptr<AUDIO_STREAM_DATA>;
+	export using AUDIO_STREAM = ALLEGRO::OBJECT_TYPE;
 
 	export using MIXER_DATA = ALLEGRO_MIXER;
-	export using MIXER = std::shared_ptr<MIXER_DATA>;
+	export using MIXER = ALLEGRO::OBJECT_TYPE;
 
 	export using VOICE_DATA = ALLEGRO_VOICE;
-	export using VOICE = std::shared_ptr<VOICE_DATA>;
+	export using VOICE = ALLEGRO::OBJECT_TYPE;
 
 	export using AUDIO_DEVICE_DATA = const ALLEGRO_AUDIO_DEVICE;
-	export using AUDIO_DEVICE = std::shared_ptr<AUDIO_DEVICE_DATA>;
+	export using AUDIO_DEVICE = ALLEGRO::CONST_OBJECT_TYPE;
 
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_KCM_AUDIO_SRC)
 	export using AUDIO_RECORDER_DATA = ALLEGRO_AUDIO_RECORDER;
-	export using AUDIO_RECORDER = std::shared_ptr<AUDIO_RECORDER_DATA>;
+	export using AUDIO_RECORDER = ALLEGRO::OBJECT_TYPE;
 #endif
 
 	export using AUDIO_DEPTH = ALLEGRO_AUDIO_DEPTH;
@@ -161,151 +161,151 @@ namespace al
 
 	export inline ALLEGRO::SAMPLE_INSTANCE create_sample_instance(ALLEGRO::SAMPLE& sample)
 	{
-		return ALLEGRO::SAMPLE_INSTANCE(::al_create_sample_instance(sample.get()), internal::destroy_sample_instance);
+		return ALLEGRO::SAMPLE_INSTANCE(::al_create_sample_instance((ALLEGRO::SAMPLE_DATA*)sample.get()), internal::destroy_sample_instance);
 	}
 
 	export inline uint32_t get_sample_frequency(const ALLEGRO::SAMPLE& sample)
 	{
-		return al_get_sample_frequency(sample.get());
+		return al_get_sample_frequency((ALLEGRO::SAMPLE_DATA*)sample.get());
 	}
 
 	export inline uint32_t get_sample_length(const ALLEGRO::SAMPLE& sample)
 	{
-		return al_get_sample_length(sample.get());
+		return al_get_sample_length((ALLEGRO::SAMPLE_DATA*)sample.get());
 	}
 
 	export inline ALLEGRO::AUDIO_DEPTH get_sample_depth(const ALLEGRO::SAMPLE& sample)
 	{
-		return al_get_sample_depth(sample.get());
+		return al_get_sample_depth((ALLEGRO::SAMPLE_DATA*)sample.get());
 	}
 	
 	export inline ALLEGRO::CHANNEL_CONF get_sample_channels(const ALLEGRO::SAMPLE& sample)
 	{
-		return al_get_sample_channels(sample.get());
+		return al_get_sample_channels((ALLEGRO::SAMPLE_DATA*)sample.get());
 	}
 	
 	export inline void* get_sample_data(const ALLEGRO::SAMPLE& sample)
 	{
-		return al_get_sample_data(sample.get());
+		return al_get_sample_data((ALLEGRO::SAMPLE_DATA*)sample.get());
 	}
 	export inline uint32_t get_sample_instance_frequency(const ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_get_sample_instance_frequency(sample_instance.get());
+		return al_get_sample_instance_frequency((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 	
 	export inline uint32_t get_sample_instance_length(const ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_get_sample_instance_length(sample_instance.get());
+		return al_get_sample_instance_length((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 	
 	export inline uint32_t get_sample_instance_position(const ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_get_sample_instance_position(sample_instance.get());
+		return al_get_sample_instance_position((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 	
 	export inline float get_sample_instance_speed(const ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_get_sample_instance_speed(sample_instance.get());
+		return al_get_sample_instance_speed((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 	
 	export inline float get_sample_instance_gain(const ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_get_sample_instance_gain(sample_instance.get());
+		return al_get_sample_instance_gain((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 	
 	export inline float get_sample_instance_pan(const ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_get_sample_instance_pan(sample_instance.get());
+		return al_get_sample_instance_pan((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 	
 	export inline float get_sample_instance_time(const ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_get_sample_instance_time(sample_instance.get());
+		return al_get_sample_instance_time((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 	
 	export inline ALLEGRO::AUDIO_DEPTH get_sample_instance_depth(const ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_get_sample_instance_depth(sample_instance.get());
+		return al_get_sample_instance_depth((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 	
 	export inline ALLEGRO::CHANNEL_CONF get_sample_instance_channels(const ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_get_sample_instance_channels(sample_instance.get());
+		return al_get_sample_instance_channels((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 	
 	export inline ALLEGRO::PLAYMODE get_sample_instance_playmode(const ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_get_sample_instance_playmode(sample_instance.get());
+		return al_get_sample_instance_playmode((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 	
 	export inline bool get_sample_instance_playing(const ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_get_sample_instance_playing(sample_instance.get());
+		return al_get_sample_instance_playing((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 	
 	export inline bool get_sample_instance_attached(const ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_get_sample_instance_attached(sample_instance.get());
+		return al_get_sample_instance_attached((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 
 	export inline bool set_sample_instance_position(ALLEGRO::SAMPLE_INSTANCE& sample_instance, uint32_t value)
 	{
-		return al_set_sample_instance_position(sample_instance.get(), value);
+		return al_set_sample_instance_position((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get(), value);
 	}
 
 	export inline bool set_sample_instance_length(ALLEGRO::SAMPLE_INSTANCE& sample_instance, uint32_t value)
 	{
-		return al_set_sample_instance_length(sample_instance.get(), value);
+		return al_set_sample_instance_length((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get(), value);
 	}
 
 	export inline bool set_sample_instance_speed(ALLEGRO::SAMPLE_INSTANCE& sample_instance, float value)
 	{
-		return al_set_sample_instance_speed(sample_instance.get(), value);
+		return al_set_sample_instance_speed((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get(), value);
 	}
 
 	export inline bool set_sample_instance_gain(ALLEGRO::SAMPLE_INSTANCE& sample_instance, float value)
 	{
-		return al_set_sample_instance_gain(sample_instance.get(), value);
+		return al_set_sample_instance_gain((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get(), value);
 	}
 
 	export inline bool set_sample_instance_pan(ALLEGRO::SAMPLE_INSTANCE& sample_instance, float value)
 	{
-		return al_set_sample_instance_pan(sample_instance.get(), value);
+		return al_set_sample_instance_pan((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get(), value);
 	}
 
 	export inline bool set_sample_instance_playmode(ALLEGRO::SAMPLE_INSTANCE& sample_instance, ALLEGRO::PLAYMODE value)
 	{
-		return al_set_sample_instance_playmode(sample_instance.get(), value);
+		return al_set_sample_instance_playmode((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get(), value);
 	}
 
 	export inline bool set_sample_instance_playing(ALLEGRO::SAMPLE_INSTANCE& sample_instance, bool value)
 	{
-		return al_set_sample_instance_playing(sample_instance.get(), value);
+		return al_set_sample_instance_playing((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get(), value);
 	}
 
 	export inline bool detach_sample_instance(ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_detach_sample_instance(sample_instance.get());
+		return al_detach_sample_instance((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 
 	export inline bool set_sample(ALLEGRO::SAMPLE_INSTANCE& sample_instance, ALLEGRO::SAMPLE& data)
 	{
-		return al_set_sample(sample_instance.get(), data.get());
+		return al_set_sample((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get(), (ALLEGRO::SAMPLE_DATA*)data.get());
 	}
 
 	export inline ALLEGRO::SAMPLE get_sample(ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return ALLEGRO::SAMPLE(::al_get_sample(sample_instance.get()), internal::deleter_empty<ALLEGRO::SAMPLE_DATA>);
+		return ALLEGRO::SAMPLE(::al_get_sample((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get()), internal::deleter_empty<ALLEGRO::SAMPLE_DATA>);
 	}
 
 	export inline bool play_sample_instance(ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_play_sample_instance(sample_instance.get());
+		return al_play_sample_instance((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 
 	export inline bool stop_sample_instance(ALLEGRO::SAMPLE_INSTANCE& sample_instance)
 	{
-		return al_stop_sample_instance(sample_instance.get());
+		return al_stop_sample_instance((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get());
 	}
 
 
@@ -323,148 +323,148 @@ namespace al
 
 	export inline void drain_audio_stream(ALLEGRO::AUDIO_STREAM& stream)
 	{
-		al_drain_audio_stream(stream.get());
+		al_drain_audio_stream((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline uint32_t get_audio_stream_frequency(const ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_frequency(stream.get());
+		return al_get_audio_stream_frequency((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline uint32_t get_audio_stream_length(const ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_length(stream.get());
+		return al_get_audio_stream_length((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline uint32_t get_audio_stream_fragments(const ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_fragments(stream.get());
+		return al_get_audio_stream_fragments((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline uint32_t get_available_audio_stream_fragments(const ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_available_audio_stream_fragments(stream.get());
+		return al_get_available_audio_stream_fragments((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline float get_audio_stream_speed(const ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_speed(stream.get());
+		return al_get_audio_stream_speed((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline float get_audio_stream_gain(const ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_gain(stream.get());
+		return al_get_audio_stream_gain((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline float get_audio_stream_pan(const ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_pan(stream.get());
+		return al_get_audio_stream_pan((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline ALLEGRO::CHANNEL_CONF get_audio_stream_channels(const ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_channels(stream.get());
+		return al_get_audio_stream_channels((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline ALLEGRO::AUDIO_DEPTH get_audio_stream_depth(const ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_depth(stream.get());
+		return al_get_audio_stream_depth((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline ALLEGRO::PLAYMODE get_audio_stream_playmode(const ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_playmode(stream.get());
+		return al_get_audio_stream_playmode((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline bool get_audio_stream_playing(const ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_playing(stream.get());
+		return al_get_audio_stream_playing((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline bool get_audio_stream_attached(const ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_attached(stream.get());
+		return al_get_audio_stream_attached((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline uint64_t get_audio_stream_played_samples(const ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_played_samples(stream.get());
+		return al_get_audio_stream_played_samples((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline void* get_audio_stream_fragment(const ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_fragment(stream.get());
+		return al_get_audio_stream_fragment((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline bool set_audio_stream_speed(ALLEGRO::AUDIO_STREAM& stream, float value)
 	{
-		return al_set_audio_stream_speed(stream.get(), value);
+		return al_set_audio_stream_speed((ALLEGRO::AUDIO_STREAM_DATA*)stream.get(), value);
 	}
 
 	export inline bool set_audio_stream_gain(ALLEGRO::AUDIO_STREAM& stream, float value)
 	{
-		return al_set_audio_stream_gain(stream.get(), value);
+		return al_set_audio_stream_gain((ALLEGRO::AUDIO_STREAM_DATA*)stream.get(), value);
 	}
 
 	export inline bool set_audio_stream_pan(ALLEGRO::AUDIO_STREAM& stream, float value)
 	{
-		return al_set_audio_stream_pan(stream.get(), value);
+		return al_set_audio_stream_pan((ALLEGRO::AUDIO_STREAM_DATA*)stream.get(), value);
 	}
 
 	export inline bool set_audio_stream_playmode(ALLEGRO::AUDIO_STREAM& stream, ALLEGRO::PLAYMODE value)
 	{
-		return al_set_audio_stream_playmode(stream.get(), value);
+		return al_set_audio_stream_playmode((ALLEGRO::AUDIO_STREAM_DATA*)stream.get(), value);
 	}
 
 	export inline bool set_audio_stream_playing(ALLEGRO::AUDIO_STREAM& stream, bool value)
 	{
-		return al_set_audio_stream_playing(stream.get(), value);
+		return al_set_audio_stream_playing((ALLEGRO::AUDIO_STREAM_DATA*)stream.get(), value);
 	}
 
 	export inline bool detach_audio_stream(ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_detach_audio_stream(stream.get());
+		return al_detach_audio_stream((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline bool set_audio_stream_fragment(ALLEGRO::AUDIO_STREAM& stream, void* value)
 	{
-		return al_set_audio_stream_fragment(stream.get(), value);
+		return al_set_audio_stream_fragment((ALLEGRO::AUDIO_STREAM_DATA*)stream.get(), value);
 	}
 
 	export inline bool rewind_audio_stream(ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_rewind_audio_stream(stream.get());
+		return al_rewind_audio_stream((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline bool seek_audio_stream_secs(ALLEGRO::AUDIO_STREAM& stream, double time)
 	{
-		return al_seek_audio_stream_secs(stream.get(), time);
+		return al_seek_audio_stream_secs((ALLEGRO::AUDIO_STREAM_DATA*)stream.get(), time);
 	}
 
 	export inline double get_audio_stream_position_secs(ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_position_secs(stream.get());
+		return al_get_audio_stream_position_secs((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline double get_audio_stream_length_secs(ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return al_get_audio_stream_length_secs(stream.get());
+		return al_get_audio_stream_length_secs((ALLEGRO::AUDIO_STREAM_DATA*)stream.get());
 	}
 
 	export inline bool set_audio_stream_loop_secs(ALLEGRO::AUDIO_STREAM& stream, double start, double end)
 	{
-		return al_set_audio_stream_loop_secs(stream.get(), start, end);
+		return al_set_audio_stream_loop_secs((ALLEGRO::AUDIO_STREAM_DATA*)stream.get(), start, end);
 	}
 
 	export inline ALLEGRO::EVENT_SOURCE get_audio_stream_event_source(ALLEGRO::AUDIO_STREAM& stream)
 	{
-		return ALLEGRO::EVENT_SOURCE(al_get_audio_stream_event_source(stream.get()), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
+		return ALLEGRO::EVENT_SOURCE(al_get_audio_stream_event_source((ALLEGRO::AUDIO_STREAM_DATA*)stream.get()), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
 	}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_KCM_AUDIO_SRC)
 	export inline bool set_audio_stream_channel_matrix(ALLEGRO::AUDIO_STREAM& stream, const float* matrix)
 	{
-		return al_set_audio_stream_channel_matrix(stream.get(), matrix);
+		return al_set_audio_stream_channel_matrix((ALLEGRO::AUDIO_STREAM_DATA*)stream.get(), matrix);
 	}
 
 	export inline ALLEGRO::AUDIO_STREAM play_audio_stream(const char* filename)
@@ -485,87 +485,87 @@ namespace al
 
 	export inline bool attach_sample_instance_to_mixer(ALLEGRO::SAMPLE_INSTANCE& sample_instance, ALLEGRO::MIXER& mixer)
 	{
-		return al_attach_sample_instance_to_mixer(sample_instance.get(), mixer.get());
+		return al_attach_sample_instance_to_mixer((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get(), (ALLEGRO::MIXER_DATA*)mixer.get());
 	}
 
 	export inline bool attach_audio_stream_to_mixer(ALLEGRO::AUDIO_STREAM& stream, ALLEGRO::MIXER& mixer)
 	{
-		return al_attach_audio_stream_to_mixer(stream.get(), mixer.get());
+		return al_attach_audio_stream_to_mixer((ALLEGRO::AUDIO_STREAM_DATA*)stream.get(), (ALLEGRO::MIXER_DATA*)mixer.get());
 	}
 
 	export inline bool attach_mixer_to_mixer(ALLEGRO::MIXER& stream, ALLEGRO::MIXER& mixer)
 	{
-		return al_attach_mixer_to_mixer(stream.get(), mixer.get());
+		return al_attach_mixer_to_mixer((ALLEGRO::MIXER_DATA*)stream.get(), (ALLEGRO::MIXER_DATA*)mixer.get());
 	}
 
 	export inline bool set_mixer_postprocess_callback(ALLEGRO::MIXER& mixer, void (*cb)(void* buf, uint32_t samples, void* data), void* data)
 	{
-		return al_set_mixer_postprocess_callback(mixer.get(), cb, data);
+		return al_set_mixer_postprocess_callback((ALLEGRO::MIXER_DATA*)mixer.get(), cb, data);
 	}
 
 	export inline uint32_t get_mixer_frequency(const ALLEGRO::MIXER& mixer)
 	{
-		return al_get_mixer_frequency(mixer.get());
+		return al_get_mixer_frequency((ALLEGRO::MIXER_DATA*)mixer.get());
 	}
 
 	export inline ALLEGRO::CHANNEL_CONF get_mixer_channels(const ALLEGRO::MIXER& mixer)
 	{
-		return al_get_mixer_channels(mixer.get());
+		return al_get_mixer_channels((ALLEGRO::MIXER_DATA*)mixer.get());
 	}
 
 	export inline ALLEGRO::AUDIO_DEPTH get_mixer_depth(const ALLEGRO::MIXER& mixer)
 	{
-		return al_get_mixer_depth(mixer.get());
+		return al_get_mixer_depth((ALLEGRO::MIXER_DATA*)mixer.get());
 	}
 
 	export inline ALLEGRO::MIXER_QUALITY get_mixer_quality(const ALLEGRO::MIXER& mixer)
 	{
-		return al_get_mixer_quality(mixer.get());
+		return al_get_mixer_quality((ALLEGRO::MIXER_DATA*)mixer.get());
 	}
 
 	export inline float get_mixer_gain(const ALLEGRO::MIXER& mixer)
 	{
-		return al_get_mixer_gain(mixer.get());
+		return al_get_mixer_gain((ALLEGRO::MIXER_DATA*)mixer.get());
 	}
 
 	export inline bool get_mixer_playing(const ALLEGRO::MIXER& mixer)
 	{
-		return al_get_mixer_playing(mixer.get());
+		return al_get_mixer_playing((ALLEGRO::MIXER_DATA*)mixer.get());
 	}
 
 	export inline bool get_mixer_attached(const ALLEGRO::MIXER& mixer)
 	{
-		return al_get_mixer_attached(mixer.get());
+		return al_get_mixer_attached((ALLEGRO::MIXER_DATA*)mixer.get());
 	}
 
 	export inline bool mixer_has_attachments(const ALLEGRO::MIXER& mixer)
 	{
-		return al_mixer_has_attachments(mixer.get());
+		return al_mixer_has_attachments((ALLEGRO::MIXER_DATA*)mixer.get());
 	}
 
 	export inline bool set_mixer_frequency(ALLEGRO::MIXER& mixer, uint32_t value)
 	{
-		return al_set_mixer_frequency(mixer.get(), value);
+		return al_set_mixer_frequency((ALLEGRO::MIXER_DATA*)mixer.get(), value);
 	}
 
 	export inline bool set_mixer_quality(ALLEGRO::MIXER& mixer, ALLEGRO::MIXER_QUALITY value)
 	{
-		return al_set_mixer_quality(mixer.get(), value);
+		return al_set_mixer_quality((ALLEGRO::MIXER_DATA*)mixer.get(), value);
 	}
 
 	export inline bool set_mixer_gain(ALLEGRO::MIXER& mixer, float value)
 	{
-		return al_set_mixer_gain(mixer.get(), value);
+		return al_set_mixer_gain((ALLEGRO::MIXER_DATA*)mixer.get(), value);
 	}
 
 	export inline bool set_mixer_playing(ALLEGRO::MIXER& mixer, bool value)
 	{
-		return al_set_mixer_playing(mixer.get(), value);
+		return al_set_mixer_playing((ALLEGRO::MIXER_DATA*)mixer.get(), value);
 	}
 
 	export inline bool detach_mixer(ALLEGRO::MIXER& mixer)
 	{
-		al_detach_mixer(mixer.get());
+		al_detach_mixer((ALLEGRO::MIXER_DATA*)mixer.get());
 	}
 
 	export inline ALLEGRO::VOICE create_voice(uint32_t freq, ALLEGRO::AUDIO_DEPTH depth, ALLEGRO::CHANNEL_CONF chan_conf)
@@ -575,62 +575,62 @@ namespace al
 
 	export inline bool attach_sample_instance_to_voice(ALLEGRO::SAMPLE_INSTANCE& sample_instance, ALLEGRO::VOICE& voice)
 	{
-		return al_attach_sample_instance_to_voice(sample_instance.get(), voice.get());
+		return al_attach_sample_instance_to_voice((ALLEGRO::SAMPLE_INSTANCE_DATA*)sample_instance.get(), (ALLEGRO::VOICE_DATA*)voice.get());
 	}
 
 	export inline bool attach_audio_stream_to_voice(ALLEGRO::AUDIO_STREAM& stream, ALLEGRO::VOICE& voice)
 	{
-		return al_attach_audio_stream_to_voice(stream.get(), voice.get());
+		return al_attach_audio_stream_to_voice((ALLEGRO::AUDIO_STREAM_DATA*)stream.get(), (ALLEGRO::VOICE_DATA*)voice.get());
 	}
 
 	export inline bool attach_mixer_to_voice(ALLEGRO::MIXER& mixer, ALLEGRO::VOICE& voice)
 	{
-		return al_attach_mixer_to_voice(mixer.get(), voice.get());
+		return al_attach_mixer_to_voice((ALLEGRO::MIXER_DATA*)mixer.get(), (ALLEGRO::VOICE_DATA*)voice.get());
 	}
 
 	export inline void detach_voice(ALLEGRO::VOICE& voice)
 	{
-		al_detach_voice(voice.get());
+		al_detach_voice((ALLEGRO::VOICE_DATA*)voice.get());
 	}
 
 	export inline uint32_t get_voice_frequency(const ALLEGRO::VOICE& voice)
 	{
-		return al_get_voice_frequency(voice.get());
+		return al_get_voice_frequency((ALLEGRO::VOICE_DATA*)voice.get());
 	}
 
 	export inline uint32_t get_voice_position(const ALLEGRO::VOICE& voice)
 	{
-		return al_get_voice_position(voice.get());
+		return al_get_voice_position((ALLEGRO::VOICE_DATA*)voice.get());
 	}
 
 	export inline ALLEGRO::CHANNEL_CONF get_voice_channels(const ALLEGRO::VOICE& voice)
 	{
-		return al_get_voice_channels(voice.get());
+		return al_get_voice_channels((ALLEGRO::VOICE_DATA*)voice.get());
 	}
 
 	export inline ALLEGRO::AUDIO_DEPTH get_voice_depth(const ALLEGRO::VOICE& voice)
 	{
-		return al_get_voice_depth(voice.get());
+		return al_get_voice_depth((ALLEGRO::VOICE_DATA*)voice.get());
 	}
 
 	export inline bool get_voice_playing(const ALLEGRO::VOICE& voice)
 	{
-		return al_get_voice_playing(voice.get());
+		return al_get_voice_playing((ALLEGRO::VOICE_DATA*)voice.get());
 	}
 
 	export inline bool voice_has_attachments(const ALLEGRO::VOICE& voice)
 	{
-		return al_voice_has_attachments(voice.get());
+		return al_voice_has_attachments((ALLEGRO::VOICE_DATA*)voice.get());
 	}
 
 	export inline bool set_voice_position(ALLEGRO::VOICE& voice, uint32_t value)
 	{
-		return al_set_voice_position(voice.get(), value);
+		return al_set_voice_position((ALLEGRO::VOICE_DATA*)voice.get(), value);
 	}
 
 	export inline bool set_voice_playing(ALLEGRO::VOICE& voice, bool value)
 	{
-		return al_set_voice_playing(voice.get(), value);
+		return al_set_voice_playing((ALLEGRO::VOICE_DATA*)voice.get(), value);
 	}
 
 
@@ -661,7 +661,7 @@ namespace al
 
 	export inline const char* get_audio_device_name(const ALLEGRO::AUDIO_DEVICE& device)
 	{
-		return al_get_audio_device_name(device.get());
+		return al_get_audio_device_name((ALLEGRO::AUDIO_DEVICE_DATA*)device.get());
 	}
 
 	export inline bool reserve_samples(int32_t reserve_samples)
@@ -676,7 +676,7 @@ namespace al
 
 	export inline bool set_default_mixer(ALLEGRO::MIXER& mixer)
 	{
-		return al_set_default_mixer(mixer.get());
+		return al_set_default_mixer((ALLEGRO::MIXER_DATA*)mixer.get());
 	}
 
 	export inline bool restore_default_mixer()
@@ -686,7 +686,7 @@ namespace al
 
 	export inline bool play_sample(ALLEGRO::SAMPLE& data, float gain, float pan, float speed, ALLEGRO::PLAYMODE loop, ALLEGRO::SAMPLE_ID& ret_id)
 	{
-		return al_play_sample(data.get(), gain, pan, speed, loop, &ret_id);
+		return al_play_sample((ALLEGRO::SAMPLE_DATA*)data.get(), gain, pan, speed, loop, &ret_id);
 	}
 
 	export inline void stop_sample(ALLEGRO::SAMPLE_ID& spl_id)
@@ -706,7 +706,7 @@ namespace al
 
 	export inline void set_default_voice(ALLEGRO::VOICE& voice)
 	{
-		al_set_default_voice(voice.get());
+		al_set_default_voice((ALLEGRO::VOICE_DATA*)voice.get());
 	}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_KCM_AUDIO_SRC)
@@ -763,7 +763,7 @@ namespace al
 
 	export inline bool save_sample(const char* filename, ALLEGRO::SAMPLE& sample_instance)
 	{
-		return al_save_sample(filename, sample_instance.get());
+		return al_save_sample(filename, (ALLEGRO::SAMPLE_DATA*)sample_instance.get());
 	}
 
 	export inline ALLEGRO::AUDIO_STREAM load_audio_stream(const char* filename, size_t buffer_count, uint32_t samples)
@@ -773,22 +773,22 @@ namespace al
 
 	export inline ALLEGRO::SAMPLE load_sample_f(ALLEGRO::FILE& fp, const char* ident)
 	{
-		return ALLEGRO::SAMPLE(al_load_sample_f(fp.get(), ident), internal::destroy_sample);
+		return ALLEGRO::SAMPLE(al_load_sample_f((ALLEGRO::FILE_DATA*)fp.get(), ident), internal::destroy_sample);
 	}
 
 	export inline bool save_sample_f(ALLEGRO::FILE& fp, const char* ident, ALLEGRO::SAMPLE& sample_instance)
 	{
-		return al_save_sample_f(fp.get(), ident, sample_instance.get());
+		return al_save_sample_f((ALLEGRO::FILE_DATA*)fp.get(), ident, (ALLEGRO::SAMPLE_DATA*)sample_instance.get());
 	}
 
 	export inline ALLEGRO::AUDIO_STREAM load_audio_stream_f(ALLEGRO::FILE& fp, const char* ident, size_t buffer_count, uint32_t samples)
 	{
-		return ALLEGRO::AUDIO_STREAM(al_load_audio_stream_f(fp.get(), ident, buffer_count, samples), internal::destroy_audio_stream);
+		return ALLEGRO::AUDIO_STREAM(al_load_audio_stream_f((ALLEGRO::FILE_DATA*)fp.get(), ident, buffer_count, samples), internal::destroy_audio_stream);
 	}
 
 	export inline const char* identify_sample_f(ALLEGRO::FILE& fp)
 	{
-		return al_identify_sample_f(fp.get());
+		return al_identify_sample_f((ALLEGRO::FILE_DATA*)fp.get());
 	}
 
 	export inline const char* identify_sample(const char* filename)
@@ -805,22 +805,22 @@ namespace al
 
 	export inline bool start_audio_recorder(ALLEGRO::AUDIO_RECORDER& recorder)
 	{
-		return al_start_audio_recorder(recorder.get());
+		return al_start_audio_recorder((ALLEGRO::AUDIO_RECORDER_DATA*)recorder.get());
 	}
 
 	export inline void stop_audio_recorder(ALLEGRO::AUDIO_RECORDER& recorder)
 	{
-		al_stop_audio_recorder(recorder.get());
+		al_stop_audio_recorder((ALLEGRO::AUDIO_RECORDER_DATA*)recorder.get());
 	}
 
 	export inline bool is_audio_recorder_recording(ALLEGRO::AUDIO_RECORDER& recorder)
 	{
-		return al_is_audio_recorder_recording(recorder.get());
+		return al_is_audio_recorder_recording((ALLEGRO::AUDIO_RECORDER_DATA*)recorder.get());
 	}
 
 	export inline ALLEGRO::EVENT_SOURCE get_audio_recorder_event_source(ALLEGRO::AUDIO_RECORDER& recorder)
 	{
-		return ALLEGRO::EVENT_SOURCE(al_get_audio_recorder_event_source(recorder.get()), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
+		return ALLEGRO::EVENT_SOURCE(al_get_audio_recorder_event_source((ALLEGRO::AUDIO_RECORDER_DATA*)recorder.get()), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
 	}
 
 	export inline ALLEGRO::AUDIO_RECORDER_EVENT& get_audio_recorder_event(ALLEGRO::EVENT& event)

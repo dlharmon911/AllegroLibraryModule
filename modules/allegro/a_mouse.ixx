@@ -47,7 +47,7 @@ namespace al
 
 	export inline bool set_mouse_xy(ALLEGRO::DISPLAY& display, const ALLEGRO::POINT<int32_t> point)
 	{
-		return al_set_mouse_xy(display.get(), point.x, point.y);
+		return al_set_mouse_xy((ALLEGRO::DISPLAY_DATA*)display.get(), point.x, point.y);
 	}
 
 	export inline bool set_mouse_z(int32_t z)
@@ -92,7 +92,7 @@ namespace al
 	
 	export inline bool grab_mouse(const ALLEGRO::DISPLAY& display)
 	{
-		return al_grab_mouse(display.get());
+		return al_grab_mouse((ALLEGRO::DISPLAY_DATA*)display.get());
 	}
 
 	export inline bool ungrab_mouse()

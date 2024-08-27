@@ -2,6 +2,7 @@ export module allegro:base;
 
 import <string>;
 import <cstdint>;
+import <memory>;
 import <allegro5/base.h>;
 
 namespace al
@@ -67,6 +68,9 @@ namespace al
 
 namespace ALLEGRO
 {
+	export using OBJECT_TYPE = std::shared_ptr<void>;
+	export using CONST_OBJECT_TYPE = std::shared_ptr<const void>;
+
 	export template <typename T> struct POINT
 	{
 		T x;

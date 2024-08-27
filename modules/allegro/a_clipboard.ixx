@@ -11,7 +11,7 @@ namespace al
 {
 	export inline char* get_clipboard_text(const ALLEGRO::DISPLAY& display)
 	{
-		char* text = al_get_clipboard_text(display.get());
+		char* text = al_get_clipboard_text((ALLEGRO::DISPLAY_DATA*)display.get());
 		char* rv;
 
 		if (text)
@@ -25,12 +25,12 @@ namespace al
 
 	export inline void set_clipboard_text(const ALLEGRO::DISPLAY& display, const char* text)
 	{
-		al_set_clipboard_text(display.get(), text);
+		al_set_clipboard_text((ALLEGRO::DISPLAY_DATA*)display.get(), text);
 	}
 
 	export inline bool clipboard_has_text(const ALLEGRO::DISPLAY& display)
 	{
-		return al_clipboard_has_text(display.get());
+		return al_clipboard_has_text((ALLEGRO::DISPLAY_DATA*)display.get());
 	}
 }
 

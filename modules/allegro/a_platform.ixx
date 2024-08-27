@@ -82,17 +82,17 @@ namespace al
     {
         export inline HWND get_window_handle(ALLEGRO::DISPLAY& display)
         {
-            return al_get_win_window_handle(display.get());
+            return al_get_win_window_handle((ALLEGRO::DISPLAY_DATA*)display.get());
         }
 
         export inline bool add_window_callback(ALLEGRO::DISPLAY& display, bool (*callback)(ALLEGRO::DISPLAY_DATA* display, UINT message, WPARAM wparam, LPARAM lparam, LRESULT* result, void* userdata), void* userdata)
         {
-            return al_win_add_window_callback(display.get(), callback, userdata);
+            return al_win_add_window_callback((ALLEGRO::DISPLAY_DATA*)display.get(), callback, userdata);
         }
 
         export inline bool remove_window_callback(ALLEGRO::DISPLAY& display, bool (*callback)(ALLEGRO::DISPLAY_DATA* display, UINT message, WPARAM wparam, LPARAM lparam, LRESULT* result, void* userdata), void* userdata)
         {
-            return al_win_remove_window_callback(display.get(), callback, userdata);
+            return al_win_remove_window_callback((ALLEGRO::DISPLAY_DATA*)display.get(), callback, userdata);
         }
     }
 #endif //!ALLEGRO_WINDOWS

@@ -24,7 +24,7 @@ namespace ALLEGRO
 	export inline const char* SHADER_VAR_ALPHA_TEST_VALUE = ALLEGRO_SHADER_VAR_ALPHA_TEST_VALUE;
 
 	export using SHADER_DATA = ALLEGRO_SHADER;
-	export using SHADER = std::shared_ptr<ALLEGRO::SHADER_DATA>;
+	export using SHADER = ALLEGRO::OBJECT_TYPE;
 
 	export using SHADER_TYPE = ALLEGRO_SHADER_TYPE;
 	export enum
@@ -63,32 +63,32 @@ namespace al
 
 	export inline bool attach_shader_source(ALLEGRO::SHADER& shader, ALLEGRO_SHADER_TYPE type, const char* source)
 	{
-		return al_attach_shader_source(shader.get(), type, source);
+		return al_attach_shader_source((ALLEGRO::SHADER_DATA*)shader.get(), type, source);
 	}
 
 	export inline bool attach_shader_source_file(ALLEGRO::SHADER& shader, ALLEGRO_SHADER_TYPE type, const char* filename)
 	{
-		return al_attach_shader_source_file(shader.get(), type, filename);
+		return al_attach_shader_source_file((ALLEGRO::SHADER_DATA*)shader.get(), type, filename);
 	}
 
 	export inline bool build_shader(ALLEGRO::SHADER& shader)
 	{
-		return al_build_shader(shader.get());
+		return al_build_shader((ALLEGRO::SHADER_DATA*)shader.get());
 	}
 
 	export inline const char* get_shader_log(ALLEGRO::SHADER& shader)
 	{
-		return al_get_shader_log(shader.get());
+		return al_get_shader_log((ALLEGRO::SHADER_DATA*)shader.get());
 	}
 
 	export inline ALLEGRO_SHADER_PLATFORM get_shader_platform(ALLEGRO::SHADER& shader)
 	{
-		return al_get_shader_platform(shader.get());
+		return al_get_shader_platform((ALLEGRO::SHADER_DATA*)shader.get());
 	}
 
 	export inline bool use_shader(ALLEGRO::SHADER& shader)
 	{
-		return al_use_shader(shader.get());
+		return al_use_shader((ALLEGRO::SHADER_DATA*)shader.get());
 	}
 
 	export inline ALLEGRO::SHADER get_current_shader()
@@ -98,7 +98,7 @@ namespace al
 
 	export inline bool set_shader_sampler(const char* name, ALLEGRO::BITMAP& bitmap, int32_t unit)
 	{
-		return al_set_shader_sampler(name, bitmap.get(), unit);
+		return al_set_shader_sampler(name, (ALLEGRO::BITMAP_DATA*)bitmap.get(), unit);
 	}
 
 	export inline bool set_shader_matrix(const char* name, const ALLEGRO::TRANSFORM& matrix)

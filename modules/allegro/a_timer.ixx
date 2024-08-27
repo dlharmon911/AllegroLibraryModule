@@ -9,7 +9,7 @@ import :memory;
 namespace ALLEGRO
 {
 	export using TIMER_DATA = ALLEGRO_TIMER;
-	export using TIMER = std::shared_ptr<TIMER_DATA>;
+	export using TIMER = ALLEGRO::OBJECT_TYPE;
 }
 
 namespace al
@@ -34,51 +34,51 @@ namespace al
 
 	export inline void start_timer(ALLEGRO::TIMER& timer)
 	{
-		al_start_timer(timer.get());
+		al_start_timer((ALLEGRO::TIMER_DATA*)timer.get());
 	}
 
 	export inline void stop_timer(ALLEGRO::TIMER& timer)
 	{
-		al_stop_timer(timer.get());
+		al_stop_timer((ALLEGRO::TIMER_DATA*)timer.get());
 	}
 
 	export inline void resume_timer(ALLEGRO::TIMER& timer)
 	{
-		al_resume_timer(timer.get());
+		al_resume_timer((ALLEGRO::TIMER_DATA*)timer.get());
 	}
 
 	export inline bool get_timer_started(const ALLEGRO::TIMER& timer)
 	{
-		return al_get_timer_started(timer.get());
+		return al_get_timer_started((ALLEGRO::TIMER_DATA*)timer.get());
 	}
 
 	export inline double get_timer_speed(const ALLEGRO::TIMER& timer)
 	{
-		return al_get_timer_speed(timer.get());
+		return al_get_timer_speed((ALLEGRO::TIMER_DATA*)timer.get());
 	}
 
 	export inline void set_timer_speed(ALLEGRO::TIMER& timer, double speed_secs)
 	{
-		al_set_timer_speed(timer.get(), speed_secs);
+		al_set_timer_speed((ALLEGRO::TIMER_DATA*)timer.get(), speed_secs);
 	}
 
 	export inline int64_t get_timer_count(const ALLEGRO::TIMER& timer)
 	{
-		return al_get_timer_count(timer.get());
+		return al_get_timer_count((ALLEGRO::TIMER_DATA*)timer.get());
 	}
 
 	export inline void set_timer_count(ALLEGRO::TIMER& timer, int64_t count)
 	{
-		al_set_timer_count(timer.get(), count);
+		al_set_timer_count((ALLEGRO::TIMER_DATA*)timer.get(), count);
 	}
 
 	export inline void add_timer_count(ALLEGRO::TIMER& timer, int64_t diff)
 	{
-		al_add_timer_count(timer.get(), diff);
+		al_add_timer_count((ALLEGRO::TIMER_DATA*)timer.get(), diff);
 	}
 
 	export inline ALLEGRO::EVENT_SOURCE get_timer_event_source(ALLEGRO::TIMER& timer)
 	{
-		return ALLEGRO::EVENT_SOURCE(al_get_timer_event_source(timer.get()), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
+		return ALLEGRO::EVENT_SOURCE(al_get_timer_event_source((ALLEGRO::TIMER_DATA*)timer.get()), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
 	}
 }

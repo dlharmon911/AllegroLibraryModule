@@ -91,13 +91,13 @@ namespace ALLEGRO
 	export using VERTEX = ALLEGRO_VERTEX;
 
 	export using VERTEX_DECL_DATA = ALLEGRO_VERTEX_DECL;
-	export using VERTEX_DECL = std::shared_ptr<VERTEX_DECL_DATA>;
+	export using VERTEX_DECL = ALLEGRO::OBJECT_TYPE;
 
 	export using VERTEX_BUFFER_DATA = ALLEGRO_VERTEX_BUFFER;
-	export using VERTEX_BUFFER = std::shared_ptr<VERTEX_BUFFER_DATA>;
+	export using VERTEX_BUFFER = ALLEGRO::OBJECT_TYPE;
 
 	export using INDEX_BUFFER_DATA = ALLEGRO_INDEX_BUFFER;
-	export using INDEX_BUFFER = std::shared_ptr<INDEX_BUFFER_DATA>;
+	export using INDEX_BUFFER = ALLEGRO::OBJECT_TYPE;
 }
 
 namespace al
@@ -145,22 +145,22 @@ namespace al
 
 	export inline int draw_prim(const void* vtxs, const ALLEGRO::VERTEX_DECL& decl, ALLEGRO::BITMAP& texture, int start, int end, int type)
 	{
-		return al_draw_prim(vtxs, decl.get(), texture.get(), start, end, type);
+		return al_draw_prim(vtxs, (ALLEGRO::VERTEX_DECL_DATA*)decl.get(), (ALLEGRO::BITMAP_DATA*)texture.get(), start, end, type);
 	}
 
 	export inline int draw_indexed_prim(const void* vtxs, const ALLEGRO::VERTEX_DECL& decl, ALLEGRO::BITMAP& texture, const int* indices, int num_vtx, int type)
 	{
-		return al_draw_indexed_prim(vtxs, decl.get(), texture.get(), indices, num_vtx, type);
+		return al_draw_indexed_prim(vtxs, (ALLEGRO::VERTEX_DECL_DATA*)decl.get(), (ALLEGRO::BITMAP_DATA*)texture.get(), indices, num_vtx, type);
 	}
 
 	export inline int draw_vertex_buffer(ALLEGRO::VERTEX_BUFFER& vertex_buffer, ALLEGRO::BITMAP& texture, int start, int end, int type)
 	{
-		return al_draw_vertex_buffer(vertex_buffer.get(), texture.get(), start, end, type);
+		return al_draw_vertex_buffer((ALLEGRO::VERTEX_BUFFER_DATA*)vertex_buffer.get(), (ALLEGRO::BITMAP_DATA*)texture.get(), start, end, type);
 	}
 
 	export inline int draw_indexed_buffer(ALLEGRO::VERTEX_BUFFER& vertex_buffer, ALLEGRO::BITMAP& texture, ALLEGRO::INDEX_BUFFER& index_buffer, int start, int end, int type)
 	{
-		return al_draw_indexed_buffer(vertex_buffer.get(), texture.get(), index_buffer.get(), start, end, type);
+		return al_draw_indexed_buffer((ALLEGRO::VERTEX_BUFFER_DATA*)vertex_buffer.get(), (ALLEGRO::BITMAP_DATA*)texture.get(), (ALLEGRO::INDEX_BUFFER_DATA*)index_buffer.get(), start, end, type);
 	}
 	
 	export inline ALLEGRO::VERTEX_DECL create_vertex_decl(const ALLEGRO_VERTEX_ELEMENT* elements, int stride)
@@ -170,22 +170,22 @@ namespace al
 
 	export inline ALLEGRO::VERTEX_BUFFER create_vertex_buffer(ALLEGRO::VERTEX_DECL& decl, const void* initial_data, int num_vertices, int flags)
 	{
-		return ALLEGRO::VERTEX_BUFFER(al_create_vertex_buffer(decl.get(), initial_data, num_vertices, flags), internal::destroy_vertex_buffer);
+		return ALLEGRO::VERTEX_BUFFER(al_create_vertex_buffer((ALLEGRO::VERTEX_DECL_DATA*)decl.get(), initial_data, num_vertices, flags), internal::destroy_vertex_buffer);
 	}
 
 	export inline void* lock_vertex_buffer(ALLEGRO::VERTEX_BUFFER& buffer, int offset, int length, int flags)
 	{
-		return al_lock_vertex_buffer(buffer.get(), offset, length, flags);
+		return al_lock_vertex_buffer((ALLEGRO::VERTEX_BUFFER_DATA*)buffer.get(), offset, length, flags);
 	}
 
 	export inline void unlock_vertex_buffer(ALLEGRO::VERTEX_BUFFER& buffer)
 	{
-		al_unlock_vertex_buffer(buffer.get());
+		al_unlock_vertex_buffer((ALLEGRO::VERTEX_BUFFER_DATA*)buffer.get());
 	}
 
 	export inline int get_vertex_buffer_size(const ALLEGRO::VERTEX_BUFFER& buffer)
 	{
-		return al_get_vertex_buffer_size(buffer.get());
+		return al_get_vertex_buffer_size((ALLEGRO::VERTEX_BUFFER_DATA*)buffer.get());
 	}
 
 	export inline ALLEGRO::INDEX_BUFFER create_index_buffer(int index_size, const void* initial_data, int num_indices, int flags)
@@ -195,17 +195,17 @@ namespace al
 
 	export inline void* lock_index_buffer(ALLEGRO::INDEX_BUFFER& buffer, int offset, int length, int flags)
 	{
-		return al_lock_index_buffer(buffer.get(), offset, length, flags);
+		return al_lock_index_buffer((ALLEGRO::INDEX_BUFFER_DATA*)buffer.get(), offset, length, flags);
 	}
 
 	export inline void unlock_index_buffer(ALLEGRO::INDEX_BUFFER& buffer)
 	{
-		al_unlock_index_buffer(buffer.get());
+		al_unlock_index_buffer((ALLEGRO::INDEX_BUFFER_DATA*)buffer.get());
 	}
 
 	export inline int get_index_buffer_size(ALLEGRO::INDEX_BUFFER& buffer)
 	{
-		return al_get_index_buffer_size(buffer.get());
+		return al_get_index_buffer_size((ALLEGRO::INDEX_BUFFER_DATA*)buffer.get());
 	}
 	export inline bool triangulate_polygon(const float* vertices, size_t vertex_stride, const int* vertex_counts, void (*emit_triangle)(int, int, int, void*), void* userdata)
 	{

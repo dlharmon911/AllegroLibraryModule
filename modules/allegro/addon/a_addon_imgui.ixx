@@ -37,7 +37,7 @@ namespace al
 					ImGui::StyleColorsDark();
 				}
 
-				rv = ImGui_ImplAllegro5_Init(display.get());
+				rv = ImGui_ImplAllegro5_Init((ALLEGRO::DISPLAY_DATA*)display.get());
 
 				if (rv)
 				{

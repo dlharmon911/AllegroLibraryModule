@@ -14,9 +14,9 @@ import :memory;
 namespace ALLEGRO
 {
 	export using FS_ENTRY_DATA = ALLEGRO_FS_ENTRY;
-	export using FS_ENTRY = std::shared_ptr<FS_ENTRY_DATA>;
-	export using FS_INTERFACE_DATA = const ALLEGRO_FS_INTERFACE;
-	export using FS_INTERFACE = std::shared_ptr<const FS_INTERFACE_DATA>;
+	export using FS_ENTRY = ALLEGRO::OBJECT_TYPE;
+	export using FS_INTERFACE_DATA = ALLEGRO_FS_INTERFACE;
+	export using FS_INTERFACE = ALLEGRO::CONST_OBJECT_TYPE;
 	export using FILE_MODE = ALLEGRO_FILE_MODE;
 	export using FOR_EACH_FS_ENTRY_RESULT = ALLEGRO_FOR_EACH_FS_ENTRY_RESULT;
 
@@ -60,62 +60,62 @@ namespace al
 
 	export inline const char* get_fs_entry_name(ALLEGRO::FS_ENTRY& e)
 	{
-		return al_get_fs_entry_name(e.get());
+		return al_get_fs_entry_name((ALLEGRO::FS_ENTRY_DATA*)e.get());
 	}
 
 	export inline bool update_fs_entry(ALLEGRO::FS_ENTRY& e)
 	{
-		return al_update_fs_entry(e.get());
+		return al_update_fs_entry((ALLEGRO::FS_ENTRY_DATA*)e.get());
 	}
 
 	export inline uint32_t get_fs_entry_mode(ALLEGRO::FS_ENTRY& e)
 	{
-		return al_get_fs_entry_mode(e.get());
+		return al_get_fs_entry_mode((ALLEGRO::FS_ENTRY_DATA*)e.get());
 	}
 
 	export inline time_t get_fs_entry_atime(ALLEGRO::FS_ENTRY& e)
 	{
-		return al_get_fs_entry_atime(e.get());
+		return al_get_fs_entry_atime((ALLEGRO::FS_ENTRY_DATA*)e.get());
 	}
 
 	export inline time_t get_fs_entry_mtime(ALLEGRO::FS_ENTRY& e)
 	{
-		return al_get_fs_entry_mtime(e.get());
+		return al_get_fs_entry_mtime((ALLEGRO::FS_ENTRY_DATA*)e.get());
 	}
 
 	export inline time_t get_fs_entry_ctime(ALLEGRO::FS_ENTRY& e)
 	{
-		return al_get_fs_entry_ctime(e.get());
+		return al_get_fs_entry_ctime((ALLEGRO::FS_ENTRY_DATA*)e.get());
 	}
 
 	export inline off_t get_fs_entry_size(ALLEGRO::FS_ENTRY& e)
 	{
-		return al_get_fs_entry_size(e.get());
+		return al_get_fs_entry_size((ALLEGRO::FS_ENTRY_DATA*)e.get());
 	}
 
 	export inline bool fs_entry_exists(ALLEGRO::FS_ENTRY& e)
 	{
-		return al_fs_entry_exists(e.get());
+		return al_fs_entry_exists((ALLEGRO::FS_ENTRY_DATA*)e.get());
 	}
 
 	export inline bool remove_fs_entry(ALLEGRO::FS_ENTRY& e)
 	{
-		return al_remove_fs_entry(e.get());
+		return al_remove_fs_entry((ALLEGRO::FS_ENTRY_DATA*)e.get());
 	}
 
 	export inline bool open_directory(ALLEGRO::FS_ENTRY& e)
 	{
-		return al_open_directory(e.get());
+		return al_open_directory((ALLEGRO::FS_ENTRY_DATA*)e.get());
 	}
 
 	export inline ALLEGRO::FS_ENTRY read_directory(ALLEGRO::FS_ENTRY& e)
 	{
-		return ALLEGRO::FS_ENTRY(al_read_directory(e.get()), internal::destroy_fs_entry);
+		return ALLEGRO::FS_ENTRY(al_read_directory((ALLEGRO::FS_ENTRY_DATA*)e.get()), internal::destroy_fs_entry);
 	}
 
 	export inline bool close_directory(ALLEGRO::FS_ENTRY& e)
 	{
-		return al_close_directory(e.get());
+		return al_close_directory((ALLEGRO::FS_ENTRY_DATA*)e.get());
 	}
 
 	export inline bool filename_exists(const char* path)
@@ -145,12 +145,12 @@ namespace al
 
 	export inline ALLEGRO::FILE open_fs_entry(ALLEGRO::FS_ENTRY& e, const char* mode)
 	{
-		return ALLEGRO::FILE(al_open_fs_entry(e.get(), mode), internal::destroy_file);
+		return ALLEGRO::FILE(al_open_fs_entry((ALLEGRO::FS_ENTRY_DATA*)e.get(), mode), internal::destroy_file);
 	}
 
 	export inline int32_t for_each_fs_entry(ALLEGRO::FS_ENTRY& dir, int32_t(*callback)(ALLEGRO_FS_ENTRY* entry, void* extra), void* extra)
 	{
-		return al_for_each_fs_entry(dir.get(), callback, extra);
+		return al_for_each_fs_entry((ALLEGRO::FS_ENTRY_DATA*)dir.get(), callback, extra);
 	}
 
 	export inline const ALLEGRO::FS_INTERFACE get_fs_interface()
@@ -160,7 +160,7 @@ namespace al
 
 	export inline void set_fs_interface(const ALLEGRO::FS_INTERFACE& vtable)
 	{
-		al_set_fs_interface(vtable.get());
+		al_set_fs_interface((ALLEGRO::FS_INTERFACE_DATA*)vtable.get());
 	}
 
 	export inline void set_standard_fs_interface()

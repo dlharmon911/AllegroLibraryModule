@@ -11,7 +11,7 @@ import :memory;
 namespace ALLEGRO
 {
 	export using SYSTEM_DATA = ALLEGRO_SYSTEM;
-	export using SYSTEM = std::shared_ptr<ALLEGRO::SYSTEM_DATA>;
+	export using SYSTEM = ALLEGRO::OBJECT_TYPE;
 
 	export using SYSTEM_ID = ::ALLEGRO_SYSTEM_ID;
 	export enum

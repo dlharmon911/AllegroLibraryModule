@@ -15,7 +15,7 @@ import :memory;
 namespace ALLEGRO
 {
     export using USTRING_DATA = ::ALLEGRO_USTR;
-    export using USTRING = std::shared_ptr<USTRING_DATA>;
+    export using USTRING = ALLEGRO::OBJECT_TYPE;
 }
 
 namespace al
@@ -42,7 +42,7 @@ namespace al
         bool result;
         va_list arglist;
         va_start(arglist, format);
-        result = al_ustr_vappendf(rv.get(), format, arglist);
+        result = al_ustr_vappendf((ALLEGRO::USTRING_DATA*)rv.get(), format, arglist);
         va_end(arglist);
 
         if (!result)
@@ -55,27 +55,27 @@ namespace al
 
     export inline const char* c_str(const ALLEGRO::USTRING& ustring)
     {
-        return al_cstr(ustring.get());
+        return al_cstr((ALLEGRO::USTRING_DATA*)ustring.get());
     }
 
     export inline void ustr_to_buffer(const ALLEGRO::USTRING& ustring, char* buffer, int32_t size)
     {
-        al_ustr_to_buffer(ustring.get(), buffer, size);
+        al_ustr_to_buffer((ALLEGRO::USTRING_DATA*)ustring.get(), buffer, size);
     }
 
     export inline char* cstr_dup(const ALLEGRO::USTRING& ustring)
     {
-        return al_cstr_dup(ustring.get());
+        return al_cstr_dup((ALLEGRO::USTRING_DATA*)ustring.get());
     }
 
     export inline ALLEGRO::USTRING ustr_dup(const ALLEGRO::USTRING& ustring)
     {
-        return ALLEGRO::USTRING(al_ustr_dup(ustring.get()), al_ustr_free);
+        return ALLEGRO::USTRING(al_ustr_dup((ALLEGRO::USTRING_DATA*)ustring.get()), al_ustr_free);
     }
 
     export inline ALLEGRO::USTRING ustr_dup_substr(const ALLEGRO::USTRING& ustring, int32_t start_pos, int32_t end_pos)
     {
-        return ALLEGRO::USTRING(al_ustr_dup_substr(ustring.get(), start_pos, end_pos), al_ustr_free);
+        return ALLEGRO::USTRING(al_ustr_dup_substr((ALLEGRO::USTRING_DATA*)ustring.get(), start_pos, end_pos), al_ustr_free);
     }
 
     export inline const ALLEGRO::USTRING ustr_empty_string()
@@ -95,7 +95,7 @@ namespace al
 
     export inline const ALLEGRO::USTRING ref_ustr(ALLEGRO_USTR_INFO& info, const ALLEGRO::USTRING& ustring, int32_t start_pos, int32_t end_pos)
     {
-        return make_const_ustring(al_ref_ustr(&info, ustring.get(), start_pos, end_pos));
+        return make_const_ustring(al_ref_ustr(&info, (ALLEGRO::USTRING_DATA*)ustring.get(), start_pos, end_pos));
     }
 
     export inline const ALLEGRO::USTRING ref_info(const ALLEGRO_USTR_INFO& info)
@@ -105,72 +105,72 @@ namespace al
 
     export inline size_t ustr_size(const ALLEGRO::USTRING& ustring)
     {
-        return al_ustr_size(ustring.get());
+        return al_ustr_size((ALLEGRO::USTRING_DATA*)ustring.get());
     }
 
     export inline size_t ustr_length(const ALLEGRO::USTRING& ustring)
     {
-        return al_ustr_length(ustring.get());
+        return al_ustr_length((ALLEGRO::USTRING_DATA*)ustring.get());
     }
 
     export inline int32_t ustr_offset(const ALLEGRO::USTRING& ustring, int32_t index)
     {
-        return al_ustr_offset(ustring.get(), index);
+        return al_ustr_offset((ALLEGRO::USTRING_DATA*)ustring.get(), index);
     }
 
     export inline bool ustr_next(const ALLEGRO::USTRING& ustring, int32_t& pos)
     {
-        return al_ustr_next(ustring.get(), &pos);
+        return al_ustr_next((ALLEGRO::USTRING_DATA*)ustring.get(), &pos);
     }
 
     export inline bool ustr_prev(const ALLEGRO::USTRING& ustring, int32_t& pos)
     {
-        return al_ustr_prev(ustring.get(), &pos);
+        return al_ustr_prev((ALLEGRO::USTRING_DATA*)ustring.get(), &pos);
     }
 
     export inline int32_t ustr_get(const ALLEGRO::USTRING& ustring, int32_t pos)
     {
-        return al_ustr_get(ustring.get(), pos);
+        return al_ustr_get((ALLEGRO::USTRING_DATA*)ustring.get(), pos);
     }
 
     export inline int32_t ustr_get_next(const ALLEGRO::USTRING& ustring, int32_t& pos)
     {
-        return al_ustr_get_next(ustring.get(), &pos);
+        return al_ustr_get_next((ALLEGRO::USTRING_DATA*)ustring.get(), &pos);
     }
 
     export inline int32_t ustr_prev_get(const ALLEGRO::USTRING& ustring, int32_t& pos)
     {
-        return al_ustr_prev_get(ustring.get(), &pos);
+        return al_ustr_prev_get((ALLEGRO::USTRING_DATA*)ustring.get(), &pos);
     }
 
     export inline bool ustr_insert(ALLEGRO::USTRING& ustring1, int32_t pos, const ALLEGRO::USTRING& ustring2)
     {
-        return al_ustr_insert(ustring1.get(), pos, ustring2.get());
+        return al_ustr_insert((ALLEGRO::USTRING_DATA*)ustring1.get(), pos, (ALLEGRO::USTRING_DATA*)ustring2.get());
     }
 
     export inline bool ustr_insert_cstr(ALLEGRO::USTRING& ustring, int32_t pos, const char* string)
     {
-        return al_ustr_insert_cstr(ustring.get(), pos, string);
+        return al_ustr_insert_cstr((ALLEGRO::USTRING_DATA*)ustring.get(), pos, string);
     }
 
     export inline size_t ustr_insert_chr(ALLEGRO::USTRING& ustring, int32_t pos, int32_t c)
     {
-        return al_ustr_insert_chr(ustring.get(), pos, c);
+        return al_ustr_insert_chr((ALLEGRO::USTRING_DATA*)ustring.get(), pos, c);
     }
 
     export inline bool ustr_append(ALLEGRO::USTRING& ustring1, const ALLEGRO::USTRING& ustring2)
     {
-        return al_ustr_append(ustring1.get(), ustring2.get());
+        return al_ustr_append((ALLEGRO::USTRING_DATA*)ustring1.get(), (ALLEGRO::USTRING_DATA*)ustring2.get());
     }
 
     export inline bool ustr_append_cstr(ALLEGRO::USTRING& ustring, const char* string)
     {
-        return al_ustr_append_cstr(ustring.get(), string);
+        return al_ustr_append_cstr((ALLEGRO::USTRING_DATA*)ustring.get(), string);
     }
 
     export inline size_t ustr_append_chr(ALLEGRO::USTRING& ustring, int32_t c)
     {
-        return al_ustr_append_chr(ustring.get(), c);
+        return al_ustr_append_chr((ALLEGRO::USTRING_DATA*)ustring.get(), c);
     }
     
     export inline bool ustr_appendf(ALLEGRO::USTRING& ustring, const char* format, ...)
@@ -178,164 +178,164 @@ namespace al
         bool result;
         va_list arglist;
         va_start(arglist, format);
-        result = al_ustr_vappendf(ustring.get(), format, arglist);
+        result = al_ustr_vappendf((ALLEGRO::USTRING_DATA*)ustring.get(), format, arglist);
         va_end(arglist);
         return result;
     }
 
     export inline bool ustr_vappendf(ALLEGRO::USTRING& ustring, const char* format, va_list ap)
     {
-        return al_ustr_vappendf(ustring.get(), format, ap);
+        return al_ustr_vappendf((ALLEGRO::USTRING_DATA*)ustring.get(), format, ap);
     }
 
     export inline bool ustr_remove_chr(ALLEGRO::USTRING& ustring, int32_t pos)
     {
-        return al_ustr_remove_chr(ustring.get(), pos);
+        return al_ustr_remove_chr((ALLEGRO::USTRING_DATA*)ustring.get(), pos);
     }
 
     export inline bool ustr_remove_range(ALLEGRO::USTRING& ustring, int32_t start_pos, int32_t end_pos)
     {
-        return al_ustr_remove_range(ustring.get(), start_pos, end_pos);
+        return al_ustr_remove_range((ALLEGRO::USTRING_DATA*)ustring.get(), start_pos, end_pos);
     }
 
     export inline bool ustr_truncate(ALLEGRO::USTRING& ustring, int32_t start_pos)
     {
-        return al_ustr_truncate(ustring.get(), start_pos);
+        return al_ustr_truncate((ALLEGRO::USTRING_DATA*)ustring.get(), start_pos);
     }
 
     export inline bool ustr_ltrim_ws(ALLEGRO::USTRING& ustring)
     {
-        return al_ustr_ltrim_ws(ustring.get());
+        return al_ustr_ltrim_ws((ALLEGRO::USTRING_DATA*)ustring.get());
     }
 
     export inline bool ustr_rtrim_ws(ALLEGRO::USTRING& ustring)
     {
-        return al_ustr_rtrim_ws(ustring.get());
+        return al_ustr_rtrim_ws((ALLEGRO::USTRING_DATA*)ustring.get());
     }
 
     export inline bool ustr_trim_ws(ALLEGRO::USTRING& ustring)
     {
-        return al_ustr_trim_ws(ustring.get());
+        return al_ustr_trim_ws((ALLEGRO::USTRING_DATA*)ustring.get());
     }
 
     export inline bool ustr_assign(ALLEGRO::USTRING& ustring1, const ALLEGRO::USTRING& ustring2)
     {
-        return al_ustr_assign(ustring1.get(), ustring2.get());
+        return al_ustr_assign((ALLEGRO::USTRING_DATA*)ustring1.get(), (ALLEGRO::USTRING_DATA*)ustring2.get());
     }
 
     export inline bool ustr_assign_substr(ALLEGRO::USTRING& ustring1, const ALLEGRO::USTRING& ustring2, int32_t start_pos, int32_t end_pos)
     {
-        return al_ustr_assign_substr(ustring1.get(), ustring2.get(), start_pos, end_pos);
+        return al_ustr_assign_substr((ALLEGRO::USTRING_DATA*)ustring1.get(), (ALLEGRO::USTRING_DATA*)ustring2.get(), start_pos, end_pos);
     }
 
     export inline bool ustr_assign_cstr(ALLEGRO::USTRING& ustring, const char* string)
     {
-        return al_ustr_assign_cstr(ustring.get(), string);
+        return al_ustr_assign_cstr((ALLEGRO::USTRING_DATA*)ustring.get(), string);
     }
 
     export inline size_t ustr_set_chr(ALLEGRO::USTRING& ustring, int32_t pos, int32_t c)
     {
-        return al_ustr_set_chr(ustring.get(), pos, c);
+        return al_ustr_set_chr((ALLEGRO::USTRING_DATA*)ustring.get(), pos, c);
     }
 
     export inline bool ustr_replace_range(ALLEGRO::USTRING& ustring1, int32_t start_pos1, int32_t end_pos1, const ALLEGRO::USTRING& ustring2)
     {
-        return al_ustr_replace_range(ustring1.get(), start_pos1, end_pos1, ustring2.get());
+        return al_ustr_replace_range((ALLEGRO::USTRING_DATA*)ustring1.get(), start_pos1, end_pos1, (ALLEGRO::USTRING_DATA*)ustring2.get());
     }
 
     export inline int32_t ustr_find_chr(const ALLEGRO::USTRING& ustring, int32_t start_pos, int32_t c)
     {
-        return al_ustr_find_chr(ustring.get(), start_pos, c);
+        return al_ustr_find_chr((ALLEGRO::USTRING_DATA*)ustring.get(), start_pos, c);
     }
 
     export inline int32_t ustr_rfind_chr(const ALLEGRO::USTRING& ustring, int32_t start_pos, int32_t c)
     {
-        return al_ustr_rfind_chr(ustring.get(), start_pos, c);
+        return al_ustr_rfind_chr((ALLEGRO::USTRING_DATA*)ustring.get(), start_pos, c);
     }
 
     export inline int32_t ustr_find_set(const ALLEGRO::USTRING& ustring, int32_t start_pos, const ALLEGRO::USTRING& accept)
     {
-        return al_ustr_find_set(ustring.get(), start_pos, accept.get());
+        return al_ustr_find_set((ALLEGRO::USTRING_DATA*)ustring.get(), start_pos, (ALLEGRO::USTRING_DATA*)accept.get());
     }
 
     export inline int32_t ustr_find_set_cstr(const ALLEGRO::USTRING& ustring, int32_t start_pos, const char* accept)
     {
-        return al_ustr_find_cstr(ustring.get(), start_pos, accept);
+        return al_ustr_find_cstr((ALLEGRO::USTRING_DATA*)ustring.get(), start_pos, accept);
     }
 
     export inline int32_t ustr_find_cset(const ALLEGRO::USTRING& ustring, int32_t start_pos, const ALLEGRO::USTRING& reject)
     {
-        return al_ustr_find_cset(ustring.get(), start_pos, reject.get());
+        return al_ustr_find_cset((ALLEGRO::USTRING_DATA*)ustring.get(), start_pos, (ALLEGRO::USTRING_DATA*)reject.get());
     }
 
     export inline int32_t ustr_find_cset_cstr(const ALLEGRO::USTRING& ustring, int32_t start_pos, const char* reject)
     {
-        return al_ustr_find_cset_cstr(ustring.get(), start_pos, reject);
+        return al_ustr_find_cset_cstr((ALLEGRO::USTRING_DATA*)ustring.get(), start_pos, reject);
     }
 
     export inline int32_t ustr_find_str(const ALLEGRO::USTRING& haystack, int32_t start_pos, const ALLEGRO::USTRING& needle)
     {
-        return al_ustr_find_str(haystack.get(), start_pos, needle.get());
+        return al_ustr_find_str((ALLEGRO::USTRING_DATA*)haystack.get(), start_pos, (ALLEGRO::USTRING_DATA*)needle.get());
     }
 
     export inline int32_t ustr_find_cstr(const ALLEGRO::USTRING& haystack, int32_t start_pos, const char* needle)
     {
-        return al_ustr_find_cstr(haystack.get(), start_pos, needle);
+        return al_ustr_find_cstr((ALLEGRO::USTRING_DATA*)haystack.get(), start_pos, needle);
     }
 
     export inline int32_t ustr_rfind_str(const ALLEGRO::USTRING& haystack, int32_t start_pos, const ALLEGRO::USTRING& needle)
     {
-        return al_ustr_rfind_str(haystack.get(), start_pos, needle.get());
+        return al_ustr_rfind_str((ALLEGRO::USTRING_DATA*)haystack.get(), start_pos, (ALLEGRO::USTRING_DATA*)needle.get());
     }
 
     export inline int32_t ustr_rfind_cstr(const ALLEGRO::USTRING& haystack, int32_t start_pos, const char* needle)
     {
-        return al_ustr_rfind_cstr(haystack.get(), start_pos, needle);
+        return al_ustr_rfind_cstr((ALLEGRO::USTRING_DATA*)haystack.get(), start_pos, needle);
     }
 
     export inline bool ustr_find_replace(ALLEGRO::USTRING& ustring, int32_t start_pos, const ALLEGRO::USTRING& find, const ALLEGRO::USTRING& replace)
     {
-        return al_ustr_find_replace(ustring.get(), start_pos, find.get(), replace.get());
+        return al_ustr_find_replace((ALLEGRO::USTRING_DATA*)ustring.get(), start_pos, (ALLEGRO::USTRING_DATA*)find.get(), (ALLEGRO::USTRING_DATA*)replace.get());
     }
 
     export inline bool ustr_find_replace_cstr(ALLEGRO::USTRING& ustring, int32_t start_pos, const char* find, const char* replace)
     {
-        return al_ustr_find_replace_cstr(ustring.get(), start_pos, find, replace);
+        return al_ustr_find_replace_cstr((ALLEGRO::USTRING_DATA*)ustring.get(), start_pos, find, replace);
     }
 
     export inline bool ustr_equal(const ALLEGRO::USTRING& ustring1, const ALLEGRO::USTRING& ustring2)
     {
-        return al_ustr_equal(ustring1.get(), ustring2.get());
+        return al_ustr_equal((ALLEGRO::USTRING_DATA*)ustring1.get(), (ALLEGRO::USTRING_DATA*)ustring2.get());
     }
 
     export inline int32_t ustr_compare(const ALLEGRO::USTRING& ustring1, const ALLEGRO::USTRING& ustring2)
     {
-        return al_ustr_compare(ustring1.get(), ustring2.get());
+        return al_ustr_compare((ALLEGRO::USTRING_DATA*)ustring1.get(), (ALLEGRO::USTRING_DATA*)ustring2.get());
     }
 
     export inline int32_t ustr_ncompare(const ALLEGRO::USTRING& ustring1, const ALLEGRO::USTRING& ustring2, int32_t n)
     {
-        return al_ustr_ncompare(ustring1.get(), ustring2.get(), n);
+        return al_ustr_ncompare((ALLEGRO::USTRING_DATA*)ustring1.get(), (ALLEGRO::USTRING_DATA*)ustring2.get(), n);
     }
 
     export inline bool ustr_has_prefix(const ALLEGRO::USTRING& ustring1, const ALLEGRO::USTRING& ustring2)
     {
-        return al_ustr_has_prefix(ustring1.get(), ustring2.get());
+        return al_ustr_has_prefix((ALLEGRO::USTRING_DATA*)ustring1.get(), (ALLEGRO::USTRING_DATA*)ustring2.get());
     }
 
     export inline bool ustr_has_prefix_cstr(const ALLEGRO::USTRING& ustring, const char* string)
     {
-        return al_ustr_has_prefix_cstr(ustring.get(), string);
+        return al_ustr_has_prefix_cstr((ALLEGRO::USTRING_DATA*)ustring.get(), string);
     }
 
     export inline bool ustr_has_suffix(const ALLEGRO::USTRING& ustring1, const ALLEGRO::USTRING& ustring2)
     {
-        return al_ustr_has_suffix(ustring1.get(), ustring2.get());
+        return al_ustr_has_suffix((ALLEGRO::USTRING_DATA*)ustring1.get(), (ALLEGRO::USTRING_DATA*)ustring2.get());
     }
 
     export inline bool ustr_has_suffix_cstr(const ALLEGRO::USTRING& ustring, const char* string)
     {
-        return al_ustr_has_suffix_cstr(ustring.get(), string);
+        return al_ustr_has_suffix_cstr((ALLEGRO::USTRING_DATA*)ustring.get(), string);
     }
 
     export inline size_t utf8_width(int32_t c)
@@ -355,12 +355,12 @@ namespace al
 
     export inline size_t ustr_size_utf16(const ALLEGRO::USTRING& ustring)
     {
-        return al_ustr_size_utf16(ustring.get());
+        return al_ustr_size_utf16((ALLEGRO::USTRING_DATA*)ustring.get());
     }
 
     export inline size_t ustr_encode_utf16(const ALLEGRO::USTRING& ustring, uint16_t* s, size_t n) 
     {
-        return al_ustr_encode_utf16(ustring.get(), s, n);
+        return al_ustr_encode_utf16((ALLEGRO::USTRING_DATA*)ustring.get(), s, n);
     }
 
     export inline size_t utf16_width(int32_t c)
@@ -383,7 +383,7 @@ namespace al
 
         if (u)
         {
-            if (al_ustr_append_chr(u.get(), c) == 0)
+            if (al_ustr_append_chr((ALLEGRO::USTRING_DATA*)u.get(), c) == 0)
             {
                 u.reset();
             }

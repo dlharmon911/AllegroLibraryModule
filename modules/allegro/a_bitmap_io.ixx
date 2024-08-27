@@ -77,12 +77,12 @@ namespace al
 
 	export inline bool save_bitmap(const char* filename, const ALLEGRO::BITMAP& bitmap)
 	{
-		return al_save_bitmap(filename, bitmap.get());
+		return al_save_bitmap(filename, (ALLEGRO::BITMAP_DATA*)bitmap.get());
 	}
 
 	export inline bool save_bitmap_f(ALLEGRO::FILE_DATA* fp, const char* ident, const ALLEGRO::BITMAP& bitmap)
 	{
-		return al_save_bitmap_f(fp, ident, bitmap.get());
+		return al_save_bitmap_f(fp, ident, (ALLEGRO::BITMAP_DATA*)bitmap.get());
 	}
 
 	export inline const char* identify_bitmap_f(ALLEGRO::FILE_DATA* fp)

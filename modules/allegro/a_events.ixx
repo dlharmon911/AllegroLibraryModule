@@ -11,9 +11,9 @@ import :memory;
 namespace ALLEGRO
 {
     export using EVENT_QUEUE_DATA = ALLEGRO_EVENT_QUEUE;
-    export using EVENT_QUEUE = std::shared_ptr<EVENT_QUEUE_DATA>;
+    export using EVENT_QUEUE = ALLEGRO::OBJECT_TYPE;
     export using EVENT_SOURCE_DATA = ALLEGRO_EVENT_SOURCE;
-    export using EVENT_SOURCE = std::shared_ptr<EVENT_SOURCE_DATA>;
+    export using EVENT_SOURCE = ALLEGRO::OBJECT_TYPE;
     export using EVENT_TYPE = ALLEGRO_EVENT_TYPE;
 
     export enum
@@ -90,7 +90,7 @@ namespace al
 
     export inline bool emit_user_event(ALLEGRO::EVENT_SOURCE& source, ALLEGRO::EVENT* user_event, void (*dtor)(ALLEGRO::USER_EVENT*))
     {
-        return al_emit_user_event(source.get(), user_event, dtor);
+        return al_emit_user_event((ALLEGRO::EVENT_SOURCE_DATA*)source.get(), user_event, dtor);
     }
 
     export inline void unref_user_event(ALLEGRO::USER_EVENT* event)
@@ -100,12 +100,12 @@ namespace al
 
     export inline void set_event_source_data(ALLEGRO::EVENT_SOURCE& source, intptr_t data)
     {
-        al_set_event_source_data(source.get(), data);
+        al_set_event_source_data((ALLEGRO::EVENT_SOURCE_DATA*)source.get(), data);
     }
 
     export inline intptr_t get_event_source_data(ALLEGRO::EVENT_SOURCE& source)
     {
-        return al_get_event_source_data(source.get());
+        return al_get_event_source_data((ALLEGRO::EVENT_SOURCE_DATA*)source.get());
     }
 
     export inline ALLEGRO::EVENT_QUEUE create_event_queue()
@@ -115,66 +115,66 @@ namespace al
 
     export inline bool is_event_source_registered(const ALLEGRO::EVENT_QUEUE& queue, const ALLEGRO::EVENT_SOURCE& source)
     {
-        return al_is_event_source_registered(queue.get(), source.get());
+        return al_is_event_source_registered((ALLEGRO::EVENT_QUEUE_DATA*)queue.get(), (ALLEGRO::EVENT_SOURCE_DATA*)source.get());
     }
 
     export inline void register_event_source(ALLEGRO::EVENT_QUEUE& queue, ALLEGRO::EVENT_SOURCE source)
     {
-        al_register_event_source(queue.get(), source.get());
+        al_register_event_source((ALLEGRO::EVENT_QUEUE_DATA*)queue.get(), (ALLEGRO::EVENT_SOURCE_DATA*)source.get());
     }
 
     export inline void unregister_event_source(ALLEGRO::EVENT_QUEUE& queue, ALLEGRO::EVENT_SOURCE source)
     {
-        al_unregister_event_source(queue.get(), source.get());
+        al_unregister_event_source((ALLEGRO::EVENT_QUEUE_DATA*)queue.get(), (ALLEGRO::EVENT_SOURCE_DATA*)source.get());
     }
 
     export inline void pause_event_queue(ALLEGRO::EVENT_QUEUE& queue, bool pause)
     {
-        al_pause_event_queue(queue.get(), pause);
+        al_pause_event_queue((ALLEGRO::EVENT_QUEUE_DATA*)queue.get(), pause);
     }
 
     export inline bool is_event_queue_paused(const ALLEGRO::EVENT_QUEUE& queue)
     {
-        return al_is_event_queue_paused(queue.get());
+        return al_is_event_queue_paused((ALLEGRO::EVENT_QUEUE_DATA*)queue.get());
     }
 
     export inline bool is_event_queue_empty(const ALLEGRO::EVENT_QUEUE& queue)
     {
-        return al_is_event_queue_empty(queue.get());
+        return al_is_event_queue_empty((ALLEGRO::EVENT_QUEUE_DATA*)queue.get());
     }
 
     export inline bool get_next_event(ALLEGRO::EVENT_QUEUE& queue, ALLEGRO::EVENT& ret_event)
     {
-        return al_get_next_event(queue.get(), &ret_event);
+        return al_get_next_event((ALLEGRO::EVENT_QUEUE_DATA*)queue.get(), &ret_event);
     }
 
     export inline bool peek_next_event(const ALLEGRO::EVENT_QUEUE& queue, ALLEGRO::EVENT& ret_event)
     {
-        return al_peek_next_event(queue.get(), &ret_event);
+        return al_peek_next_event((ALLEGRO::EVENT_QUEUE_DATA*)queue.get(), &ret_event);
     }
 
     export inline bool drop_next_event(ALLEGRO::EVENT_QUEUE& queue)
     {
-        return al_drop_next_event(queue.get());
+        return al_drop_next_event((ALLEGRO::EVENT_QUEUE_DATA*)queue.get());
     }
 
     export inline void flush_event_queue(ALLEGRO::EVENT_QUEUE& queue)
     {
-        al_flush_event_queue(queue.get());
+        al_flush_event_queue((ALLEGRO::EVENT_QUEUE_DATA*)queue.get());
     }
 
     export inline void wait_for_event(ALLEGRO::EVENT_QUEUE& queue, ALLEGRO::EVENT& ret_event)
     {
-        al_wait_for_event(queue.get(), &ret_event);
+        al_wait_for_event((ALLEGRO::EVENT_QUEUE_DATA*)queue.get(), &ret_event);
     }
 
     export inline bool wait_for_event_timed(ALLEGRO::EVENT_QUEUE& queue, ALLEGRO::EVENT& ret_event, float seconds)
     {
-        return al_wait_for_event_timed(queue.get(), &ret_event, seconds);
+        return al_wait_for_event_timed((ALLEGRO::EVENT_QUEUE_DATA*)queue.get(), &ret_event, seconds);
     }
 
     export inline bool wait_for_event_until(ALLEGRO::EVENT_QUEUE& queue, ALLEGRO::EVENT& ret_event, ALLEGRO::TIMEOUT& timeout)
     {
-        return al_wait_for_event_until(queue.get(), &ret_event, &timeout);
+        return al_wait_for_event_until((ALLEGRO::EVENT_QUEUE_DATA*)queue.get(), &ret_event, &timeout);
     }
 }

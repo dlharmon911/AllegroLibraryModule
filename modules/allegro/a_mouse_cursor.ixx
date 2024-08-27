@@ -10,7 +10,7 @@ import :memory;
 namespace ALLEGRO
 {
 	export using MOUSE_CURSOR_DATA = ALLEGRO_MOUSE_CURSOR;
-	export using MOUSE_CURSOR = std::shared_ptr<ALLEGRO::MOUSE_CURSOR_DATA>;
+	export using MOUSE_CURSOR = ALLEGRO::OBJECT_TYPE;
 	export using SYSTEM_MOUSE_CURSOR = ALLEGRO_SYSTEM_MOUSE_CURSOR;
 
 	export enum
@@ -51,27 +51,27 @@ namespace al
 
 	export inline ALLEGRO::MOUSE_CURSOR create_mouse_cursor(ALLEGRO::BITMAP& sprite, ALLEGRO::POINT<int32_t> focus)
 	{
-		return ALLEGRO::MOUSE_CURSOR(al_create_mouse_cursor(sprite.get(), focus.x, focus.y), internal::destroy_mouse_cursor);
+		return ALLEGRO::MOUSE_CURSOR(al_create_mouse_cursor((ALLEGRO::BITMAP_DATA*)sprite.get(), focus.x, focus.y), internal::destroy_mouse_cursor);
 	}
 
 	export inline bool set_mouse_cursor(ALLEGRO::DISPLAY& display, ALLEGRO::MOUSE_CURSOR& cursor)
 	{
-		return al_set_mouse_cursor(display.get(), cursor.get());
+		return al_set_mouse_cursor((ALLEGRO::DISPLAY_DATA*)display.get(), (ALLEGRO::MOUSE_CURSOR_DATA*)cursor.get());
 	}
 
 	export inline bool set_system_mouse_cursor(ALLEGRO::DISPLAY& display, ALLEGRO::SYSTEM_MOUSE_CURSOR cursor_id)
 	{
-		return al_set_system_mouse_cursor(display.get(), cursor_id);
+		return al_set_system_mouse_cursor((ALLEGRO::DISPLAY_DATA*)display.get(), cursor_id);
 	}
 
 	export inline bool show_mouse_cursor(ALLEGRO::DISPLAY& display)
 	{
-		return al_show_mouse_cursor(display.get());
+		return al_show_mouse_cursor((ALLEGRO::DISPLAY_DATA*)display.get());
 	}
 
 	export inline bool hide_mouse_cursor(ALLEGRO::DISPLAY& display)
 	{
-		return al_hide_mouse_cursor(display.get());
+		return al_hide_mouse_cursor((ALLEGRO::DISPLAY_DATA*)display.get());
 	}
 
 }
