@@ -10,7 +10,7 @@ import :memory;
 namespace ALLEGRO
 {
 	export using JOYSTICK_DATA = ALLEGRO_JOYSTICK;
-	export using JOYSTICK = ALLEGRO::OBJECT_TYPE;
+	export using JOYSTICK = std::shared_ptr<JOYSTICK_DATA>;
 	export using JOYSTICK_STATE = ALLEGRO_JOYSTICK_STATE;
 
 	export enum JOYFLAGS

@@ -12,7 +12,7 @@ namespace ALLEGRO
 	export inline constexpr char NATIVE_PATH_SEP = ALLEGRO_NATIVE_PATH_SEP;
 	export inline constexpr char NATIVE_DRIVE_SEP = ALLEGRO_NATIVE_DRIVE_SEP;
 	export using PATH_DATA = ALLEGRO_PATH;
-	export using PATH = ALLEGRO::OBJECT_TYPE;
+	export using PATH = std::shared_ptr<PATH_DATA>;
 }
 
 namespace al

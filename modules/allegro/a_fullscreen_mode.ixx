@@ -8,7 +8,7 @@ import :memory;
 namespace ALLEGRO
 {
 	export using DISPLAY_MODE_DATA = ALLEGRO_DISPLAY_MODE;
-	export using DISPLAY_MODE = ALLEGRO::OBJECT_TYPE;
+	export using DISPLAY_MODE = std::shared_ptr<DISPLAY_MODE_DATA>;
 }
 
 namespace al

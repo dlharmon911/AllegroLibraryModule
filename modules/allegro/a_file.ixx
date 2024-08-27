@@ -12,7 +12,7 @@ import :memory;
 namespace ALLEGRO
 {
 	export using FILE_DATA = ALLEGRO_FILE;
-	export using FILE = ALLEGRO::OBJECT_TYPE;
+	export using FILE = std::shared_ptr<FILE_DATA>;
 	export using FILE_INTERFACE = ALLEGRO_FILE_INTERFACE;
 	export using SEEK = ::ALLEGRO_SEEK;
 

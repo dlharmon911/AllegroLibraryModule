@@ -9,11 +9,11 @@ import :altime;
 namespace ALLEGRO
 {
 	export using THREAD_DATA = ALLEGRO_THREAD;
-	export using THREAD = ALLEGRO::OBJECT_TYPE;
+	export using THREAD = std::shared_ptr<THREAD_DATA>;
 	export using MUTEX_DATA = ALLEGRO_MUTEX;
-	export using MUTEX = ALLEGRO::OBJECT_TYPE;
+	export using MUTEX = std::shared_ptr<MUTEX_DATA>;
 	export using COND_DATA = ALLEGRO_COND;
-	export using COND = ALLEGRO::OBJECT_TYPE;
+	export using COND = std::shared_ptr<COND_DATA>;
 }
 
 namespace al

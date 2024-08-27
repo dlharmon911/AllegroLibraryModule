@@ -36,7 +36,7 @@ namespace ALLEGRO
 	};
 
 	export using HAPTIC_DATA = ALLEGRO_HAPTIC;
-	export using HAPTIC = ALLEGRO::OBJECT_TYPE;
+	export using HAPTIC = std::shared_ptr<HAPTIC_DATA>;
 
 	export using HAPTIC_DIRECTION = ALLEGRO_HAPTIC_DIRECTION;
 	export using HAPTIC_REPLAY = ALLEGRO_HAPTIC_REPLAY;

@@ -8,7 +8,7 @@ import :base;
 namespace ALLEGRO
 {
 
-	export inline void ASSERT(const ALLEGRO::OBJECT_TYPE& x)
+	export template<typename T> inline void ASSERT(const std::shared_ptr<T>& x)
 	{
 		assert((bool)x);
 	}

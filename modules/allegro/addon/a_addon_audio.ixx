@@ -65,27 +65,27 @@ namespace ALLEGRO
 	export using SAMPLE_ID = ALLEGRO_SAMPLE_ID;
 
 	export using SAMPLE_DATA = ALLEGRO_SAMPLE;
-	export using SAMPLE = ALLEGRO::OBJECT_TYPE;
+	export using SAMPLE = std::shared_ptr<SAMPLE_DATA>;
 
 	export using SAMPLE_INSTANCE_DATA = ALLEGRO_SAMPLE_INSTANCE;
-	export using SAMPLE_INSTANCE = ALLEGRO::OBJECT_TYPE;
+	export using SAMPLE_INSTANCE = std::shared_ptr<SAMPLE_INSTANCE_DATA >;
 
 	export using AUDIO_STREAM_DATA = ALLEGRO_AUDIO_STREAM;
-	export using AUDIO_STREAM = ALLEGRO::OBJECT_TYPE;
+	export using AUDIO_STREAM = std::shared_ptr<AUDIO_STREAM_DATA>;
 
 	export using MIXER_DATA = ALLEGRO_MIXER;
-	export using MIXER = ALLEGRO::OBJECT_TYPE;
+	export using MIXER = std::shared_ptr<MIXER_DATA>;
 
 	export using VOICE_DATA = ALLEGRO_VOICE;
-	export using VOICE = ALLEGRO::OBJECT_TYPE;
+	export using VOICE = std::shared_ptr<VOICE_DATA>;
 
 	export using AUDIO_DEVICE_DATA = const ALLEGRO_AUDIO_DEVICE;
-	export using AUDIO_DEVICE = ALLEGRO::CONST_OBJECT_TYPE;
+	export using AUDIO_DEVICE = std::shared_ptr<const AUDIO_DEVICE_DATA>;
 
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_KCM_AUDIO_SRC)
 	export using AUDIO_RECORDER_DATA = ALLEGRO_AUDIO_RECORDER;
-	export using AUDIO_RECORDER = ALLEGRO::OBJECT_TYPE;
+	export using AUDIO_RECORDER = std::shared_ptr<AUDIO_RECORDER_DATA>;
 #endif
 
 	export using AUDIO_DEPTH = ALLEGRO_AUDIO_DEPTH;

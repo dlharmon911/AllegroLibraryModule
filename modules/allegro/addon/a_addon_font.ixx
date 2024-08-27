@@ -9,7 +9,7 @@ import <allegro5/allegro_font.h>;
 namespace ALLEGRO
 {
 	export using FONT_DATA = ALLEGRO_FONT;
-	export using FONT = ALLEGRO::OBJECT_TYPE;
+	export using FONT = std::shared_ptr<FONT_DATA>;
 
 #ifdef ALLEGRO_GLYPH
 	export using FONT_GLYPH = ALLEGRO_GLYPH;

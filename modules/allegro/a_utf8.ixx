@@ -15,7 +15,7 @@ import :memory;
 namespace ALLEGRO
 {
     export using USTRING_DATA = ::ALLEGRO_USTR;
-    export using USTRING = ALLEGRO::OBJECT_TYPE;
+    export using USTRING = std::shared_ptr<USTRING_DATA>;
 }
 
 namespace al

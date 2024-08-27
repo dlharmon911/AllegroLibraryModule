@@ -9,7 +9,7 @@ import :memory;
 namespace ALLEGRO
 {
 	export using CONFIG_DATA = ALLEGRO_CONFIG;
-	export using CONFIG = ALLEGRO::OBJECT_TYPE;
+	export using CONFIG = std::shared_ptr<CONFIG_DATA>;
 	export using CONFIG_SECTION = ALLEGRO_CONFIG_SECTION;
 	export using CONFIG_ENTRY = ALLEGRO_CONFIG_ENTRY;
 }

@@ -68,9 +68,6 @@ namespace al
 
 namespace ALLEGRO
 {
-	export using OBJECT_TYPE = std::shared_ptr<void>;
-	export using CONST_OBJECT_TYPE = std::shared_ptr<const void>;
-
 	export template <typename T> struct POINT
 	{
 		T x;

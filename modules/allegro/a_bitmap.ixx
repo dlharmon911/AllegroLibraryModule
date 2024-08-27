@@ -9,7 +9,7 @@ import :memory;
 namespace ALLEGRO
 {
 	export using BITMAP_DATA = ALLEGRO_BITMAP;
-	export using BITMAP = ALLEGRO::OBJECT_TYPE;
+	export using BITMAP = std::shared_ptr<BITMAP_DATA>;
 	export using BITMAP_CLIP = RECTANGLE<int32_t>;
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
 	export using BITMAP_WRAP = ::ALLEGRO_BITMAP_WRAP;

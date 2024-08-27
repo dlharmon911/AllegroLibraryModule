@@ -9,7 +9,7 @@ import :memory;
 namespace ALLEGRO
 {
 	export using TIMER_DATA = ALLEGRO_TIMER;
-	export using TIMER = ALLEGRO::OBJECT_TYPE;
+	export using TIMER = std::shared_ptr<TIMER_DATA>;
 }
 
 namespace al

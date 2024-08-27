@@ -13,7 +13,7 @@ import :memory;
 namespace ALLEGRO
 {
 	export using DISPLAY_DATA = ALLEGRO_DISPLAY;
-	export using DISPLAY = ALLEGRO::OBJECT_TYPE;
+	export using DISPLAY = std::shared_ptr<DISPLAY_DATA>;
 
 	export enum
 	{

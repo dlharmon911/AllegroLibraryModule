@@ -14,9 +14,9 @@ import :memory;
 namespace ALLEGRO
 {
 	export using FS_ENTRY_DATA = ALLEGRO_FS_ENTRY;
-	export using FS_ENTRY = ALLEGRO::OBJECT_TYPE;
+	export using FS_ENTRY = std::shared_ptr<FS_ENTRY_DATA>;
 	export using FS_INTERFACE_DATA = ALLEGRO_FS_INTERFACE;
-	export using FS_INTERFACE = ALLEGRO::CONST_OBJECT_TYPE;
+	export using FS_INTERFACE = std::shared_ptr<const FS_INTERFACE_DATA>;
 	export using FILE_MODE = ALLEGRO_FILE_MODE;
 	export using FOR_EACH_FS_ENTRY_RESULT = ALLEGRO_FOR_EACH_FS_ENTRY_RESULT;
 

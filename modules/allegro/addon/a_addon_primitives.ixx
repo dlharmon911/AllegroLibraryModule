@@ -91,13 +91,13 @@ namespace ALLEGRO
 	export using VERTEX = ALLEGRO_VERTEX;
 
 	export using VERTEX_DECL_DATA = ALLEGRO_VERTEX_DECL;
-	export using VERTEX_DECL = ALLEGRO::OBJECT_TYPE;
+	export using VERTEX_DECL = std::shared_ptr<VERTEX_DECL_DATA>;
 
 	export using VERTEX_BUFFER_DATA = ALLEGRO_VERTEX_BUFFER;
-	export using VERTEX_BUFFER = ALLEGRO::OBJECT_TYPE;
+	export using VERTEX_BUFFER = std::shared_ptr<VERTEX_BUFFER_DATA>;
 
 	export using INDEX_BUFFER_DATA = ALLEGRO_INDEX_BUFFER;
-	export using INDEX_BUFFER = ALLEGRO::OBJECT_TYPE;
+	export using INDEX_BUFFER = std::shared_ptr<INDEX_BUFFER_DATA>;
 }
 
 namespace al

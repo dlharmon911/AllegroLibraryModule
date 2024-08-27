@@ -11,9 +11,9 @@ import :memory;
 namespace ALLEGRO
 {
     export using EVENT_QUEUE_DATA = ALLEGRO_EVENT_QUEUE;
-    export using EVENT_QUEUE = ALLEGRO::OBJECT_TYPE;
+    export using EVENT_QUEUE = std::shared_ptr<EVENT_QUEUE_DATA>;
     export using EVENT_SOURCE_DATA = ALLEGRO_EVENT_SOURCE;
-    export using EVENT_SOURCE = ALLEGRO::OBJECT_TYPE;
+    export using EVENT_SOURCE = std::shared_ptr<EVENT_SOURCE_DATA>;
     export using EVENT_TYPE = ALLEGRO_EVENT_TYPE;
 
     export enum

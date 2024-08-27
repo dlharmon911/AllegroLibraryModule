@@ -51,7 +51,7 @@ namespace ALLEGRO
 
 
 	export using VIDEO_DATA = ALLEGRO_VIDEO;
-	export using VIDEO = ALLEGRO::OBJECT_TYPE;
+	export using VIDEO = std::shared_ptr<VIDEO_DATA>;
 }
 
 namespace al

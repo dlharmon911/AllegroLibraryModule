@@ -9,7 +9,7 @@ import :memory;
 namespace ALLEGRO
 {
 	export using BITMAP_LOCKED_REGION_DATA = ALLEGRO_LOCKED_REGION;
-	export using BITMAP_LOCKED_REGION = ALLEGRO::OBJECT_TYPE;
+	export using BITMAP_LOCKED_REGION = std::shared_ptr<BITMAP_LOCKED_REGION_DATA>;
 	export enum
 	{
 		BITMAP_LOCK_READ_WRITE = ALLEGRO_LOCK_READWRITE,

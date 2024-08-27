@@ -24,7 +24,7 @@ namespace ALLEGRO
 	export inline const char* SHADER_VAR_ALPHA_TEST_VALUE = ALLEGRO_SHADER_VAR_ALPHA_TEST_VALUE;
 
 	export using SHADER_DATA = ALLEGRO_SHADER;
-	export using SHADER = ALLEGRO::OBJECT_TYPE;
+	export using SHADER = std::shared_ptr<SHADER_DATA>;
 
 	export using SHADER_TYPE = ALLEGRO_SHADER_TYPE;
 	export enum

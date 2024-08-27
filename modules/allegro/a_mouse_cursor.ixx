@@ -10,7 +10,7 @@ import :memory;
 namespace ALLEGRO
 {
 	export using MOUSE_CURSOR_DATA = ALLEGRO_MOUSE_CURSOR;
-	export using MOUSE_CURSOR = ALLEGRO::OBJECT_TYPE;
+	export using MOUSE_CURSOR = std::shared_ptr<MOUSE_CURSOR_DATA>;
 	export using SYSTEM_MOUSE_CURSOR = ALLEGRO_SYSTEM_MOUSE_CURSOR;
 
 	export enum
