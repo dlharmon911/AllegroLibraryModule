@@ -3,6 +3,7 @@ module;
 
 export module allegro:utf8;
 
+import std;
 import <map>;
 import <string>;
 import <memory>;
@@ -75,7 +76,10 @@ namespace al
 
     export inline ALLEGRO::USTRING ustr_dup_substr(const ALLEGRO::USTRING& ustring, int32_t start_pos, int32_t end_pos)
     {
-        return ALLEGRO::USTRING(al_ustr_dup_substr((ALLEGRO::USTRING_DATA*)ustring.get(), start_pos, end_pos), al_ustr_free);
+        ALLEGRO::USTRING_DATA* data = al_ustr_dup_substr((ALLEGRO::USTRING_DATA*)ustring.get(), start_pos, end_pos);
+        ALLEGRO::USTRING rv = ALLEGRO::USTRING(data, al_ustr_free);
+
+        return rv;
     }
 
     export inline const ALLEGRO::USTRING ustr_empty_string()
@@ -372,11 +376,7 @@ namespace al
     {
         return al_utf16_encode(s, c);
     }
-}
 
-
-namespace al
-{
     export inline ALLEGRO::USTRING create_ustring_from_char(int32_t c)
     {
         ALLEGRO::USTRING u(al_ustr_dup(al_ustr_empty_string()), al_ustr_free);
@@ -395,6 +395,23 @@ namespace al
     export inline ALLEGRO::USTRING create_ustring_from_string(const char* string)
     {
         return ALLEGRO::USTRING(al_ustr_new(string), al_ustr_free);
+    }
+
+    size_t ustr_get_char_size(int32_t c)
+    {
+        static const int32_t MinimumValue = 0;
+        static const int32_t MaximumValue = 0x10ffff;
+
+        if (c >= MinimumValue && c <= MaximumValue)
+        {
+            if (c <= 0x007f) return 1;
+            if (c <= 0x07ff) return 2;
+            if (c <= 0xffff) return 3;
+
+            return 4;
+        }
+
+        return 0;
     }
 }
 
@@ -418,17 +435,40 @@ namespace std
 export template <class E, class TR = std::char_traits<E>>
 std::basic_ostream<E, TR>& operator << (std::basic_ostream<E, TR>& stream, const ALLEGRO::USTRING& str)
 {
-    stream << al::c_str(str);
+    if (str)
+    {
+        stream.write(al_cstr(str.get()), al_ustr_size(str.get()));
+    }
+
     return stream;
 }
 
 export template <class E, class TR = std::char_traits<E>>
-std::basic_ostream<E, TR>& operator >> (std::basic_ostream<E, TR>& stream, ALLEGRO::USTRING& str) {
-    std::basic_string<E, TR> temp;
-    stream >> temp;
-    str = al::create_ustring_from_string(temp);
+std::basic_istream<E, TR>& operator >> (std::basic_istream<E, TR>& stream, ALLEGRO::USTRING& str)
+{
+    str.reset(al_ustr_new(""), al_ustr_free);
+
+    int32_t c = stream.get();
+
+    while (c != 0)
+    {
+        if (c == EOF)
+        {
+            return stream;
+        }
+
+        size_t s = al::ustr_get_char_size(c);
+
+        for (size_t i = 0; i < s; ++i)
+        {
+            al::ustr_append_chr(str, c);
+            c = stream.get();
+        }
+    }
+
     return stream;
 }
+
 
 
 

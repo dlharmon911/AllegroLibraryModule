@@ -147,6 +147,11 @@ namespace al
 		return ::al_get_bitmap_height((ALLEGRO::BITMAP_DATA*)bitmap.get());
 	}
 
+	export inline ALLEGRO::SIZE<int32_t> get_bitmap_dimensions(const ALLEGRO::BITMAP& bitmap)
+	{
+		return { ::al_get_bitmap_width((ALLEGRO::BITMAP_DATA*)bitmap.get()), al_get_bitmap_height((ALLEGRO::BITMAP_DATA*)bitmap.get()) };
+	}
+
 	export inline ALLEGRO::COLOR get_pixel(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::POINT<float> point)
 	{
 		return (ALLEGRO::COLOR)al_get_pixel((ALLEGRO::BITMAP_DATA*)bitmap.get(), point.x, point.y);

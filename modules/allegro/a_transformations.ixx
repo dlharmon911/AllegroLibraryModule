@@ -37,7 +37,7 @@ namespace al
 		al_build_transform(&trans, translation.x, translation.y, scale.x, scale.y, theta);
 	}
 
-	export inline void build_camera_transform(ALLEGRO::TRANSFORM& trans, const ALLEGRO::VECTOR3<float>& position, const ALLEGRO::VECTOR3<float>& look, const ALLEGRO::VECTOR3<float>& up)
+	export inline void build_camera_transform(ALLEGRO::TRANSFORM& trans, const ALLEGRO::VECTOR3<float> position, const ALLEGRO::VECTOR3<float> look, const ALLEGRO::VECTOR3<float> up)
 	{
 		al_build_camera_transform(&trans, position.x, position.y, position.z, look.x, look.y, look.z, up.x, up.y, up.z);
 	}
@@ -47,7 +47,7 @@ namespace al
 		al_translate_transform(&trans, translation.x, translation.y);
 	}
 
-	export inline void translate_transform_3d(ALLEGRO::TRANSFORM& trans, const ALLEGRO::VECTOR3<float>& translation)
+	export inline void translate_transform_3d(ALLEGRO::TRANSFORM& trans, const ALLEGRO::VECTOR3<float> translation)
 	{
 		al_translate_transform_3d(&trans, translation.x, translation.y, translation.z);
 	}
@@ -57,37 +57,37 @@ namespace al
 		al_rotate_transform(&trans, theta);
 	}
 
-	export inline void rotate_transform_3d(ALLEGRO::TRANSFORM& trans, const ALLEGRO::VECTOR3<float>& v, float angle)
+	export inline void rotate_transform_3d(ALLEGRO::TRANSFORM& trans, const ALLEGRO::VECTOR3<float> v, float angle)
 	{
 		al_rotate_transform_3d(&trans, v.x, v.y, v.z, angle);
 	}
 
-	export inline void scale_transform(ALLEGRO::TRANSFORM& trans, ALLEGRO::POINT<float>& scale)
+	export inline void scale_transform(ALLEGRO::TRANSFORM& trans, ALLEGRO::POINT<float> scale)
 	{
 		al_scale_transform(&trans, scale.x, scale.y);
 	}
 
-	export inline void scale_transform_3d(ALLEGRO::TRANSFORM& trans, const ALLEGRO::VECTOR3<float>& scale)
+	export inline void scale_transform_3d(ALLEGRO::TRANSFORM& trans, const ALLEGRO::VECTOR3<float> scale)
 	{
 		al_scale_transform_3d(&trans, scale.x, scale.y, scale.y);
 	}
 
-	export inline void transform_coordinates(const ALLEGRO::TRANSFORM& trans, ALLEGRO::POINT<float>& point32_t)
+	export inline void transform_coordinates(const ALLEGRO::TRANSFORM& trans, ALLEGRO::POINT<float> point32_t)
 	{
 		al_transform_coordinates(&trans, &point32_t.x, &point32_t.y);
 	}
 
-	export inline void transform_coordinates_3d(const ALLEGRO::TRANSFORM& trans, ALLEGRO::VECTOR3<float>& point32_t)
+	export inline void transform_coordinates_3d(const ALLEGRO::TRANSFORM& trans, ALLEGRO::VECTOR3<float> point32_t)
 	{
 		al_transform_coordinates_3d(&trans, &point32_t.x, &point32_t.y, &point32_t.z);
 	}
 
-	export inline void transform_coordinates_4d(const ALLEGRO::TRANSFORM& trans, ALLEGRO::VECTOR4<float>& point32_t)
+	export inline void transform_coordinates_4d(const ALLEGRO::TRANSFORM& trans, ALLEGRO::VECTOR4<float> point32_t)
 	{
 		al_transform_coordinates_4d(&trans, &point32_t.x, &point32_t.y, &point32_t.z, &point32_t.w);
 	}
 
-	export inline void transform_coordinates_3d_projective(const ALLEGRO::TRANSFORM& trans, ALLEGRO::VECTOR3<float>& point32_t)
+	export inline void transform_coordinates_3d_projective(const ALLEGRO::TRANSFORM& trans, ALLEGRO::VECTOR3<float> point32_t)
 	{
 		al_transform_coordinates_3d_projective(&trans, &point32_t.x, &point32_t.y, &point32_t.z);
 	}

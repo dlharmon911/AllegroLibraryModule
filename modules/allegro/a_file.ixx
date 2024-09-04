@@ -64,7 +64,7 @@ namespace al
 		return al_fflush((ALLEGRO::FILE_DATA*)file.get());
 	}
 
-	export inline int64_t ftell(ALLEGRO::FILE& file)
+	export inline int64_t ftell(const ALLEGRO::FILE& file)
 	{
 		return al_ftell((ALLEGRO::FILE_DATA*)file.get());
 	}
