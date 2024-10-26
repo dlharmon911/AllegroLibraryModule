@@ -82,27 +82,27 @@ namespace al
 		return ALLEGRO::PATH(al_get_standard_path(id), internal::deleter_empty<ALLEGRO_PATH>);
 	}
 
-	export inline void set_exe_name(const char* path)
+	export inline void set_exe_name(const_cptr_t path)
 	{
 		al_set_exe_name(path);
 	}
 
-	export inline void set_org_name(const char* org_name)
+	export inline void set_org_name(const_cptr_t org_name)
 	{
 		al_set_org_name(org_name);
 	}
 
-	export inline void set_app_name(const char* app_name)
+	export inline void set_app_name(const_cptr_t app_name)
 	{
 		al_set_app_name(app_name);
 	}
 
-	export inline const char* get_org_name()
+	export inline const_cptr_t get_org_name()
 	{
-		return (const char*)al_get_org_name();
+		return (const_cptr_t)al_get_org_name();
 	}
 
-	export inline const char* al_get_app_name()
+	export inline const_cptr_t al_get_app_name()
 	{
 		return al_get_app_name();
 	}

@@ -8,10 +8,10 @@ import allegro;
     /* Must not be used with a trailing semicolon. */
 #ifdef ALLEGRO_GCC
 #define ALLEGRO_DEBUG_CHANNEL(x) \
-         static char const *__al_debug_channel __attribute__((unused)) = x;
+         static const_cptr_t __al_debug_channel __attribute__((unused)) = x;
 #else
 #define ALLEGRO_DEBUG_CHANNEL(x) \
-         static char const *__al_debug_channel = x;
+         static const_cptr_t __al_debug_channel = x;
 #endif
 #define ALLEGRO_TRACE_CHANNEL_LEVEL(channel, level)                        \
       !_al_trace_prefix(channel, level, __FILE__, __LINE__, __func__)         \
@@ -48,7 +48,7 @@ import allegro;
 #define ALLEGRO_ASSERT_CONCAT(a, b)    ALLEGRO_ASSERT_CONCAT_(a, b)
 #define ALLEGRO_STATIC_ASSERT(module, e) \
    struct ALLEGRO_ASSERT_CONCAT(static_assert_##module##_line_, __LINE__) \
-      { unsigned int bf : !!(e); }
+      { unsigned int32_t bf : !!(e); }
 
 /* We are lazy and use just ASSERT while Allegro itself is compiled. */
 #ifdef ALLEGRO_LIB_BUILD

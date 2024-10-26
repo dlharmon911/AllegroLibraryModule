@@ -13,9 +13,9 @@ import allegro.image_addon;
 export class application
 {
 public:
-	static int32_t run(int32_t argc, char** argv)
+	static auto run(int32_t argc, cptr_t* argv) -> int32_t
 	{
-		std::vector<char*> args;
+		std::vector<cptr_t> args;
 		int32_t rv = 0;
 		std::fstream fileOut;
 		std::streambuf* streamBuf = nullptr;
@@ -59,7 +59,7 @@ private:
 	{
 	}
 
-	int32_t init(const std::vector<char*>& args)
+	auto init(const std::vector<cptr_t>& args) -> int32_t
 	{
 		std::cout << "Initialization Begin\n";
 
@@ -166,7 +166,7 @@ private:
 		return 0;
 	}
 
-	void shutdown()
+	auto shutdown() -> void
 	{
 		std::cout << "\nShutdown Begin\n";
 
@@ -187,7 +187,7 @@ private:
 		std::cout << "Shutdown Complete\n" << std::endl;
 	}
 
-	int32_t loop()
+	auto loop() -> int32_t
 	{
 		while (!this->m_kill)
 		{
@@ -211,7 +211,7 @@ private:
 		return 0;
 	}
 
-	void draw()
+	auto draw() -> void
 	{
 		static float a = 0.0f;
 
@@ -228,12 +228,12 @@ private:
 		al::flip_display();
 	}
 
-	void logic()
+	auto logic() -> void
 	{
 		this->m_dirty = true;
 	}
 
-	void input()
+	auto input() -> void
 	{
 		static ALLEGRO::EVENT event;
 
@@ -260,13 +260,13 @@ private:
 	ALLEGRO::BITMAP m_buffer;
 	ALLEGRO::EVENT_QUEUE m_queue;
 	ALLEGRO::TIMER m_timer;
+	int32_t m_counter;
 	bool m_kill;
 	bool m_dirty;
-	int32_t m_counter;
 
 	const int32_t SCREEN_W = 800;
 	const int32_t SCREEN_H = 600;
 	const double TIMING = 60.0;
-	const char* APPNAME = (const char*)"Tic Tac Toe";
+	const_cptr_t APPNAME = (const_cptr_t)"Tic Tac Toe";
 };
 

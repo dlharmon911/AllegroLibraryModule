@@ -36,6 +36,7 @@ namespace ALLEGRO
 	};
 
 	export using HAPTIC_DATA = ALLEGRO_HAPTIC;
+	export using HAPTIC_DATA_PTR = std::add_pointer<HAPTIC_DATA>::type;
 	export using HAPTIC = std::shared_ptr<HAPTIC_DATA>;
 
 	export using HAPTIC_DIRECTION = ALLEGRO_HAPTIC_DIRECTION;
@@ -48,7 +49,9 @@ namespace ALLEGRO
 	export using HAPTIC_RUMBLE_EFFECT = ALLEGRO_HAPTIC_RUMBLE_EFFECT;
 	export using HAPTIC_EFFECT_UNION = ALLEGRO_HAPTIC_EFFECT_UNION;
 	export using HAPTIC_EFFECT = ALLEGRO_HAPTIC_EFFECT;
+	export using HAPTIC_EFFECT_PTR = std::add_pointer<HAPTIC_EFFECT>::type;
 	export using HAPTIC_EFFECT_ID = ALLEGRO_HAPTIC_EFFECT_ID;
+	export using HAPTIC_EFFECT_ID_PTR = std::add_pointer<HAPTIC_EFFECT_ID>::type;
 }
 
 namespace al
@@ -127,15 +130,15 @@ namespace al
 	export inline auto set_haptic_autocenter(ALLEGRO::HAPTIC& haptic, double)) -> bool;
 	export inline auto get_haptic_autocenter(ALLEGRO::HAPTIC& haptic)) -> double;
 	export inline auto get_max_haptic_effects(ALLEGRO::HAPTIC& haptic))->int32_t;
-	export inline auto is_haptic_effect_ok(ALLEGRO::HAPTIC& haptic, ALLEGRO::HAPTIC_EFFECT*)) -> bool;
-	export inline auto upload_haptic_effect(ALLEGRO::HAPTIC& haptic, ALLEGRO::HAPTIC_EFFECT*, ALLEGRO::HAPTIC_EFFECT_ID*)) -> bool;
-	export inline auto play_haptic_effect(ALLEGRO::HAPTIC_EFFECT_ID*, int32_t)) -> bool;
-	export inline auto upload_and_play_haptic_effect(ALLEGRO::HAPTIC& haptic, ALLEGRO::HAPTIC_EFFECT*, ALLEGRO::HAPTIC_EFFECT_ID*, int32_t)) -> bool;
-	export inline auto stop_haptic_effect(ALLEGRO::HAPTIC_EFFECT_ID*)) -> bool;
-	export inline auto is_haptic_effect_playing(ALLEGRO::HAPTIC_EFFECT_ID*)) -> bool;
-	export inline auto release_haptic_effect(ALLEGRO::HAPTIC_EFFECT_ID*)) -> bool;
-	export inline auto get_haptic_effect_duration(ALLEGRO::HAPTIC_EFFECT*)) -> double;
-	export inline auto rumble_haptic(ALLEGRO::HAPTIC& haptic, double, double, ALLEGRO::HAPTIC_EFFECT_ID*)) -> bool;
+	export inline auto is_haptic_effect_ok(ALLEGRO::HAPTIC& haptic, ALLEGRO::HAPTIC_EFFECT_PTR)) -> bool;
+	export inline auto upload_haptic_effect(ALLEGRO::HAPTIC& haptic, ALLEGRO::HAPTIC_EFFECT_PTR, ALLEGRO::HAPTIC_EFFECT_ID_PTR)) -> bool;
+	export inline auto play_haptic_effect(ALLEGRO::HAPTIC_EFFECT_ID_PTR, int32_t)) -> bool;
+	export inline auto upload_and_play_haptic_effect(ALLEGRO::HAPTIC& haptic, ALLEGRO::HAPTIC_EFFECT_PTR, ALLEGRO::HAPTIC_EFFECT_ID_PTR, int32_t)) -> bool;
+	export inline auto stop_haptic_effect(ALLEGRO::HAPTIC_EFFECT_ID_PTR)) -> bool;
+	export inline auto is_haptic_effect_playing(ALLEGRO::HAPTIC_EFFECT_ID_PTR)) -> bool;
+	export inline auto release_haptic_effect(ALLEGRO::HAPTIC_EFFECT_ID_PTR)) -> bool;
+	export inline auto get_haptic_effect_duration(ALLEGRO::HAPTIC_EFFECT_PTR)) -> double;
+	export inline auto rumble_haptic(ALLEGRO::HAPTIC& haptic, double, double, ALLEGRO::HAPTIC_EFFECT_ID_PTR)) -> bool;
 
 }
 #endif

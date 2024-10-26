@@ -13,7 +13,7 @@ namespace ALLEGRO
 		assert((bool)x);
 	}
 
-	export inline auto ASSERT(const void* x) -> void
+	export inline auto ASSERT(const_vptr_t x) -> void
 	{
 		assert(x);
 	}

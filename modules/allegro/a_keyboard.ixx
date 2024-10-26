@@ -43,9 +43,9 @@ namespace al
 		return al_set_keyboard_leds(leds);
 	}
 
-	export inline auto keycode_to_name(int32_t keycode) -> const char*
+	export inline auto keycode_to_name(int32_t keycode) -> const_cptr_t
 	{
-		return (const char*)al_keycode_to_name(keycode);
+		return (const_cptr_t)al_keycode_to_name(keycode);
 	}
 
 	export inline auto get_keyboard_state(ALLEGRO::KEYBOARD_STATE& ret_state) -> void

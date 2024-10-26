@@ -94,14 +94,14 @@ namespace al
 		al_color_hsl_to_rgb(hsl.hue, hsl.saturation, hsl.lightness, &rgb.red, &rgb.green, &rgb.blue);
 	}
 
-	export inline auto color_name_to_rgb(const char* name, ALLEGRO::COLOR_RGB& rgb) -> bool
+	export inline auto color_name_to_rgb(const_cptr_t name, ALLEGRO::COLOR_RGB& rgb) -> bool
 	{
 		return al_color_name_to_rgb(name, &rgb.red, &rgb.green, &rgb.blue);
 	}
 
-	export inline auto color_rgb_to_name(const ALLEGRO::COLOR_RGB& rgb) -> const char*
+	export inline auto color_rgb_to_name(const ALLEGRO::COLOR_RGB& rgb) -> const_cptr_t
 	{
-		return (const char*)al_color_rgb_to_name(rgb.red, rgb.green, rgb.blue);
+		return (const_cptr_t)al_color_rgb_to_name(rgb.red, rgb.green, rgb.blue);
 	}
 
 	export inline auto color_cmyk_to_rgb(const ALLEGRO::COLOR_CMYK cmyk, ALLEGRO::COLOR_RGB& rgb) -> void
@@ -124,12 +124,12 @@ namespace al
 		al_color_rgb_to_yuv(rgb.red, rgb.green, rgb.blue, &yuv.y, &yuv.u, &yuv.vec);
 	}
 
-	export inline auto color_rgb_to_html(const ALLEGRO::COLOR_RGB rgb, char* string) -> void
+	export inline auto color_rgb_to_html(const ALLEGRO::COLOR_RGB rgb, cptr_t string) -> void
 	{
 		al_color_rgb_to_html(rgb.red, rgb.green, rgb.blue, string);
 	}
 
-	export inline auto color_html_to_rgb(const char* string, ALLEGRO::COLOR_RGB& rgb) -> bool
+	export inline auto color_html_to_rgb(const_cptr_t string, ALLEGRO::COLOR_RGB& rgb) -> bool
 	{
 		return al_color_html_to_rgb(string, &rgb.red, &rgb.green, &rgb.blue);
 	}
@@ -154,12 +154,12 @@ namespace al
 		return (ALLEGRO::COLOR)al_color_hsv(hsv.hue, hsv.saturation, hsv.value);
 	}
 
-	export inline auto color_name(const char* name) -> ALLEGRO::COLOR
+	export inline auto color_name(const_cptr_t name) -> ALLEGRO::COLOR
 	{
 		return (ALLEGRO::COLOR)al_color_name(name);
 	}
 
-	export inline auto color_html(const char* string) -> ALLEGRO::COLOR
+	export inline auto color_html(const_cptr_t string) -> ALLEGRO::COLOR
 	{
 		return (ALLEGRO::COLOR)al_color_html(string);
 	}

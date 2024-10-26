@@ -14,8 +14,10 @@ import :memory;
 namespace ALLEGRO
 {
 	export using FS_ENTRY_DATA = ALLEGRO_FS_ENTRY;
+	export using FS_ENTRY_DATA_PTR = std::add_pointer<FS_ENTRY_DATA>::type;
 	export using FS_ENTRY = std::shared_ptr<FS_ENTRY_DATA>;
 	export using FS_INTERFACE_DATA = ALLEGRO_FS_INTERFACE;
+	export using FS_INTERFACE_DATA_PTR = std::add_pointer<FS_INTERFACE_DATA>::type;
 	export using FS_INTERFACE = std::shared_ptr<const FS_INTERFACE_DATA>;
 	export using FILE_MODE = ALLEGRO_FILE_MODE;
 	export using FOR_EACH_FS_ENTRY_RESULT = ALLEGRO_FOR_EACH_FS_ENTRY_RESULT;
@@ -47,115 +49,115 @@ namespace al
 {
 	namespace internal
 	{
-		export inline auto create_fs_entry(const char* path) -> ALLEGRO::FS_ENTRY_DATA*
+		export inline auto create_fs_entry(const_cptr_t path) -> ALLEGRO::FS_ENTRY_DATA_PTR
 		{
 			return al_create_fs_entry(path);
 		}
 
-		export inline auto destroy_fs_entry(ALLEGRO::FS_ENTRY_DATA* data) -> void
+		export inline auto destroy_fs_entry(ALLEGRO::FS_ENTRY_DATA_PTR data) -> void
 		{
 			al_destroy_fs_entry(data);
 		}
 	}
 
-	export inline auto create_fs_entry(const char* path) -> ALLEGRO::FS_ENTRY
+	export inline auto create_fs_entry(const_cptr_t path) -> ALLEGRO::FS_ENTRY
 	{
 		return ALLEGRO::FS_ENTRY(al_create_fs_entry(path), internal::destroy_fs_entry);
 	}
 
-	export inline auto get_fs_entry_name(const ALLEGRO::FS_ENTRY& e) -> const char*
+	export inline auto get_fs_entry_name(const ALLEGRO::FS_ENTRY& e) -> const_cptr_t
 	{
-		return (const char*)al_get_fs_entry_name((ALLEGRO::FS_ENTRY_DATA*)e.get());
+		return (const_cptr_t)al_get_fs_entry_name((ALLEGRO::FS_ENTRY_DATA_PTR)e.get());
 	}
 
 	export inline auto update_fs_entry(const ALLEGRO::FS_ENTRY& e) -> bool
 	{
-		return al_update_fs_entry((ALLEGRO::FS_ENTRY_DATA*)e.get());
+		return al_update_fs_entry((ALLEGRO::FS_ENTRY_DATA_PTR)e.get());
 	}
 
 	export inline auto get_fs_entry_mode(const ALLEGRO::FS_ENTRY& e) -> uint32_t
 	{
-		return al_get_fs_entry_mode((ALLEGRO::FS_ENTRY_DATA*)e.get());
+		return al_get_fs_entry_mode((ALLEGRO::FS_ENTRY_DATA_PTR)e.get());
 	}
 
 	export inline auto get_fs_entry_atime(const ALLEGRO::FS_ENTRY& e) -> time_t
 	{
-		return al_get_fs_entry_atime((ALLEGRO::FS_ENTRY_DATA*)e.get());
+		return al_get_fs_entry_atime((ALLEGRO::FS_ENTRY_DATA_PTR)e.get());
 	}
 
 	export inline auto get_fs_entry_mtime(const ALLEGRO::FS_ENTRY& e) -> time_t
 	{
-		return al_get_fs_entry_mtime((ALLEGRO::FS_ENTRY_DATA*)e.get());
+		return al_get_fs_entry_mtime((ALLEGRO::FS_ENTRY_DATA_PTR)e.get());
 	}
 
 	export inline auto get_fs_entry_ctime(const ALLEGRO::FS_ENTRY& e) -> time_t
 	{
-		return al_get_fs_entry_ctime((ALLEGRO::FS_ENTRY_DATA*)e.get());
+		return al_get_fs_entry_ctime((ALLEGRO::FS_ENTRY_DATA_PTR)e.get());
 	}
 
 	export inline auto get_fs_entry_size(const ALLEGRO::FS_ENTRY& e) -> off_t
 	{
-		return al_get_fs_entry_size((ALLEGRO::FS_ENTRY_DATA*)e.get());
+		return al_get_fs_entry_size((ALLEGRO::FS_ENTRY_DATA_PTR)e.get());
 	}
 
 	export inline auto fs_entry_exists(const ALLEGRO::FS_ENTRY& e) -> bool
 	{
-		return al_fs_entry_exists((ALLEGRO::FS_ENTRY_DATA*)e.get());
+		return al_fs_entry_exists((ALLEGRO::FS_ENTRY_DATA_PTR)e.get());
 	}
 
 	export inline auto remove_fs_entry(const ALLEGRO::FS_ENTRY& e) -> bool
 	{
-		return al_remove_fs_entry((ALLEGRO::FS_ENTRY_DATA*)e.get());
+		return al_remove_fs_entry((ALLEGRO::FS_ENTRY_DATA_PTR)e.get());
 	}
 
 	export inline auto open_directory(const ALLEGRO::FS_ENTRY& e) -> bool
 	{
-		return al_open_directory((ALLEGRO::FS_ENTRY_DATA*)e.get());
+		return al_open_directory((ALLEGRO::FS_ENTRY_DATA_PTR)e.get());
 	}
 
 	export inline auto read_directory(const ALLEGRO::FS_ENTRY& e) -> ALLEGRO::FS_ENTRY
 	{
-		return ALLEGRO::FS_ENTRY(al_read_directory((ALLEGRO::FS_ENTRY_DATA*)e.get()), internal::destroy_fs_entry);
+		return ALLEGRO::FS_ENTRY(al_read_directory((ALLEGRO::FS_ENTRY_DATA_PTR)e.get()), internal::destroy_fs_entry);
 	}
 
 	export inline auto close_directory(const ALLEGRO::FS_ENTRY& e) -> bool
 	{
-		return al_close_directory((ALLEGRO::FS_ENTRY_DATA*)e.get());
+		return al_close_directory((ALLEGRO::FS_ENTRY_DATA_PTR)e.get());
 	}
 
-	export inline auto filename_exists(const char* path) -> bool
+	export inline auto filename_exists(const_cptr_t path) -> bool
 	{
 		return al_filename_exists(path);
 	}
 
-	export inline auto remove_filename(const char* path) -> bool
+	export inline auto remove_filename(const_cptr_t path) -> bool
 	{
 		return al_remove_filename(path);
 	}
 
-	export inline auto get_current_directory() -> const char*
+	export inline auto get_current_directory() -> const_cptr_t
 	{
 		return al_get_current_directory();
 	}
 
-	export inline auto change_directory(const char* path) -> bool
+	export inline auto change_directory(const_cptr_t path) -> bool
 	{
 		return al_change_directory(path);
 	}
 
-	export inline auto make_directory(const char* path) -> bool
+	export inline auto make_directory(const_cptr_t path) -> bool
 	{
 		return al_make_directory(path);
 	}
 
-	export inline auto open_fs_entry(const ALLEGRO::FS_ENTRY& e, const char* mode) -> ALLEGRO::FILE
+	export inline auto open_fs_entry(const ALLEGRO::FS_ENTRY& e, const_cptr_t mode) -> ALLEGRO::FILE
 	{
-		return ALLEGRO::FILE(al_open_fs_entry((ALLEGRO::FS_ENTRY_DATA*)e.get(), mode), internal::destroy_file);
+		return ALLEGRO::FILE(al_open_fs_entry((ALLEGRO::FS_ENTRY_DATA_PTR)e.get(), mode), internal::destroy_file);
 	}
 
-	export inline auto for_each_fs_entry(ALLEGRO::FS_ENTRY& dir, int32_t(*callback)(ALLEGRO_FS_ENTRY* entry, void* extra), void* extra) -> int32_t
+	export inline auto for_each_fs_entry(ALLEGRO::FS_ENTRY& dir, int32_t(*callback)(ALLEGRO_FS_ENTRY* entry, vptr_t extra), vptr_t extra) -> int32_t
 	{
-		return al_for_each_fs_entry((ALLEGRO::FS_ENTRY_DATA*)dir.get(), callback, extra);
+		return al_for_each_fs_entry((ALLEGRO::FS_ENTRY_DATA_PTR)dir.get(), callback, extra);
 	}
 
 	export inline auto get_fs_interface() -> const ALLEGRO::FS_INTERFACE
@@ -165,7 +167,7 @@ namespace al
 
 	export inline auto set_fs_interface(const ALLEGRO::FS_INTERFACE& vtable) -> void
 	{
-		al_set_fs_interface((ALLEGRO::FS_INTERFACE_DATA*)vtable.get());
+		al_set_fs_interface((ALLEGRO::FS_INTERFACE_DATA_PTR)vtable.get());
 	}
 
 	export inline auto set_standard_fs_interface() -> void

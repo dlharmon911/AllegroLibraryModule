@@ -6,6 +6,11 @@ import <memory>;
 import <allegro5/base.h>;
 import <type_traits>;
 
+export using cptr_t = std::add_pointer<char>::type;
+export using const_cptr_t = std::add_pointer<const char>::type;
+export using vptr_t = std::add_pointer<void>::type;
+export using const_vptr_t = std::add_pointer<const void>::type;
+
 namespace al
 {
 	export inline constexpr auto get_version() -> uint8_t
@@ -33,14 +38,14 @@ namespace al
 		return ALLEGRO_RELEASE_NUMBER;
 	}
 
-	export inline auto get_version_string() -> const char*
+	export inline auto get_version_string() -> const_cptr_t
 	{
-		return (const char*)ALLEGRO_VERSION_STR;
+		return (const_cptr_t)ALLEGRO_VERSION_STR;
 	}
 
-	export inline auto get_version_date_string() -> const char*
+	export inline auto get_version_date_string() -> const_cptr_t
 	{
-		return (const char*)ALLEGRO_DATE_STR;
+		return (const_cptr_t)ALLEGRO_DATE_STR;
 	}
 
 	export inline constexpr auto get_version_date() -> int32_t
@@ -63,7 +68,7 @@ namespace al
 		return (((a) << 24) | ((b) << 16) | ((c) << 8) | (d));
 	}
 
-	export inline auto run_main(int argc, std::add_pointer<char*>::type argv, int (*user_main)(int, std::add_pointer<char*>::type)) -> int32_t
+	export inline auto run_main(int32_t argc, std::add_pointer<cptr_t>::type argv, int32_t(*user_main)(int32_t, std::add_pointer<cptr_t>::type)) -> int32_t
 	{
 		return al_run_main(argc, argv, user_main);
 	}

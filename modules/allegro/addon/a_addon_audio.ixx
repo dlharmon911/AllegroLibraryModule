@@ -153,14 +153,14 @@ namespace al
 		}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_KCM_AUDIO_SRC)
-		export inline auto destroy_audio_recorder(ALLEGRO::AUDIO_RECORDER_DATA* data)
+		export inline auto destroy_audio_recorder(ALLEGRO::AUDIO_RECORDER_DATA_PTR data)
 		{
 			al_destroy_audio_recorder(data);
 		}
 #endif
 	}
 
-	export inline auto create_sample(void* buffer, uint32_t samples, uint32_t freq, ALLEGRO::AUDIO_DEPTH depth, ALLEGRO::CHANNEL_CONF chan_conf, bool free_buf) -> ALLEGRO::SAMPLE
+	export inline auto create_sample(vptr_t buffer, uint32_t samples, uint32_t freq, ALLEGRO::AUDIO_DEPTH depth, ALLEGRO::CHANNEL_CONF chan_conf, bool free_buf) -> ALLEGRO::SAMPLE
 	{
 		return ALLEGRO::SAMPLE(::al_create_sample(buffer, samples, freq, depth, chan_conf, free_buf), internal::destroy_sample);
 	}
@@ -190,7 +190,7 @@ namespace al
 		return al_get_sample_channels((ALLEGRO::SAMPLE_DATA_PTR)sample.get());
 	}
 	
-	export inline auto get_sample_data(const ALLEGRO::SAMPLE& sample) -> void*
+	export inline auto get_sample_data(const ALLEGRO::SAMPLE& sample) -> vptr_t
 	{
 		return al_get_sample_data((ALLEGRO::SAMPLE_DATA_PTR)sample.get());
 	}
@@ -397,7 +397,7 @@ namespace al
 		return al_get_audio_stream_played_samples((ALLEGRO::AUDIO_STREAM_DATA_PTR)stream.get());
 	}
 
-	export inline auto get_audio_stream_fragment(const ALLEGRO::AUDIO_STREAM& stream) -> void*
+	export inline auto get_audio_stream_fragment(const ALLEGRO::AUDIO_STREAM& stream) -> vptr_t
 	{
 		return al_get_audio_stream_fragment((ALLEGRO::AUDIO_STREAM_DATA_PTR)stream.get());
 	}
@@ -432,7 +432,7 @@ namespace al
 		return al_detach_audio_stream((ALLEGRO::AUDIO_STREAM_DATA_PTR)stream.get());
 	}
 
-	export inline auto set_audio_stream_fragment(ALLEGRO::AUDIO_STREAM& stream, void* value) -> bool
+	export inline auto set_audio_stream_fragment(ALLEGRO::AUDIO_STREAM& stream, vptr_t value) -> bool
 	{
 		return al_set_audio_stream_fragment((ALLEGRO::AUDIO_STREAM_DATA_PTR)stream.get(), value);
 	}
@@ -473,12 +473,12 @@ namespace al
 		return al_set_audio_stream_channel_matrix((ALLEGRO::AUDIO_STREAM_DATA_PTR)stream.get(), matrix);
 	}
 
-	export inline auto play_audio_stream(const char* filename) -> ALLEGRO::AUDIO_STREAM
+	export inline auto play_audio_stream(const_cptr_t filename) -> ALLEGRO::AUDIO_STREAM
 	{
 		return ALLEGRO::AUDIO_STREAM(al_play_audio_stream(filename), internal::deleter_empty<ALLEGRO::AUDIO_STREAM_DATA>);
 	}
 
-	export inline auto play_audio_stream_f(ALLEGRO::FILE& fp, const char* ident) -> ALLEGRO::AUDIO_STREAM
+	export inline auto play_audio_stream_f(ALLEGRO::FILE& fp, const_cptr_t ident) -> ALLEGRO::AUDIO_STREAM
 	{
 		return ALLEGRO::AUDIO_STREAM(al_play_audio_stream_f(fp.get(), ident), internal::deleter_empty<ALLEGRO::AUDIO_STREAM_DATA>);
 	}
@@ -504,7 +504,7 @@ namespace al
 		return al_attach_mixer_to_mixer((ALLEGRO::MIXER_DATA_PTR)stream.get(), (ALLEGRO::MIXER_DATA_PTR)mixer.get());
 	}
 
-	export inline auto set_mixer_postprocess_callback(ALLEGRO::MIXER& mixer, void (*cb)(void* buf, uint32_t samples, void* data), void* data) -> bool
+	export inline auto set_mixer_postprocess_callback(ALLEGRO::MIXER& mixer, void (*cb)(vptr_t buf, uint32_t samples, vptr_t data), vptr_t data) -> bool
 	{
 		return al_set_mixer_postprocess_callback((ALLEGRO::MIXER_DATA_PTR)mixer.get(), cb, data);
 	}
@@ -650,7 +650,7 @@ namespace al
 		return al_get_audio_depth_size(conf);
 	}
 
-	export inline auto fill_silence(void* buf, uint32_t samples, ALLEGRO::AUDIO_DEPTH depth, ALLEGRO::CHANNEL_CONF chan_conf) -> void
+	export inline auto fill_silence(vptr_t buf, uint32_t samples, ALLEGRO::AUDIO_DEPTH depth, ALLEGRO::CHANNEL_CONF chan_conf) -> void
 	{
 		al_fill_silence(buf, samples, depth, chan_conf);
 	}
@@ -665,9 +665,9 @@ namespace al
 		return ALLEGRO::AUDIO_DEVICE(al_get_audio_output_device(index), internal::deleter_empty<ALLEGRO::AUDIO_DEVICE_DATA>);
 	}
 
-	export inline auto get_audio_device_name(const ALLEGRO::AUDIO_DEVICE& device) -> const char*
+	export inline auto get_audio_device_name(const ALLEGRO::AUDIO_DEVICE& device) -> const_cptr_t
 	{
-		return al_get_audio_device_name((ALLEGRO::AUDIO_DEVICE_DATA*)device.get());
+		return al_get_audio_device_name((ALLEGRO::AUDIO_DEVICE_DATA_PTR)device.get());
 	}
 
 	export inline auto reserve_samples(int32_t reserve_samples) -> bool
@@ -727,77 +727,77 @@ namespace al
 	}
 #endif
 
-	export inline auto register_sample_loader(const char* ext, ALLEGRO::SAMPLE_DATA_PTR (*loader)(const char* filename)) -> bool
+	export inline auto register_sample_loader(const_cptr_t ext, ALLEGRO::SAMPLE_DATA_PTR (*loader)(const_cptr_t filename)) -> bool
 	{
 		return al_register_sample_loader(ext, loader);
 	}
 
-	export inline auto register_sample_saver(const char* ext, bool (*saver)(const char* filename, ALLEGRO::SAMPLE_DATA_PTR sample_instance)) -> bool
+	export inline auto register_sample_saver(const_cptr_t ext, bool (*saver)(const_cptr_t filename, ALLEGRO::SAMPLE_DATA_PTR sample_instance)) -> bool
 	{
 		return al_register_sample_saver(ext, saver);
 	}
 
-	export inline auto register_audio_stream_loader(const char* ext, ALLEGRO::AUDIO_STREAM_DATA_PTR (*stream_loader)(const char* filename, size_t buffer_count, uint32_t samples)) -> bool
+	export inline auto register_audio_stream_loader(const_cptr_t ext, ALLEGRO::AUDIO_STREAM_DATA_PTR (*stream_loader)(const_cptr_t filename, size_t buffer_count, uint32_t samples)) -> bool
 	{
 		return al_register_audio_stream_loader(ext, stream_loader);
 	}
 
-	export inline auto register_sample_loader_f(const char* ext, ALLEGRO::SAMPLE_DATA_PTR (*loader)(ALLEGRO::FILE_DATA_PTR fp)) -> bool
+	export inline auto register_sample_loader_f(const_cptr_t ext, ALLEGRO::SAMPLE_DATA_PTR (*loader)(ALLEGRO::FILE_DATA_PTR fp)) -> bool
 	{
 		return al_register_sample_loader_f(ext, loader);
 	}
 
-	export inline auto register_sample_saver_f(const char* ext, bool (*saver)(ALLEGRO::FILE_DATA_PTR fp, ALLEGRO::SAMPLE_DATA_PTR sample_instance)) -> bool
+	export inline auto register_sample_saver_f(const_cptr_t ext, bool (*saver)(ALLEGRO::FILE_DATA_PTR fp, ALLEGRO::SAMPLE_DATA_PTR sample_instance)) -> bool
 	{
 		return al_register_sample_saver_f(ext, saver);
 	}
 
-	export inline auto register_audio_stream_loader_f(const char* ext, ALLEGRO::AUDIO_STREAM_DATA_PTR (*stream_loader)(ALLEGRO::FILE_DATA_PTR fp, size_t buffer_count, uint32_t samples)) -> bool
+	export inline auto register_audio_stream_loader_f(const_cptr_t ext, ALLEGRO::AUDIO_STREAM_DATA_PTR (*stream_loader)(ALLEGRO::FILE_DATA_PTR fp, size_t buffer_count, uint32_t samples)) -> bool
 	{
 		return al_register_audio_stream_loader_f(ext, stream_loader);
 	}
 
-	export inline auto register_sample_identifier(const char* ext, bool (*identifier)(ALLEGRO::FILE_DATA_PTR fp))
+	export inline auto register_sample_identifier(const_cptr_t ext, bool (*identifier)(ALLEGRO::FILE_DATA_PTR fp))
 	{
 		return al_register_sample_identifier(ext, identifier);
 	}
 
-	export inline auto load_sample(const char* filename) -> ALLEGRO::SAMPLE
+	export inline auto load_sample(const_cptr_t filename) -> ALLEGRO::SAMPLE
 	{
 		return ALLEGRO::SAMPLE(al_load_sample(filename), internal::destroy_sample);
 	}
 
-	export inline auto save_sample(const char* filename, ALLEGRO::SAMPLE& sample_instance)
+	export inline auto save_sample(const_cptr_t filename, ALLEGRO::SAMPLE& sample_instance)
 	{
 		return al_save_sample(filename, (ALLEGRO::SAMPLE_DATA_PTR)sample_instance.get());
 	}
 
-	export inline auto load_audio_stream(const char* filename, size_t buffer_count, uint32_t samples)
+	export inline auto load_audio_stream(const_cptr_t filename, size_t buffer_count, uint32_t samples)
 	{
 		return ALLEGRO::AUDIO_STREAM(al_load_audio_stream(filename, buffer_count, samples), internal::destroy_audio_stream);
 	}
 
-	export inline auto load_sample_f(ALLEGRO::FILE& fp, const char* ident) -> ALLEGRO::SAMPLE
+	export inline auto load_sample_f(ALLEGRO::FILE& fp, const_cptr_t ident) -> ALLEGRO::SAMPLE
 	{
 		return ALLEGRO::SAMPLE(al_load_sample_f((ALLEGRO::FILE_DATA_PTR)fp.get(), ident), internal::destroy_sample);
 	}
 
-	export inline auto save_sample_f(ALLEGRO::FILE& fp, const char* ident, ALLEGRO::SAMPLE& sample_instance) -> bool
+	export inline auto save_sample_f(ALLEGRO::FILE& fp, const_cptr_t ident, ALLEGRO::SAMPLE& sample_instance) -> bool
 	{
 		return al_save_sample_f((ALLEGRO::FILE_DATA_PTR)fp.get(), ident, (ALLEGRO::SAMPLE_DATA_PTR)sample_instance.get());
 	}
 
-	export inline auto load_audio_stream_f(ALLEGRO::FILE& fp, const char* ident, size_t buffer_count, uint32_t samples)
+	export inline auto load_audio_stream_f(ALLEGRO::FILE& fp, const_cptr_t ident, size_t buffer_count, uint32_t samples)
 	{
 		return ALLEGRO::AUDIO_STREAM(al_load_audio_stream_f((ALLEGRO::FILE_DATA_PTR)fp.get(), ident, buffer_count, samples), internal::destroy_audio_stream);
 	}
 
-	export inline auto identify_sample_f(ALLEGRO::FILE& fp) -> const char*
+	export inline auto identify_sample_f(ALLEGRO::FILE& fp) -> const_cptr_t
 	{
 		return al_identify_sample_f((ALLEGRO::FILE_DATA_PTR)fp.get());
 	}
 
-	export inline auto identify_sample(const char* filename) -> const char*
+	export inline auto identify_sample(const_cptr_t filename) -> const_cptr_t
 	{
 		return al_identify_sample(filename);
 	}
@@ -811,22 +811,22 @@ namespace al
 
 	export inline auto start_audio_recorder(ALLEGRO::AUDIO_RECORDER& recorder) -> bool
 	{
-		return al_start_audio_recorder((ALLEGRO::AUDIO_RECORDER_DATA*)recorder.get());
+		return al_start_audio_recorder((ALLEGRO::AUDIO_RECORDER_DATA_PTR)recorder.get());
 	}
 
 	export inline auto stop_audio_recorder(ALLEGRO::AUDIO_RECORDER& recorder) -> void
 	{
-		al_stop_audio_recorder((ALLEGRO::AUDIO_RECORDER_DATA*)recorder.get());
+		al_stop_audio_recorder((ALLEGRO::AUDIO_RECORDER_DATA_PTR)recorder.get());
 	}
 
 	export inline auto is_audio_recorder_recording(ALLEGRO::AUDIO_RECORDER& recorder) -> bool
 	{
-		return al_is_audio_recorder_recording((ALLEGRO::AUDIO_RECORDER_DATA*)recorder.get());
+		return al_is_audio_recorder_recording((ALLEGRO::AUDIO_RECORDER_DATA_PTR)recorder.get());
 	}
 
 	export inline auto get_audio_recorder_event_source(ALLEGRO::AUDIO_RECORDER& recorder) -> ALLEGRO::EVENT_SOURCE
 	{
-		return ALLEGRO::EVENT_SOURCE(al_get_audio_recorder_event_source((ALLEGRO::AUDIO_RECORDER_DATA*)recorder.get()), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
+		return ALLEGRO::EVENT_SOURCE(al_get_audio_recorder_event_source((ALLEGRO::AUDIO_RECORDER_DATA_PTR)recorder.get()), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
 	}
 
 	export inline auto get_audio_recorder_event(ALLEGRO::EVENT& event) -> ALLEGRO::AUDIO_RECORDER_EVENT&

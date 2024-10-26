@@ -21,7 +21,7 @@ namespace al
 {
 	namespace internal
 	{
-		export inline auto create_path(const char* str) -> ALLEGRO::PATH_DATA_PTR
+		export inline auto create_path(const_cptr_t str) -> ALLEGRO::PATH_DATA_PTR
 		{
 			return al_create_path(str);
 		}
@@ -32,12 +32,12 @@ namespace al
 		}
 	}
 
-	export inline auto create_path(const char* str) -> ALLEGRO::PATH
+	export inline auto create_path(const_cptr_t str) -> ALLEGRO::PATH
 	{
 		return ALLEGRO::PATH(al_create_path(str), internal::destroy_path);
 	}
 
-	export inline auto create_path_for_directory(const char* str) -> ALLEGRO::PATH
+	export inline auto create_path_for_directory(const_cptr_t str) -> ALLEGRO::PATH
 	{
 		return ALLEGRO::PATH(al_create_path_for_directory(str), internal::destroy_path);
 	}
@@ -52,12 +52,12 @@ namespace al
 		return al_get_path_num_components((ALLEGRO::PATH_DATA_PTR)path.get());
 	}
 
-	export inline auto get_path_component(const ALLEGRO::PATH& path, int32_t i) -> const char*
+	export inline auto get_path_component(const ALLEGRO::PATH& path, int32_t i) -> const_cptr_t
 	{
-		return (const char*)al_get_path_component((ALLEGRO::PATH_DATA_PTR)path.get(), i);
+		return (const_cptr_t)al_get_path_component((ALLEGRO::PATH_DATA_PTR)path.get(), i);
 	}
 	
-	export inline auto replace_path_component(ALLEGRO::PATH& path, int32_t i, const char* s) -> void
+	export inline auto replace_path_component(ALLEGRO::PATH& path, int32_t i, const_cptr_t s) -> void
 	{
 		al_replace_path_component((ALLEGRO::PATH_DATA_PTR)path.get(), i, s);
 	}
@@ -67,14 +67,14 @@ namespace al
 		al_remove_path_component((ALLEGRO::PATH_DATA_PTR)path.get(), i);
 	}
 	
-	export inline auto insert_path_component(ALLEGRO::PATH& path, int32_t i, const char* s) -> void
+	export inline auto insert_path_component(ALLEGRO::PATH& path, int32_t i, const_cptr_t s) -> void
 	{
 		al_insert_path_component((ALLEGRO::PATH_DATA_PTR)path.get(), i, s);
 	}
 	
-	export inline auto get_path_tail(const ALLEGRO::PATH& path) -> const char*
+	export inline auto get_path_tail(const ALLEGRO::PATH& path) -> const_cptr_t
 	{
-		return (const char*)al_get_path_tail((ALLEGRO::PATH_DATA_PTR)path.get());
+		return (const_cptr_t)al_get_path_tail((ALLEGRO::PATH_DATA_PTR)path.get());
 	}
 	
 	export inline auto drop_path_tail(ALLEGRO::PATH& path) -> void
@@ -82,7 +82,7 @@ namespace al
 		al_drop_path_tail((ALLEGRO::PATH_DATA_PTR)path.get());
 	}
 	
-	export inline auto append_path_component(ALLEGRO::PATH& path, const char* s) -> void
+	export inline auto append_path_component(ALLEGRO::PATH& path, const_cptr_t s) -> void
 	{
 		al_append_path_component((ALLEGRO::PATH_DATA_PTR)path.get(), s);
 	}
@@ -97,9 +97,9 @@ namespace al
 		return al_rebase_path((ALLEGRO::PATH_DATA_PTR)head.get(), (ALLEGRO::PATH_DATA_PTR)tail.get());
 	}
 	
-	export inline auto path_cstr(const ALLEGRO::PATH& path, char delim) -> const char*
+	export inline auto path_cstr(const ALLEGRO::PATH& path, char delim) -> const_cptr_t
 	{
-		return (const char*)al_path_cstr((ALLEGRO::PATH_DATA_PTR)path.get(), delim);
+		return (const_cptr_t)al_path_cstr((ALLEGRO::PATH_DATA_PTR)path.get(), delim);
 	}
 	
 	export inline auto path_ustr(const ALLEGRO::PATH& path, char delim) -> ALLEGRO::USTRING
@@ -107,39 +107,39 @@ namespace al
 		return ALLEGRO::USTRING(al_ustr_dup(al_path_ustr((ALLEGRO::PATH_DATA_PTR)path.get(), delim)), al_ustr_free);
 	}
 	
-	export inline auto set_path_drive(ALLEGRO::PATH& path, const char* drive) -> void
+	export inline auto set_path_drive(ALLEGRO::PATH& path, const_cptr_t drive) -> void
 	{
 		al_set_path_drive((ALLEGRO::PATH_DATA_PTR)path.get(), drive);
 	}
 	
-	export inline auto get_path_drive(const ALLEGRO::PATH& path) -> const char*
+	export inline auto get_path_drive(const ALLEGRO::PATH& path) -> const_cptr_t
 	{
-		return (const char*)al_get_path_drive((ALLEGRO::PATH_DATA_PTR)path.get());
+		return (const_cptr_t)al_get_path_drive((ALLEGRO::PATH_DATA_PTR)path.get());
 	}
 	
-	export inline auto set_path_filename(ALLEGRO::PATH& path, const char* filename) -> void
+	export inline auto set_path_filename(ALLEGRO::PATH& path, const_cptr_t filename) -> void
 	{
 		al_set_path_filename((ALLEGRO::PATH_DATA_PTR)path.get(), filename);
 	}
 	
-	export inline auto get_path_filename(const ALLEGRO::PATH& path) -> const char*
+	export inline auto get_path_filename(const ALLEGRO::PATH& path) -> const_cptr_t
 	{
-		return (const char*)al_get_path_filename((ALLEGRO::PATH_DATA_PTR)path.get());
+		return (const_cptr_t)al_get_path_filename((ALLEGRO::PATH_DATA_PTR)path.get());
 	}
 	
-	export inline auto get_path_extension(const ALLEGRO::PATH& path) -> const char*
+	export inline auto get_path_extension(const ALLEGRO::PATH& path) -> const_cptr_t
 	{
-		return (const char*)al_get_path_extension((ALLEGRO::PATH_DATA_PTR)path.get());
+		return (const_cptr_t)al_get_path_extension((ALLEGRO::PATH_DATA_PTR)path.get());
 	}
 	
-	export inline auto set_path_extension(ALLEGRO::PATH& path, const char* extension) -> bool
+	export inline auto set_path_extension(ALLEGRO::PATH& path, const_cptr_t extension) -> bool
 	{
 		return al_set_path_extension((ALLEGRO::PATH_DATA_PTR)path.get(), extension);
 	}
 	
-	export inline auto get_path_basename(const ALLEGRO::PATH& path) -> const char*
+	export inline auto get_path_basename(const ALLEGRO::PATH& path) -> const_cptr_t
 	{
-		return (const char*)al_get_path_basename((ALLEGRO::PATH_DATA_PTR)path.get());
+		return (const_cptr_t)al_get_path_basename((ALLEGRO::PATH_DATA_PTR)path.get());
 	}
 
 	export inline auto make_path_canonical(ALLEGRO::PATH& path) -> bool

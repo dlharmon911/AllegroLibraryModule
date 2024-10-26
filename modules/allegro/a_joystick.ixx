@@ -10,6 +10,7 @@ import :memory;
 namespace ALLEGRO
 {
 	export using JOYSTICK_DATA = ALLEGRO_JOYSTICK;
+	export using JOYSTICK_DATA_PTR = std::add_pointer<JOYSTICK_DATA>::type;
 	export using JOYSTICK = std::shared_ptr<JOYSTICK_DATA>;
 	export using JOYSTICK_STATE = ALLEGRO_JOYSTICK_STATE;
 
@@ -54,52 +55,52 @@ namespace al
 
 	export inline auto get_joystick_active(ALLEGRO::JOYSTICK& joystick) -> bool
 	{
-		return al_get_joystick_active((ALLEGRO::JOYSTICK_DATA*)joystick.get());
+		return al_get_joystick_active((ALLEGRO::JOYSTICK_DATA_PTR)joystick.get());
 	}
 
-	export inline auto get_joystick_name(ALLEGRO::JOYSTICK& joystick) -> const char*
+	export inline auto get_joystick_name(ALLEGRO::JOYSTICK& joystick) -> const_cptr_t
 	{
-		return (const char*)al_get_joystick_name((ALLEGRO::JOYSTICK_DATA*)joystick.get());
+		return (const_cptr_t)al_get_joystick_name((ALLEGRO::JOYSTICK_DATA_PTR)joystick.get());
 	}
 
 	export inline auto get_joystick_num_sticks(ALLEGRO::JOYSTICK& joystick) -> int32_t
 	{
-		return al_get_joystick_num_sticks((ALLEGRO::JOYSTICK_DATA*)joystick.get());
+		return al_get_joystick_num_sticks((ALLEGRO::JOYSTICK_DATA_PTR)joystick.get());
 	}
 
 	export inline auto get_joystick_stick_flags(ALLEGRO::JOYSTICK& joystick, int32_t stick) -> int32_t
 	{
-		return al_get_joystick_stick_flags((ALLEGRO::JOYSTICK_DATA*)joystick.get(), stick);
+		return al_get_joystick_stick_flags((ALLEGRO::JOYSTICK_DATA_PTR)joystick.get(), stick);
 	}
 
-	export inline auto get_joystick_stick_name(ALLEGRO::JOYSTICK& joystick, int32_t stick) -> const char*
+	export inline auto get_joystick_stick_name(ALLEGRO::JOYSTICK& joystick, int32_t stick) -> const_cptr_t
 	{
-		return (const char*)al_get_joystick_stick_name((ALLEGRO::JOYSTICK_DATA*)joystick.get(), stick);
+		return (const_cptr_t)al_get_joystick_stick_name((ALLEGRO::JOYSTICK_DATA_PTR)joystick.get(), stick);
 	}
 
 	export inline auto get_joystick_num_axes(ALLEGRO::JOYSTICK& joystick, int32_t stick) -> int32_t
 	{
-		return al_get_joystick_num_axes((ALLEGRO::JOYSTICK_DATA*)joystick.get(), stick);
+		return al_get_joystick_num_axes((ALLEGRO::JOYSTICK_DATA_PTR)joystick.get(), stick);
 	}
 
-	export inline auto get_joystick_axis_name(ALLEGRO::JOYSTICK& joystick, int32_t stick, int32_t axis) -> const char*
+	export inline auto get_joystick_axis_name(ALLEGRO::JOYSTICK& joystick, int32_t stick, int32_t axis) -> const_cptr_t
 	{
-		return (const char*)al_get_joystick_axis_name((ALLEGRO::JOYSTICK_DATA*)joystick.get(), stick, axis);
+		return (const_cptr_t)al_get_joystick_axis_name((ALLEGRO::JOYSTICK_DATA_PTR)joystick.get(), stick, axis);
 	}
 
 	export inline auto get_joystick_num_buttons(ALLEGRO::JOYSTICK& joystick) -> int32_t
 	{
-		return al_get_joystick_num_buttons((ALLEGRO::JOYSTICK_DATA*)joystick.get());
+		return al_get_joystick_num_buttons((ALLEGRO::JOYSTICK_DATA_PTR)joystick.get());
 	}
 
-	export inline auto get_joystick_button_name(ALLEGRO::JOYSTICK& joystick, int32_t button) -> const char*
+	export inline auto get_joystick_button_name(ALLEGRO::JOYSTICK& joystick, int32_t button) -> const_cptr_t
 	{
-		return (const char*)al_get_joystick_button_name((ALLEGRO::JOYSTICK_DATA*)joystick.get(), button);
+		return (const_cptr_t)al_get_joystick_button_name((ALLEGRO::JOYSTICK_DATA_PTR)joystick.get(), button);
 	}
 
 	export inline auto get_joystick_state(ALLEGRO::JOYSTICK& joystick, ALLEGRO::JOYSTICK_STATE& state) -> void
 	{
-		al_get_joystick_state((ALLEGRO::JOYSTICK_DATA*)joystick.get(), &state);
+		al_get_joystick_state((ALLEGRO::JOYSTICK_DATA_PTR)joystick.get(), &state);
 	}
 
 	export inline auto get_joystick_event_source() -> ALLEGRO::EVENT_SOURCE

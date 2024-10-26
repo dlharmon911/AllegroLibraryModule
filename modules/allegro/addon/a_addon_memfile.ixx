@@ -14,7 +14,7 @@ namespace al
 		}
 	}
 
-	export inline auto fopen(void* data, int64_t size, const char* mode) -> ALLEGRO::FILE
+	export inline auto fopen(vptr_t data, int64_t size, const_cptr_t mode) -> ALLEGRO::FILE
 	{
 		ALLEGRO::FILE(al_open_memfile(data, size, mode), internal::destroy_file);
 	}

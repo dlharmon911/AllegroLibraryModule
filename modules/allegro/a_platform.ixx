@@ -40,7 +40,7 @@ namespace ALLEGRO
     };
 
 #ifdef ALLEGRO_WINDOWS
-    using WINDOW_CALLBACK_FUNCTION_PTR = bool (*)(ALLEGRO::DISPLAY_DATA_PTR display, UINT message, WPARAM wparam, LPARAM lparam, LRESULT* result, void* userdata);
+    using WINDOW_CALLBACK_FUNCTION_PTR = bool (*)(ALLEGRO::DISPLAY_DATA_PTR display, UINT message, WPARAM wparam, LPARAM lparam, LRESULT* result, vptr_t userdata);
 #endif
 
 #ifdef ALLEGRO_IPHONE
@@ -90,12 +90,12 @@ namespace al
             return al_get_win_window_handle((ALLEGRO::DISPLAY_DATA_PTR)display.get());
         }
 
-        export inline auto add_window_callback(ALLEGRO::DISPLAY& display, ALLEGRO::WINDOW_CALLBACK_FUNCTION_PTR callback, void* userdata) -> bool
+        export inline auto add_window_callback(ALLEGRO::DISPLAY& display, ALLEGRO::WINDOW_CALLBACK_FUNCTION_PTR callback, vptr_t userdata) -> bool
         {
             return al_win_add_window_callback((ALLEGRO::DISPLAY_DATA_PTR)display.get(), callback, userdata);
         }
 
-        export inline auto remove_window_callback(ALLEGRO::DISPLAY& display, ALLEGRO::WINDOW_CALLBACK_FUNCTION_PTR callback, void* userdata) -> bool
+        export inline auto remove_window_callback(ALLEGRO::DISPLAY& display, ALLEGRO::WINDOW_CALLBACK_FUNCTION_PTR callback, vptr_t userdata) -> bool
         {
             return al_win_remove_window_callback((ALLEGRO::DISPLAY_DATA_PTR)display.get(), callback, userdata);
         }
@@ -111,9 +111,9 @@ namespace al
             al_android_set_apk_file_interface();
         }
         
-        export inline auto get_os_version() -> const char*
+        export inline auto get_os_version() -> const_cptr_t
         {
-            return (const char*)al_android_get_os_version();
+            return (const_cptr_t)al_android_get_os_version();
         }
         
         export inline auto set_apk_fs_interface() -> void

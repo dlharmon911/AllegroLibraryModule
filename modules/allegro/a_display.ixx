@@ -142,19 +142,19 @@ namespace al
 		return al_get_new_display_flags();
 	}
 
-	export inline auto set_window_title(const ALLEGRO::DISPLAY& display, const char* title) -> void
+	export inline auto set_window_title(const ALLEGRO::DISPLAY& display, const_cptr_t title) -> void
 	{
 		al_set_window_title((ALLEGRO::DISPLAY_DATA_PTR)display.get(), title);
 	}
 
-	export inline auto set_new_window_title(const char* title) -> void
+	export inline auto set_new_window_title(const_cptr_t title) -> void
 	{
 		al_set_new_window_title(title);
 	}
 
-	export inline const char* get_new_window_title()
+	export inline const_cptr_t get_new_window_title()
 	{
-		return (const char*)al_get_new_window_title();
+		return (const_cptr_t)al_get_new_window_title();
 	}
 
 	export inline int32_t get_display_width(const ALLEGRO::DISPLAY& display)
@@ -269,7 +269,7 @@ namespace al
 
 	export inline auto set_display_icons(ALLEGRO::DISPLAY& display, const std::vector<ALLEGRO::BITMAP>& icons)
 	{
-		std::vector<void*> temp{ icons.size() };
+		std::vector<vptr_t> temp{ icons.size() };
 
 		for (size_t i = 0; i < icons.size(); ++i)
 		{
@@ -346,8 +346,8 @@ namespace al
 
 	export inline std::tuple<int32_t, int32_t> get_new_display_option(int32_t option)
 	{
-		int32_t importance = 0;
-		int32_t value = al_get_new_display_option(option, &importance);
+		int32_t importance{ 0 };
+		int32_t value{ al_get_new_display_option(option, &importance) };
 		return std::make_tuple(value, importance);
 	}
 

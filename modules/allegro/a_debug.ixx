@@ -11,21 +11,21 @@ import :base;
 
 namespace al
 {
-	export inline auto _trace_prefix(const char* channel, int level, const char* file, int line, const char* function) -> bool
+	export inline auto _trace_prefix(const_cptr_t channel, int32_t level, const_cptr_t file, int32_t line, const_cptr_t function) -> bool
 	{
 		return _al_trace_prefix(channel, level, file, line, function);
 	}
 
-	export inline auto _trace_suffix(const char* msg, ...) -> void
+	export inline auto _trace_suffix(const_cptr_t msg, ...) -> void
 	{
 		va_list args{};
 		int32_t len{ -1 };
-		char* buffer{ nullptr };
+		cptr_t buffer{ nullptr };
 
 		va_start(args, msg);
 		len = _vscprintf(msg, args) + 1;
 		
-		buffer = (char*)malloc(len * sizeof(char));
+		buffer = (cptr_t)malloc(len * sizeof(char));
 
 		if (buffer)
 		{
@@ -36,18 +36,18 @@ namespace al
 		va_end(args);
 	}
 
-	export inline auto _user_assert_handler(const char* expr, const char* file, int line, const char* func) -> void
+	export inline auto _user_assert_handler(const_cptr_t expr, const_cptr_t file, int32_t line, const_cptr_t func) -> void
 	{
 		_al_user_assert_handler(expr, file, line, func);
 	}
 
-	export inline auto register_assert_handler(void (*handler)(const char* expr, const char* file, int32_t line, const char* func)) -> void
+	export inline auto register_assert_handler(void (*handler)(const_cptr_t expr, const_cptr_t file, int32_t line, const_cptr_t func)) -> void
 	{
-		al_register_assert_handler((void (*)(const char*, const char*, int , const char*))handler);
+		al_register_assert_handler((void (*)(const_cptr_t, const_cptr_t, int32_t, const_cptr_t))handler);
 	}
 
-	export inline auto register_trace_handler(void (*handler)(const char*)) -> void
+	export inline auto register_trace_handler(void (*handler)(const_cptr_t)) -> void
 	{
-		al_register_trace_handler((void (*)(const char*))handler);
+		al_register_trace_handler((void (*)(const_cptr_t))handler);
 	}
 }
