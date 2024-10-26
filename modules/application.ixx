@@ -109,7 +109,7 @@ private:
 
 		std::cout << "Creating Display: ";
 		al::set_new_display_flags(ALLEGRO::DISPLAY_FLAG_WINDOWED | ALLEGRO::DISPLAY_FLAG_RESIZABLE);
-		this->m_display = al::create_display(SCREEN_W, SCREEN_H);
+		this->m_display = al::create_display({ SCREEN_W, SCREEN_H });
 		if (!this->m_display)
 		{
 			std::cout << "failed\n";
@@ -267,6 +267,6 @@ private:
 	const int32_t SCREEN_W = 800;
 	const int32_t SCREEN_H = 600;
 	const double TIMING = 60.0;
-	const char* APPNAME = "Tic Tac Toe";
+	const char* APPNAME = (const char*)"Tic Tac Toe";
 };
 

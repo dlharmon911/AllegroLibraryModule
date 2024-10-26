@@ -18,44 +18,44 @@ namespace al
 {
 	namespace ttf_addon
 	{
-		export inline bool init()
+		export inline auto init() -> bool
 		{
 			return al_init_ttf_addon();
 		}
 
-		export inline bool is_initialized()
+		export inline auto is_initialized() -> bool
 		{
 			return al_is_ttf_addon_initialized();
 		}
 
-		export inline void shutdown()
+		export inline auto shutdown() -> void
 		{
 			al_shutdown_ttf_addon();
 		}
 
-		export inline uint32_t get_version()
+		export inline auto get_version() -> uint32_t
 		{
 			return al_get_allegro_ttf_version();
 		}
 	}
 
-	export inline ALLEGRO::FONT load_ttf_font(const char* filename, int32_t size, int32_t flags)
+	export inline auto load_ttf_font(const char* filename, int32_t size, int32_t flags) -> ALLEGRO::FONT
 	{
 		return ALLEGRO::FONT(al_load_ttf_font(filename, size, flags), internal::destroy_font);
 	}
 
-	export inline ALLEGRO::FONT load_ttf_font_f(ALLEGRO::FILE& file, const char* filename, int32_t size, int32_t flags)
+	export inline auto load_ttf_font_f(ALLEGRO::FILE& file, const char* filename, int32_t size, int32_t flags) -> ALLEGRO::FONT
 	{
-		return ALLEGRO::FONT(al_load_ttf_font_f((ALLEGRO::FILE_DATA*)file.get(), filename, size, flags), internal::destroy_font);
+		return ALLEGRO::FONT(al_load_ttf_font_f((ALLEGRO::FILE_DATA_PTR)file.get(), filename, size, flags), internal::destroy_font);
 	}
 
-	export inline ALLEGRO::FONT load_ttf_font_stretch(const char* filename, const ALLEGRO::SIZE<int32_t>& size, int32_t flags)
+	export inline auto load_ttf_font_stretch(const char* filename, const ALLEGRO::SIZE<int32_t>& size, int32_t flags) -> ALLEGRO::FONT
 	{
 		return ALLEGRO::FONT(al_load_ttf_font_stretch(filename, size.width, size.height, flags), internal::destroy_font);
 	}
 
-	export inline ALLEGRO::FONT load_ttf_font_stretch_f(ALLEGRO::FILE& file, const char* filename, const ALLEGRO::SIZE<int32_t>& size, int32_t flags)
+	export inline auto load_ttf_font_stretch_f(ALLEGRO::FILE& file, const char* filename, const ALLEGRO::SIZE<int32_t>& size, int32_t flags) -> ALLEGRO::FONT
 	{
-		return ALLEGRO::FONT(al_load_ttf_font_stretch_f((ALLEGRO::FILE_DATA*)file.get(), filename, size.width, size.height, flags), internal::destroy_font);
+		return ALLEGRO::FONT(al_load_ttf_font_stretch_f((ALLEGRO::FILE_DATA_PTR)file.get(), filename, size.width, size.height, flags), internal::destroy_font);
 	}
 }

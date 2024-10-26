@@ -43,11 +43,11 @@ namespace al
 
 	export inline auto register_assert_handler(void (*handler)(const char* expr, const char* file, int32_t line, const char* func)) -> void
 	{
-		al_register_assert_handler(handler);
+		al_register_assert_handler((void (*)(const char*, const char*, int , const char*))handler);
 	}
 
 	export inline auto register_trace_handler(void (*handler)(const char*)) -> void
 	{
-		al_register_trace_handler(handler);
+		al_register_trace_handler((void (*)(const char*))handler);
 	}
 }

@@ -11,6 +11,7 @@ import :memory;
 namespace ALLEGRO
 {
 	export using SYSTEM_DATA = ALLEGRO_SYSTEM;
+	export using SYSTEM_DATA_PTR = std::add_pointer<SYSTEM_DATA>::type;
 	export using SYSTEM = std::shared_ptr<SYSTEM_DATA>;
 
 	export using SYSTEM_ID = ::ALLEGRO_SYSTEM_ID;
@@ -98,7 +99,7 @@ namespace al
 
 	export inline const char* get_org_name()
 	{
-		return al_get_org_name();
+		return (const char*)al_get_org_name();
 	}
 
 	export inline const char* al_get_app_name()

@@ -8,14 +8,14 @@ namespace al
 {
 	namespace physfs_addon
 	{
-		export inline uint32_t get_version()
+		export inline auto get_version() -> uint32_t
 		{
 			return al_get_allegro_physfs_version();
 		}
 
-	export inline void set_file_interface()
-	{
-		al_set_physfs_file_interface();
-	}
+		export inline auto set_file_interface() -> void
+		{
+			al_set_physfs_file_interface();
+		}
 	}
 }

@@ -65,7 +65,7 @@ namespace al
 
 	export inline auto get_fs_entry_name(const ALLEGRO::FS_ENTRY& e) -> const char*
 	{
-		return al_get_fs_entry_name((ALLEGRO::FS_ENTRY_DATA*)e.get());
+		return (const char*)al_get_fs_entry_name((ALLEGRO::FS_ENTRY_DATA*)e.get());
 	}
 
 	export inline auto update_fs_entry(const ALLEGRO::FS_ENTRY& e) -> bool

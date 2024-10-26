@@ -45,7 +45,7 @@ namespace ALLEGRO
 
 namespace al
 {
-    export inline void set_render_state(const ALLEGRO::RENDER_STATE& state, int32_t value)
+    export inline auto set_render_state(const ALLEGRO::RENDER_STATE& state, int32_t value) -> void
     {
         al_set_render_state(state, value);
     }

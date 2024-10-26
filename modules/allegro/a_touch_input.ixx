@@ -8,7 +8,7 @@ import :memory;
 
 namespace ALLEGRO
 {
-	export inline int32_t get_touch_input_max_touch_count()
+	export inline auto get_touch_input_max_touch_count() -> int32_t
 	{
 		return ALLEGRO_TOUCH_INPUT_MAX_TOUCH_COUNT;
 	}
@@ -32,43 +32,43 @@ namespace ALLEGRO
 
 namespace al
 {
-	export inline bool is_touch_input_installed()
+	export inline auto is_touch_input_installed() -> bool
 	{
 		return al_is_touch_input_installed();
 	}
 
-	export inline bool install_touch_input()
+	export inline auto install_touch_input() -> bool
 	{
 		return al_install_touch_input();
 	}
 
-	export inline void uninstall_touch_input()
+	export inline auto uninstall_touch_input() -> void
 	{
 		return al_uninstall_touch_input();
 	}
 
-	export inline void get_touch_input_state(ALLEGRO::TOUCH_INPUT_STATE& ret_state)
+	export inline auto get_touch_input_state(ALLEGRO::TOUCH_INPUT_STATE& ret_state) -> void
 	{
 		al_get_touch_input_state(&ret_state);
 	}
 
-	export inline ALLEGRO::EVENT_SOURCE get_touch_input_event_source()
+	export inline auto get_touch_input_event_source() -> ALLEGRO::EVENT_SOURCE
 	{
 		return ALLEGRO::EVENT_SOURCE(al_get_touch_input_event_source(), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
 	}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
-	export inline void set_mouse_emulation_mode(int32_t mode)
+	export inline auto set_mouse_emulation_mode(int32_t mode) -> void
 	{
 		return al_set_mouse_emulation_mode(mode);
 	}
 
-	export inline int32_t get_mouse_emulation_mode()
+	export inline auto get_mouse_emulation_mode() -> int32_t
 	{
 		return al_get_mouse_emulation_mode();
 	}
 
-	export inline ALLEGRO::EVENT_SOURCE get_touch_input_mouse_emulation_event_source()
+	export inline auto get_touch_input_mouse_emulation_event_source() -> ALLEGRO::EVENT_SOURCE
 	{
 		return ALLEGRO::EVENT_SOURCE(al_get_touch_input_mouse_emulation_event_source(), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE::type>);
 	}

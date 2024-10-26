@@ -7,22 +7,22 @@ namespace al
 {
 	namespace image_addon
 	{
-		export inline bool init()
+		export inline auto init() -> bool
 		{
 			return al_init_image_addon();
 		}
 
-		export inline bool is_initialized()
+		export inline auto is_initialized() -> bool
 		{
 			return al_is_image_addon_initialized();
 		}
 
-		export inline void shutdown()
+		export inline auto shutdown() -> void
 		{
 			al_shutdown_image_addon();
 		}
 
-		export inline uint32_t get_version()
+		export inline auto get_version() -> uint32_t
 		{
 			return al_get_allegro_image_version();
 		}

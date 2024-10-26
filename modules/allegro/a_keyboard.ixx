@@ -45,7 +45,7 @@ namespace al
 
 	export inline auto keycode_to_name(int32_t keycode) -> const char*
 	{
-		return al_keycode_to_name(keycode);
+		return (const char*)al_keycode_to_name(keycode);
 	}
 
 	export inline auto get_keyboard_state(ALLEGRO::KEYBOARD_STATE& ret_state) -> void

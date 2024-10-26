@@ -4,6 +4,7 @@ import <string>;
 import <cstdint>;
 import <memory>;
 import <allegro5/base.h>;
+import <type_traits>;
 
 namespace al
 {
@@ -62,7 +63,7 @@ namespace al
 		return (((a) << 24) | ((b) << 16) | ((c) << 8) | (d));
 	}
 
-	export inline auto run_main(int argc, char** argv, int (*user_main)(int, char**)) -> int32_t
+	export inline auto run_main(int argc, std::add_pointer<char*>::type argv, int (*user_main)(int, std::add_pointer<char*>::type)) -> int32_t
 	{
 		return al_run_main(argc, argv, user_main);
 	}

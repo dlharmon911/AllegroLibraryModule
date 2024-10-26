@@ -24,12 +24,12 @@ namespace ALLEGRO
 
 namespace al
 {
-    export inline void store_state(ALLEGRO::STATE& state, int32_t flags)
+    export inline auto store_state(ALLEGRO::STATE& state, int32_t flags) -> void
     {
         return al_store_state(&state, flags);
     }
 
-    export inline void restore_state(ALLEGRO::STATE& state)
+    export inline auto restore_state(ALLEGRO::STATE& state) -> void
     {
         al_restore_state(&state);
     }
