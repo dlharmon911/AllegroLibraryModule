@@ -1,5 +1,6 @@
 export module allegro:mouse_cursor;
 
+import <memory>;
 import <allegro5/mouse_cursor.h>;
 import :base;
 import :bitmap;
@@ -43,33 +44,33 @@ namespace al
 {
 	namespace internal
 	{
-		export inline void destroy_mouse_cursor(ALLEGRO::MOUSE_CURSOR_DATA* data)
+		export inline auto destroy_mouse_cursor(ALLEGRO::MOUSE_CURSOR_DATA* data) -> void
 		{
 			al_destroy_mouse_cursor(data);
 		}
 	}
 
-	export inline ALLEGRO::MOUSE_CURSOR create_mouse_cursor(ALLEGRO::BITMAP& sprite, ALLEGRO::POINT<int32_t> focus)
+	export inline auto create_mouse_cursor(const ALLEGRO::BITMAP& sprite, const ALLEGRO::POINT<int32_t>& focus) -> ALLEGRO::MOUSE_CURSOR
 	{
 		return ALLEGRO::MOUSE_CURSOR(al_create_mouse_cursor((ALLEGRO::BITMAP_DATA*)sprite.get(), focus.x, focus.y), internal::destroy_mouse_cursor);
 	}
 
-	export inline bool set_mouse_cursor(ALLEGRO::DISPLAY& display, ALLEGRO::MOUSE_CURSOR& cursor)
+	export inline auto set_mouse_cursor(const ALLEGRO::DISPLAY& display, const ALLEGRO::MOUSE_CURSOR& cursor) -> bool
 	{
 		return al_set_mouse_cursor((ALLEGRO::DISPLAY_DATA*)display.get(), (ALLEGRO::MOUSE_CURSOR_DATA*)cursor.get());
 	}
 
-	export inline bool set_system_mouse_cursor(ALLEGRO::DISPLAY& display, ALLEGRO::SYSTEM_MOUSE_CURSOR cursor_id)
+	export inline auto set_system_mouse_cursor(const ALLEGRO::DISPLAY& display, const ALLEGRO::SYSTEM_MOUSE_CURSOR& cursor_id) -> bool
 	{
 		return al_set_system_mouse_cursor((ALLEGRO::DISPLAY_DATA*)display.get(), cursor_id);
 	}
 
-	export inline bool show_mouse_cursor(ALLEGRO::DISPLAY& display)
+	export inline auto show_mouse_cursor(const ALLEGRO::DISPLAY& display) -> bool
 	{
 		return al_show_mouse_cursor((ALLEGRO::DISPLAY_DATA*)display.get());
 	}
 
-	export inline bool hide_mouse_cursor(ALLEGRO::DISPLAY& display)
+	export inline auto hide_mouse_cursor(const ALLEGRO::DISPLAY& display) -> bool
 	{
 		return al_hide_mouse_cursor((ALLEGRO::DISPLAY_DATA*)display.get());
 	}

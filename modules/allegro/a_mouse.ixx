@@ -15,102 +15,102 @@ namespace ALLEGRO
 
 namespace al
 {
-	export inline constexpr int32_t get_mouse_max_extra_axes()
+	export inline constexpr auto get_mouse_max_extra_axes() -> int32_t
 	{
 		return (int32_t)ALLEGRO_MOUSE_MAX_EXTRA_AXES;
 	}
 
-	export inline bool is_mouse_installed()
+	export inline auto is_mouse_installed() -> bool
 	{
 		return al_is_mouse_installed();
 	}
 
-	export inline bool install_mouse()
+	export inline auto install_mouse() -> bool
 	{
 		return al_install_mouse();
 	}
 
-	export inline void uninstall_mouse()
+	export inline auto uninstall_mouse() -> void
 	{
 		al_uninstall_mouse();
 	}
 
-	export inline uint32_t get_mouse_num_buttons()
+	export inline auto get_mouse_num_buttons() -> uint32_t
 	{
 		return al_get_mouse_num_buttons();
 	}
 
-	export inline uint32_t get_mouse_num_axes()
+	export inline auto get_mouse_num_axes() -> uint32_t
 	{
 		return al_get_mouse_num_axes();
 	}
 
-	export inline bool set_mouse_xy(ALLEGRO::DISPLAY& display, const ALLEGRO::POINT<int32_t> point)
+	export inline auto set_mouse_xy(const ALLEGRO::DISPLAY& display, const ALLEGRO::POINT<int32_t>& point) -> bool
 	{
 		return al_set_mouse_xy((ALLEGRO::DISPLAY_DATA*)display.get(), point.x, point.y);
 	}
 
-	export inline bool set_mouse_z(int32_t z)
+	export inline auto set_mouse_z(int32_t z) -> bool
 	{
 		return al_set_mouse_z(z);
 	}
 
-	export inline bool set_mouse_w(int32_t w)
+	export inline auto set_mouse_w(int32_t w) -> bool
 	{
 		return al_set_mouse_w(w);
 	}
 
-	export inline bool set_mouse_axis(int32_t axis, int32_t value)
+	export inline auto set_mouse_axis(int32_t axis, int32_t value) -> bool
 	{
 		return al_set_mouse_axis(axis, value);
 	}
 
-	export inline void get_mouse_state(ALLEGRO::MOUSE_STATE& ret_state)
+	export inline auto get_mouse_state(ALLEGRO::MOUSE_STATE& ret_state) -> void
 	{
 		al_get_mouse_state(&ret_state);
 	}
 
-	export inline bool is_mouse_button_down(const ALLEGRO::MOUSE_STATE& state, int32_t button)
+	export inline auto is_mouse_button_down(const ALLEGRO::MOUSE_STATE& state, int32_t button) -> bool
 	{
 		return al_mouse_button_down(&state, button);
 	}
 
-	export inline int32_t get_mouse_state_axis(const ALLEGRO::MOUSE_STATE& state, int32_t axis)
+	export inline auto get_mouse_state_axis(const ALLEGRO::MOUSE_STATE& state, int32_t axis) -> int32_t
 	{
 		return al_get_mouse_state_axis(&state, axis);
 	}
 
-	export inline bool can_get_mouse_cursor_position()
+	export inline auto can_get_mouse_cursor_position() -> bool
 	{
 		return al_can_get_mouse_cursor_position();
 	}
 
-	export inline bool get_mouse_cursor_position(ALLEGRO::POINT<int32_t>& point)
+	export inline auto get_mouse_cursor_position(ALLEGRO::POINT<int32_t>& point) -> bool
 	{
 		al_get_mouse_cursor_position(&point.x, &point.y);
 	}
 	
-	export inline bool grab_mouse(const ALLEGRO::DISPLAY& display)
+	export inline auto grab_mouse(const ALLEGRO::DISPLAY& display) -> bool
 	{
 		return al_grab_mouse((ALLEGRO::DISPLAY_DATA*)display.get());
 	}
 
-	export inline bool ungrab_mouse()
+	export inline auto ungrab_mouse() -> bool
 	{
 		return al_ungrab_mouse();
 	}
 
-	export inline void set_mouse_wheel_precision(int32_t precision)
+	export inline auto set_mouse_wheel_precision(int32_t precision) -> void
 	{
 		al_set_mouse_wheel_precision(precision);
 	}
 
-	export inline int32_t get_mouse_wheel_precision()
+	export inline auto get_mouse_wheel_precision() -> int32_t
 	{
 		return al_get_mouse_wheel_precision();
 	}
 
-	export inline ALLEGRO::EVENT_SOURCE get_mouse_event_source()
+	export inline auto get_mouse_event_source() -> ALLEGRO::EVENT_SOURCE
 	{
 		return ALLEGRO::EVENT_SOURCE(al_get_mouse_event_source(), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
 	}

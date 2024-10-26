@@ -105,7 +105,12 @@ namespace al
 {
 	namespace internal
 	{
-		export inline void destroy_display(ALLEGRO::DISPLAY_DATA* data)
+		export inline auto create_display(const ALLEGRO::SIZE<size_t>& size) -> ALLEGRO::DISPLAY_DATA*
+		{
+			return al_create_display((int32_t)size.width, (int32_t)size.height);
+		}
+
+		export inline auto destroy_display(ALLEGRO::DISPLAY_DATA* data) -> void
 		{
 			al_destroy_display(data);
 		}
@@ -116,12 +121,12 @@ namespace al
 		return ALLEGRO_NEW_WINDOW_TITLE_MAX_SIZE;
 	}
 
-	export inline void set_new_display_refresh_rate(int32_t rate)
+	export inline auto set_new_display_refresh_rate(int32_t rate) -> void
 	{
 		al_set_new_display_refresh_rate(rate);
 	}
 
-	export inline void set_new_display_flags(int32_t flags)
+	export inline auto set_new_display_flags(int32_t flags) -> void
 	{
 		al_set_new_display_flags(flags);
 	}
@@ -136,12 +141,12 @@ namespace al
 		return al_get_new_display_flags();
 	}
 
-	export inline void set_window_title(ALLEGRO::DISPLAY& display, const char* title)
+	export inline auto set_window_title(const ALLEGRO::DISPLAY& display, const char* title) -> void
 	{
 		al_set_window_title((ALLEGRO::DISPLAY_DATA*)display.get(), title);
 	}
 
-	export inline void set_new_window_title(const char* title)
+	export inline auto set_new_window_title(const char* title) -> void
 	{
 		al_set_new_window_title(title);
 	}
@@ -191,9 +196,9 @@ namespace al
 		return al_set_display_flag((ALLEGRO::DISPLAY_DATA*)display.get(), flag, onoff);
 	}
 
-	export inline ALLEGRO::DISPLAY create_display(int32_t width, int32_t height)
+	export inline ALLEGRO::DISPLAY create_display(const ALLEGRO::SIZE<size_t>& size)
 	{
-		return ALLEGRO::DISPLAY(::al_create_display(width, height), internal::destroy_display);
+		return ALLEGRO::DISPLAY(::al_create_display((int32_t)size.width, (int32_t)size.height), internal::destroy_display);
 	}
 
 	export inline ALLEGRO::DISPLAY get_current_display()
@@ -201,17 +206,17 @@ namespace al
 		return ALLEGRO::DISPLAY(al_get_current_display(), al::internal::deleter_empty<ALLEGRO::DISPLAY_DATA>);
 	}
 
-	export inline void set_target_bitmap(ALLEGRO::BITMAP& bitmap)
+	export inline auto set_target_bitmap(const ALLEGRO::BITMAP& bitmap) -> void
 	{
 		al_set_target_bitmap((ALLEGRO::BITMAP_DATA*)bitmap.get());
 	}
 
-	export inline void set_target_backbuffer(ALLEGRO::DISPLAY& display)
+	export inline auto set_target_backbuffer(const ALLEGRO::DISPLAY& display) -> void
 	{
 		al_set_target_backbuffer((ALLEGRO::DISPLAY_DATA*)display.get());
 	}
 
-	export inline ALLEGRO::BITMAP get_backbuffer(ALLEGRO::DISPLAY& display)
+	export inline ALLEGRO::BITMAP get_backbuffer(const ALLEGRO::DISPLAY& display)
 	{
 		return ALLEGRO::BITMAP(al_get_backbuffer((ALLEGRO::DISPLAY_DATA*)display.get()), al::internal::deleter_empty<ALLEGRO::BITMAP_DATA>);
 	}
@@ -221,22 +226,22 @@ namespace al
 		return ALLEGRO::BITMAP(al_get_target_bitmap(), al::internal::deleter_empty<ALLEGRO::BITMAP_DATA>);
 	}
 
-	export inline bool acknowledge_resize(ALLEGRO::DISPLAY& display)
+	export inline bool acknowledge_resize(const ALLEGRO::DISPLAY& display)
 	{
 		return al_acknowledge_resize((ALLEGRO::DISPLAY_DATA*)display.get());
 	}
 
-	export inline bool resize_display(ALLEGRO::DISPLAY& display, ALLEGRO::SIZE<size_t> size)
+	export inline bool resize_display(const ALLEGRO::DISPLAY& display, const ALLEGRO::SIZE<size_t>& size)
 	{
 		return al_resize_display((ALLEGRO::DISPLAY_DATA*)display.get(), (int32_t)size.width, (int32_t)size.height);
 	}
 
-	export inline void flip_display()
+	export inline auto flip_display()
 	{
 		al_flip_display();
 	}
 
-	export inline void update_display_region(const ALLEGRO::RECTANGLE<int32_t> region)
+	export inline auto update_display_region(const ALLEGRO::RECTANGLE<int32_t>& region)
 	{
 		al_update_display_region(region.position.x, region.position.y, region.size.width, region.size.height);
 	}
@@ -251,23 +256,25 @@ namespace al
 		return al_wait_for_vsync();
 	}
 
-	export inline ALLEGRO::EVENT_SOURCE get_display_event_source(ALLEGRO::DISPLAY& display)
+	export inline ALLEGRO::EVENT_SOURCE get_display_event_source(const ALLEGRO::DISPLAY& display)
 	{
 		return ALLEGRO::EVENT_SOURCE(al_get_display_event_source((ALLEGRO::DISPLAY_DATA*)display.get()), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
 	}
 
-	export inline void set_display_icon(ALLEGRO::DISPLAY& display, const ALLEGRO::BITMAP& icon)
+	export inline auto set_display_icon(const ALLEGRO::DISPLAY& display, const ALLEGRO::BITMAP& icon)
 	{
 		al_set_display_icon((ALLEGRO::DISPLAY_DATA*)display.get(), (ALLEGRO::BITMAP_DATA*)icon.get());
 	}
 
-	export inline void set_display_icons(ALLEGRO::DISPLAY& display, const std::vector<ALLEGRO::BITMAP>& icons)
+	export inline auto set_display_icons(ALLEGRO::DISPLAY& display, const std::vector<ALLEGRO::BITMAP>& icons)
 	{
-		std::vector<void*> temp;
-		for (auto icon : icons)
+		std::vector<void*> temp{ icons.size() };
+
+		for (size_t i = 0; i < icons.size(); ++i)
 		{
-			temp.push_back(icon.get());
+			temp[i] = icons[i].get();
 		}
+
 		al_set_display_icons((ALLEGRO::DISPLAY_DATA*)display.get(), (int32_t)temp.size(), (ALLEGRO::BITMAP_DATA**)temp.data());
 	}
 
@@ -276,12 +283,12 @@ namespace al
 		return al_get_new_display_adapter();
 	}
 
-	export inline void set_new_display_adapter(int32_t adapter)
+	export inline auto set_new_display_adapter(int32_t adapter)
 	{
 		al_set_new_display_adapter(adapter);
 	}
 
-	export inline void set_new_window_position(const ALLEGRO::POINT<int32_t> point)
+	export inline auto set_new_window_position(const ALLEGRO::POINT<int32_t>& point)
 	{
 		al_set_new_window_position(point.x, point.y);
 	}
@@ -295,7 +302,7 @@ namespace al
 		return point;
 	}
 
-	export inline void set_window_position(ALLEGRO::DISPLAY& display, const ALLEGRO::POINT<int32_t> point)
+	export inline auto set_window_position(ALLEGRO::DISPLAY& display, const ALLEGRO::POINT<int32_t>& point)
 	{
 		al_set_window_position((ALLEGRO::DISPLAY_DATA*)display.get(), point.x, point.y);
 	}
@@ -316,7 +323,7 @@ namespace al
 	}
 #endif
 	
-	export inline bool set_window_constraints(ALLEGRO::DISPLAY& display, const ALLEGRO::SIZE<int32_t>& min, const ALLEGRO::SIZE<int32_t>& max)
+	export inline bool set_window_constraints(const ALLEGRO::DISPLAY& display, const ALLEGRO::SIZE<int32_t>& min, const ALLEGRO::SIZE<int32_t>& max)
 	{
 		return al_set_window_constraints((ALLEGRO::DISPLAY_DATA*)display.get(), min.width, min.height, max.width, max.height);
 	}
@@ -326,12 +333,12 @@ namespace al
 		return al_get_window_constraints((ALLEGRO::DISPLAY_DATA*)display.get(), &min.width, &min.height, &max.width, &max.height);
 	}
 
-	export inline void apply_window_constraints(ALLEGRO::DISPLAY& display, bool onoff)
+	export inline auto apply_window_constraints(const ALLEGRO::DISPLAY& display, bool onoff)
 	{
 		al_apply_window_constraints((ALLEGRO::DISPLAY_DATA*)display.get(), onoff);
 	}
 
-	export inline void set_new_display_option(int32_t option, int32_t value, int32_t importance)
+	export inline auto set_new_display_option(int32_t option, int32_t value, int32_t importance)
 	{
 		al_set_new_display_option(option, value, importance);
 	}
@@ -343,12 +350,12 @@ namespace al
 		return std::make_tuple(value, importance);
 	}
 
-	export inline void reset_new_display_options()
+	export inline auto reset_new_display_options()
 	{
 		al_reset_new_display_options();
 	}
 
-	export inline void set_display_option(ALLEGRO::DISPLAY& display, int32_t option, int32_t value)
+	export inline auto set_display_option(const ALLEGRO::DISPLAY& display, int32_t option, int32_t value)
 	{
 		al_set_display_option((ALLEGRO::DISPLAY_DATA*)display.get(), option, value);
 	}
@@ -358,7 +365,7 @@ namespace al
 		return al_get_display_option((ALLEGRO::DISPLAY_DATA*)display.get(), option);
 	}
 
-	export inline void hold_bitmap_drawing(bool hold)
+	export inline auto hold_bitmap_drawing(bool hold)
 	{
 		al_hold_bitmap_drawing(hold);
 	}
@@ -368,18 +375,18 @@ namespace al
 		return al_is_bitmap_drawing_held();
 	}
 
-	export inline void acknowledge_drawing_halt(ALLEGRO::DISPLAY& display)
+	export inline auto acknowledge_drawing_halt(const ALLEGRO::DISPLAY& display)
 	{
 		al_acknowledge_drawing_halt((ALLEGRO::DISPLAY_DATA*)display.get());
 	}
 
-	export inline void acknowledge_drawing_resume(ALLEGRO::DISPLAY& display)
+	export inline auto acknowledge_drawing_resume(const ALLEGRO::DISPLAY& display)
 	{
 		al_acknowledge_drawing_resume((ALLEGRO::DISPLAY_DATA*)display.get());
 	}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
-	export inline void backup_dirty_bitmaps(ALLEGRO::DISPLAY& display)
+	export inline auto backup_dirty_bitmaps(const ALLEGRO::DISPLAY& display)
 	{
 		al_backup_dirty_bitmaps(display.get());
 	}

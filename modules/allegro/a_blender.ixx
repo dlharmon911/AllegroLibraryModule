@@ -40,12 +40,12 @@ namespace ALLEGRO
 
 namespace al
 {
-	export inline void set_blender(const ALLEGRO::BLENDER& blender)
+	export inline auto set_blender(const ALLEGRO::BLENDER& blender) -> void
 	{
 		al_set_blender(blender.operation, blender.source, blender.destination);
 	}
 
-	export inline ALLEGRO::BLENDER get_blender()
+	export inline auto get_blender() -> ALLEGRO::BLENDER
 	{
 		ALLEGRO::BLENDER blender;
 
@@ -54,23 +54,23 @@ namespace al
 		return blender;
 	}
 
-	export inline void set_blend_color(ALLEGRO::COLOR color)
+	export inline auto set_blend_color(const ALLEGRO::COLOR& color) -> void
 	{
 		al_set_blend_color((ALLEGRO::COLOR_DATA)color);
 	}
 
-	export inline ALLEGRO::COLOR get_blend_color()
+	export inline auto get_blend_color() -> ALLEGRO::COLOR
 	{
 		return (ALLEGRO::COLOR)al_get_blend_color();
 	}
 
-	export inline void set_separate_blender(const ALLEGRO::BLENDER& blender, const ALLEGRO::BLENDER& alpha)
+	export inline auto set_separate_blender(const ALLEGRO::BLENDER& blender, const ALLEGRO::BLENDER& alpha) -> void
 	{
 		al_set_separate_blender(blender.operation, blender.source, blender.destination,
 								alpha.operation, alpha.source, alpha.destination);
 	}
 
-	export inline std::tuple<ALLEGRO::BLENDER, ALLEGRO::BLENDER> get_separate_blender()
+	export inline auto get_separate_blender() -> std::tuple<ALLEGRO::BLENDER, ALLEGRO::BLENDER>
 	{
 		ALLEGRO::BLENDER blender;
 		ALLEGRO::BLENDER alpha;

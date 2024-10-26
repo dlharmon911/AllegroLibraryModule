@@ -8,17 +8,17 @@ import :base;
 namespace ALLEGRO
 {
 
-	export template<typename T> inline void ASSERT(const std::shared_ptr<T>& x)
+	export template<typename T> inline auto ASSERT(const std::shared_ptr<T>& x) -> void
 	{
 		assert((bool)x);
 	}
 
-	export inline void ASSERT(const void* x)
+	export inline auto ASSERT(const void* x) -> void
 	{
 		assert(x);
 	}
 
-	export inline void ASSERT(bool x)
+	export inline auto ASSERT(bool x) -> void
 	{
 		assert(x);
 	}
@@ -26,12 +26,12 @@ namespace ALLEGRO
 
 namespace al
 {
-	export inline int32_t get_errno()
+	export inline auto get_errno() -> int32_t
 	{
 		return al_get_errno();
 	}
 
-	export inline void set_errno(int32_t errnum)
+	export inline auto set_errno(int32_t errnum) -> void
 	{
 		return al_set_errno(errnum);
 	}

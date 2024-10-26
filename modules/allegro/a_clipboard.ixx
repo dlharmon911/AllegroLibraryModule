@@ -9,10 +9,10 @@ import :debug;
 
 namespace al
 {
-	export inline char* get_clipboard_text(const ALLEGRO::DISPLAY& display)
+	export inline auto get_clipboard_text(const ALLEGRO::DISPLAY& display) -> char*
 	{
-		char* text = al_get_clipboard_text((ALLEGRO::DISPLAY_DATA*)display.get());
-		char* rv;
+		char* text{ al_get_clipboard_text((ALLEGRO::DISPLAY_DATA*)display.get()) };
+		char* rv{ nullptr };
 
 		if (text)
 		{
@@ -23,12 +23,12 @@ namespace al
 		return rv;
 	}
 
-	export inline void set_clipboard_text(const ALLEGRO::DISPLAY& display, const char* text)
+	export inline auto set_clipboard_text(const ALLEGRO::DISPLAY& display, const char* text) -> void
 	{
 		al_set_clipboard_text((ALLEGRO::DISPLAY_DATA*)display.get(), text);
 	}
 
-	export inline bool clipboard_has_text(const ALLEGRO::DISPLAY& display)
+	export inline auto clipboard_has_text(const ALLEGRO::DISPLAY& display) -> bool
 	{
 		return al_clipboard_has_text((ALLEGRO::DISPLAY_DATA*)display.get());
 	}

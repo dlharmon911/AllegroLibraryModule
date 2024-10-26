@@ -10,7 +10,7 @@ namespace ALLEGRO
 {
 	export using BITMAP_DATA = ALLEGRO_BITMAP;
 	export using BITMAP = std::shared_ptr<BITMAP_DATA>;
-	export using BITMAP_CLIP = RECTANGLE<int32_t>;
+
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
 	export using BITMAP_WRAP = ::ALLEGRO_BITMAP_WRAP;
 	export typedef struct BITMAP_BLENDER
@@ -52,134 +52,139 @@ namespace al
 {
 	namespace internal
 	{
-		export inline void destroy_bitmap(ALLEGRO::BITMAP_DATA* data)
+		export inline auto create_bitmap(const ALLEGRO::SIZE<size_t>& size) -> ALLEGRO::BITMAP_DATA*
+		{
+			return al_create_bitmap((int32_t)size.width, (int32_t)size.height);
+		}
+
+		export inline auto destroy_bitmap(ALLEGRO::BITMAP_DATA* data) -> void
 		{
 			al_destroy_bitmap(data);
 		}
 	}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
-	export inline void get_new_bitmap_wrap(ALLEGRO::BITMAP_WRAP& u, ALLEGRO::BITMAP_WRAP& v)
+	export inline auto get_new_bitmap_wrap(ALLEGRO::BITMAP_WRAP& u, ALLEGRO::BITMAP_WRAP& v) -> void
 	{
 		return ::al_get_new_bitmap_wrap(&u, &v);
 	}
 
-	export inline void set_new_bitmap_wrap(const ALLEGRO::BITMAP_WRAP& u, const ALLEGRO::BITMAP_WRAP& v)
+	export inline auto set_new_bitmap_wrap(const ALLEGRO::BITMAP_WRAP& u, const ALLEGRO::BITMAP_WRAP& v) -> void
 	{
 		return ::al_set_new_bitmap_wrap(u, v);
 	}
 #endif
 
-	export inline void set_new_bitmap_flags(int32_t flags)
+	export inline auto set_new_bitmap_flags(int32_t flags) -> void
 	{
 		return ::al_set_new_bitmap_flags(flags);
 	}
 
-	export inline int32_t get_new_bitmap_flags()
+	export inline auto get_new_bitmap_flags() -> int32_t
 	{
 		return ::al_get_new_bitmap_flags();
 	}
 
-	export inline void add_new_bitmap_flags(int32_t flags)
+	export inline auto add_new_bitmap_flags(int32_t flags) -> void
 	{
 		return ::al_add_new_bitmap_flag(flags);
 	}
 
-	export inline int32_t get_bitmap_flags(const ALLEGRO::BITMAP& bitmap)
+	export inline auto get_bitmap_flags(const ALLEGRO::BITMAP& bitmap) -> int32_t
 	{
 		return ::al_get_bitmap_flags((ALLEGRO::BITMAP_DATA*)bitmap.get());
 	}
 
-	export inline void set_new_bitmap_pixel_format(int32_t format)
+	export inline auto set_new_bitmap_pixel_format(int32_t format) -> void
 	{
 		return ::al_set_new_bitmap_format(format);
 	}
 
-	export inline int32_t get_new_bitmap_pixel_format()
+	export inline auto get_new_bitmap_pixel_format() -> int32_t
 	{
 		return ::al_get_new_bitmap_format();
 	}
 
-	export inline int32_t get_bitmap_pixel_format(const ALLEGRO::BITMAP& bitmap)
+	export inline auto get_bitmap_pixel_format(const ALLEGRO::BITMAP& bitmap) -> int32_t
 	{
 		return ::al_get_bitmap_format((ALLEGRO::BITMAP_DATA*)bitmap.get());
 	}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
-	export inline int32_t get_new_bitmap_depth()
+	export inline auto get_new_bitmap_depth() -> int32_t
 	{
 		return ::al_get_new_bitmap_depth();
 	}
 
-	export inline void set_new_bitmap_depth(int32_t depth)
+	export inline auto set_new_bitmap_depth(int32_t depth) -> void
 	{
 		::al_set_new_bitmap_depth(depth);
 	}
 
-	export inline int32_t get_bitmap_depth(const ALLEGRO::BITMAP& bitmap)
+	export inline auto get_bitmap_depth(const ALLEGRO::BITMAP& bitmap) -> int32_t
 	{
 		return ::al_get_bitmap_depth(bitmap.get());
 	}
 
-	export inline int32_t get_new_bitmap_samples()
+	export inline auto get_new_bitmap_samples() -> int32_t
 	{
 		return ::al_get_new_bitmap_samples();
 	}
 
-	export inline void set_bitmap_new_samples(int32_t samples)
+	export inline auto set_bitmap_new_samples(int32_t samples) -> void
 	{
 		::al_set_new_bitmap_samples(samples);
 	}
 
-	export inline int32_t get_bitmap_samples(const ALLEGRO::BITMAP& bitmap)
+	export inline auto get_bitmap_samples(const ALLEGRO::BITMAP& bitmap) -> int32_t
 	{
 		return ::al_get_bitmap_samples(bitmap.get());
 	}
 #endif
 
-	export inline int32_t get_bitmap_width(const ALLEGRO::BITMAP& bitmap)
+	export inline auto get_bitmap_width(const ALLEGRO::BITMAP& bitmap) -> int32_t
 	{
 		return ::al_get_bitmap_width((ALLEGRO::BITMAP_DATA*)bitmap.get());
 	}
 
-	export inline int32_t get_bitmap_height(const ALLEGRO::BITMAP& bitmap)
+	export inline auto get_bitmap_height(const ALLEGRO::BITMAP& bitmap) -> int32_t
 	{
 		return ::al_get_bitmap_height((ALLEGRO::BITMAP_DATA*)bitmap.get());
 	}
 
-	export inline ALLEGRO::SIZE<int32_t> get_bitmap_dimensions(const ALLEGRO::BITMAP& bitmap)
+	export inline auto get_bitmap_dimensions(const ALLEGRO::BITMAP& bitmap) -> ALLEGRO::SIZE<int32_t>
 	{
 		return { ::al_get_bitmap_width((ALLEGRO::BITMAP_DATA*)bitmap.get()), al_get_bitmap_height((ALLEGRO::BITMAP_DATA*)bitmap.get()) };
 	}
 
-	export inline ALLEGRO::COLOR get_pixel(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::POINT<float> point)
+	export inline auto get_pixel(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::POINT<float>& point) -> ALLEGRO::COLOR
 	{
 		return (ALLEGRO::COLOR)al_get_pixel((ALLEGRO::BITMAP_DATA*)bitmap.get(), point.x, point.y);
 	}
 
-	export inline ALLEGRO::BITMAP create_bitmap(const ALLEGRO::SIZE<int32_t> size)
+	export inline auto create_bitmap(const ALLEGRO::SIZE<size_t>& size) -> ALLEGRO::BITMAP
 	{
-		return ALLEGRO::BITMAP(::al_create_bitmap(size.width, size.height), internal::destroy_bitmap);
+		return ALLEGRO::BITMAP(::al_create_bitmap((int32_t)size.width, (int32_t)size.height), internal::destroy_bitmap);
 	}
 
-	export inline ALLEGRO::BITMAP create_sub_bitmap(ALLEGRO::BITMAP& parent, const ALLEGRO::RECTANGLE<int32_t> rectangle)
+	export inline auto create_sub_bitmap(const ALLEGRO::BITMAP& parent, const ALLEGRO::RECTANGLE<int32_t>& rectangle) -> ALLEGRO::BITMAP
 	{
 		return ALLEGRO::BITMAP(::al_create_sub_bitmap((ALLEGRO::BITMAP_DATA*)parent.get(), rectangle.position.x, rectangle.position.y, rectangle.size.width, rectangle.size.height), internal::destroy_bitmap);
 	}
 
-	export inline void reparent_sub_bitmap(ALLEGRO::BITMAP& bitmap, ALLEGRO::BITMAP& parent, const ALLEGRO::RECTANGLE<int32_t> rectangle)
+	export inline auto reparent_sub_bitmap(const ALLEGRO::BITMAP& bitmap, ALLEGRO::BITMAP& parent, const ALLEGRO::RECTANGLE<int32_t>& rectangle) -> void
 	{
 		::al_reparent_bitmap((ALLEGRO::BITMAP_DATA*)bitmap.get(), (ALLEGRO::BITMAP_DATA*)parent.get(), rectangle.position.x, rectangle.position.y, rectangle.size.width, rectangle.size.height);
 	}
 
-	export inline void convert_mask_to_alpha(ALLEGRO::BITMAP& bitmap, ALLEGRO::COLOR mask_color)
+	export inline auto convert_mask_to_alpha(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::COLOR& mask_color) -> void
 	{
-		::al_convert_mask_to_alpha((ALLEGRO::BITMAP_DATA*)bitmap.get(), (ALLEGRO::COLOR_DATA)mask_color);
+		::al_convert_mask_to_alpha((ALLEGRO::BITMAP_DATA*)bitmap.get(), (const ALLEGRO::COLOR_DATA)mask_color);
 	}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
 
-	export inline ALLEGRO::BITMAP_BLENDER get_blender()
+	export inline auto get_blender() -> ALLEGRO::BITMAP_BLENDER
 	{
 		ALLEGRO::BITMAP_BLENDER rv;
 
@@ -188,55 +193,57 @@ namespace al
 		return rv;
 	}
 
-	export inline void set_blender(const ALLEGRO::BITMAP_BLENDER& blender)
+	export inline auto set_blender(const ALLEGRO::BITMAP_BLENDER& blender) -> void
 	{
 		::al_set_bitmap_blender(blender.operation, blender.source, blender.destination);
 	}
 
-	export inline void reset_blender()
+	export inline auto reset_blender() -> void
 	{
 		::al_reset_bitmap_blender();
 	}
 
-	export inline void get_separate_blender(ALLEGRO::BITMAP_BLENDER& blender, ALLEGRO::BITMAP_BLENDER& alpha)
+	export inline auto get_separate_blender(ALLEGRO::BITMAP_BLENDER& blender, ALLEGRO::BITMAP_BLENDER& alpha) -> void
 	{
 		::al_get_separate_bitmap_blender(&blender.operation, &blender.source, &blender.destination, &alpha.operation, &alpha.source, &alpha.destination);
 	}
 
-	export inline void set_separate_blender(const ALLEGRO::BITMAP_BLENDER& blender, const ALLEGRO::BITMAP_BLENDER& alpha)
+	export inline auto set_separate_blender(const ALLEGRO::BITMAP_BLENDER& blender, const ALLEGRO::BITMAP_BLENDER& alpha) -> void
 	{
 		::al_set_separate_bitmap_blender(blender.operation, blender.source, blender.destination, alpha.operation, alpha.source, alpha.destination);
 	}
 
-	export inline ALLEGRO::COLOR get_blend_color()
+	export inline auto get_blend_color() -> ALLEGRO::COLOR
 	{
 		return ::al_get_bitmap_blend_color();
 	}
 
-	export inline void set_blend_color(const ALLEGRO::COLOR color)
+	export inline auto set_blend_color(const ALLEGRO::COLOR color) -> void
 	{
 		::al_set_bitmap_blend_color(color);
 	}
 #endif
 
-	export inline void get_clipping(ALLEGRO::BITMAP_CLIP& clip)
+	export inline auto get_clipping_rectangle() -> ALLEGRO::RECTANGLE<int32_t>
 	{
+		ALLEGRO::RECTANGLE<int32_t> clip{};
 		::al_get_clipping_rectangle(&clip.position.x, &clip.position.y, &clip.size.width, &clip.size.height);
+		return clip;
 	}
 
-	export inline void set_clipping(const ALLEGRO::BITMAP_CLIP clip)
+	export inline auto set_clipping_rectangle(const ALLEGRO::RECTANGLE<int32_t>& clip) -> void
 	{
 		::al_set_clipping_rectangle(clip.position.x, clip.position.y, clip.size.width, clip.size.height);
 	}
 
-	export inline void reset_clipping()
+	export inline auto reset_clipping() -> void
 	{
 		::al_reset_clipping_rectangle();
 	}
 
-	export inline ALLEGRO::BITMAP get_parent(ALLEGRO::BITMAP& bitmap)
+	export inline auto get_parent(const ALLEGRO::BITMAP& bitmap) -> ALLEGRO::BITMAP
 	{
-		ALLEGRO::BITMAP rv;
+		ALLEGRO::BITMAP rv{ nullptr };
 
 		if (bitmap)
 		{
@@ -246,38 +253,38 @@ namespace al
 		return rv;
 	}
 
-	export inline int32_t get_parent_bitmap_x(const ALLEGRO::BITMAP& parent)
+	export inline auto get_parent_bitmap_x(const ALLEGRO::BITMAP& parent) -> int32_t
 	{
 		return ::al_get_bitmap_x((ALLEGRO::BITMAP_DATA*)parent.get());
 	}
 
-	export inline int32_t get_parent_bitmap_y(const ALLEGRO::BITMAP& parent)
+	export inline auto get_parent_bitmap_y(const ALLEGRO::BITMAP& parent) -> int32_t
 	{
 		return ::al_get_bitmap_y((ALLEGRO::BITMAP_DATA*)parent.get());
 	}
 
-	export inline bool is_sub_bitmap(const ALLEGRO::BITMAP& bitmap)
+	export inline auto is_sub_bitmap(const ALLEGRO::BITMAP& bitmap) -> bool
 	{
 		return ::al_is_sub_bitmap((ALLEGRO::BITMAP_DATA*)bitmap.get());
 	}
 
-	export inline ALLEGRO::BITMAP clone_bitmap(const ALLEGRO::BITMAP& bitmap)
+	export inline auto clone_bitmap(const ALLEGRO::BITMAP& bitmap) -> ALLEGRO::BITMAP
 	{
 		return ALLEGRO::BITMAP(al_clone_bitmap((ALLEGRO::BITMAP_DATA*)bitmap.get()), internal::destroy_bitmap);
 	}
 
-	export inline void convert_to_video_bitmap(ALLEGRO::BITMAP& bitmap)
+	export inline auto convert_to_video_bitmap(const ALLEGRO::BITMAP& bitmap) -> void
 	{
 		::al_convert_bitmap((ALLEGRO::BITMAP_DATA*)bitmap.get());
 	}
 
-	export inline void convert_memory_bitmaps_to_video_bitmaps(ALLEGRO::BITMAP& bitmap)
+	export inline auto convert_memory_bitmaps_to_video_bitmaps(ALLEGRO::BITMAP& bitmap) -> void
 	{
 		::al_convert_memory_bitmaps();
 	}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
-	export inline void backup_dirty_bitmap(ALLEGRO::BITMAP& bitmap)
+	export inline auto backup_dirty_bitmap(ALLEGRO::BITMAP& bitmap) -> void
 	{
 		::al_backup_dirty_bitmap(bitmap.get());
 	}

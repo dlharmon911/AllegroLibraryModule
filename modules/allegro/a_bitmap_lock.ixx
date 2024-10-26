@@ -20,32 +20,32 @@ namespace ALLEGRO
 
 namespace al
 {
-	export inline ALLEGRO::BITMAP_LOCKED_REGION lock_bitmap(const ALLEGRO::BITMAP& bitmap, int32_t format, int32_t flags)
+	export inline auto lock_bitmap(const ALLEGRO::BITMAP& bitmap, int32_t format, int32_t flags) -> ALLEGRO::BITMAP_LOCKED_REGION
 	{
 		return ALLEGRO::BITMAP_LOCKED_REGION(al_lock_bitmap((ALLEGRO::BITMAP_DATA*)bitmap.get(), format, flags), al::internal::deleter_empty<ALLEGRO::BITMAP_LOCKED_REGION_DATA>);
 	}
 
-	export inline ALLEGRO::BITMAP_LOCKED_REGION lock_bitmap_region(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::RECTANGLE<int32_t> region, int32_t format, int32_t flags)
+	export inline auto lock_bitmap_region(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::RECTANGLE<int32_t>& region, int32_t format, int32_t flags) -> ALLEGRO::BITMAP_LOCKED_REGION
 	{
 		return ALLEGRO::BITMAP_LOCKED_REGION(al_lock_bitmap_region((ALLEGRO::BITMAP_DATA*)bitmap.get(), region.position.x, region.position.y, region.size.width, region.size.height, format, flags), al::internal::deleter_empty<ALLEGRO::BITMAP_LOCKED_REGION_DATA>);
 	}
 
-	export inline ALLEGRO::BITMAP_LOCKED_REGION lock_bitmap_blocked(const ALLEGRO::BITMAP& bitmap, int32_t flags)
+	export inline auto lock_bitmap_blocked(const ALLEGRO::BITMAP& bitmap, int32_t flags) -> ALLEGRO::BITMAP_LOCKED_REGION
 	{
 		return ALLEGRO::BITMAP_LOCKED_REGION(al_lock_bitmap_blocked((ALLEGRO::BITMAP_DATA*)bitmap.get(), flags), al::internal::deleter_empty<ALLEGRO::BITMAP_LOCKED_REGION_DATA>);
 	}
 
-	export inline ALLEGRO::BITMAP_LOCKED_REGION lock_bitmap_region_blocked(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::RECTANGLE<int32_t> region, int32_t flags)
+	export inline auto lock_bitmap_region_blocked(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::RECTANGLE<int32_t>& region, int32_t flags) -> ALLEGRO::BITMAP_LOCKED_REGION
 	{
 		return ALLEGRO::BITMAP_LOCKED_REGION(al_lock_bitmap_region_blocked((ALLEGRO::BITMAP_DATA*)bitmap.get(), region.position.x, region.position.y, region.size.width, region.size.height, flags), al::internal::deleter_empty<ALLEGRO::BITMAP_LOCKED_REGION_DATA>);
 	}
 
-	export inline void unlock_bitmap(const ALLEGRO::BITMAP& bitmap)
+	export inline auto unlock_bitmap(const ALLEGRO::BITMAP& bitmap) -> void
 	{
 		al_unlock_bitmap((ALLEGRO::BITMAP_DATA*)bitmap.get());
 	}
 
-	export inline bool is_bitmap_locked(const ALLEGRO::BITMAP& bitmap)
+	export inline auto is_bitmap_locked(const ALLEGRO::BITMAP& bitmap) -> bool
 	{
 		return al_is_bitmap_locked((ALLEGRO::BITMAP_DATA*)bitmap.get());
 	}

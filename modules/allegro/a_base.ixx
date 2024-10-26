@@ -7,63 +7,65 @@ import <allegro5/base.h>;
 
 namespace al
 {
-	export inline constexpr uint8_t get_version()
+	export inline constexpr auto get_version() -> uint8_t
 	{
 		return ALLEGRO_VERSION;
 	}
 
-	export inline constexpr uint8_t get_version_sub()
+	export inline constexpr auto get_version_sub() -> uint8_t
 	{
 		return ALLEGRO_SUB_VERSION;
 	}
 
-	export inline constexpr uint8_t get_version_wip()
+	export inline constexpr auto get_version_wip() -> uint8_t
 	{
 		return ALLEGRO_WIP_VERSION;
 	}
 
-	export inline constexpr uint8_t get_version_unstable_bit()
+	export inline constexpr auto get_version_unstable_bit() -> uint8_t
 	{
 		return ALLEGRO_UNSTABLE_BIT;
 	}
 
-	export inline constexpr uint8_t get_version_release_number()
+	export inline constexpr auto get_version_release_number() -> uint8_t
 	{
 		return ALLEGRO_RELEASE_NUMBER;
 	}
 
-	export inline const char* get_version_string()
+	export inline auto get_version_string() -> const char*
 	{
 		return (const char*)ALLEGRO_VERSION_STR;
 	}
 
-	export inline const char* get_version_date_string()
+	export inline auto get_version_date_string() -> const char*
 	{
 		return (const char*)ALLEGRO_DATE_STR;
 	}
 
-	export inline constexpr int32_t get_version_date()
+	export inline constexpr auto get_version_date() -> int32_t
 	{
 		return ALLEGRO_DATE;
 	}
 
-	export inline constexpr int32_t get_version_as_integer()
+	export inline constexpr auto get_version_as_integer() -> int32_t
 	{
 		return ALLEGRO_VERSION_INT;
 	}
 
-	export inline constexpr double get_pi()
+	export inline constexpr auto get_pi() -> double
 	{
 		return ALLEGRO_PI;
 	}
 
-	export inline uint32_t generate_id(uint32_t a, uint32_t b, uint32_t c, uint32_t d)
+	export inline constexpr auto generate_id(uint32_t a, uint32_t b, uint32_t c, uint32_t d) -> uint32_t
 	{
 		return (((a) << 24) | ((b) << 16) | ((c) << 8) | (d));
 	}
 
-	export using ::al_get_allegro_version;
-	export using ::al_run_main;
+	export inline auto run_main(int argc, char** argv, int (*user_main)(int, char**)) -> int32_t
+	{
+		return al_run_main(argc, argv, user_main);
+	}
 }
 
 namespace ALLEGRO
@@ -81,6 +83,14 @@ namespace ALLEGRO
 
 		template <typename Q>
 		constexpr POINT<T>(const POINT<Q>& point) : x((T)point.x), y((T)point.y) {}
+
+		auto operator -() -> POINT<T>&
+		{
+			this->x = -this->x;
+			this->y = -this->y;
+
+			return *this;
+		}
 	};
 
 	export template <typename T> struct VECTOR3

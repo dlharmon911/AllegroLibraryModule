@@ -17,17 +17,17 @@ namespace ALLEGRO
 
 namespace al
 {
-	export inline void put_pixel(const ALLEGRO::POINT<int32_t> point, ALLEGRO::COLOR color)
+	export inline auto put_pixel(const ALLEGRO::POINT<int32_t>& point, const ALLEGRO::COLOR& color) -> void
 	{
 		al_put_pixel(point.x, point.y, (ALLEGRO::COLOR_DATA)color);
 	}
 
-	export inline void put_blended_pixel(const ALLEGRO::POINT<int32_t> point, ALLEGRO::COLOR color)
+	export inline auto put_blended_pixel(const ALLEGRO::POINT<int32_t>& point, const ALLEGRO::COLOR& color) -> void
 	{
 		al_put_blended_pixel(point.x, point.y, (ALLEGRO::COLOR_DATA)color);
 	}
 
-	export inline void draw_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::POINT<float> destination, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE)
+	export inline auto draw_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::POINT<float>& destination, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE) -> void
 	{
 		al_draw_bitmap(
 			(ALLEGRO::BITMAP_DATA*)bitmap.get(),
@@ -35,7 +35,7 @@ namespace al
 			flip_flags);
 	}
 
-	export inline void draw_bitmap_region(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::RECTANGLE<float> region, const ALLEGRO::POINT<float> destination, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE)
+	export inline auto draw_bitmap_region(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::RECTANGLE<float>& region, const ALLEGRO::POINT<float>&  destination, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE) -> void
 	{
 		al_draw_bitmap_region(
 			(ALLEGRO::BITMAP_DATA*)bitmap.get(),
@@ -45,7 +45,7 @@ namespace al
 			flip_flags);
 	}
 
-	export inline void draw_scaled_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::RECTANGLE<float> source, const ALLEGRO::RECTANGLE<float> destination, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE)
+	export inline auto draw_scaled_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::RECTANGLE<float>& source, const ALLEGRO::RECTANGLE<float>& destination, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE) -> void
 	{
 		al_draw_scaled_bitmap(
 			(ALLEGRO::BITMAP_DATA*)bitmap.get(),
@@ -56,7 +56,7 @@ namespace al
 			flip_flags);
 	}
 
-	export inline void draw_rotated_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::POINT<float> center, const  ALLEGRO::POINT<float>& destination, float angle, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE)
+	export inline auto draw_rotated_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::POINT<float>& center, const ALLEGRO::POINT<float>& destination, float angle, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE) -> void
 	{
 		al_draw_rotated_bitmap(
 			(ALLEGRO::BITMAP_DATA*)bitmap.get(),
@@ -66,7 +66,7 @@ namespace al
 			flip_flags);
 	}
 
-	export inline void draw_scaled_rotated_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::POINT<float> center, const ALLEGRO::POINT<float> destination, const ALLEGRO::POINT<float> scale, float angle, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE)
+	export inline auto draw_scaled_rotated_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::POINT<float>& center, const ALLEGRO::POINT<float>& destination, const ALLEGRO::POINT<float>& scale, float angle, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE) -> void
 	{
 		al_draw_scaled_rotated_bitmap(
 			(ALLEGRO::BITMAP_DATA*)bitmap.get(),
@@ -78,7 +78,7 @@ namespace al
 	}
 
 
-	export inline void draw_tinted_bitmap(const ALLEGRO::BITMAP& bitmap, ALLEGRO::COLOR tint, const ALLEGRO::POINT<float> destination, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE)
+	export inline auto draw_tinted_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::COLOR& tint, const ALLEGRO::POINT<float>& destination, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE) -> void
 	{
 		al_draw_tinted_bitmap(
 			(ALLEGRO::BITMAP_DATA*)bitmap.get(),
@@ -87,7 +87,7 @@ namespace al
 			flip_flags);
 	}
 
-	export inline void draw_tinted_bitmap_region(const ALLEGRO::BITMAP& bitmap, ALLEGRO::COLOR tint, const ALLEGRO::RECTANGLE<float> region, const ALLEGRO::POINT<float> destination, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE)
+	export inline auto draw_tinted_bitmap_region(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::COLOR& tint, const ALLEGRO::RECTANGLE<float>& region, const ALLEGRO::POINT<float>& destination, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE) -> void
 	{
 		al_draw_tinted_bitmap_region(
 			(ALLEGRO::BITMAP_DATA*)bitmap.get(),
@@ -98,7 +98,7 @@ namespace al
 			flip_flags);
 	}
 
-	export inline void draw_tinted_scaled_bitmap(const ALLEGRO::BITMAP& bitmap, ALLEGRO::COLOR tint, const ALLEGRO::RECTANGLE<float> source, const ALLEGRO::POINT<float> destination, const ALLEGRO::POINT<float> scale, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE)
+	export inline auto draw_tinted_scaled_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::COLOR& tint, const ALLEGRO::RECTANGLE<float>& source, const ALLEGRO::POINT<float>& destination, const ALLEGRO::POINT<float> scale, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE) -> void
 	{
 		al_draw_tinted_scaled_bitmap(
 			(ALLEGRO::BITMAP_DATA*)bitmap.get(),
@@ -110,7 +110,7 @@ namespace al
 			flip_flags);
 	}
 
-	export inline void draw_tinted_rotated_bitmap(const ALLEGRO::BITMAP& bitmap, ALLEGRO::COLOR tint, const ALLEGRO::POINT<float> center, const  ALLEGRO::POINT<float>& destination, float angle, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE)
+	export inline auto draw_tinted_rotated_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::COLOR& tint, const ALLEGRO::POINT<float> center, const  ALLEGRO::POINT<float>& destination, float angle, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE) -> void
 	{
 		al_draw_tinted_rotated_bitmap(
 			(ALLEGRO::BITMAP_DATA*)bitmap.get(),
@@ -121,7 +121,7 @@ namespace al
 			flip_flags);
 	}
 
-	export inline void draw_tinted_scaled_rotated_bitmap(const ALLEGRO::BITMAP& bitmap, ALLEGRO::COLOR tint, const ALLEGRO::POINT<float> center, const ALLEGRO::POINT<float> destination, const ALLEGRO::POINT<float> scale, float angle, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE)
+	export inline auto draw_tinted_scaled_rotated_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::COLOR& tint, const ALLEGRO::POINT<float>& center, const ALLEGRO::POINT<float>& destination, const ALLEGRO::POINT<float>& scale, float angle, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE) -> void
 	{
 		al_draw_tinted_scaled_rotated_bitmap(
 			(ALLEGRO::BITMAP_DATA*)bitmap.get(),

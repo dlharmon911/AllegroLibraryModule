@@ -11,23 +11,23 @@ namespace ALLEGRO
 
 namespace al
 {
-	export inline int32_t get_num_video_adapters()
+	export inline auto get_num_video_adapters() -> int32_t
 	{
 		return al_get_num_video_adapters();
 	}
 
-	export inline bool get_monitor_info(int32_t adapter, ALLEGRO::MONITOR_INFO& info)
+	export inline auto get_monitor_info(int32_t adapter, ALLEGRO::MONITOR_INFO& info) -> bool
 	{
 		return al_get_monitor_info(adapter, &info);
 	}
 
-	export inline int32_t get_monitor_dpi(int32_t adapter)
+	export inline auto get_monitor_dpi(int32_t adapter) -> int32_t
 	{
 		return al_get_monitor_dpi(adapter);
 	}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
-	export inline int32_t get_monitor_refresh_rate(int32_t adapter)
+	export inline auto get_monitor_refresh_rate(int32_t adapter) -> int32_t
 	{
 		return al_get_monitor_refresh_rate(adapter);
 	}

@@ -4,12 +4,12 @@ import <allegro5/cpu.h>;
 
 namespace al
 {
-	export inline int32_t get_cpu_count()
+	export inline auto get_cpu_count() -> int32_t
 	{
 		return al_get_cpu_count();
 	}
 
-	export inline int32_t get_ram_size()
+	export inline auto get_ram_size() -> int32_t
 	{
 		return al_get_ram_size();
 	}

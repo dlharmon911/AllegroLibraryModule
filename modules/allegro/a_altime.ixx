@@ -11,17 +11,17 @@ namespace ALLEGRO
 
 namespace al
 {
-	export inline double get_time()
+	export inline auto get_time() -> double
 	{
 		return al_get_time();
 	}
 
-	export inline void init_timeout(ALLEGRO::TIMEOUT& timeout, double seconds)
+	export inline auto init_timeout(ALLEGRO::TIMEOUT& timeout, double seconds) -> void
 	{
 		return al_init_timeout(&timeout, seconds);
 	}
 
-	export inline void rest(double seconds)
+	export inline auto rest(double seconds) -> void
 	{
 		al_rest(seconds);
 	}

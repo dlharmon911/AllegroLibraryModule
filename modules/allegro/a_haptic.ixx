@@ -53,89 +53,89 @@ namespace ALLEGRO
 
 namespace al
 {
-	export inline bool install_haptic()
+	export inline auto install_haptic() -> bool
 	{
 		return al_install_haptic();
 	}
 
-	export inline void uninstall_haptic()
+	export inline auto uninstall_haptic() -> void
 	{
 		return al_uninstall_haptic();
 	}
 
-	export inline bool is_haptic_installed()
+	export inline auto is_haptic_installed() -> bool
 	{
 		return al_is_haptic_installed();
 	}
 
-	export inline bool is_mouse_haptic(ALLEGRO::MOUSE& mouse)
+	export inline auto is_mouse_haptic(ALLEGRO::MOUSE& mouse) -> bool
 	{
 		return al_is_mouse_haptic(&mouse);
 	}
 
-	export inline bool is_joystick_haptic(ALLEGRO::JOYSTICK& joystick)
+	export inline auto is_joystick_haptic(ALLEGRO::JOYSTICK& joystick) -> bool
 	{
 		return al_is_joystick_haptic(&joystick);
 	}
 
-	export inline bool is_keyboard_haptic(ALLEGRO::KEYBOARD& keyboard)
+	export inline auto is_keyboard_haptic(ALLEGRO::KEYBOARD& keyboard) -> bool
 	{
 		return al_is_keyboard_haptic(&keyboard);
 	}
 
-	export inline bool is_display_haptic(ALLEGRO::DISPLAY& display)
+	export inline auto is_display_haptic(ALLEGRO::DISPLAY& display) -> bool
 	{
 		return al_is_display_haptic(&display);
 	}
 
-	export inline bool is_touch_input_haptic(ALLEGRO::TOUCH_INPUT& touch_input)
+	export inline auto is_touch_input_haptic(ALLEGRO::TOUCH_INPUT& touch_input) -> bool
 	{
 		return al_is_touch_input_haptic(&touch_input);
 	}
 
-	export inline ALLEGRO::HAPTIC get_haptic_from_mouse(ALLEGRO::MOUSE& mouse)
+	export inline auto get_haptic_from_mouse(ALLEGRO::MOUSE& mouse) -> ALLEGRO::HAPTIC
 	{
 		return al_get_haptic_from_mouse(&mouse);
 	}
 
-	export inline ALLEGRO::HAPTIC get_haptic_from_joystick(ALLEGRO::JOYSTICK& joystick)
+	export inline auto get_haptic_from_joystick(ALLEGRO::JOYSTICK& joystick) -> ALLEGRO::HAPTIC
 	{
 		return al_get_haptic_from_joystick(&joystick);
 	}
 
-	export inline ALLEGRO::HAPTIC get_haptic_from_keyboard(ALLEGRO::KEYBOARD& keyboard)
+	export inline auto get_haptic_from_keyboard(ALLEGRO::KEYBOARD& keyboard) -> ALLEGRO::HAPTIC
 	{
 		return al_get_haptic_from_keyboard(&keyboard);
 	}
 
-	export inline ALLEGRO::HAPTIC get_haptic_from_display(ALLEGRO::DISPLAY& display)
+	export inline auto get_haptic_from_display(ALLEGRO::DISPLAY& display) -> ALLEGRO::HAPTIC
 	{
 		return al_get_haptic_from_display(&display);
 	}
 
-	export inline ALLEGRO::HAPTIC get_haptic_from_touch_input(ALLEGRO::TOUCH_INPUT& touch_input)
+	export inline auto get_haptic_from_touch_input(ALLEGRO::TOUCH_INPUT& touch_input) -> ALLEGRO::HAPTIC
 	{
 		return al_get_haptic_from_touch_input(&touch_input);
 	}
 
-	export inline bool release_haptic(ALLEGRO::HAPTIC& haptic));
-	export inline bool is_haptic_active(ALLEGRO::HAPTIC& haptic));
-	export inline int32_t get_haptic_capabilities(ALLEGRO::HAPTIC& haptic));
-	export inline bool is_haptic_capable(ALLEGRO::HAPTIC& haptic, int32_t));
-	export inline bool set_haptic_gain(ALLEGRO::HAPTIC& haptic, double));
-	export inline double get_haptic_gain(ALLEGRO::HAPTIC& haptic));
-	export inline bool set_haptic_autocenter(ALLEGRO::HAPTIC& haptic, double));
-	export inline double get_haptic_autocenter(ALLEGRO::HAPTIC& haptic));
-	export inline int32_t get_max_haptic_effects(ALLEGRO::HAPTIC& haptic));
-	export inline bool is_haptic_effect_ok(ALLEGRO::HAPTIC& haptic, ALLEGRO::HAPTIC_EFFECT*));
-	export inline bool upload_haptic_effect(ALLEGRO::HAPTIC& haptic, ALLEGRO::HAPTIC_EFFECT*, ALLEGRO::HAPTIC_EFFECT_ID*));
-	export inline bool play_haptic_effect(ALLEGRO::HAPTIC_EFFECT_ID*, int32_t));
-	export inline bool upload_and_play_haptic_effect(ALLEGRO::HAPTIC& haptic, ALLEGRO::HAPTIC_EFFECT*, ALLEGRO::HAPTIC_EFFECT_ID*, int32_t));
-	export inline bool stop_haptic_effect(ALLEGRO::HAPTIC_EFFECT_ID*));
-	export inline bool is_haptic_effect_playing(ALLEGRO::HAPTIC_EFFECT_ID*));
-	export inline bool release_haptic_effect(ALLEGRO::HAPTIC_EFFECT_ID*));
-	export inline double get_haptic_effect_duration(ALLEGRO::HAPTIC_EFFECT*));
-	export inline bool rumble_haptic(ALLEGRO::HAPTIC& haptic, double, double, ALLEGRO::HAPTIC_EFFECT_ID*));
+	export inline auto release_haptic(ALLEGRO::HAPTIC& haptic)) -> bool;
+	export inline auto is_haptic_active(ALLEGRO::HAPTIC& haptic)) -> bool;
+	export inline auto get_haptic_capabilities(ALLEGRO::HAPTIC& haptic)) -> int32_t;
+	export inline auto is_haptic_capable(ALLEGRO::HAPTIC& haptic, int32_t)) -> bool;
+	export inline auto set_haptic_gain(ALLEGRO::HAPTIC& haptic, double)) -> bool;
+	export inline auto get_haptic_gain(ALLEGRO::HAPTIC& haptic)) -> double;
+	export inline auto set_haptic_autocenter(ALLEGRO::HAPTIC& haptic, double)) -> bool;
+	export inline auto get_haptic_autocenter(ALLEGRO::HAPTIC& haptic)) -> double;
+	export inline auto get_max_haptic_effects(ALLEGRO::HAPTIC& haptic))->int32_t;
+	export inline auto is_haptic_effect_ok(ALLEGRO::HAPTIC& haptic, ALLEGRO::HAPTIC_EFFECT*)) -> bool;
+	export inline auto upload_haptic_effect(ALLEGRO::HAPTIC& haptic, ALLEGRO::HAPTIC_EFFECT*, ALLEGRO::HAPTIC_EFFECT_ID*)) -> bool;
+	export inline auto play_haptic_effect(ALLEGRO::HAPTIC_EFFECT_ID*, int32_t)) -> bool;
+	export inline auto upload_and_play_haptic_effect(ALLEGRO::HAPTIC& haptic, ALLEGRO::HAPTIC_EFFECT*, ALLEGRO::HAPTIC_EFFECT_ID*, int32_t)) -> bool;
+	export inline auto stop_haptic_effect(ALLEGRO::HAPTIC_EFFECT_ID*)) -> bool;
+	export inline auto is_haptic_effect_playing(ALLEGRO::HAPTIC_EFFECT_ID*)) -> bool;
+	export inline auto release_haptic_effect(ALLEGRO::HAPTIC_EFFECT_ID*)) -> bool;
+	export inline auto get_haptic_effect_duration(ALLEGRO::HAPTIC_EFFECT*)) -> double;
+	export inline auto rumble_haptic(ALLEGRO::HAPTIC& haptic, double, double, ALLEGRO::HAPTIC_EFFECT_ID*)) -> bool;
 
 }
 #endif

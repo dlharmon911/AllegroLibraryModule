@@ -16,7 +16,7 @@ typedef struct _COLOR_STRUCT
 	constexpr _COLOR_STRUCT(const float _red, const float _green, const float _blue, const float _alpha) : red(_red), green(_green), blue(_blue), alpha(_alpha) {}
 	constexpr _COLOR_STRUCT(const _COLOR_STRUCT& v) : red(v.red), green(v.green), blue(v.blue), alpha(v.alpha) {}
 
-	bool operator == (const _COLOR_STRUCT& v)
+	auto operator == (const _COLOR_STRUCT& v) -> bool
 	{
 		return (fabsf(v.red - this->red) <= std::numeric_limits<float>::epsilon() &&
 			fabsf(v.green - this->green) <= std::numeric_limits<float>::epsilon() &&
@@ -24,12 +24,12 @@ typedef struct _COLOR_STRUCT
 			fabsf(v.alpha - this->alpha) <= std::numeric_limits<float>::epsilon());
 	}
 
-	bool operator != (const _COLOR_STRUCT& v)
+	auto operator != (const _COLOR_STRUCT& v) -> bool
 	{
 		return !(this->operator==(v));
 	}
 
-	explicit operator ALLEGRO_COLOR  ()
+	explicit operator ALLEGRO_COLOR () const
 	{
 		return ALLEGRO_COLOR(this->red, this->green, this->blue, this->alpha);
 	}
@@ -79,32 +79,32 @@ namespace ALLEGRO
 
 namespace al
 {
-	export inline int32_t get_pixel_format_size(int32_t format)
+	export inline auto get_pixel_format_size(int32_t format) -> int32_t
 	{
 		return ::al_get_pixel_size(format);
 	}
 
-	export inline int32_t get_pixel_format_bits(int32_t format)
+	export inline auto get_pixel_format_bits(int32_t format) -> int32_t
 	{
 		return ::al_get_pixel_format_bits(format);
 	}
 
-	export inline int32_t get_pixel_format_block_size(int32_t format)
+	export inline auto get_pixel_format_block_size(int32_t format) -> int32_t
 	{
 		return ::al_get_pixel_block_size(format);
 	}
 
-	export inline int32_t get_pixel_format_block_width(int32_t format)
+	export inline auto get_pixel_format_block_width(int32_t format) -> int32_t
 	{
 		return ::al_get_pixel_block_width(format);
 	}
 
-	export inline int32_t get_pixel_format_block_height(int32_t format)
+	export inline auto get_pixel_format_block_height(int32_t format) -> int32_t
 	{
 		return ::al_get_pixel_block_height(format);
 	}
 
-	export inline ALLEGRO::COLOR map_rgba_f(float red, float green, float blue, float alpha, bool premultiply_alpha = false)
+	export inline auto map_rgba_f(float red, float green, float blue, float alpha, bool premultiply_alpha = false) -> ALLEGRO::COLOR
 	{
 		if (premultiply_alpha)
 		{
@@ -114,12 +114,12 @@ namespace al
 		return (ALLEGRO::COLOR)al_map_rgba_f(red, green, blue, alpha);
 	}
 
-	export inline ALLEGRO::COLOR map_rgb_f(float red, float green, float blue)
+	export inline auto map_rgb_f(float red, float green, float blue) -> ALLEGRO::COLOR
 	{
 		return (ALLEGRO::COLOR)al_map_rgb_f(red, green, blue);
 	}
 
-	export inline ALLEGRO::COLOR map_rgba(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha, bool premultiply_alpha = false)
+	export inline auto map_rgba(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha, bool premultiply_alpha = false) -> ALLEGRO::COLOR
 	{
 		if (premultiply_alpha)
 		{
@@ -129,27 +129,27 @@ namespace al
 		return (ALLEGRO::COLOR)al_map_rgba(red, green, blue, alpha);
 	}
 
-	export inline ALLEGRO::COLOR map_rgb(uint8_t red, uint8_t green, uint8_t blue)
+	export inline auto map_rgb(uint8_t red, uint8_t green, uint8_t blue) -> ALLEGRO::COLOR
 	{
 		return map_rgba(red, green, blue, 0xff, false);
 	}
 
-	export inline void unmap_rgba_f(ALLEGRO::COLOR color, float& red, float& green, float& blue, float& alpha)
+	export inline auto unmap_rgba_f(const ALLEGRO::COLOR& color, float& red, float& green, float& blue, float& alpha) -> void
 	{
 		al_unmap_rgba_f((ALLEGRO::COLOR_DATA)color, &red, &green, &blue, &alpha);
 	}
 
-	export inline void unmap_rgb_f(ALLEGRO::COLOR color, float& red, float& green, float& blue)
+	export inline auto unmap_rgb_f(const ALLEGRO::COLOR& color, float& red, float& green, float& blue) -> void
 	{
 		al_unmap_rgb_f((ALLEGRO::COLOR_DATA)color, &red, &green, &blue);
 	}
 
-	export inline void unmap_rgba(ALLEGRO::COLOR color, uint8_t& red, uint8_t& green, uint8_t& blue, uint8_t& alpha)
+	export inline auto unmap_rgba(const ALLEGRO::COLOR& color, uint8_t& red, uint8_t& green, uint8_t& blue, uint8_t& alpha) -> void
 	{
 		al_unmap_rgba((ALLEGRO::COLOR_DATA)color, &red, &green, &blue, &alpha);
 	}
 
-	export inline void unmap_rgb(ALLEGRO::COLOR color, uint8_t& red, uint8_t& green, uint8_t& blue)
+	export inline auto unmap_rgb(const ALLEGRO::COLOR& color, uint8_t& red, uint8_t& green, uint8_t& blue) -> void
 	{
 		al_unmap_rgb((ALLEGRO::COLOR_DATA)color, &red, &green, &blue);
 	}
