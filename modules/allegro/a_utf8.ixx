@@ -46,9 +46,9 @@ namespace al
     export inline auto ustr_newf(const_cptr_t format, ...) -> ALLEGRO::USTRING
     {
         ALLEGRO::USTRING rv = ustr_new((const_cptr_t)"");
-
         bool result;
         va_list arglist;
+
         va_start(arglist, format);
         result = al_ustr_vappendf((ALLEGRO::USTRING_DATA_PTR)rv.get(), format, arglist);
         va_end(arglist);

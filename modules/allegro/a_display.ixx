@@ -257,7 +257,7 @@ namespace al
 		return al_wait_for_vsync();
 	}
 
-	export inline ALLEGRO::EVENT_SOURCE get_display_event_source(const ALLEGRO::DISPLAY& display)
+	export inline auto get_display_event_source(const ALLEGRO::DISPLAY& display) -> ALLEGRO::EVENT_SOURCE
 	{
 		return ALLEGRO::EVENT_SOURCE(al_get_display_event_source((ALLEGRO::DISPLAY_DATA_PTR)display.get()), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
 	}

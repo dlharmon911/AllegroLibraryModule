@@ -121,17 +121,17 @@ namespace al
         return ALLEGRO::EVENT_QUEUE(::al_create_event_queue(), internal::destroy_event_queue);
     }
 
-    export inline auto is_event_source_registered(const ALLEGRO::EVENT_QUEUE& queue, const ALLEGRO::EVENT_SOURCE& source) -> bool
+    export inline auto is_event_source_registered(const ALLEGRO::EVENT_QUEUE& queue, ALLEGRO::EVENT_SOURCE source) -> bool
     {
         return al_is_event_source_registered((ALLEGRO::EVENT_QUEUE_DATA_PTR)queue.get(), (ALLEGRO::EVENT_SOURCE_DATA_PTR)source.get());
     }
 
-    export inline auto register_event_source(const ALLEGRO::EVENT_QUEUE& queue, const ALLEGRO::EVENT_SOURCE& source) -> void
+    export inline auto register_event_source(const ALLEGRO::EVENT_QUEUE& queue, ALLEGRO::EVENT_SOURCE source) -> void
     {
         al_register_event_source((ALLEGRO::EVENT_QUEUE_DATA_PTR)queue.get(), (ALLEGRO::EVENT_SOURCE_DATA_PTR)source.get());
     }
 
-    export inline auto unregister_event_source(const ALLEGRO::EVENT_QUEUE& queue, const ALLEGRO::EVENT_SOURCE& source) -> void
+    export inline auto unregister_event_source(const ALLEGRO::EVENT_QUEUE& queue, ALLEGRO::EVENT_SOURCE source) -> void
     {
         al_unregister_event_source((ALLEGRO::EVENT_QUEUE_DATA_PTR)queue.get(), (ALLEGRO::EVENT_SOURCE_DATA_PTR)source.get());
     }
