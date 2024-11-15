@@ -62,7 +62,7 @@ namespace al
 		al_rotate_transform_3d(&trans, v.x, v.y, v.z, angle);
 	}
 
-	export inline auto scale_transform(ALLEGRO::TRANSFORM& trans, ALLEGRO::POINT<float>& scale) -> void
+	export inline auto scale_transform(ALLEGRO::TRANSFORM& trans, const ALLEGRO::POINT<float>& scale) -> void
 	{
 		al_scale_transform(&trans, scale.x, scale.y);
 	}

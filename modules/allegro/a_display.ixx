@@ -167,7 +167,7 @@ namespace al
 		return al_get_display_height((ALLEGRO::DISPLAY_DATA_PTR)display.get());
 	}
 
-	export inline ALLEGRO::SIZE<int32_t> get_display_dimensions(const ALLEGRO::DISPLAY& display)
+	export inline auto get_display_dimensions(const ALLEGRO::DISPLAY& display) -> const ALLEGRO::SIZE<int32_t>
 	{
 		return { ::al_get_display_width((ALLEGRO::DISPLAY_DATA_PTR)display.get()), al_get_display_height((ALLEGRO::DISPLAY_DATA_PTR)display.get()) };
 	}

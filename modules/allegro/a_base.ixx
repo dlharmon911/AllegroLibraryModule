@@ -11,58 +11,23 @@ export using const_cptr_t = std::add_pointer<const char>::type;
 export using vptr_t = std::add_pointer<void>::type;
 export using const_vptr_t = std::add_pointer<const void>::type;
 
+namespace ALLEGRO
+{
+	export constexpr uint8_t VERSION = ALLEGRO_VERSION;
+	export constexpr uint8_t SUB_VERSION = ALLEGRO_SUB_VERSION;
+	export constexpr uint8_t WIP_VERSION = ALLEGRO_WIP_VERSION;
+	export constexpr uint8_t UNSTABLE_BIT = ALLEGRO_UNSTABLE_BIT;
+	export constexpr uint8_t RELEASE_NUMBER = ALLEGRO_RELEASE_NUMBER;
+	export const_cptr_t VERSION_STR = (const_cptr_t)ALLEGRO_VERSION_STR;
+	export const_cptr_t DATE_STR = (const_cptr_t)ALLEGRO_DATE_STR;
+	export constexpr int32_t DATE = ALLEGRO_DATE;
+	export constexpr int32_t VERSION_INT = ALLEGRO_VERSION_INT;
+	export constexpr double PI = ALLEGRO_PI;
+}
+
+
 namespace al
 {
-	export inline constexpr auto get_version() -> uint8_t
-	{
-		return ALLEGRO_VERSION;
-	}
-
-	export inline constexpr auto get_version_sub() -> uint8_t
-	{
-		return ALLEGRO_SUB_VERSION;
-	}
-
-	export inline constexpr auto get_version_wip() -> uint8_t
-	{
-		return ALLEGRO_WIP_VERSION;
-	}
-
-	export inline constexpr auto get_version_unstable_bit() -> uint8_t
-	{
-		return ALLEGRO_UNSTABLE_BIT;
-	}
-
-	export inline constexpr auto get_version_release_number() -> uint8_t
-	{
-		return ALLEGRO_RELEASE_NUMBER;
-	}
-
-	export inline auto get_version_string() -> const_cptr_t
-	{
-		return (const_cptr_t)ALLEGRO_VERSION_STR;
-	}
-
-	export inline auto get_version_date_string() -> const_cptr_t
-	{
-		return (const_cptr_t)ALLEGRO_DATE_STR;
-	}
-
-	export inline constexpr auto get_version_date() -> int32_t
-	{
-		return ALLEGRO_DATE;
-	}
-
-	export inline constexpr auto get_version_as_integer() -> int32_t
-	{
-		return ALLEGRO_VERSION_INT;
-	}
-
-	export inline constexpr auto get_pi() -> double
-	{
-		return ALLEGRO_PI;
-	}
-
 	export inline constexpr auto generate_id(uint32_t a, uint32_t b, uint32_t c, uint32_t d) -> uint32_t
 	{
 		return (((a) << 24) | ((b) << 16) | ((c) << 8) | (d));
@@ -76,13 +41,17 @@ namespace al
 
 namespace ALLEGRO
 {
+	template <typename T> struct POINT;
+	template <typename T> struct SIZE;
+
 	export template <typename T> struct POINT
 	{
 		T x;
 		T y;
 		constexpr POINT() : x(T(0)), y(T(0)) {}
 		constexpr POINT(const T _x, const T _y) : x(_x), y(_y) {}
-		constexpr POINT(const POINT& v) : x(v.x), y(v.y) {}
+		constexpr POINT(const POINT<T>& v) : x(v.x), y(v.y) {}
+		explicit constexpr POINT(const SIZE<T>& v) : x(v.width), y(v.height) {}
 
 		template <typename Q>
 		constexpr POINT(const Q _x, const Q _y) : x((T)_x), y((T)_y) {}
@@ -106,7 +75,7 @@ namespace ALLEGRO
 		T z;
 		constexpr VECTOR3() : x(T(0)), y(T(0)), z(T(0)) {}
 		constexpr VECTOR3(const T _x, const T _y, const T _z) : x(_x), y(_y), z(_z) {}
-		constexpr VECTOR3(const VECTOR3& v) : x(v.x), y(v.y), z(v.z) {}
+		constexpr VECTOR3(const VECTOR3<T>& v) : x(v.x), y(v.y), z(v.z) {}
 
 		template <typename Q>
 		constexpr VECTOR3(const Q _x, const Q _y, const Q _z) : x((T)_x), y((T)_y), z((T)_z) {}
@@ -123,7 +92,7 @@ namespace ALLEGRO
 		T w;
 		constexpr VECTOR4() : x(T(0)), y(T(0)), z(T(0)), w(T(0)) {}
 		constexpr VECTOR4(const T _x, const T _y, const T _z, const T _w) : x(_x), y(_y), z(_z), w(_w) {}
-		constexpr VECTOR4(const VECTOR4& v) : x(v.x), y(v.y), z(v.z), w(v.w) {}
+		constexpr VECTOR4(const VECTOR4<T>& v) : x(v.x), y(v.y), z(v.z), w(v.w) {}
 
 		template <typename Q>
 		constexpr VECTOR4(const Q _x, const Q _y, const Q _z, const Q _w) : x((T)_x), y((T)_y), z((T)_z), w((T)_w) {}
@@ -138,7 +107,8 @@ namespace ALLEGRO
 		T height;
 		constexpr SIZE() : width(T(0)), height(T(0)) {}
 		constexpr SIZE(const T _width, const T _height) : width(_width), height(_height) {}
-		constexpr SIZE(const SIZE& v) : width(v.width), height(v.height) {}
+		constexpr SIZE(const SIZE<T>& v) : width(v.width), height(v.height) {}
+		explicit constexpr SIZE(const POINT<T>& v) : width(v.x), height(v.y) {}
 
 		template <typename Q>
 		constexpr SIZE(const Q _width, const Q _height) : width((T)_width), height((T)_height) {}
@@ -184,4 +154,77 @@ namespace ALLEGRO
 		template <typename Q>
 		constexpr BOX<T>(const BOX<Q>& r) : top_left(POINT<T>(r.top_left)), bottom_right(POINT<T>(r.bottom_right)) {}
 	};
+
+
+	export template <typename T> auto operator * (const ALLEGRO::POINT<T>& a, T b) -> ALLEGRO::POINT<T>
+	{
+		return { a.x * (T)b, a.y * (T)b };
+	}
+
+	export template <typename T> auto operator / (const ALLEGRO::POINT<T>& a, const T b) -> ALLEGRO::POINT<T>
+	{
+		return { a.x / (T)b, a.y / (T)b };
+	}
+
+	export template <typename T> auto operator + (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
+	{
+		return { a.x + (T)b.x, a.y + (T)b.y };
+	}
+
+	export template <typename T> auto operator - (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
+	{
+		return { a.x - (T)b.x, a.y - (T)b.y };
+	}
+
+	export template <typename T> auto operator * (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
+	{
+		return { a.x * (T)b.x, a.y * (T)b.y };
+	}
+
+	export template <typename T> auto operator / (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
+	{
+		return { a.x / (T)b.x, a.y / (T)b.y };
+	}
+
+	export template <typename T> auto operator *= (const ALLEGRO::POINT<T>& a, T b) -> ALLEGRO::POINT<T>&
+	{
+		a = (a + b);
+
+		return a;
+	}
+
+	export template <typename T> auto operator /= (const ALLEGRO::POINT<T>& a, const T b) -> ALLEGRO::POINT<T>&
+	{
+		a = (a / b);
+
+		return a;
+	}
+
+	export template <typename T> auto operator += (ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>&
+	{
+		a = (a + b);
+
+		return a;
+	}
+
+	export template <typename T> auto operator -= (ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>&
+	{
+		a = (a - b);
+
+		return a;
+	}
+
+	export template <typename T> auto operator *= (ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>&
+	{
+		a = (a * b);
+
+		return a;
+	}
+
+	export template <typename T> auto operator /= (ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>&
+	{
+		a = (a / b);
+
+		return a;
+	}
 }
