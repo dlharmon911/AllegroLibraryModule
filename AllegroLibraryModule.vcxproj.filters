@@ -27,9 +27,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="modules\allegro\addon\a_addon_acodec.ixx">
       <Filter>Modules Files\Addon Files</Filter>
     </ClCompile>
@@ -177,14 +174,17 @@
     <ClCompile Include="modules\allegro.ixx">
       <Filter>Modules Files</Filter>
     </ClCompile>
-    <ClCompile Include="modules\application.ixx">
-      <Filter>Modules Files</Filter>
-    </ClCompile>
     <ClCompile Include="modules\allegro\a_platform.ixx">
       <Filter>Modules Files\Partition Files</Filter>
     </ClCompile>
     <ClCompile Include="modules\allegro\addon\a_addon_physfs.ixx">
       <Filter>Modules Files\Addon Files</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\allegro\a_opengl.ixx">
+      <Filter>Modules Files\Partition Files</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\allegro\a_array.ixx">
+      <Filter>Modules Files\Partition Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -37,22 +37,22 @@ namespace al
 		al_set_memory_interface(&iface);
 	}
 
-	export inline auto malloc_with_context(size_t n, int32_t line, const_cptr_t file, const_cptr_t func) -> vptr_t
+	export inline auto malloc_with_context(size_t n, int32_t line, const char* file, const char* func) -> void*
 	{
 		return al_malloc_with_context(n, line, file, func);
 	}
 
-	export inline auto free_with_context(vptr_t ptr, int32_t line, const_cptr_t file, const_cptr_t func) -> void
+	export inline auto free_with_context(void* ptr, int32_t line, const char* file, const char* func) -> void
 	{
 		al_free_with_context(ptr, line, file, func);
 	}
 
-	export inline auto realloc_with_context(vptr_t ptr, size_t n, int32_t line, const_cptr_t file, const_cptr_t func) -> vptr_t
+	export inline auto realloc_with_context(void* ptr, size_t n, int32_t line, const char* file, const char* func) -> void*
 	{
 		return al_realloc_with_context(ptr, n, line, file, func);
 	}
 
-	export inline auto calloc_with_context(size_t count, size_t n, int32_t line, const_cptr_t file, const_cptr_t func) -> vptr_t
+	export inline auto calloc_with_context(size_t count, size_t n, int32_t line, const char* file, const char* func) -> void*
 	{
 		return al_calloc_with_context(count, n, line, file, func);
 	}

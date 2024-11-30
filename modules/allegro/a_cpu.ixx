@@ -14,4 +14,3 @@ namespace al
 		return al_get_ram_size();
 	}
 }
-

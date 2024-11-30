@@ -147,4 +147,3 @@ namespace al
 		al_vertical_shear_transform(&trans, theta);
 	}
 }
-

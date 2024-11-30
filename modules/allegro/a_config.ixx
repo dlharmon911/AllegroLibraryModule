@@ -38,27 +38,27 @@ namespace al
 		return ALLEGRO::CONFIG(al_create_config(), internal::destroy_config);
 	}
 
-	export inline auto add_config_section(ALLEGRO::CONFIG& config, const_cptr_t name) -> void
+	export inline auto add_config_section(ALLEGRO::CONFIG& config, const char* name) -> void
 	{
 		al_add_config_section((ALLEGRO::CONFIG_DATA_PTR)config.get(), name);
 	}
 
-	export inline auto set_config_value(ALLEGRO::CONFIG& config, const_cptr_t section, const_cptr_t key, const_cptr_t value) -> void
+	export inline auto set_config_value(ALLEGRO::CONFIG& config, const char* section, const char* key, const char* value) -> void
 	{
 		al_set_config_value((ALLEGRO::CONFIG_DATA_PTR)config.get(), section, key, value);
 	}
 
-	export inline auto add_config_comment(ALLEGRO::CONFIG& config, const_cptr_t section, const_cptr_t comment) -> void
+	export inline auto add_config_comment(ALLEGRO::CONFIG& config, const char* section, const char* comment) -> void
 	{
 		al_add_config_comment((ALLEGRO::CONFIG_DATA_PTR)config.get(), section, comment);
 	}
 
-	export inline auto get_config_value(const ALLEGRO::CONFIG& config, const_cptr_t section, const_cptr_t key) -> const_cptr_t
+	export inline auto get_config_value(const ALLEGRO::CONFIG& config, const char* section, const char* key) -> const char*
 	{
-		return (const_cptr_t)al_get_config_value((ALLEGRO::CONFIG_DATA_PTR)config.get(), section, key);
+		return (const char*)al_get_config_value((ALLEGRO::CONFIG_DATA_PTR)config.get(), section, key);
 	}
 
-	export inline auto load_config_file(const_cptr_t filename) -> ALLEGRO::CONFIG
+	export inline auto load_config_file(const char* filename) -> ALLEGRO::CONFIG
 	{
 		return ALLEGRO::CONFIG(al_load_config_file(filename), internal::destroy_config);
 	}
@@ -68,7 +68,7 @@ namespace al
 		return ALLEGRO::CONFIG(al_load_config_file_f((ALLEGRO::FILE_DATA_PTR)file.get()), internal::destroy_config);
 	}
 
-	export inline auto save_config_file(const_cptr_t filename, const ALLEGRO::CONFIG& config) -> bool
+	export inline auto save_config_file(const char* filename, const ALLEGRO::CONFIG& config) -> bool
 	{
 		return al_save_config_file(filename, (ALLEGRO::CONFIG_DATA_PTR)config.get());
 	}
@@ -88,38 +88,37 @@ namespace al
 		return ALLEGRO::CONFIG(al_merge_config((ALLEGRO::CONFIG_DATA_PTR)cfg1.get(), (ALLEGRO::CONFIG_DATA_PTR)cfg2.get()), internal::destroy_config);
 	}
 
-	export inline auto remove_config_section(ALLEGRO::CONFIG& config, const_cptr_t section) -> bool
+	export inline auto remove_config_section(ALLEGRO::CONFIG& config, const char* section) -> bool
 	{
 		return al_remove_config_section((ALLEGRO::CONFIG_DATA_PTR)config.get(), section);
 	}
 
-	export inline auto remove_config_key(ALLEGRO::CONFIG& config, const_cptr_t section, const_cptr_t key) -> bool
+	export inline auto remove_config_key(ALLEGRO::CONFIG& config, const char* section, const char* key) -> bool
 	{
 		return al_remove_config_key((ALLEGRO::CONFIG_DATA_PTR)config.get(), section, key);
 	}
 
-	export inline auto get_first_config_section(const ALLEGRO::CONFIG& config, ALLEGRO::CONFIG_SECTION& iterator) -> const_cptr_t
+	export inline auto get_first_config_section(const ALLEGRO::CONFIG& config, ALLEGRO::CONFIG_SECTION& iterator) -> const char*
 	{
 		ALLEGRO::CONFIG_SECTION_PTR section{ &iterator };
-		return (const_cptr_t)al_get_first_config_section((ALLEGRO::CONFIG_DATA_PTR)config.get(), &section);
+		return (const char*)al_get_first_config_section((ALLEGRO::CONFIG_DATA_PTR)config.get(), &section);
 	}
 
-	export inline auto get_next_config_section(ALLEGRO::CONFIG_SECTION& iterator) -> const_cptr_t
+	export inline auto get_next_config_section(ALLEGRO::CONFIG_SECTION& iterator) -> const char*
 	{
 		ALLEGRO::CONFIG_SECTION_PTR  section{ &iterator };
-		return (const_cptr_t)al_get_next_config_section(&section);
+		return (const char*)al_get_next_config_section(&section);
 	}
 
-	export inline auto get_first_config_entry(const ALLEGRO::CONFIG& config, const_cptr_t section, ALLEGRO::CONFIG_ENTRY& iterator) -> const_cptr_t
+	export inline auto get_first_config_entry(const ALLEGRO::CONFIG& config, const char* section, ALLEGRO::CONFIG_ENTRY& iterator) -> const char*
 	{
 		ALLEGRO::CONFIG_ENTRY_PTR  entry{ &iterator };
-		return (const_cptr_t)al_get_first_config_entry((ALLEGRO::CONFIG_DATA_PTR)config.get(), section, &entry);
+		return (const char*)al_get_first_config_entry((ALLEGRO::CONFIG_DATA_PTR)config.get(), section, &entry);
 	}
 
-	export inline auto get_next_config_entry(ALLEGRO::CONFIG_ENTRY& iterator) -> const_cptr_t
+	export inline auto get_next_config_entry(ALLEGRO::CONFIG_ENTRY& iterator) -> const char*
 	{
 		ALLEGRO::CONFIG_ENTRY_PTR  entry{ &iterator };
-		return (const_cptr_t)al_get_next_config_entry(&entry);
+		return (const char*)al_get_next_config_entry(&entry);
 	}
 }
-

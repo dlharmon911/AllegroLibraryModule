@@ -29,7 +29,7 @@ namespace al
 {
 	namespace internal
 	{
-		export inline auto fopen(const_cptr_t path, const_cptr_t mode) -> ALLEGRO::FILE_DATA_PTR
+		export inline auto fopen(const char* path, const char* mode) -> ALLEGRO::FILE_DATA_PTR
 		{
 			return al_fopen(path, mode);
 		}
@@ -40,27 +40,27 @@ namespace al
 		}
 	}
 
-	export inline auto fopen(const_cptr_t path, const_cptr_t mode) -> ALLEGRO::FILE
+	export inline auto fopen(const char* path, const char* mode) -> ALLEGRO::FILE
 	{
 		return ALLEGRO::FILE(al_fopen(path, mode), internal::destroy_file);
 	}
 
-	export inline auto fopen_interface(const ALLEGRO::FILE_INTERFACE& vtable, const_cptr_t path, const_cptr_t mode) -> ALLEGRO::FILE
+	export inline auto fopen_interface(const ALLEGRO::FILE_INTERFACE& vtable, const char* path, const char* mode) -> ALLEGRO::FILE
 	{
 		return ALLEGRO::FILE(al_fopen_interface(&vtable, path, mode), internal::destroy_file);
 	}
 
-	export inline auto create_file_handle(const ALLEGRO::FILE_INTERFACE& vtable, vptr_t userdata) -> ALLEGRO::FILE
+	export inline auto create_file_handle(const ALLEGRO::FILE_INTERFACE& vtable, void* userdata) -> ALLEGRO::FILE
 	{
 		return ALLEGRO::FILE(al_create_file_handle(&vtable, userdata), internal::destroy_file);
 	}
 
-	export inline auto fread(const ALLEGRO::FILE& file, vptr_t ptr, size_t size) -> size_t
+	export inline auto fread(const ALLEGRO::FILE& file, void* ptr, size_t size) -> size_t
 	{
 		return al_fread((ALLEGRO::FILE_DATA_PTR)file.get(), ptr, size);
 	}
 
-	export inline auto fwrite(const ALLEGRO::FILE& file, const_vptr_t ptr, size_t size) -> size_t
+	export inline auto fwrite(const ALLEGRO::FILE& file, const void* ptr, size_t size) -> size_t
 	{
 		return al_fwrite((ALLEGRO::FILE_DATA_PTR)file.get(), ptr, size);
 	}
@@ -90,9 +90,9 @@ namespace al
 		return al_ferror((ALLEGRO::FILE_DATA_PTR)file.get());
 	}
 
-	export inline auto ferrmsg(const ALLEGRO::FILE& file) -> const_cptr_t
+	export inline auto ferrmsg(const ALLEGRO::FILE& file) -> const char*
 	{
-		return (const_cptr_t)al_ferrmsg((ALLEGRO::FILE_DATA_PTR)file.get());
+		return (const char*)al_ferrmsg((ALLEGRO::FILE_DATA_PTR)file.get());
 	}
 
 	export inline auto fclearerr(const ALLEGRO::FILE& file) -> void
@@ -160,7 +160,7 @@ namespace al
 		return al_fwrite32be((ALLEGRO::FILE_DATA_PTR)file.get(), l);
 	}
 
-	export inline auto fgets(const ALLEGRO::FILE& file, cptr_t buffer, size_t max) -> cptr_t
+	export inline auto fgets(const ALLEGRO::FILE& file, char* buffer, size_t max) -> char*
 	{
 		return al_fgets((ALLEGRO::FILE_DATA_PTR)file.get(), buffer, max);
 	}
@@ -170,17 +170,17 @@ namespace al
 		return ALLEGRO::USTRING(al_fget_ustr((ALLEGRO::FILE_DATA_PTR)file.get()), al_ustr_free);
 	}
 
-	export inline auto fputs(const ALLEGRO::FILE& file, const_cptr_t p) -> int32_t
+	export inline auto fputs(const ALLEGRO::FILE& file, const char* p) -> int32_t
 	{
 		return al_fputs((ALLEGRO::FILE_DATA_PTR)file.get(), p);
 	}
 
 	export inline auto fput_ustr(const ALLEGRO::FILE& file, const ALLEGRO::USTRING& p) -> size_t
 	{
-		return al_fwrite((ALLEGRO::FILE_DATA_PTR)file.get(), (const_vptr_t)al::c_str(p), al::ustr_size(p));
+		return al_fwrite((ALLEGRO::FILE_DATA_PTR)file.get(), (const void*)al::c_str(p), al::ustr_size(p));
 	}
 
-	export inline auto fprintf(const ALLEGRO::FILE& file, const_cptr_t format, ...) -> int32_t
+	export inline auto fprintf(const ALLEGRO::FILE& file, const char* format, ...) -> int32_t
 	{
 		int32_t result{ -1 };
 		va_list arglist{};
@@ -191,17 +191,17 @@ namespace al
 		return result;
 	}
 
-	export inline auto vfprintf(const ALLEGRO::FILE& file, const_cptr_t format, va_list args) -> int32_t
+	export inline auto vfprintf(const ALLEGRO::FILE& file, const char* format, va_list args) -> int32_t
 	{
 		return al_vfprintf((ALLEGRO::FILE_DATA_PTR)file.get(), format, args);
 	}
 
-	export inline auto fopen_fd(int32_t fd, const_cptr_t mode) -> ALLEGRO::FILE
+	export inline auto fopen_fd(int32_t fd, const char* mode) -> ALLEGRO::FILE
 	{
 		return ALLEGRO::FILE(al_fopen_fd(fd, mode), internal::destroy_file);
 	}
 
-	export inline auto make_temp_file(const_cptr_t filename_template, ALLEGRO::PATH& return_path) -> ALLEGRO::FILE
+	export inline auto make_temp_file(const char* filename_template, ALLEGRO::PATH& return_path) -> ALLEGRO::FILE
 	{
 		ALLEGRO::FILE file{ nullptr };
 
@@ -215,7 +215,7 @@ namespace al
 		return file;
 	}
 
-	export inline auto fopen_slice(const ALLEGRO::FILE& file, size_t initial_size, const_cptr_t mode) -> ALLEGRO::FILE
+	export inline auto fopen_slice(const ALLEGRO::FILE& file, size_t initial_size, const char* mode) -> ALLEGRO::FILE
 	{
 		return ALLEGRO::FILE(al_fopen_slice((ALLEGRO::FILE_DATA_PTR)file.get(), initial_size, mode), internal::destroy_file);
 	}
@@ -235,7 +235,7 @@ namespace al
 		al_set_standard_file_interface();
 	}
 
-	export inline auto get_file_userdata(const ALLEGRO::FILE& file) -> vptr_t
+	export inline auto get_file_userdata(const ALLEGRO::FILE& file) -> void*
 	{
 		return al_get_file_userdata((ALLEGRO::FILE_DATA_PTR)file.get());
 	}

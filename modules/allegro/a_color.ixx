@@ -5,40 +5,43 @@ import <limits>;
 import <allegro5/color.h>;
 import :base;
 
-typedef struct _COLOR_STRUCT
-{
-	float red;
-	float green;
-	float blue;
-	float alpha;
-	constexpr _COLOR_STRUCT() : red(0.0f), green(0.0f), blue(0.0f), alpha(1.0f) {}
-	explicit constexpr _COLOR_STRUCT(const ALLEGRO_COLOR& color) : red(color.r), green(color.g), blue(color.b), alpha(color.a) {}
-	constexpr _COLOR_STRUCT(const float _red, const float _green, const float _blue, const float _alpha) : red(_red), green(_green), blue(_blue), alpha(_alpha) {}
-	constexpr _COLOR_STRUCT(const _COLOR_STRUCT& v) : red(v.red), green(v.green), blue(v.blue), alpha(v.alpha) {}
-
-	auto operator == (const _COLOR_STRUCT& v) -> bool
-	{
-		return (fabsf(v.red - this->red) <= std::numeric_limits<float>::epsilon() &&
-			fabsf(v.green - this->green) <= std::numeric_limits<float>::epsilon() &&
-			fabsf(v.blue - this->blue) <= std::numeric_limits<float>::epsilon() &&
-			fabsf(v.alpha - this->alpha) <= std::numeric_limits<float>::epsilon());
-	}
-
-	auto operator != (const _COLOR_STRUCT& v) -> bool
-	{
-		return !(this->operator==(v));
-	}
-
-	explicit operator ALLEGRO_COLOR () const
-	{
-		return ALLEGRO_COLOR(this->red, this->green, this->blue, this->alpha);
-	}
-} _COLOR_STRUCT;
-
 namespace ALLEGRO
 {
+	namespace INTERNAL
+	{
+		struct COLOR_TAG
+		{
+			float red;
+			float green;
+			float blue;
+			float alpha;
+			constexpr COLOR_TAG() : red(0.0f), green(0.0f), blue(0.0f), alpha(1.0f) {}
+			explicit constexpr COLOR_TAG(const ALLEGRO_COLOR& color) : red(color.r), green(color.g), blue(color.b), alpha(color.a) {}
+			constexpr COLOR_TAG(const float _red, const float _green, const float _blue, const float _alpha) : red(_red), green(_green), blue(_blue), alpha(_alpha) {}
+			constexpr COLOR_TAG(const COLOR_TAG& v) : red(v.red), green(v.green), blue(v.blue), alpha(v.alpha) {}
+
+			auto operator == (const COLOR_TAG& v) -> bool
+			{
+				return (fabsf(v.red - this->red) <= std::numeric_limits<float>::epsilon() &&
+					fabsf(v.green - this->green) <= std::numeric_limits<float>::epsilon() &&
+					fabsf(v.blue - this->blue) <= std::numeric_limits<float>::epsilon() &&
+					fabsf(v.alpha - this->alpha) <= std::numeric_limits<float>::epsilon());
+			}
+
+			auto operator != (const COLOR_TAG& v) -> bool
+			{
+				return !(this->operator==(v));
+			}
+
+			explicit operator ALLEGRO_COLOR () const
+			{
+				return ALLEGRO_COLOR(this->red, this->green, this->blue, this->alpha);
+			}
+		};
+	}
+
 	export using COLOR_DATA = ALLEGRO_COLOR;
-	export using COLOR = _COLOR_STRUCT;
+	export using COLOR = INTERNAL::COLOR_TAG;
 
 	export enum
 	{

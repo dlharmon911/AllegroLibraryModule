@@ -6,61 +6,61 @@ import <allegro5/allegro_color.h>;
 
 namespace ALLEGRO
 {
-	export struct COLOR_RGB
+	export using COLOR_RGB = struct COLOR_RGB_TAG
 	{
-		float red;
-		float green;
-		float blue;
+		float red{ 0.0f };
+		float green{ 0.0f };
+		float blue{ 0.0f };
 	};
 
-	export struct COLOR_HSL
+	export using COLOR_HSL = struct COLOR_HSL_TAG
 	{
-		float hue;
-		float saturation;
-		float lightness;
+		float hue{ 0.0f };
+		float saturation{ 0.0f };
+		float lightness{ 0.0f };
 	};
 
-	export struct COLOR_HSV
+	export using COLOR_HSV = struct COLOR_HSV_TAG
 	{
-		float hue;
-		float saturation;
-		float value;
+		float hue{ 0.0f };
+		float saturation{ 0.0f };
+		float value{ 0.0f };
 	};
 
-	export struct COLOR_CMYK
+	export using COLOR_CMYK = struct COLOR_CMYK_TAG
 	{
-		float cyan;
-		float magenta;
-		float yellow;
-		float key;
+		float cyan{ 0.0f };
+		float magenta{ 0.0f };
+		float yellow{ 0.0f };
+		float key{ 0.0f };
 	};
 
-	export struct COLOR_YUV
+	export using COLOR_YUV = struct COLOR_YUV_TAG
 	{
-		float y;
-		float u;
-		float vec;
+		float y{ 0.0f };
+		float u{ 0.0f };
+		float vec{ 0.0f };
 	};
 
-	export struct COLOR_LAB
+	export using COLOR_LAB = struct COLOR_LAB_TAG
 	{
-		float luminance;
-		float a;
-		float b;
+		float luminance{ 0.0f };
+		float a{ 0.0f };
+		float b{ 0.0f };
 	};
 
-	export struct COLOR_LCH
+	export using COLOR_LCH = struct COLOR_LCH_TAG
 	{
-		float luminance;
-		float chroma;
-		float hue;
+		float luminance{ 0.0f };
+		float chroma{ 0.0f };
+		float hue{ 0.0f };
 	};
 
-	export struct COLOR_XYY
+	export using COLOR_XYY = struct COLOR_XYY_TAG
 	{
-		float x;
-		float y1;
-		float y2;
+		float x{ 0.0f };
+		float y1{ 0.0f };
+		float y2{ 0.0f };
 	};
 }
 
@@ -94,14 +94,14 @@ namespace al
 		al_color_hsl_to_rgb(hsl.hue, hsl.saturation, hsl.lightness, &rgb.red, &rgb.green, &rgb.blue);
 	}
 
-	export inline auto color_name_to_rgb(const_cptr_t name, ALLEGRO::COLOR_RGB& rgb) -> bool
+	export inline auto color_name_to_rgb(const char* name, ALLEGRO::COLOR_RGB& rgb) -> bool
 	{
 		return al_color_name_to_rgb(name, &rgb.red, &rgb.green, &rgb.blue);
 	}
 
-	export inline auto color_rgb_to_name(const ALLEGRO::COLOR_RGB& rgb) -> const_cptr_t
+	export inline auto color_rgb_to_name(const ALLEGRO::COLOR_RGB& rgb) -> const char*
 	{
-		return (const_cptr_t)al_color_rgb_to_name(rgb.red, rgb.green, rgb.blue);
+		return (const char*)al_color_rgb_to_name(rgb.red, rgb.green, rgb.blue);
 	}
 
 	export inline auto color_cmyk_to_rgb(const ALLEGRO::COLOR_CMYK cmyk, ALLEGRO::COLOR_RGB& rgb) -> void
@@ -124,12 +124,12 @@ namespace al
 		al_color_rgb_to_yuv(rgb.red, rgb.green, rgb.blue, &yuv.y, &yuv.u, &yuv.vec);
 	}
 
-	export inline auto color_rgb_to_html(const ALLEGRO::COLOR_RGB rgb, cptr_t string) -> void
+	export inline auto color_rgb_to_html(const ALLEGRO::COLOR_RGB rgb, char* string) -> void
 	{
 		al_color_rgb_to_html(rgb.red, rgb.green, rgb.blue, string);
 	}
 
-	export inline auto color_html_to_rgb(const_cptr_t string, ALLEGRO::COLOR_RGB& rgb) -> bool
+	export inline auto color_html_to_rgb(const char* string, ALLEGRO::COLOR_RGB& rgb) -> bool
 	{
 		return al_color_html_to_rgb(string, &rgb.red, &rgb.green, &rgb.blue);
 	}
@@ -154,12 +154,12 @@ namespace al
 		return (ALLEGRO::COLOR)al_color_hsv(hsv.hue, hsv.saturation, hsv.value);
 	}
 
-	export inline auto color_name(const_cptr_t name) -> ALLEGRO::COLOR
+	export inline auto color_name(const char* name) -> ALLEGRO::COLOR
 	{
 		return (ALLEGRO::COLOR)al_color_name(name);
 	}
 
-	export inline auto color_html(const_cptr_t string) -> ALLEGRO::COLOR
+	export inline auto color_html(const char* string) -> ALLEGRO::COLOR
 	{
 		return (ALLEGRO::COLOR)al_color_html(string);
 	}

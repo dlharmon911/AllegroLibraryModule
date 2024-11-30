@@ -10,18 +10,18 @@ import :transformations;
 
 namespace ALLEGRO
 {
-	export inline auto SHADER_VAR_COLOR = (const_cptr_t)ALLEGRO_SHADER_VAR_COLOR;
-	export inline auto SHADER_VAR_POS = (const_cptr_t)ALLEGRO_SHADER_VAR_POS;
-	export inline auto SHADER_VAR_PROJVIEW_MATRIX = (const_cptr_t)ALLEGRO_SHADER_VAR_PROJVIEW_MATRIX;
-	export inline auto SHADER_VAR_TEX = (const_cptr_t)ALLEGRO_SHADER_VAR_TEX;
-	export inline auto SHADER_VAR_TEXCOORD = (const_cptr_t)ALLEGRO_SHADER_VAR_TEXCOORD;
-	export inline auto SHADER_VAR_TEX_MATRIX = (const_cptr_t)ALLEGRO_SHADER_VAR_TEX_MATRIX;
-	export inline auto SHADER_VAR_USER_ATTR = (const_cptr_t)ALLEGRO_SHADER_VAR_USER_ATTR;
-	export inline auto SHADER_VAR_USE_TEX = (const_cptr_t)ALLEGRO_SHADER_VAR_USE_TEX;
-	export inline auto SHADER_VAR_USE_TEX_MATRIX = (const_cptr_t)ALLEGRO_SHADER_VAR_USE_TEX_MATRIX;
-	export inline auto SHADER_VAR_ALPHA_TEST = (const_cptr_t)ALLEGRO_SHADER_VAR_ALPHA_TEST;
-	export inline auto SHADER_VAR_ALPHA_FUNCTION = (const_cptr_t)ALLEGRO_SHADER_VAR_ALPHA_FUNCTION;
-	export inline auto SHADER_VAR_ALPHA_TEST_VALUE = (const_cptr_t)ALLEGRO_SHADER_VAR_ALPHA_TEST_VALUE;
+	export inline auto SHADER_VAR_COLOR = (const char*)ALLEGRO_SHADER_VAR_COLOR;
+	export inline auto SHADER_VAR_POS = (const char*)ALLEGRO_SHADER_VAR_POS;
+	export inline auto SHADER_VAR_PROJVIEW_MATRIX = (const char*)ALLEGRO_SHADER_VAR_PROJVIEW_MATRIX;
+	export inline auto SHADER_VAR_TEX = (const char*)ALLEGRO_SHADER_VAR_TEX;
+	export inline auto SHADER_VAR_TEXCOORD = (const char*)ALLEGRO_SHADER_VAR_TEXCOORD;
+	export inline auto SHADER_VAR_TEX_MATRIX = (const char*)ALLEGRO_SHADER_VAR_TEX_MATRIX;
+	export inline auto SHADER_VAR_USER_ATTR = (const char*)ALLEGRO_SHADER_VAR_USER_ATTR;
+	export inline auto SHADER_VAR_USE_TEX = (const char*)ALLEGRO_SHADER_VAR_USE_TEX;
+	export inline auto SHADER_VAR_USE_TEX_MATRIX = (const char*)ALLEGRO_SHADER_VAR_USE_TEX_MATRIX;
+	export inline auto SHADER_VAR_ALPHA_TEST = (const char*)ALLEGRO_SHADER_VAR_ALPHA_TEST;
+	export inline auto SHADER_VAR_ALPHA_FUNCTION = (const char*)ALLEGRO_SHADER_VAR_ALPHA_FUNCTION;
+	export inline auto SHADER_VAR_ALPHA_TEST_VALUE = (const char*)ALLEGRO_SHADER_VAR_ALPHA_TEST_VALUE;
 
 	export using SHADER_DATA = ALLEGRO_SHADER;
 	export using SHADER_DATA_PTR = std::add_pointer<SHADER_DATA>::type;
@@ -57,19 +57,19 @@ namespace al
 		}
 	}
 
-	export inline auto create_shader(ALLEGRO::SHADER_PLATFORM platform) -> ALLEGRO::SHADER
+	export inline auto create_shader(int32_t platform) -> ALLEGRO::SHADER
 	{
-		return ALLEGRO::SHADER(al_create_shader(platform), internal::destroy_shader);
+		return ALLEGRO::SHADER(al_create_shader((ALLEGRO_SHADER_PLATFORM)platform), internal::destroy_shader);
 	}
 
-	export inline auto attach_shader_source(ALLEGRO::SHADER& shader, ALLEGRO_SHADER_TYPE type, const_cptr_t source) -> bool
+	export inline auto attach_shader_source(ALLEGRO::SHADER& shader, int32_t type, const char* source) -> bool
 	{
-		return al_attach_shader_source((ALLEGRO::SHADER_DATA_PTR)shader.get(), type, source);
+		return al_attach_shader_source((ALLEGRO::SHADER_DATA_PTR)shader.get(), (ALLEGRO_SHADER_TYPE)type, source);
 	}
 
-	export inline auto attach_shader_source_file(ALLEGRO::SHADER& shader, ALLEGRO_SHADER_TYPE type, const_cptr_t filename) -> bool
+	export inline auto attach_shader_source_file(ALLEGRO::SHADER& shader, int32_t type, const char* filename) -> bool
 	{
-		return al_attach_shader_source_file((ALLEGRO::SHADER_DATA_PTR)shader.get(), type, filename);
+		return al_attach_shader_source_file((ALLEGRO::SHADER_DATA_PTR)shader.get(), (ALLEGRO_SHADER_TYPE)type, filename);
 	}
 
 	export inline auto build_shader(ALLEGRO::SHADER& shader) -> bool
@@ -77,17 +77,19 @@ namespace al
 		return al_build_shader((ALLEGRO::SHADER_DATA_PTR)shader.get());
 	}
 
-	export inline auto get_shader_log(ALLEGRO::SHADER& shader) -> const_cptr_t
+	static ALLEGRO::SHADER null_shader;
+
+	export inline auto get_shader_log(ALLEGRO::SHADER& shader) -> const char*
 	{
-		return (const_cptr_t)al_get_shader_log((ALLEGRO::SHADER_DATA_PTR)shader.get());
+		return (const char*)al_get_shader_log((ALLEGRO::SHADER_DATA_PTR)shader.get());
 	}
 
-	export inline auto get_shader_platform(ALLEGRO::SHADER& shader) -> ALLEGRO_SHADER_PLATFORM
+	export inline auto get_shader_platform(ALLEGRO::SHADER& shader) -> int32_t
 	{
-		return al_get_shader_platform((ALLEGRO::SHADER_DATA_PTR)shader.get());
+		return (int32_t)al_get_shader_platform((ALLEGRO::SHADER_DATA_PTR)shader.get());
 	}
 
-	export inline auto use_shader(ALLEGRO::SHADER& shader) -> bool
+	export inline auto use_shader(ALLEGRO::SHADER& shader = null_shader) -> bool
 	{
 		return al_use_shader((ALLEGRO::SHADER_DATA_PTR)shader.get());
 	}
@@ -97,43 +99,43 @@ namespace al
 		return ALLEGRO::SHADER(al_get_current_shader(), internal::deleter_empty<ALLEGRO::SHADER_DATA>);
 	}
 
-	export inline auto set_shader_sampler(const_cptr_t name, ALLEGRO::BITMAP& bitmap, int32_t unit) -> bool
+	export inline auto set_shader_sampler(const char* name, ALLEGRO::BITMAP& bitmap, int32_t unit) -> bool
 	{
 		return al_set_shader_sampler(name, (ALLEGRO::BITMAP_DATA_PTR)bitmap.get(), unit);
 	}
 
-	export inline auto set_shader_matrix(const_cptr_t name, const ALLEGRO::TRANSFORM& matrix) -> bool
+	export inline auto set_shader_matrix(const char* name, const ALLEGRO::TRANSFORM& matrix) -> bool
 	{
 		return al_set_shader_matrix(name, &matrix);
 	}
 
-	export inline auto set_shader_int(const_cptr_t name, int32_t i) -> bool
+	export inline auto set_shader_int(const char* name, int32_t i) -> bool
 	{
 		return al_set_shader_int(name, i);
 	}
 
-	export inline auto set_shader_float(const_cptr_t name, float f) -> bool
+	export inline auto set_shader_float(const char* name, float f) -> bool
 	{
 		return al_set_shader_float(name, f);
 	}
 
-	export inline auto set_shader_int_vector(const_cptr_t name, int32_t num_components, const int32_t* i, int32_t num_elems) -> bool
+	export inline auto set_shader_int_vector(const char* name, int32_t num_components, const int32_t* i, int32_t num_elems) -> bool
 	{
 		return al_set_shader_int_vector(name, num_components, i, num_elems);
 	}
 
-	export inline auto set_shader_float_vector(const_cptr_t name, int32_t num_components, const float* f, int32_t num_elems) -> bool
+	export inline auto set_shader_float_vector(const char* name, int32_t num_components, const float* f, int32_t num_elems) -> bool
 	{
 		return al_set_shader_float_vector(name, num_components, f, num_elems);
 	}
 
-	export inline auto set_shader_bool(const_cptr_t name, bool b) -> bool
+	export inline auto set_shader_bool(const char* name, bool b) -> bool
 	{
 		return al_set_shader_bool(name, b);
 	}
 
-	export inline auto get_default_shader_source(ALLEGRO_SHADER_PLATFORM platform, ALLEGRO_SHADER_TYPE type) -> const_cptr_t
+	export inline auto get_default_shader_source(ALLEGRO_SHADER_PLATFORM platform, int32_t type) -> const char*
 	{
-		return (const_cptr_t)al_get_default_shader_source(platform, type);
+		return (const char*)al_get_default_shader_source(platform, (ALLEGRO_SHADER_TYPE)type);
 	}
 }

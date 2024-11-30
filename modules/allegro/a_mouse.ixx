@@ -1,4 +1,4 @@
-export module allegro:mouse; 
+export module allegro:mouse;
 
 import <memory>;
 import <allegro5\mouse.h>;
@@ -89,7 +89,7 @@ namespace al
 	{
 		al_get_mouse_cursor_position(&point.x, &point.y);
 	}
-	
+
 	export inline auto grab_mouse(const ALLEGRO::DISPLAY& display) -> bool
 	{
 		return al_grab_mouse((ALLEGRO::DISPLAY_DATA_PTR)display.get());

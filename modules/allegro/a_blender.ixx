@@ -30,12 +30,12 @@ namespace ALLEGRO
 		BLEND_OPERATION_COUNT
 	};
 
-	export typedef struct BLENDER
+	export using BLENDER = struct BLENDER_TAG
 	{
-		int32_t operation;
-		int32_t source;
-		int32_t destination;
-	} BLENDER;
+		int32_t operation{ 0 };
+		int32_t source{ 0 };
+		int32_t destination{ 0 };
+	};
 }
 
 namespace al
@@ -67,7 +67,7 @@ namespace al
 	export inline auto set_separate_blender(const ALLEGRO::BLENDER& blender, const ALLEGRO::BLENDER& alpha) -> void
 	{
 		al_set_separate_blender(blender.operation, blender.source, blender.destination,
-								alpha.operation, alpha.source, alpha.destination);
+			alpha.operation, alpha.source, alpha.destination);
 	}
 
 	export inline auto get_separate_blender() -> std::tuple<ALLEGRO::BLENDER, ALLEGRO::BLENDER>
@@ -76,7 +76,7 @@ namespace al
 		ALLEGRO::BLENDER alpha;
 
 		al_get_separate_blender(&blender.operation, &blender.source, &blender.destination,
-								&alpha.operation, &alpha.source, &alpha.destination);
+			&alpha.operation, &alpha.source, &alpha.destination);
 
 		return std::make_tuple(blender, alpha);
 	}

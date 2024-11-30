@@ -40,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -155,6 +155,7 @@
     <ClCompile Include="modules\allegro\addon\a_addon_ttf.ixx" />
     <ClCompile Include="modules\allegro\addon\a_addon_video.ixx" />
     <ClCompile Include="modules\allegro\a_altime.ixx" />
+    <ClCompile Include="modules\allegro\a_array.ixx" />
     <ClCompile Include="modules\allegro\a_base.ixx" />
     <ClCompile Include="modules\allegro\a_bitmap.ixx" />
     <ClCompile Include="modules\allegro\a_bitmap_draw.ixx" />
@@ -183,6 +184,7 @@
     <ClCompile Include="modules\allegro\a_monitor.ixx" />
     <ClCompile Include="modules\allegro\a_mouse.ixx" />
     <ClCompile Include="modules\allegro\a_mouse_cursor.ixx" />
+    <ClCompile Include="modules\allegro\a_opengl.ixx" />
     <ClCompile Include="modules\allegro\a_path.ixx" />
     <ClCompile Include="modules\allegro\a_platform.ixx" />
     <ClCompile Include="modules\allegro\a_render_state.ixx" />
@@ -194,8 +196,6 @@
     <ClCompile Include="modules\allegro\a_touch_input.ixx" />
     <ClCompile Include="modules\allegro\a_transformations.ixx" />
     <ClCompile Include="modules\allegro\a_utf8.ixx" />
-    <ClCompile Include="modules\application.ixx" />
-    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\allegro_debug.h" />

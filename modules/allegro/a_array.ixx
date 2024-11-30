@@ -1,19 +1,17 @@
 export module allegro:cpu;
 
 import <allegro5/cpu.h>;
+import :base;
 
 namespace ALLEGRO
 {
-	typedef struct ARRAY
+	using ARRAY = struct ARRAY_TAG
 	{
-		size_t size;
-		void* data;
-	} ARRAY;
+		size_t size{ 0 };
+		void* data{ nullptr };
+	};
 }
-
 
 namespace al
 {
-
 }
-

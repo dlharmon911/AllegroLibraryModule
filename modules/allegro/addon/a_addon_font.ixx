@@ -61,22 +61,22 @@ namespace al
 		}
 	}
 
-	export inline auto register_font_loader(const_cptr_t ext, ALLEGRO::FONT_DATA_PTR  (*loader)(const_cptr_t filename, int32_t size, int32_t flags)) -> bool
+	export inline auto register_font_loader(const char* ext, ALLEGRO::FONT_DATA_PTR(*loader)(const char* filename, int32_t size, int32_t flags)) -> bool
 	{
-		return al_register_font_loader(ext, (ALLEGRO::FONT_DATA_PTR (*)(const_cptr_t filename, int32_t size, int32_t flags))loader);
+		return al_register_font_loader(ext, (ALLEGRO::FONT_DATA_PTR(*)(const char* filename, int32_t size, int32_t flags))loader);
 	}
 
-	export inline auto load_bitmap_font(const_cptr_t filename) -> ALLEGRO::FONT
+	export inline auto load_bitmap_font(const char* filename) -> ALLEGRO::FONT
 	{
 		return ALLEGRO::FONT(al_load_bitmap_font(filename), internal::destroy_font);
 	}
 
-	export inline auto load_bitmap_font_flags(const_cptr_t filename, int32_t flags) -> ALLEGRO::FONT
+	export inline auto load_bitmap_font_flags(const char* filename, int32_t flags) -> ALLEGRO::FONT
 	{
 		return ALLEGRO::FONT(al_load_bitmap_font_flags(filename, flags), internal::destroy_font);
 	}
 
-	export inline auto load_font(const_cptr_t filename, int32_t size, int32_t flags) -> ALLEGRO::FONT
+	export inline auto load_font(const char* filename, int32_t size, int32_t flags) -> ALLEGRO::FONT
 	{
 		return ALLEGRO::FONT(al_load_font(filename, size, flags), internal::destroy_font);
 	}
@@ -93,122 +93,122 @@ namespace al
 
 	export inline auto draw_ustr(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, const ALLEGRO::POINT<float>& pos, int32_t flags, const ALLEGRO::USTRING& ustring) -> void
 	{
-		return al_draw_ustr((ALLEGRO::FONT_DATA_PTR )font.get(), (ALLEGRO::COLOR_DATA)color, pos.x, pos.y, flags, (ALLEGRO::USTRING_DATA_PTR)ustring.get());
+		return al_draw_ustr((ALLEGRO::FONT_DATA_PTR)font.get(), (ALLEGRO::COLOR_DATA)color, pos.x, pos.y, flags, (ALLEGRO::USTRING_DATA_PTR)ustring.get());
 	}
 
-	export inline auto draw_text(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, const ALLEGRO::POINT<float>& pos, int32_t flags, const_cptr_t text) -> void
+	export inline auto draw_text(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, const ALLEGRO::POINT<float>& pos, int32_t flags, const char* text) -> void
 	{
-		return al_draw_text((ALLEGRO::FONT_DATA_PTR )font.get(), (ALLEGRO::COLOR_DATA)color, pos.x, pos.y, flags, text);
+		return al_draw_text((ALLEGRO::FONT_DATA_PTR)font.get(), (ALLEGRO::COLOR_DATA)color, pos.x, pos.y, flags, text);
 	}
 
-	export inline auto draw_justified_text(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, float x1, float x2, float y, float diff, int32_t flags, const_cptr_t text) -> void
+	export inline auto draw_justified_text(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, float x1, float x2, float y, float diff, int32_t flags, const char* text) -> void
 	{
-		return al_draw_justified_text((ALLEGRO::FONT_DATA_PTR )font.get(), (ALLEGRO::COLOR_DATA)color, x1, x2, y, diff, flags, text);
+		return al_draw_justified_text((ALLEGRO::FONT_DATA_PTR)font.get(), (ALLEGRO::COLOR_DATA)color, x1, x2, y, diff, flags, text);
 	}
 
 	export inline auto draw_justified_ustr(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, float x1, float x2, float y, float diff, int32_t flags, const ALLEGRO::USTRING& ustring) -> void
 	{
-		return al_draw_justified_ustr((ALLEGRO::FONT_DATA_PTR )font.get(), (ALLEGRO::COLOR_DATA)color, x1, x2, y, diff, flags, (ALLEGRO::USTRING_DATA_PTR)ustring.get());
+		return al_draw_justified_ustr((ALLEGRO::FONT_DATA_PTR)font.get(), (ALLEGRO::COLOR_DATA)color, x1, x2, y, diff, flags, (ALLEGRO::USTRING_DATA_PTR)ustring.get());
 	}
 
-	export inline auto draw_textf(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, const ALLEGRO::POINT<float>& pos, int32_t flags, const_cptr_t format, ...) -> void
+	export inline auto draw_textf(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, const ALLEGRO::POINT<float>& pos, int32_t flags, const char* format, ...) -> void
 	{
 		va_list args;
 		int32_t len;
-		cptr_t buffer;
+		char* buffer;
 
 		va_start(args, format);
 		len = _vscprintf(format, args) // _vscprintf doesn't count
 			+ 1; // terminating '\0'
-		buffer = (cptr_t)malloc(len * sizeof(char));
+		buffer = (char*)malloc(len * sizeof(char));
 
 		if (NULL != buffer)
 		{
 			vsprintf_s(buffer, len, format, args);
-			al_draw_text((ALLEGRO::FONT_DATA_PTR )font.get(), (ALLEGRO::COLOR_DATA)color, pos.x, pos.y, flags, buffer);
+			al_draw_text((ALLEGRO::FONT_DATA_PTR)font.get(), (ALLEGRO::COLOR_DATA)color, pos.x, pos.y, flags, buffer);
 			free(buffer);
 		}
 		va_end(args);
 	}
 
-	export inline auto draw_justified_textf(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, float x1, float x2, float y, float diff, int32_t flags, const_cptr_t format, ...) -> void
+	export inline auto draw_justified_textf(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, float x1, float x2, float y, float diff, int32_t flags, const char* format, ...) -> void
 	{
 		va_list args;
 		int32_t len;
-		cptr_t buffer;
+		char* buffer;
 
 		va_start(args, format);
 		len = _vscprintf(format, args) // _vscprintf doesn't count
 			+ 1; // terminating '\0'
-		buffer = (cptr_t)malloc(len * sizeof(char));
+		buffer = (char*)malloc(len * sizeof(char));
 
 		if (NULL != buffer)
 		{
 			vsprintf_s(buffer, len, format, args);
-			al_draw_justified_text((ALLEGRO::FONT_DATA_PTR )font.get(), (ALLEGRO::COLOR_DATA)color, x1, x2, y, diff, flags, buffer);
+			al_draw_justified_text((ALLEGRO::FONT_DATA_PTR)font.get(), (ALLEGRO::COLOR_DATA)color, x1, x2, y, diff, flags, buffer);
 			free(buffer);
 		}
 		va_end(args);
 	}
 
-	export inline auto get_text_width(const ALLEGRO::FONT& font, const_cptr_t str) -> int32_t
+	export inline auto get_text_width(const ALLEGRO::FONT& font, const char* str) -> int32_t
 	{
-		return al_get_text_width((ALLEGRO::FONT_DATA_PTR )font.get(), str);
+		return al_get_text_width((ALLEGRO::FONT_DATA_PTR)font.get(), str);
 	}
 
 	export inline auto get_ustr_width(const ALLEGRO::FONT& font, const ALLEGRO::USTRING& ustring) -> int32_t
 	{
-		return al_get_ustr_width((ALLEGRO::FONT_DATA_PTR )font.get(), (ALLEGRO::USTRING_DATA_PTR)ustring.get());
+		return al_get_ustr_width((ALLEGRO::FONT_DATA_PTR)font.get(), (ALLEGRO::USTRING_DATA_PTR)ustring.get());
 	}
 
 	export inline auto get_font_line_height(const ALLEGRO::FONT& font) -> int32_t
 	{
-		return al_get_font_line_height((ALLEGRO::FONT_DATA_PTR )font.get());
+		return al_get_font_line_height((ALLEGRO::FONT_DATA_PTR)font.get());
 	}
 
 	export inline auto get_font_ascent(const ALLEGRO::FONT& font) -> int32_t
 	{
-		return al_get_font_ascent((ALLEGRO::FONT_DATA_PTR )font.get());
+		return al_get_font_ascent((ALLEGRO::FONT_DATA_PTR)font.get());
 	}
 
 	export inline auto get_font_descent(const ALLEGRO::FONT& font) -> int32_t
 	{
-		return al_get_font_descent((ALLEGRO::FONT_DATA_PTR )font.get());
+		return al_get_font_descent((ALLEGRO::FONT_DATA_PTR)font.get());
 	}
 
 	export inline auto get_ustr_dimensions(const ALLEGRO::FONT& font, const ALLEGRO::USTRING& ustring, ALLEGRO::BOX<int32_t>& box) -> void
 	{
-		return al_get_ustr_dimensions((ALLEGRO::FONT_DATA_PTR )font.get(), (ALLEGRO::USTRING_DATA_PTR)ustring.get(), &box.top_left.x, &box.top_left.y, &box.bottom_right.x, &box.bottom_right.y);
+		return al_get_ustr_dimensions((ALLEGRO::FONT_DATA_PTR)font.get(), (ALLEGRO::USTRING_DATA_PTR)ustring.get(), &box.top_left.x, &box.top_left.y, &box.bottom_right.x, &box.bottom_right.y);
 	}
 
-	export inline auto get_text_dimensions(const ALLEGRO::FONT& font, const_cptr_t text, ALLEGRO::BOX<int32_t>& box) -> void
+	export inline auto get_text_dimensions(const ALLEGRO::FONT& font, const char* text, ALLEGRO::BOX<int32_t>& box) -> void
 	{
-		return al_get_text_dimensions((ALLEGRO::FONT_DATA_PTR )font.get(), text, &box.top_left.x, &box.top_left.y, &box.bottom_right.x, &box.bottom_right.y);
+		return al_get_text_dimensions((ALLEGRO::FONT_DATA_PTR)font.get(), text, &box.top_left.x, &box.top_left.y, &box.bottom_right.x, &box.bottom_right.y);
 	}
 
 	export inline auto get_font_ranges(ALLEGRO::FONT& font, int32_t ranges_count, int32_t* ranges) -> int32_t
 	{
-		return al_get_font_ranges((ALLEGRO::FONT_DATA_PTR )font.get(), ranges_count, ranges);
+		return al_get_font_ranges((ALLEGRO::FONT_DATA_PTR)font.get(), ranges_count, ranges);
 	}
 
 	export inline auto draw_glyph(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, const ALLEGRO::POINT<float>& pos, int32_t codepoint) -> void
 	{
-		al_draw_glyph((ALLEGRO::FONT_DATA_PTR )font.get(), (ALLEGRO::COLOR_DATA)color, pos.x, pos.y, codepoint);
+		al_draw_glyph((ALLEGRO::FONT_DATA_PTR)font.get(), (ALLEGRO::COLOR_DATA)color, pos.x, pos.y, codepoint);
 	}
 
 	export inline auto get_glyph_width(const ALLEGRO::FONT& font, int32_t codepoint) -> int32_t
 	{
-		return al_get_glyph_width((ALLEGRO::FONT_DATA_PTR )font.get(), codepoint);
+		return al_get_glyph_width((ALLEGRO::FONT_DATA_PTR)font.get(), codepoint);
 	}
 
 	export inline auto get_glyph_dimensions(const ALLEGRO::FONT& font, int32_t codepoint, ALLEGRO::BOX<int32_t>& box) -> bool
 	{
-		return al_get_glyph_dimensions((ALLEGRO::FONT_DATA_PTR )font.get(), codepoint, &box.top_left.x, &box.top_left.y, &box.bottom_right.x, &box.bottom_right.y);
+		return al_get_glyph_dimensions((ALLEGRO::FONT_DATA_PTR)font.get(), codepoint, &box.top_left.x, &box.top_left.y, &box.bottom_right.x, &box.bottom_right.y);
 	}
 
 	export inline auto get_glyph_advance(const ALLEGRO::FONT& font, int32_t codepoint1, int32_t codepoint2) -> int32_t
 	{
-		return al_get_glyph_advance((ALLEGRO::FONT_DATA_PTR )font.get(), codepoint1, codepoint2);
+		return al_get_glyph_advance((ALLEGRO::FONT_DATA_PTR)font.get(), codepoint1, codepoint2);
 	}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_FONT_SRC)
@@ -218,26 +218,26 @@ namespace al
 	}
 #endif
 
-	export inline auto draw_multiline_text(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, const ALLEGRO::POINT<float>& pos, float max_width, float line_height, int32_t flags, const_cptr_t text) -> void
+	export inline auto draw_multiline_text(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, const ALLEGRO::POINT<float>& pos, float max_width, float line_height, int32_t flags, const char* text) -> void
 	{
-		al_draw_multiline_text((ALLEGRO::FONT_DATA_PTR )font.get(), (ALLEGRO::COLOR_DATA)color, pos.x, pos.y, max_width, line_height, flags, text);
+		al_draw_multiline_text((ALLEGRO::FONT_DATA_PTR)font.get(), (ALLEGRO::COLOR_DATA)color, pos.x, pos.y, max_width, line_height, flags, text);
 	}
 
-	export inline auto draw_multiline_textf(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, const ALLEGRO::POINT<float>& pos, float max_width, float line_height, int32_t flags, const_cptr_t format, ...) -> void
+	export inline auto draw_multiline_textf(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, const ALLEGRO::POINT<float>& pos, float max_width, float line_height, int32_t flags, const char* format, ...) -> void
 	{
 		va_list args;
 		int32_t len;
-		cptr_t buffer;
+		char* buffer;
 
 		va_start(args, format);
 		len = _vscprintf(format, args) // _vscprintf doesn't count
 			+ 1; // terminating '\0'
-		buffer = (cptr_t)malloc(len * sizeof(char));
+		buffer = (char*)malloc(len * sizeof(char));
 
 		if (NULL != buffer)
 		{
 			vsprintf_s(buffer, len, format, args);
-			al_draw_multiline_text((ALLEGRO::FONT_DATA_PTR )font.get(), (ALLEGRO::COLOR_DATA)color, pos.x, pos.y, max_width, line_height, flags, buffer);
+			al_draw_multiline_text((ALLEGRO::FONT_DATA_PTR)font.get(), (ALLEGRO::COLOR_DATA)color, pos.x, pos.y, max_width, line_height, flags, buffer);
 			free(buffer);
 		}
 		va_end(args);
@@ -245,27 +245,27 @@ namespace al
 
 	export inline auto draw_multiline_ustr(const ALLEGRO::FONT& font, ALLEGRO::COLOR color, const ALLEGRO::POINT<float>& pos, float max_width, float line_height, int32_t flags, const ALLEGRO::USTRING& ustring) -> void
 	{
-		al_draw_multiline_ustr((ALLEGRO::FONT_DATA_PTR )font.get(), (ALLEGRO::COLOR_DATA)color, pos.x, pos.y, max_width, line_height, flags, (ALLEGRO::USTRING_DATA_PTR)ustring.get());
+		al_draw_multiline_ustr((ALLEGRO::FONT_DATA_PTR)font.get(), (ALLEGRO::COLOR_DATA)color, pos.x, pos.y, max_width, line_height, flags, (ALLEGRO::USTRING_DATA_PTR)ustring.get());
 	}
 
-	export inline auto do_multiline_text(const ALLEGRO::FONT& font, float max_width, const_cptr_t text, bool (*callback)(int32_t line_num, const_cptr_t line, int32_t size, vptr_t extra), vptr_t extra) -> void
+	export inline auto do_multiline_text(const ALLEGRO::FONT& font, float max_width, const char* text, bool (*callback)(int32_t line_num, const char* line, int32_t size, void* extra), void* extra) -> void
 	{
-		al_do_multiline_text((ALLEGRO::FONT_DATA_PTR )font.get(), max_width, text, (bool(*)(int32_t line_num, const_cptr_t line, int32_t size, vptr_t extra))callback, extra);
+		al_do_multiline_text((ALLEGRO::FONT_DATA_PTR)font.get(), max_width, text, (bool(*)(int32_t line_num, const char* line, int32_t size, void* extra))callback, extra);
 	}
 
-	export inline auto do_multiline_ustr(const ALLEGRO::FONT& font, float max_width, const ALLEGRO::USTRING& ustring, bool (*callback)(int32_t line_num, const ALLEGRO::USTRING_DATA_PTR line, vptr_t extra), vptr_t extra) -> void
+	export inline auto do_multiline_ustr(const ALLEGRO::FONT& font, float max_width, const ALLEGRO::USTRING& ustring, bool (*callback)(int32_t line_num, const ALLEGRO::USTRING_DATA_PTR line, void* extra), void* extra) -> void
 	{
-		al_do_multiline_ustr((ALLEGRO::FONT_DATA_PTR )font.get(), max_width, (ALLEGRO::USTRING_DATA_PTR)ustring.get(), (bool (*)(int32_t line_num, const ALLEGRO::USTRING_DATA* line, vptr_t extra))callback, extra);
+		al_do_multiline_ustr((ALLEGRO::FONT_DATA_PTR)font.get(), max_width, (ALLEGRO::USTRING_DATA_PTR)ustring.get(), (bool (*)(int32_t line_num, const ALLEGRO::USTRING_DATA * line, void* extra))callback, extra);
 	}
 
 	export inline auto set_fallback_font(ALLEGRO::FONT& font, ALLEGRO::FONT& fallback) -> void
 	{
-		al_set_fallback_font((ALLEGRO::FONT_DATA_PTR )font.get(), (ALLEGRO::FONT_DATA_PTR )fallback.get());
+		al_set_fallback_font((ALLEGRO::FONT_DATA_PTR)font.get(), (ALLEGRO::FONT_DATA_PTR)fallback.get());
 	}
 
 	export inline auto get_fallback_font(ALLEGRO::FONT& font) -> ALLEGRO::FONT
 	{
-		ALLEGRO::FONT(al_get_fallback_font((ALLEGRO::FONT_DATA_PTR )font.get()), internal::deleter_empty<ALLEGRO::FONT_DATA>);
+		ALLEGRO::FONT(al_get_fallback_font((ALLEGRO::FONT_DATA_PTR)font.get()), internal::deleter_empty<ALLEGRO::FONT_DATA>);
 	}
 
 #ifdef ALLEGRO_GLYPH
@@ -275,4 +275,3 @@ namespace al
 	}
 #endif
 }
-

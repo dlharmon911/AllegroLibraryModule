@@ -49,7 +49,7 @@ namespace al
 {
 	namespace internal
 	{
-		export inline auto create_fs_entry(const_cptr_t path) -> ALLEGRO::FS_ENTRY_DATA_PTR
+		export inline auto create_fs_entry(const char* path) -> ALLEGRO::FS_ENTRY_DATA_PTR
 		{
 			return al_create_fs_entry(path);
 		}
@@ -60,14 +60,14 @@ namespace al
 		}
 	}
 
-	export inline auto create_fs_entry(const_cptr_t path) -> ALLEGRO::FS_ENTRY
+	export inline auto create_fs_entry(const char* path) -> ALLEGRO::FS_ENTRY
 	{
 		return ALLEGRO::FS_ENTRY(al_create_fs_entry(path), internal::destroy_fs_entry);
 	}
 
-	export inline auto get_fs_entry_name(const ALLEGRO::FS_ENTRY& e) -> const_cptr_t
+	export inline auto get_fs_entry_name(const ALLEGRO::FS_ENTRY& e) -> const char*
 	{
-		return (const_cptr_t)al_get_fs_entry_name((ALLEGRO::FS_ENTRY_DATA_PTR)e.get());
+		return (const char*)al_get_fs_entry_name((ALLEGRO::FS_ENTRY_DATA_PTR)e.get());
 	}
 
 	export inline auto update_fs_entry(const ALLEGRO::FS_ENTRY& e) -> bool
@@ -125,37 +125,37 @@ namespace al
 		return al_close_directory((ALLEGRO::FS_ENTRY_DATA_PTR)e.get());
 	}
 
-	export inline auto filename_exists(const_cptr_t path) -> bool
+	export inline auto filename_exists(const char* path) -> bool
 	{
 		return al_filename_exists(path);
 	}
 
-	export inline auto remove_filename(const_cptr_t path) -> bool
+	export inline auto remove_filename(const char* path) -> bool
 	{
 		return al_remove_filename(path);
 	}
 
-	export inline auto get_current_directory() -> const_cptr_t
+	export inline auto get_current_directory() -> const char*
 	{
 		return al_get_current_directory();
 	}
 
-	export inline auto change_directory(const_cptr_t path) -> bool
+	export inline auto change_directory(const char* path) -> bool
 	{
 		return al_change_directory(path);
 	}
 
-	export inline auto make_directory(const_cptr_t path) -> bool
+	export inline auto make_directory(const char* path) -> bool
 	{
 		return al_make_directory(path);
 	}
 
-	export inline auto open_fs_entry(const ALLEGRO::FS_ENTRY& e, const_cptr_t mode) -> ALLEGRO::FILE
+	export inline auto open_fs_entry(const ALLEGRO::FS_ENTRY& e, const char* mode) -> ALLEGRO::FILE
 	{
 		return ALLEGRO::FILE(al_open_fs_entry((ALLEGRO::FS_ENTRY_DATA_PTR)e.get(), mode), internal::destroy_file);
 	}
 
-	export inline auto for_each_fs_entry(ALLEGRO::FS_ENTRY& dir, int32_t(*callback)(ALLEGRO_FS_ENTRY* entry, vptr_t extra), vptr_t extra) -> int32_t
+	export inline auto for_each_fs_entry(ALLEGRO::FS_ENTRY& dir, int32_t(*callback)(ALLEGRO_FS_ENTRY* entry, void* extra), void* extra) -> int32_t
 	{
 		return al_for_each_fs_entry((ALLEGRO::FS_ENTRY_DATA_PTR)dir.get(), callback, extra);
 	}

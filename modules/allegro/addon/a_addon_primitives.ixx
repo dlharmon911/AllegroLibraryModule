@@ -42,7 +42,7 @@ namespace ALLEGRO
 
 	export enum
 	{
-		PRIM_FLOAT_2= ALLEGRO_PRIM_FLOAT_2,
+		PRIM_FLOAT_2 = ALLEGRO_PRIM_FLOAT_2,
 		PRIM_FLOAT_3 = ALLEGRO_PRIM_FLOAT_3,
 		PRIM_SHORT_2 = ALLEGRO_PRIM_SHORT_2,
 		PRIM_FLOAT_1 = ALLEGRO_PRIM_FLOAT_1,
@@ -69,7 +69,7 @@ namespace ALLEGRO
 
 	export enum
 	{
-		PRIM_LINE_CAP_NONE= ALLEGRO_LINE_CAP_NONE,
+		PRIM_LINE_CAP_NONE = ALLEGRO_LINE_CAP_NONE,
 		PRIM_LINE_CAP_SQUARE = ALLEGRO_LINE_CAP_SQUARE,
 		PRIM_LINE_CAP_ROUND = ALLEGRO_LINE_CAP_ROUND,
 		PRIM_LINE_CAP_TRIANGLE = ALLEGRO_LINE_CAP_TRIANGLE,
@@ -147,12 +147,12 @@ namespace al
 		}
 	}
 
-	export inline auto draw_prim(const_vptr_t vtxs, const ALLEGRO::VERTEX_DECL& decl, ALLEGRO::BITMAP& texture, int32_t start, int32_t end, int32_t type) -> int32_t
+	export inline auto draw_prim(const void* vtxs, const ALLEGRO::VERTEX_DECL& decl, ALLEGRO::BITMAP& texture, int32_t start, int32_t end, int32_t type) -> int32_t
 	{
 		return al_draw_prim(vtxs, (ALLEGRO::VERTEX_DECL_DATA_PTR)decl.get(), (ALLEGRO::BITMAP_DATA_PTR)texture.get(), start, end, type);
 	}
 
-	export inline auto draw_indexed_prim(const_vptr_t vtxs, const ALLEGRO::VERTEX_DECL& decl, ALLEGRO::BITMAP& texture, const int32_t* indices, int32_t num_vtx, int32_t type) -> int32_t
+	export inline auto draw_indexed_prim(const void* vtxs, const ALLEGRO::VERTEX_DECL& decl, ALLEGRO::BITMAP& texture, const int32_t* indices, int32_t num_vtx, int32_t type) -> int32_t
 	{
 		return al_draw_indexed_prim(vtxs, (ALLEGRO::VERTEX_DECL_DATA_PTR)decl.get(), (ALLEGRO::BITMAP_DATA_PTR)texture.get(), indices, num_vtx, type);
 	}
@@ -166,18 +166,18 @@ namespace al
 	{
 		return al_draw_indexed_buffer((ALLEGRO::VERTEX_BUFFER_DATA_PTR)vertex_buffer.get(), (ALLEGRO::BITMAP_DATA_PTR)texture.get(), (ALLEGRO::INDEX_BUFFER_DATA_PTR)index_buffer.get(), start, end, type);
 	}
-	
+
 	export inline auto create_vertex_decl(const ALLEGRO::VERTEX_ELEMENT_PTR elements, int32_t stride) -> ALLEGRO::VERTEX_DECL
 	{
 		return ALLEGRO::VERTEX_DECL(al_create_vertex_decl(elements, stride), internal::destroy_vertex_decl);
 	}
 
-	export inline auto create_vertex_buffer(ALLEGRO::VERTEX_DECL& decl, const_vptr_t initial_data, int32_t num_vertices, int32_t flags) -> ALLEGRO::VERTEX_BUFFER
+	export inline auto create_vertex_buffer(ALLEGRO::VERTEX_DECL& decl, const void* initial_data, int32_t num_vertices, int32_t flags) -> ALLEGRO::VERTEX_BUFFER
 	{
 		return ALLEGRO::VERTEX_BUFFER(al_create_vertex_buffer((ALLEGRO::VERTEX_DECL_DATA_PTR)decl.get(), initial_data, num_vertices, flags), internal::destroy_vertex_buffer);
 	}
 
-	export inline auto lock_vertex_buffer(ALLEGRO::VERTEX_BUFFER& buffer, int32_t offset, int32_t length, int32_t flags) -> vptr_t
+	export inline auto lock_vertex_buffer(ALLEGRO::VERTEX_BUFFER& buffer, int32_t offset, int32_t length, int32_t flags) -> void*
 	{
 		return al_lock_vertex_buffer((ALLEGRO::VERTEX_BUFFER_DATA_PTR)buffer.get(), offset, length, flags);
 	}
@@ -192,12 +192,12 @@ namespace al
 		return al_get_vertex_buffer_size((ALLEGRO::VERTEX_BUFFER_DATA_PTR)buffer.get());
 	}
 
-	export inline auto create_index_buffer(int32_t index_size, const_vptr_t initial_data, int32_t num_indices, int32_t flags) -> ALLEGRO::INDEX_BUFFER
+	export inline auto create_index_buffer(int32_t index_size, const void* initial_data, int32_t num_indices, int32_t flags) -> ALLEGRO::INDEX_BUFFER
 	{
 		return ALLEGRO::INDEX_BUFFER(al_create_index_buffer(index_size, initial_data, num_indices, flags), internal::destroy_index_buffer);
 	}
 
-	export inline auto lock_index_buffer(ALLEGRO::INDEX_BUFFER& buffer, int32_t offset, int32_t length, int32_t flags) -> vptr_t
+	export inline auto lock_index_buffer(ALLEGRO::INDEX_BUFFER& buffer, int32_t offset, int32_t length, int32_t flags) -> void*
 	{
 		return al_lock_index_buffer((ALLEGRO::INDEX_BUFFER_DATA_PTR)buffer.get(), offset, length, flags);
 	}
@@ -211,7 +211,7 @@ namespace al
 	{
 		return al_get_index_buffer_size((ALLEGRO::INDEX_BUFFER_DATA_PTR)buffer.get());
 	}
-	export inline auto triangulate_polygon(const float* vertices, size_t vertex_stride, const int32_t* vertex_counts, void (*emit_triangle)(int32_t, int32_t, int32_t, vptr_t), vptr_t userdata) -> bool
+	export inline auto triangulate_polygon(const float* vertices, size_t vertex_stride, const int32_t* vertex_counts, void (*emit_triangle)(int32_t, int32_t, int32_t, void*), void* userdata) -> bool
 	{
 		return al_triangulate_polygon(vertices, vertex_stride, vertex_counts, emit_triangle, userdata);
 	}

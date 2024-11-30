@@ -49,7 +49,6 @@ namespace ALLEGRO
 		VIDEO_POSITION_AUDIO_DECODE = ALLEGRO_VIDEO_POSITION_AUDIO_DECODE
 	};
 
-
 	export using VIDEO_DATA = ALLEGRO_VIDEO;
 	export using VIDEO_DATA_PTR = std::add_pointer<VIDEO_DATA>::type;
 	export using VIDEO = std::shared_ptr<VIDEO_DATA>;
@@ -65,7 +64,7 @@ namespace al
 		}
 	}
 
-	export inline auto open_video(const_cptr_t filename) -> ALLEGRO::VIDEO
+	export inline auto open_video(const char* filename) -> ALLEGRO::VIDEO
 	{
 		return ALLEGRO::VIDEO(al_open_video(filename), internal::destroy_video);
 	}
@@ -130,14 +129,13 @@ namespace al
 		return al_seek_video((ALLEGRO::VIDEO_DATA_PTR)video.get(), pos_in_seconds);
 	}
 
-	export inline auto identify_video_f(ALLEGRO::FILE& fp) -> const_cptr_t
+	export inline auto identify_video_f(ALLEGRO::FILE& fp) -> const char*
 	{
 		return al_identify_video_f((ALLEGRO::FILE_DATA_PTR)fp.get());
 	}
 
-	export inline auto identify_video(const_cptr_t filename) -> const_cptr_t
+	export inline auto identify_video(const char* filename) -> const char*
 	{
 		return al_identify_video(filename);
 	}
 }
-

@@ -15,7 +15,7 @@ namespace ALLEGRO
 	export using MUTEX_DATA = ALLEGRO_MUTEX;
 	export using MUTEX_DATA_PTR = std::add_pointer<MUTEX_DATA>::type;
 	export using MUTEX = std::shared_ptr<MUTEX_DATA>;
-	
+
 	export using COND_DATA = ALLEGRO_COND;
 	export using COND_DATA_PTR = std::add_pointer<COND_DATA>::type;
 	export using COND = std::shared_ptr<COND_DATA>;
@@ -41,13 +41,13 @@ namespace al
 		}
 	}
 
-	export inline auto create_thread(vptr_t (*proc)(ALLEGRO::THREAD_DATA_PTR thread, vptr_t arg), vptr_t arg) -> ALLEGRO::THREAD
+	export inline auto create_thread(void*(*proc)(ALLEGRO::THREAD_DATA_PTR thread, void* arg), void* arg) -> ALLEGRO::THREAD
 	{
 		return ALLEGRO::THREAD(al_create_thread(proc, arg), internal::destroy_thread);
 	}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
-	export inline auto create_thread_with_stacksize(vptr_t (*proc)(ALLEGRO::THREAD_DATA_PTR thread, vptr_t arg), vptr_t arg, size_t stacksize) -> ALLEGRO::THREAD
+	export inline auto create_thread_with_stacksize(void*(*proc)(ALLEGRO::THREAD_DATA_PTR thread, void* arg), void* arg, size_t stacksize) -> ALLEGRO::THREAD
 	{
 		return ALLEGRO::THREAD(al_create_thread_with_stacksize(proc, arg, stacksize), internal::destroy_thread);
 	}
@@ -58,7 +58,7 @@ namespace al
 		al_start_thread((ALLEGRO::THREAD_DATA_PTR)outer.get());
 	}
 
-	export inline auto join_thread(ALLEGRO::THREAD& outer, vptr_t* ret_value) -> void
+	export inline auto join_thread(ALLEGRO::THREAD& outer, void** ret_value) -> void
 	{
 		return al_join_thread((ALLEGRO::THREAD_DATA_PTR)outer.get(), ret_value);
 	}
@@ -73,7 +73,7 @@ namespace al
 		return al_get_thread_should_stop((ALLEGRO::THREAD_DATA_PTR)outer.get());
 	}
 
-	export inline auto run_detached_thread(vptr_t (*proc)(vptr_t arg), vptr_t arg) -> void
+	export inline auto run_detached_thread(void*(*proc)(void* arg), void* arg) -> void
 	{
 		al_run_detached_thread(proc, arg);
 	}

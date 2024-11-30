@@ -7,13 +7,12 @@ import :base;
 
 namespace ALLEGRO
 {
-
 	export template<typename T> inline auto ASSERT(const std::shared_ptr<T>& x) -> void
 	{
 		assert((bool)x);
 	}
 
-	export inline auto ASSERT(const_vptr_t x) -> void
+	export inline auto ASSERT(const void* x) -> void
 	{
 		assert(x);
 	}

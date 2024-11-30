@@ -106,11 +106,6 @@ namespace al
 {
 	namespace internal
 	{
-		export inline auto create_display(const ALLEGRO::SIZE<size_t>& size) -> ALLEGRO::DISPLAY_DATA_PTR
-		{
-			return al_create_display((int32_t)size.width, (int32_t)size.height);
-		}
-
 		export inline auto destroy_display(ALLEGRO::DISPLAY_DATA_PTR data) -> void
 		{
 			al_destroy_display(data);
@@ -142,19 +137,19 @@ namespace al
 		return al_get_new_display_flags();
 	}
 
-	export inline auto set_window_title(const ALLEGRO::DISPLAY& display, const_cptr_t title) -> void
+	export inline auto set_window_title(const ALLEGRO::DISPLAY& display, const char* title) -> void
 	{
 		al_set_window_title((ALLEGRO::DISPLAY_DATA_PTR)display.get(), title);
 	}
 
-	export inline auto set_new_window_title(const_cptr_t title) -> void
+	export inline auto set_new_window_title(const char* title) -> void
 	{
 		al_set_new_window_title(title);
 	}
 
-	export inline const_cptr_t get_new_window_title()
+	export inline const char* get_new_window_title()
 	{
-		return (const_cptr_t)al_get_new_window_title();
+		return (const char*)al_get_new_window_title();
 	}
 
 	export inline int32_t get_display_width(const ALLEGRO::DISPLAY& display)
@@ -269,7 +264,7 @@ namespace al
 
 	export inline auto set_display_icons(ALLEGRO::DISPLAY& display, const std::vector<ALLEGRO::BITMAP>& icons)
 	{
-		std::vector<vptr_t> temp{ icons.size() };
+		std::vector<void*> temp{ icons.size() };
 
 		for (size_t i = 0; i < icons.size(); ++i)
 		{
@@ -323,7 +318,7 @@ namespace al
 		return al_get_window_borders(display.get(), &box.top_left.x, &box.top_left.y, &box.bottom_right.x, &box.bottom_right.y);
 	}
 #endif
-	
+
 	export inline bool set_window_constraints(const ALLEGRO::DISPLAY& display, const ALLEGRO::SIZE<int32_t>& min, const ALLEGRO::SIZE<int32_t>& max)
 	{
 		return al_set_window_constraints((ALLEGRO::DISPLAY_DATA_PTR)display.get(), min.width, min.height, max.width, max.height);
@@ -393,4 +388,3 @@ namespace al
 	}
 #endif
 }
-

@@ -7,7 +7,6 @@ import :bitmap;
 import :display;
 import :memory;
 
-
 namespace ALLEGRO
 {
 	export using MOUSE_CURSOR_DATA = ALLEGRO_MOUSE_CURSOR;
@@ -80,5 +79,4 @@ namespace al
 	{
 		return al_hide_mouse_cursor((ALLEGRO::DISPLAY_DATA_PTR)display.get());
 	}
-
 }

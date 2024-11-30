@@ -14,12 +14,12 @@ namespace ALLEGRO
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
 	export using BITMAP_WRAP = ::ALLEGRO_BITMAP_WRAP;
-	export typedef struct BITMAP_BLENDER
+	export using  BITMAP_BLENDER = struct BITMAP_BLENDER_TAG
 	{
-		int32_t operation;
-		int32_t source;
-		int32_t destination;
-	} BITMAP_BLENDER;
+		int32_t operation{ 0 };
+		int32_t source{ 0 };
+		int32_t destination{ 0 };
+	};
 #endif
 
 	export enum

@@ -123,7 +123,7 @@ namespace al
 
 	export inline auto release_haptic(ALLEGRO::HAPTIC& haptic)) -> bool;
 	export inline auto is_haptic_active(ALLEGRO::HAPTIC& haptic)) -> bool;
-	export inline auto get_haptic_capabilities(ALLEGRO::HAPTIC& haptic)) -> int32_t;
+	export inline auto get_haptic_capabilities(ALLEGRO::HAPTIC& haptic))->int32_t;
 	export inline auto is_haptic_capable(ALLEGRO::HAPTIC& haptic, int32_t)) -> bool;
 	export inline auto set_haptic_gain(ALLEGRO::HAPTIC& haptic, double)) -> bool;
 	export inline auto get_haptic_gain(ALLEGRO::HAPTIC& haptic)) -> double;
@@ -139,6 +139,5 @@ namespace al
 	export inline auto release_haptic_effect(ALLEGRO::HAPTIC_EFFECT_ID_PTR)) -> bool;
 	export inline auto get_haptic_effect_duration(ALLEGRO::HAPTIC_EFFECT_PTR)) -> double;
 	export inline auto rumble_haptic(ALLEGRO::HAPTIC& haptic, double, double, ALLEGRO::HAPTIC_EFFECT_ID_PTR)) -> bool;
-
 }
 #endif

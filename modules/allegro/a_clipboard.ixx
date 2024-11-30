@@ -9,21 +9,21 @@ import :debug;
 
 namespace al
 {
-	export inline auto get_clipboard_text(const ALLEGRO::DISPLAY& display) -> cptr_t
+	export inline auto get_clipboard_text(const ALLEGRO::DISPLAY& display) -> char*
 	{
-		cptr_t text{ al_get_clipboard_text((ALLEGRO::DISPLAY_DATA_PTR)display.get()) };
-		cptr_t rv{ nullptr };
+		char* text{ al_get_clipboard_text((ALLEGRO::DISPLAY_DATA_PTR)display.get()) };
+		char* rv{ nullptr };
 
 		if (text)
 		{
 			rv = text;
-			al::free_with_context(text, __LINE__, (const_cptr_t)__FILE__, (const_cptr_t)__func__);
+			al::free_with_context(text, __LINE__, (const char*)__FILE__, (const char*)__func__);
 		}
 
 		return rv;
 	}
 
-	export inline auto set_clipboard_text(const ALLEGRO::DISPLAY& display, const_cptr_t text) -> void
+	export inline auto set_clipboard_text(const ALLEGRO::DISPLAY& display, const char* text) -> void
 	{
 		al_set_clipboard_text((ALLEGRO::DISPLAY_DATA_PTR)display.get(), text);
 	}
@@ -33,4 +33,3 @@ namespace al
 		return al_clipboard_has_text((ALLEGRO::DISPLAY_DATA_PTR)display.get());
 	}
 }
-
