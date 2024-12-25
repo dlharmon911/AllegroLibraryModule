@@ -97,15 +97,15 @@ namespace al
 			flip_flags);
 	}
 
-	export inline auto draw_tinted_scaled_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::COLOR& tint, const ALLEGRO::RECTANGLE<float>& source, const ALLEGRO::POINT<float>& destination, const ALLEGRO::POINT<float>& scale, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE) -> void
+	export inline auto draw_tinted_scaled_bitmap(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::COLOR& tint, const ALLEGRO::RECTANGLE<float>& source, const ALLEGRO::RECTANGLE<float>& destination, int32_t flip_flags = ALLEGRO::BITMAP_FLIP_NONE) -> void
 	{
 		al_draw_tinted_scaled_bitmap(
 			(ALLEGRO::BITMAP_DATA_PTR)bitmap.get(),
 			(ALLEGRO::COLOR_DATA)tint,
 			source.position.x, source.position.y,
 			source.size.width, source.size.height,
-			destination.x, destination.y,
-			source.size.width * scale.x, source.size.height * scale.y,
+			destination.position.x, destination.position.y,
+			destination.size.width, destination.size.height,
 			flip_flags);
 	}
 

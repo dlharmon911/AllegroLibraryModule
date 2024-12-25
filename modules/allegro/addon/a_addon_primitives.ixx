@@ -303,7 +303,7 @@ namespace al
 
 	export inline auto draw_filled_rectangle(const ALLEGRO::POINT<float>& pos1, const ALLEGRO::POINT<float>& pos2, ALLEGRO::COLOR color) -> void
 	{
-		al_draw_filled_rectangle(pos1.x, pos2.y, pos2.x, pos2.y, (ALLEGRO::COLOR_DATA)color);
+		al_draw_filled_rectangle(pos1.x, pos1.y, pos2.x, pos2.y, (ALLEGRO::COLOR_DATA)color);
 	}
 
 	export inline auto draw_filled_ellipse(const ALLEGRO::POINT<float>& center, const ALLEGRO::POINT<float>& radii, ALLEGRO::COLOR color) -> void

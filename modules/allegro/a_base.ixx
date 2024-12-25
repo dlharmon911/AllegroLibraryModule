@@ -6,6 +6,9 @@ import <memory>;
 import <allegro5/base.h>;
 import <type_traits>;
 
+export using cptr_t = std::add_pointer_t<char>;
+export using vptr_t = std::add_pointer_t<void>;
+
 namespace ALLEGRO
 {
 	export constexpr uint8_t VERSION = ALLEGRO_VERSION;
@@ -27,7 +30,7 @@ namespace al
 		return (((a) << 24) | ((b) << 16) | ((c) << 8) | (d));
 	}
 
-	export inline auto run_main(int32_t argc, std::add_pointer<char*>::type argv, int32_t(*user_main)(int32_t, std::add_pointer<char*>::type)) -> int32_t
+	export inline auto run_main(int32_t argc, char** argv, int32_t(*user_main)(int32_t, char**)) -> int32_t
 	{
 		return al_run_main(argc, argv, user_main);
 	}
@@ -53,12 +56,18 @@ namespace ALLEGRO
 		template <typename Q>
 		constexpr POINT<T>(const POINT<Q>& point) : x((T)point.x), y((T)point.y) {}
 
-		auto operator -() -> POINT<T>&
+		auto operator -() const -> const POINT<T>&
 		{
-			this->x = -this->x;
-			this->y = -this->y;
+			return POINT<T>{ -this->x, -this->y};
+		}
 
-			return *this;
+		auto operator == (const POINT<T>& v) const -> bool
+		{
+			return (this->x == v.x && this->y == v.y);
+		}
+		auto operator != (const POINT<T>& v) const -> bool
+		{
+			return !this->operator==(v);
 		}
 	};
 
@@ -120,6 +129,12 @@ namespace ALLEGRO
 		constexpr RECTANGLE(const POINT<T> _position, const SIZE<T> _size) : position(_position), size(_size) {}
 		constexpr RECTANGLE(const RECTANGLE& r) : position(r.position), size(r.size) {}
 
+		auto is_inside(const ALLEGRO::POINT<T>& point) -> bool
+		{
+			return (point.x >= this->position.x && point.x < (this->position.x + this->size.width) &&
+				point.y >= this->position.y && point.y < (this->position.y + this->size.height));
+		}
+
 		template <typename Q>
 		constexpr RECTANGLE(const Q _x, const Q _y, const Q _width, const Q _height) : position(POINT<T>(_x, _y)), size(SIZE<T>(_width, _height)) {}
 
@@ -138,6 +153,16 @@ namespace ALLEGRO
 		constexpr BOX(const T _left, const T _top, const T _right, const T _bottom) : top_left(_left, _top), bottom_right(_right, _bottom) {}
 		constexpr BOX(const POINT<T> _top_left, const POINT<T> _bottom_right) : top_left(_top_left), bottom_right(_bottom_right) {}
 		constexpr BOX(const BOX& r) : top_left(r.top_left), bottom_right(r.bottom_right) {}
+
+		auto get_width() const -> T
+		{
+			return bottom_right.x - top_left.x + 1;
+		}
+
+		auto get_height() const -> T
+		{
+			return bottom_right.y - top_left.y + 1;
+		}
 
 		template <typename Q>
 		constexpr BOX(const Q _left, const Q _top, const Q _right, const Q _bottom) : top_left(POINT<T>(_left, _top)), bottom_right(POINT<T>(_right, _bottom)) {}

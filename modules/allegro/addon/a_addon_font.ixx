@@ -5,6 +5,7 @@ import <memory>;
 import allegro;
 import <cstdarg>;
 import <allegro5/allegro_font.h>;
+import allegro;
 
 namespace ALLEGRO
 {

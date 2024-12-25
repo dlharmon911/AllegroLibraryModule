@@ -11,6 +11,10 @@ namespace ALLEGRO
 {
 	export using MOUSE = ::ALLEGRO_MOUSE;
 	export using MOUSE_STATE = ::ALLEGRO_MOUSE_STATE;
+
+	export constexpr int32_t MOUSE_BUTTON_LEFT = ::ALLEGRO_MOUSE_BUTTON_LEFT;
+	export constexpr int32_t MOUSE_BUTTON_RIGHT = ::ALLEGRO_MOUSE_BUTTON_RIGHT;
+	export constexpr int32_t MOUSE_BUTTON_MIDDLE = ::ALLEGRO_MOUSE_BUTTON_MIDDLE;
 }
 
 namespace al
