@@ -25,7 +25,7 @@ namespace ALLEGRO
 
 namespace al
 {
-	export inline constexpr auto generate_id(uint32_t a, uint32_t b, uint32_t c, uint32_t d) -> uint32_t
+	export constexpr auto generate_id(uint32_t a, uint32_t b, uint32_t c, uint32_t d) -> uint32_t
 	{
 		return (((a) << 24) | ((b) << 16) | ((c) << 8) | (d));
 	}
@@ -45,7 +45,7 @@ namespace ALLEGRO
 	{
 		T x{ T(0) };
 		T y{ T(0) };
-		constexpr POINT() : x(T(0)), y(T(0)) {}
+		constexpr POINT() = default;
 		constexpr POINT(const T _x, const T _y) : x(_x), y(_y) {}
 		constexpr POINT(const POINT<T>& v) : x(v.x), y(v.y) {}
 		explicit constexpr POINT(const SIZE<T>& v) : x(v.width), y(v.height) {}
@@ -54,21 +54,14 @@ namespace ALLEGRO
 		constexpr POINT(const Q _x, const Q _y) : x((T)_x), y((T)_y) {}
 
 		template <typename Q>
-		constexpr POINT<T>(const POINT<Q>& point) : x((T)point.x), y((T)point.y) {}
+		explicit constexpr POINT<T>(const POINT<Q>& point) : x((T)point.x), y((T)point.y) {}
 
 		auto operator -() const -> const POINT<T>&
 		{
 			return POINT<T>{ -this->x, -this->y};
 		}
 
-		auto operator == (const POINT<T>& v) const -> bool
-		{
-			return (this->x == v.x && this->y == v.y);
-		}
-		auto operator != (const POINT<T>& v) const -> bool
-		{
-			return !this->operator==(v);
-		}
+		auto operator == (const POINT<T>& v) const -> bool = default;
 	};
 
 	export template <typename T> struct VECTOR3
@@ -76,7 +69,7 @@ namespace ALLEGRO
 		T x{ T(0) };
 		T y{ T(0) };
 		T z{ T(0) };
-		constexpr VECTOR3() : x(T(0)), y(T(0)), z(T(0)) {}
+		constexpr VECTOR3() = default;
 		constexpr VECTOR3(const T _x, const T _y, const T _z) : x(_x), y(_y), z(_z) {}
 		constexpr VECTOR3(const VECTOR3<T>& v) : x(v.x), y(v.y), z(v.z) {}
 
@@ -84,7 +77,7 @@ namespace ALLEGRO
 		constexpr VECTOR3(const Q _x, const Q _y, const Q _z) : x((T)_x), y((T)_y), z((T)_z) {}
 
 		template <typename Q>
-		constexpr VECTOR3<T>(const VECTOR3<Q>& v) : x((T)v.x), y((T)v.y), z((T)v.z) {}
+		explicit constexpr VECTOR3<T>(const VECTOR3<Q>& v) : x((T)v.x), y((T)v.y), z((T)v.z) {}
 	};
 
 	export template <typename T> struct VECTOR4
@@ -93,7 +86,7 @@ namespace ALLEGRO
 		T y{ T(0) };
 		T z{ T(0) };
 		T w{ T(0) };
-		constexpr VECTOR4() : x(T(0)), y(T(0)), z(T(0)), w(T(0)) {}
+		constexpr VECTOR4() = default;
 		constexpr VECTOR4(const T _x, const T _y, const T _z, const T _w) : x(_x), y(_y), z(_z), w(_w) {}
 		constexpr VECTOR4(const VECTOR4<T>& v) : x(v.x), y(v.y), z(v.z), w(v.w) {}
 
@@ -101,14 +94,14 @@ namespace ALLEGRO
 		constexpr VECTOR4(const Q _x, const Q _y, const Q _z, const Q _w) : x((T)_x), y((T)_y), z((T)_z), w((T)_w) {}
 
 		template <typename Q>
-		constexpr VECTOR4<T>(const VECTOR4<Q>& v) : x((T)v.x), y((T)v.y), z((T)v.z), w((T)v.w) {}
+		explicit constexpr VECTOR4<T>(const VECTOR4<Q>& v) : x((T)v.x), y((T)v.y), z((T)v.z), w((T)v.w) {}
 	};
 
 	export template <typename T> struct SIZE
 	{
 		T width{ T(0) };
 		T height{ T(0) };
-		constexpr SIZE() : width(T(0)), height(T(0)) {}
+		constexpr SIZE() = default;
 		constexpr SIZE(const T _width, const T _height) : width(_width), height(_height) {}
 		constexpr SIZE(const SIZE<T>& v) : width(v.width), height(v.height) {}
 		explicit constexpr SIZE(const POINT<T>& v) : width(v.x), height(v.y) {}
@@ -117,14 +110,14 @@ namespace ALLEGRO
 		constexpr SIZE(const Q _width, const Q _height) : width((T)_width), height((T)_height) {}
 
 		template <typename Q>
-		constexpr SIZE<T>(const SIZE<Q>& size) : width((T)size.width), height((T)size.height) {}
+		explicit constexpr SIZE<T>(const SIZE<Q>& size) : width((T)size.width), height((T)size.height) {}
 	};
 
 	export template <typename T> struct RECTANGLE
 	{
 		POINT<T> position{ T(0), T(0) };
 		SIZE<T> size{ T(0), T(0) };
-		constexpr RECTANGLE() : position(), size() {}
+		constexpr RECTANGLE() = default;
 		constexpr RECTANGLE(const T _x, const T _y, const T _width, const T _height) : position(_x, _y), size(_width, _height) {}
 		constexpr RECTANGLE(const POINT<T> _position, const SIZE<T> _size) : position(_position), size(_size) {}
 		constexpr RECTANGLE(const RECTANGLE& r) : position(r.position), size(r.size) {}
@@ -142,7 +135,7 @@ namespace ALLEGRO
 		constexpr RECTANGLE(const POINT<Q> _position, SIZE<Q> _size) : position(POINT<T>(_position)), size(SIZE<T>(_size)) {}
 
 		template <typename Q>
-		constexpr RECTANGLE<T>(const RECTANGLE<Q>& r) : position(POINT<T>(r.position)), size(SIZE<T>(r.size)) {}
+		explicit constexpr RECTANGLE<T>(const RECTANGLE<Q>& r) : position(POINT<T>(r.position)), size(SIZE<T>(r.size)) {}
 	};
 
 	export template <typename T> struct BOX
@@ -171,47 +164,47 @@ namespace ALLEGRO
 		constexpr BOX(const POINT<Q> _top_left, POINT<Q> _bottom_right) : top_left(POINT<T>(_top_left)), bottom_right(POINT<T>(_bottom_right)) {}
 
 		template <typename Q>
-		constexpr BOX<T>(const BOX<Q>& r) : top_left(POINT<T>(r.top_left)), bottom_right(POINT<T>(r.bottom_right)) {}
+		explicit constexpr BOX<T>(const BOX<Q>& r) : top_left(POINT<T>(r.top_left)), bottom_right(POINT<T>(r.bottom_right)) {}
 	};
 
-	export template <typename T> auto operator * (const ALLEGRO::POINT<T>& a, T b) -> ALLEGRO::POINT<T>
+	export template <typename T> inline auto operator * (const ALLEGRO::POINT<T>& a, T b) -> ALLEGRO::POINT<T>
 	{
 		return { a.x * (T)b, a.y * (T)b };
 	}
 
-	export template <typename T> auto operator / (const ALLEGRO::POINT<T>& a, const T b) -> ALLEGRO::POINT<T>
+	export template <typename T> inline auto operator / (const ALLEGRO::POINT<T>& a, const T b) -> ALLEGRO::POINT<T>
 	{
 		return { a.x / (T)b, a.y / (T)b };
 	}
 
-	export template <typename T> auto operator + (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
+	export template <typename T> inline auto operator + (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
 	{
 		return { a.x + (T)b.x, a.y + (T)b.y };
 	}
 
-	export template <typename T> auto operator - (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
+	export template <typename T> inline auto operator - (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
 	{
 		return { a.x - (T)b.x, a.y - (T)b.y };
 	}
 
-	export template <typename T> auto operator * (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
+	export template <typename T> inline auto operator * (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
 	{
 		return { a.x * (T)b.x, a.y * (T)b.y };
 	}
 
-	export template <typename T> auto operator / (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
+	export template <typename T> inline auto operator / (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
 	{
 		return { a.x / (T)b.x, a.y / (T)b.y };
 	}
 
-	export template <typename T> auto operator *= (const ALLEGRO::POINT<T>& a, T b) -> ALLEGRO::POINT<T>&
+	export template <typename T> inline auto operator *= (const ALLEGRO::POINT<T>& a, T b) -> ALLEGRO::POINT<T>&
 	{
 		a = (a + b);
 
 		return a;
 	}
 
-	export template <typename T> auto operator /= (const ALLEGRO::POINT<T>& a, const T b) -> ALLEGRO::POINT<T>&
+	export template <typename T> inline auto operator /= (const ALLEGRO::POINT<T>& a, const T b) -> ALLEGRO::POINT<T>&
 	{
 		a = (a / b);
 

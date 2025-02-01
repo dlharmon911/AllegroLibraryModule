@@ -227,7 +227,7 @@ namespace al
 
 	export inline auto get_clipping_rectangle() -> ALLEGRO::RECTANGLE<int32_t>
 	{
-		ALLEGRO::RECTANGLE<int32_t> clip{};
+		ALLEGRO::RECTANGLE<int32_t> clip{ {0, 0}, {0, 0} };
 		::al_get_clipping_rectangle(&clip.position.x, &clip.position.y, &clip.size.width, &clip.size.height);
 		return clip;
 	}

@@ -11,7 +11,3 @@ namespace ALLEGRO
 		void* data{ nullptr };
 	};
 }
-
-namespace al
-{
-}
