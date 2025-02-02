@@ -5,7 +5,7 @@ import <cassert>;
 import allegro;
 
 #if defined(DEBUGMODE) || defined(ALLEGRO_CFG_RELEASE_LOGGING)
-    /* Must not be used with a trailing semicolon. */
+/* Must not be used with a trailing semicolon. */
 #ifdef ALLEGRO_GCC
 #define ALLEGRO_DEBUG_CHANNEL(x) \
          static const_cptr_t __al_debug_channel __attribute__((unused)) = x;
@@ -28,8 +28,8 @@ import allegro;
 #define ALLEGRO_ERROR            ALLEGRO_TRACE_LEVEL(3)
 
 #ifdef __clang_analyzer__
-    /* Clang doesn't understand _al_user_assert_handler, so we simplify the
-     * definition for analysis purposes. */
+/* Clang doesn't understand _al_user_assert_handler, so we simplify the
+ * definition for analysis purposes. */
 #define ALLEGRO_ASSERT(e) assert(e)
 #else
 #ifdef NDEBUG
@@ -43,7 +43,7 @@ import allegro;
 #endif
 #endif
 
-    /* Compile time assertions. */
+/* Compile time assertions. */
 #define ALLEGRO_ASSERT_CONCAT_(a, b)   a##b
 #define ALLEGRO_ASSERT_CONCAT(a, b)    ALLEGRO_ASSERT_CONCAT_(a, b)
 #define ALLEGRO_STATIC_ASSERT(module, e) \
