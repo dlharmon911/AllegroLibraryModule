@@ -25,22 +25,16 @@ import :display;
 
 namespace ALLEGRO
 {
-	export enum
-	{
-		LITTLE_ENDIAN,
-		BIG_ENDIAN
-	};
+	export constexpr int32_t LITTLE_ENDIAN{ 0 };
+	export constexpr int32_t BIG_ENDIAN{ 1 };
 
-	export enum
-	{
-		PLATFORM_WINDOWS,
-		PLATFORM_ANDROID,
-		PLATFORM_IPHONE,
-		PLATFORM_X11
-	};
+	export constexpr int32_t PLATFORM_WINDOWS{ 0 };
+	export constexpr int32_t PLATFORM_ANDROID{ 1 };
+	export constexpr int32_t PLATFORM_IPHONE{ 2 };
+	export constexpr int32_t PLATFORM_X11{ 3 };
 
 #ifdef ALLEGRO_WINDOWS
-	using WINDOW_CALLBACK_FUNCTION_PTR = bool (*)(ALLEGRO::DISPLAY_DATA_PTR display, UINT message, WPARAM wparam, LPARAM lparam, LRESULT* result, void* userdata);
+	using WINDOW_CALLBACK_FUNCTION_PTR = bool (*)(ALLEGRO::INTERNAL::DISPLAY_DATA_PTR display, UINT message, WPARAM wparam, LPARAM lparam, LRESULT* result, void* userdata);
 #endif
 
 #ifdef ALLEGRO_IPHONE
@@ -87,17 +81,17 @@ namespace al
 	{
 		export inline auto get_window_handle(ALLEGRO::DISPLAY& display) -> HWND
 		{
-			return al_get_win_window_handle((ALLEGRO::DISPLAY_DATA_PTR)display.get());
+			return al_get_win_window_handle(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()));
 		}
 
 		export inline auto add_window_callback(ALLEGRO::DISPLAY& display, ALLEGRO::WINDOW_CALLBACK_FUNCTION_PTR callback, void* userdata) -> bool
 		{
-			return al_win_add_window_callback((ALLEGRO::DISPLAY_DATA_PTR)display.get(), callback, userdata);
+			return al_win_add_window_callback(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), callback, userdata);
 		}
 
 		export inline auto remove_window_callback(ALLEGRO::DISPLAY& display, ALLEGRO::WINDOW_CALLBACK_FUNCTION_PTR callback, void* userdata) -> bool
 		{
-			return al_win_remove_window_callback((ALLEGRO::DISPLAY_DATA_PTR)display.get(), callback, userdata);
+			return al_win_remove_window_callback(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), callback, userdata);
 		}
 	}
 #endif //!ALLEGRO_WINDOWS
@@ -112,7 +106,7 @@ namespace al
 
 		export inline auto get_os_version() -> const char*
 		{
-			return (const char*)al_android_get_os_version();
+			return al_android_get_os_version();
 		}
 
 		export inline auto set_apk_fs_interface() -> void
@@ -170,7 +164,7 @@ namespace al
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
 		export inline auto set_initial_icon(ALLEGRO::BITMAP& bitmap) -> bool
 		{
-			return al_x_set_initial_icon((ALLEGRO::BITMAP_DATA_PTR)bitmap.get());
+			return al_x_set_initial_icon(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()));
 		}
 #endif
 	}

@@ -9,8 +9,8 @@ import :memory;
 
 namespace ALLEGRO
 {
-	export using MOUSE = ::ALLEGRO_MOUSE;
-	export using MOUSE_STATE = ::ALLEGRO_MOUSE_STATE;
+	export using MOUSE = ALLEGRO_MOUSE;
+	export using MOUSE_STATE = ALLEGRO_MOUSE_STATE;
 
 	export constexpr int32_t MOUSE_BUTTON_LEFT = ::ALLEGRO_MOUSE_BUTTON_LEFT;
 	export constexpr int32_t MOUSE_BUTTON_RIGHT = ::ALLEGRO_MOUSE_BUTTON_RIGHT;
@@ -21,7 +21,7 @@ namespace al
 {
 	export inline constexpr auto get_mouse_max_extra_axes() -> int32_t
 	{
-		return (int32_t)ALLEGRO_MOUSE_MAX_EXTRA_AXES;
+		return static_cast<int32_t>(ALLEGRO_MOUSE_MAX_EXTRA_AXES);
 	}
 
 	export inline auto is_mouse_installed() -> bool
@@ -51,7 +51,7 @@ namespace al
 
 	export inline auto set_mouse_xy(const ALLEGRO::DISPLAY& display, const ALLEGRO::POINT<int32_t>& point) -> bool
 	{
-		return al_set_mouse_xy((ALLEGRO::DISPLAY_DATA_PTR)display.get(), point.x, point.y);
+		return al_set_mouse_xy(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), point.x, point.y);
 	}
 
 	export inline auto set_mouse_z(int32_t z) -> bool
@@ -96,7 +96,7 @@ namespace al
 
 	export inline auto grab_mouse(const ALLEGRO::DISPLAY& display) -> bool
 	{
-		return al_grab_mouse((ALLEGRO::DISPLAY_DATA_PTR)display.get());
+		return al_grab_mouse(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()));
 	}
 
 	export inline auto ungrab_mouse() -> bool
@@ -116,6 +116,6 @@ namespace al
 
 	export inline auto get_mouse_event_source() -> ALLEGRO::EVENT_SOURCE
 	{
-		return ALLEGRO::EVENT_SOURCE(al_get_mouse_event_source(), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
+		return ALLEGRO::EVENT_SOURCE(al_get_mouse_event_source(), al::internal::deleter_empty<ALLEGRO::INTERNAL::EVENT_SOURCE_DATA>);
 	}
 }

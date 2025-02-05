@@ -6,7 +6,7 @@ import :base;
 
 namespace ALLEGRO
 {
-	export using TIMEOUT = ::ALLEGRO_TIMEOUT;
+	export using TIMEOUT = typename ALLEGRO_TIMEOUT;
 }
 
 namespace al

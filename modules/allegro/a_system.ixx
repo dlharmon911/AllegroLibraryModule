@@ -10,34 +10,33 @@ import :memory;
 
 namespace ALLEGRO
 {
-	export using SYSTEM_DATA = ALLEGRO_SYSTEM;
-	export using SYSTEM_DATA_PTR = std::add_pointer<SYSTEM_DATA>::type;
-	export using SYSTEM = std::shared_ptr<SYSTEM_DATA>;
-
-	export using SYSTEM_ID = ::ALLEGRO_SYSTEM_ID;
-	export enum
+	namespace INTERNAL
 	{
-		SYSTEM_ID_UNKNOWN = ALLEGRO_SYSTEM_ID_UNKNOWN,
-		SYSTEM_ID_XGLX = ALLEGRO_SYSTEM_ID_XGLX,
-		SYSTEM_ID_WINDOWS = ALLEGRO_SYSTEM_ID_WINDOWS,
-		SYSTEM_ID_MACOSX = ALLEGRO_SYSTEM_ID_MACOSX,
-		SYSTEM_ID_ANDROID = ALLEGRO_SYSTEM_ID_ANDROID,
-		SYSTEM_ID_IPHONE = ALLEGRO_SYSTEM_ID_IPHONE,
-		SYSTEM_ID_GP2XWIZ = ALLEGRO_SYSTEM_ID_GP2XWIZ,
-		SYSTEM_ID_RASPBERRYPI = ALLEGRO_SYSTEM_ID_RASPBERRYPI,
-		SYSTEM_ID_SDL = ALLEGRO_SYSTEM_ID_SDL
-	};
+		export using SYSTEM_DATA = typename ALLEGRO_SYSTEM;
+		export using SYSTEM_DATA_PTR = std::add_pointer<SYSTEM_DATA>::type;
+	}
 
-	export enum {
-		RESOURCES_PATH = ALLEGRO_RESOURCES_PATH,
-		TEMP_PATH = ALLEGRO_TEMP_PATH,
-		USER_DATA_PATH = ALLEGRO_USER_DATA_PATH,
-		USER_HOME_PATH = ALLEGRO_USER_HOME_PATH,
-		USER_SETTINGS_PATH = ALLEGRO_USER_SETTINGS_PATH,
-		USER_DOCUMENTS_PATH = ALLEGRO_USER_DOCUMENTS_PATH,
-		EXENAME_PATH = ALLEGRO_EXENAME_PATH,
-		LAST_PATH = ALLEGRO_LAST_PATH
-	};
+	export using SYSTEM = typename std::shared_ptr<INTERNAL::SYSTEM_DATA>;
+
+
+	export constexpr int32_t SYSTEM_ID_UNKNOWN{ ALLEGRO_SYSTEM_ID_UNKNOWN };
+	export constexpr int32_t SYSTEM_ID_XGLX{ ALLEGRO_SYSTEM_ID_XGLX };
+	export constexpr int32_t SYSTEM_ID_WINDOWS{ ALLEGRO_SYSTEM_ID_WINDOWS };
+	export constexpr int32_t SYSTEM_ID_MACOSX{ ALLEGRO_SYSTEM_ID_MACOSX };
+	export constexpr int32_t SYSTEM_ID_ANDROID{ ALLEGRO_SYSTEM_ID_ANDROID };
+	export constexpr int32_t SYSTEM_ID_IPHONE{ ALLEGRO_SYSTEM_ID_IPHONE };
+	export constexpr int32_t SYSTEM_ID_GP2XWIZ{ ALLEGRO_SYSTEM_ID_GP2XWIZ };
+	export constexpr int32_t SYSTEM_ID_RASPBERRYPI{ ALLEGRO_SYSTEM_ID_RASPBERRYPI };
+	export constexpr int32_t SYSTEM_ID_SDL{ ALLEGRO_SYSTEM_ID_SDL };
+
+	export constexpr int32_t RESOURCES_PATH{ ALLEGRO_RESOURCES_PATH };
+	export constexpr int32_t TEMP_PATH{ ALLEGRO_TEMP_PATH };
+	export constexpr int32_t USER_DATA_PATH{ ALLEGRO_USER_DATA_PATH };
+	export constexpr int32_t USER_HOME_PATH{ ALLEGRO_USER_HOME_PATH };
+	export constexpr int32_t USER_SETTINGS_PATH{ ALLEGRO_USER_SETTINGS_PATH };
+	export constexpr int32_t USER_DOCUMENTS_PATH{ ALLEGRO_USER_DOCUMENTS_PATH };
+	export constexpr int32_t EXENAME_PATH{ ALLEGRO_EXENAME_PATH };
+	export constexpr int32_t LAST_PATH{ ALLEGRO_LAST_PATH };
 }
 
 namespace al
@@ -64,7 +63,7 @@ namespace al
 
 	export inline ALLEGRO::SYSTEM get_system_driver()
 	{
-		return ALLEGRO::SYSTEM(al_get_system_driver(), internal::deleter_empty<ALLEGRO::SYSTEM_DATA>);
+		return ALLEGRO::SYSTEM(al_get_system_driver(), internal::deleter_empty<ALLEGRO::INTERNAL::SYSTEM_DATA>);
 	}
 
 	export inline ALLEGRO::CONFIG get_system_config()
@@ -72,7 +71,7 @@ namespace al
 		return ALLEGRO::CONFIG(al_get_system_config(), internal::deleter_empty<ALLEGRO_CONFIG>);
 	}
 
-	export inline ALLEGRO::SYSTEM_ID get_system_id()
+	export inline int32_t get_system_id()
 	{
 		return al_get_system_id();
 	}

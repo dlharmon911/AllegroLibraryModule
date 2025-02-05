@@ -35,30 +35,29 @@ namespace al
 
 namespace ALLEGRO
 {
-	export enum
+	namespace INTERNAL
 	{
-		EVENT_TYPE_VIDEO_FRAME_SHOW = ALLEGRO_EVENT_VIDEO_FRAME_SHOW,
-		EVENT_TYPE_VIDEO_FINISHED = ALLEGRO_EVENT_VIDEO_FINISHED
-	};
+		export using VIDEO_DATA = typename ALLEGRO_VIDEO;
+		export using VIDEO_DATA_PTR = std::add_pointer<VIDEO_DATA>::type;
+	}
 
-	export using VIDEO_POSITION_TYPE = ALLEGRO_VIDEO_POSITION_TYPE;
-	export enum
-	{
-		VIDEO_POSITION_ACTUAL = ALLEGRO_VIDEO_POSITION_ACTUAL,
-		VIDEO_POSITION_VIDEO_DECODE = ALLEGRO_VIDEO_POSITION_VIDEO_DECODE,
-		VIDEO_POSITION_AUDIO_DECODE = ALLEGRO_VIDEO_POSITION_AUDIO_DECODE
-	};
+	export using VIDEO = typename std::shared_ptr<INTERNAL::VIDEO_DATA>;
 
-	export using VIDEO_DATA = ALLEGRO_VIDEO;
-	export using VIDEO_DATA_PTR = std::add_pointer<VIDEO_DATA>::type;
-	export using VIDEO = std::shared_ptr<VIDEO_DATA>;
+	export using VIDEO_POSITION_TYPE = typename ALLEGRO_VIDEO_POSITION_TYPE;
+
+	export constexpr int32_t EVENT_TYPE_VIDEO_FRAME_SHOW{ ALLEGRO_EVENT_VIDEO_FRAME_SHOW };
+	export constexpr int32_t EVENT_TYPE_VIDEO_FINISHED{ ALLEGRO_EVENT_VIDEO_FINISHED };
+
+	export constexpr int32_t VIDEO_POSITION_ACTUAL{ ALLEGRO_VIDEO_POSITION_ACTUAL };
+	export constexpr int32_t VIDEO_POSITION_VIDEO_DECODE{ ALLEGRO_VIDEO_POSITION_VIDEO_DECODE };
+	export constexpr int32_t VIDEO_POSITION_AUDIO_DECODE{ ALLEGRO_VIDEO_POSITION_AUDIO_DECODE };
 }
 
 namespace al
 {
 	namespace internal
 	{
-		export inline auto destroy_video(ALLEGRO::VIDEO_DATA_PTR video) -> void
+		export inline auto destroy_video(ALLEGRO::INTERNAL::VIDEO_DATA_PTR video) -> void
 		{
 			al_close_video(video);
 		}
@@ -71,67 +70,67 @@ namespace al
 
 	export inline auto start_video(ALLEGRO::VIDEO& video, ALLEGRO::MIXER& mixer) -> void
 	{
-		al_start_video((ALLEGRO::VIDEO_DATA_PTR)video.get(), (ALLEGRO::MIXER_DATA_PTR)mixer.get());
+		al_start_video(static_cast<ALLEGRO::INTERNAL::VIDEO_DATA_PTR>(video.get()), static_cast<ALLEGRO::INTERNAL::MIXER_DATA_PTR>(mixer.get()));
 	}
 
 	export inline auto start_video_with_voice(ALLEGRO::VIDEO& video, ALLEGRO::VOICE& voice) -> void
 	{
-		al_start_video_with_voice((ALLEGRO::VIDEO_DATA_PTR)video.get(), (ALLEGRO::VOICE_DATA_PTR)voice.get());
+		al_start_video_with_voice(static_cast<ALLEGRO::INTERNAL::VIDEO_DATA_PTR>(video.get()), static_cast<ALLEGRO::INTERNAL::VOICE_DATA_PTR>(voice.get()));
 	}
 
 	export inline auto get_video_event_source(ALLEGRO::VIDEO& video) -> ALLEGRO::EVENT_SOURCE
 	{
-		return ALLEGRO::EVENT_SOURCE(al_get_video_event_source((ALLEGRO::VIDEO_DATA_PTR)video.get()), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
+		return ALLEGRO::EVENT_SOURCE(al_get_video_event_source(static_cast<ALLEGRO::INTERNAL::VIDEO_DATA_PTR>(video.get())), al::internal::deleter_empty<ALLEGRO::INTERNAL::EVENT_SOURCE_DATA>);
 	}
 
 	export inline auto set_video_playing(ALLEGRO::VIDEO& video, bool playing) -> void
 	{
-		al_set_video_playing((ALLEGRO::VIDEO_DATA_PTR)video.get(), playing);
+		al_set_video_playing(static_cast<ALLEGRO::INTERNAL::VIDEO_DATA_PTR>(video.get()), playing);
 	}
 
 	export inline auto is_video_playing(ALLEGRO::VIDEO& video) -> bool
 	{
-		return al_is_video_playing((ALLEGRO::VIDEO_DATA_PTR)video.get());
+		return al_is_video_playing(static_cast<ALLEGRO::INTERNAL::VIDEO_DATA_PTR>(video.get()));
 	}
 
 	export inline auto get_video_audio_rate(ALLEGRO::VIDEO& video) -> double
 	{
-		return al_get_video_audio_rate((ALLEGRO::VIDEO_DATA_PTR)video.get());
+		return al_get_video_audio_rate(static_cast<ALLEGRO::INTERNAL::VIDEO_DATA_PTR>(video.get()));
 	}
 
 	export inline auto get_video_fps(ALLEGRO::VIDEO& video) -> double
 	{
-		return al_get_video_fps((ALLEGRO::VIDEO_DATA_PTR)video.get());
+		return al_get_video_fps(static_cast<ALLEGRO::INTERNAL::VIDEO_DATA_PTR>(video.get()));
 	}
 
 	export inline auto get_video_scaled_width(ALLEGRO::VIDEO& video) -> float
 	{
-		return al_get_video_scaled_width((ALLEGRO::VIDEO_DATA_PTR)video.get());
+		return al_get_video_scaled_width(static_cast<ALLEGRO::INTERNAL::VIDEO_DATA_PTR>(video.get()));
 	}
 
 	export inline auto get_video_scaled_height(ALLEGRO::VIDEO& video) -> float
 	{
-		return al_get_video_scaled_height((ALLEGRO::VIDEO_DATA_PTR)video.get());
+		return al_get_video_scaled_height(static_cast<ALLEGRO::INTERNAL::VIDEO_DATA_PTR>(video.get()));
 	}
 
 	export inline auto get_video_frame(ALLEGRO::VIDEO& video) -> ALLEGRO::BITMAP
 	{
-		return ALLEGRO::BITMAP(al_get_video_frame((ALLEGRO::VIDEO_DATA_PTR)video.get()), internal::deleter_empty<ALLEGRO::BITMAP_DATA>);
+		return ALLEGRO::BITMAP(al_get_video_frame(static_cast<ALLEGRO::INTERNAL::VIDEO_DATA_PTR>(video.get())), internal::deleter_empty<ALLEGRO::INTERNAL::BITMAP_DATA>);
 	}
 
 	export inline auto get_video_position(ALLEGRO::VIDEO& video, ALLEGRO::VIDEO_POSITION_TYPE which) -> double
 	{
-		return al_get_video_position((ALLEGRO::VIDEO_DATA_PTR)video.get(), which);
+		return al_get_video_position(static_cast<ALLEGRO::INTERNAL::VIDEO_DATA_PTR>(video.get()), which);
 	}
 
 	export inline auto seek_video(ALLEGRO::VIDEO& video, double pos_in_seconds) -> bool
 	{
-		return al_seek_video((ALLEGRO::VIDEO_DATA_PTR)video.get(), pos_in_seconds);
+		return al_seek_video(static_cast<ALLEGRO::INTERNAL::VIDEO_DATA_PTR>(video.get()), pos_in_seconds);
 	}
 
 	export inline auto identify_video_f(ALLEGRO::FILE& fp) -> const char*
 	{
-		return al_identify_video_f((ALLEGRO::FILE_DATA_PTR)fp.get());
+		return al_identify_video_f((ALLEGRO::INTERNAL::FILE_DATA_PTR)fp.get());
 	}
 
 	export inline auto identify_video(const char* filename) -> const char*

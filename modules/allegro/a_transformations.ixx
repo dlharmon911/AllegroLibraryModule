@@ -7,7 +7,7 @@ import :bitmap;
 
 namespace ALLEGRO
 {
-	export using TRANSFORM = ALLEGRO_TRANSFORM;
+	export using TRANSFORM = typename ALLEGRO_TRANSFORM;
 }
 
 namespace al

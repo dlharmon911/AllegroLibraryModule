@@ -101,7 +101,7 @@ namespace al
 
 	export inline auto set_shader_sampler(const char* name, ALLEGRO::BITMAP& bitmap, int32_t unit) -> bool
 	{
-		return al_set_shader_sampler(name, (ALLEGRO::BITMAP_DATA_PTR)bitmap.get(), unit);
+		return al_set_shader_sampler(name, static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), unit);
 	}
 
 	export inline auto set_shader_matrix(const char* name, const ALLEGRO::TRANSFORM& matrix) -> bool

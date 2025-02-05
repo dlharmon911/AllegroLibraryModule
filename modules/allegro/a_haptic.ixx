@@ -7,37 +7,39 @@ import :memory;
 import :mouse;
 import :keyboard;
 import :display;
+import :joystick;
 import :touch_input;
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
 namespace ALLEGRO
 {
-	export enum
+	namespace INTERNAL
 	{
-		HAPTIC_RUMBLE = ALLEGRO_HAPTIC_RUMBLE,
-		HAPTIC_PERIODIC = ALLEGRO_HAPTIC_PERIODIC,
-		HAPTIC_CONSTANT = ALLEGRO_HAPTIC_CONSTANT,
-		HAPTIC_SPRIN = ALLEGRO_HAPTIC_SPRING,
-		HAPTIC_FRICTION = ALLEGRO_HAPTIC_FRICTION,
-		HAPTIC_DAMPER = ALLEGRO_HAPTIC_DAMPER,
-		HAPTIC_INERTIA = ALLEGRO_HAPTIC_INERTIA,
-		HAPTIC_RAMP = ALLEGRO_HAPTIC_RAMP,
-		HAPTIC_SQUARE = ALLEGRO_HAPTIC_SQUARE,
-		HAPTIC_TRIANGLE = ALLEGRO_HAPTIC_TRIANGLE,
-		HAPTIC_SINE = ALLEGRO_HAPTIC_SINE,
-		HAPTIC_SAW_UP = ALLEGRO_HAPTIC_SAW_UP,
-		HAPTIC_SAW_DOWN = ALLEGRO_HAPTIC_SAW_DOWN,
-		HAPTIC_CUSTOM = ALLEGRO_HAPTIC_CUSTOM,
-		HAPTIC_GAIN = ALLEGRO_HAPTIC_GAIN,
-		HAPTIC_ANGLE = ALLEGRO_HAPTIC_ANGLE,
-		HAPTIC_RADIUS = ALLEGRO_HAPTIC_RADIUS,
-		HAPTIC_AZIMUTH = ALLEGRO_HAPTIC_AZIMUTH,
-		HAPTIC_AUTOCENTER = ALLEGRO_HAPTIC_AUTOCENTER,
-	};
+		export using HAPTIC_DATA = typename ALLEGRO_HAPTIC;
+		export using HAPTIC_DATA_PTR = std::add_pointer<HAPTIC_DATA>::type;
+	}
 
-	export using HAPTIC_DATA = ALLEGRO_HAPTIC;
-	export using HAPTIC_DATA_PTR = std::add_pointer<HAPTIC_DATA>::type;
-	export using HAPTIC = std::shared_ptr<HAPTIC_DATA>;
+	export using HAPTIC = typename std::shared_ptr<INTERNAL::HAPTIC_DATA>;
+
+	export constexpr int32_t HAPTIC_RUMBLE{ ALLEGRO_HAPTIC_RUMBLE };
+	export constexpr int32_t HAPTIC_PERIODIC{ ALLEGRO_HAPTIC_PERIODIC };
+	export constexpr int32_t HAPTIC_CONSTANT{ ALLEGRO_HAPTIC_CONSTANT };
+	export constexpr int32_t HAPTIC_SPRIN{ ALLEGRO_HAPTIC_SPRING };
+	export constexpr int32_t HAPTIC_FRICTION{ ALLEGRO_HAPTIC_FRICTION };
+	export constexpr int32_t HAPTIC_DAMPER{ ALLEGRO_HAPTIC_DAMPER };
+	export constexpr int32_t HAPTIC_INERTIA{ ALLEGRO_HAPTIC_INERTIA };
+	export constexpr int32_t HAPTIC_RAMP{ ALLEGRO_HAPTIC_RAMP };
+	export constexpr int32_t HAPTIC_SQUARE{ ALLEGRO_HAPTIC_SQUARE };
+	export constexpr int32_t HAPTIC_TRIANGLE{ ALLEGRO_HAPTIC_TRIANGLE };
+	export constexpr int32_t HAPTIC_SINE{ ALLEGRO_HAPTIC_SINE };
+	export constexpr int32_t HAPTIC_SAW_UP{ ALLEGRO_HAPTIC_SAW_UP };
+	export constexpr int32_t HAPTIC_SAW_DOWN{ ALLEGRO_HAPTIC_SAW_DOWN };
+	export constexpr int32_t HAPTIC_CUSTOM{ ALLEGRO_HAPTIC_CUSTOM };
+	export constexpr int32_t HAPTIC_GAIN{ ALLEGRO_HAPTIC_GAIN };
+	export constexpr int32_t HAPTIC_ANGLE{ ALLEGRO_HAPTIC_ANGLE };
+	export constexpr int32_t HAPTIC_RADIUS{ ALLEGRO_HAPTIC_RADIUS };
+	export constexpr int32_t HAPTIC_AZIMUTH{ ALLEGRO_HAPTIC_AZIMUTH };
+	export constexpr int32_t HAPTIC_AUTOCENTER{ ALLEGRO_HAPTIC_AUTOCENTER };
 
 	export using HAPTIC_DIRECTION = ALLEGRO_HAPTIC_DIRECTION;
 	export using HAPTIC_REPLAY = ALLEGRO_HAPTIC_REPLAY;
@@ -121,15 +123,15 @@ namespace al
 		return al_get_haptic_from_touch_input(&touch_input);
 	}
 
-	export inline auto release_haptic(ALLEGRO::HAPTIC& haptic)) -> bool;
-	export inline auto is_haptic_active(ALLEGRO::HAPTIC& haptic)) -> bool;
-	export inline auto get_haptic_capabilities(ALLEGRO::HAPTIC& haptic))->int32_t;
+	export inline auto release_haptic(ALLEGRO::HAPTIC& haptic) -> bool;
+	export inline auto is_haptic_active(ALLEGRO::HAPTIC& haptic) -> bool;
+	export inline auto get_haptic_capabilities(ALLEGRO::HAPTIC& haptic)->int32_t;
 	export inline auto is_haptic_capable(ALLEGRO::HAPTIC& haptic, int32_t)) -> bool;
 	export inline auto set_haptic_gain(ALLEGRO::HAPTIC& haptic, double)) -> bool;
-	export inline auto get_haptic_gain(ALLEGRO::HAPTIC& haptic)) -> double;
+	export inline auto get_haptic_gain(ALLEGRO::HAPTIC& haptic) -> double;
 	export inline auto set_haptic_autocenter(ALLEGRO::HAPTIC& haptic, double)) -> bool;
-	export inline auto get_haptic_autocenter(ALLEGRO::HAPTIC& haptic)) -> double;
-	export inline auto get_max_haptic_effects(ALLEGRO::HAPTIC& haptic))->int32_t;
+	export inline auto get_haptic_autocenter(ALLEGRO::HAPTIC& haptic) -> double;
+	export inline auto get_max_haptic_effects(ALLEGRO::HAPTIC& haptic)->int32_t;
 	export inline auto is_haptic_effect_ok(ALLEGRO::HAPTIC& haptic, ALLEGRO::HAPTIC_EFFECT_PTR)) -> bool;
 	export inline auto upload_haptic_effect(ALLEGRO::HAPTIC& haptic, ALLEGRO::HAPTIC_EFFECT_PTR, ALLEGRO::HAPTIC_EFFECT_ID_PTR)) -> bool;
 	export inline auto play_haptic_effect(ALLEGRO::HAPTIC_EFFECT_ID_PTR, int32_t)) -> bool;

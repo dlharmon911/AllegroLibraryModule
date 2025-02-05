@@ -21,6 +21,7 @@ namespace ALLEGRO
 	export constexpr int32_t DATE = ALLEGRO_DATE;
 	export constexpr int32_t VERSION_INT = ALLEGRO_VERSION_INT;
 	export constexpr double PI = ALLEGRO_PI;
+	export constexpr int32_t FILE_EOF{ -1 };
 }
 
 namespace al

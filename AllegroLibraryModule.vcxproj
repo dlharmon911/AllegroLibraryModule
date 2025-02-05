@@ -198,11 +198,8 @@
     <ClCompile Include="modules\allegro\a_utf8.ixx" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\allegro_debug.h" />
-    <ClInclude Include="include\allegro_memory.h" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

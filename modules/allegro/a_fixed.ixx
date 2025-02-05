@@ -2,9 +2,13 @@ export module allegro:fixed;
 
 import <allegro5/fixed.h>;
 
+namespace ALLEGRO
+{
+	export using FIXED = typename al_fixed;
+}
+
 namespace al
 {
-	export using fixed_t = al_fixed;
-	export constexpr fixed_t fixtorad_r = (fixed_t)1608;
-	export constexpr fixed_t radtofix_r = (fixed_t)2670177;
+	export constexpr ALLEGRO::FIXED fixtorad_r = static_cast<ALLEGRO::FIXED>(1608);
+	export constexpr ALLEGRO::FIXED radtofix_r = static_cast<ALLEGRO::FIXED>(2670177);
 }

@@ -6,62 +6,75 @@ import <allegro5/allegro_color.h>;
 
 namespace ALLEGRO
 {
-	export using COLOR_RGB = struct COLOR_RGB_TAG
+	namespace INTERNAL
 	{
-		float red{ 0.0f };
-		float green{ 0.0f };
-		float blue{ 0.0f };
-	};
+		export struct COLOR_RGB_TAG
+		{
+			float red{ 0.0f };
+			float green{ 0.0f };
+			float blue{ 0.0f };
+		};
 
-	export using COLOR_HSL = struct COLOR_HSL_TAG
-	{
-		float hue{ 0.0f };
-		float saturation{ 0.0f };
-		float lightness{ 0.0f };
-	};
+		export struct COLOR_HSL_TAG
+		{
+			float hue{ 0.0f };
+			float saturation{ 0.0f };
+			float lightness{ 0.0f };
+		};
 
-	export using COLOR_HSV = struct COLOR_HSV_TAG
-	{
-		float hue{ 0.0f };
-		float saturation{ 0.0f };
-		float value{ 0.0f };
-	};
+		export struct COLOR_HSV_TAG
+		{
+			float hue{ 0.0f };
+			float saturation{ 0.0f };
+			float value{ 0.0f };
+		};
 
-	export using COLOR_CMYK = struct COLOR_CMYK_TAG
-	{
-		float cyan{ 0.0f };
-		float magenta{ 0.0f };
-		float yellow{ 0.0f };
-		float key{ 0.0f };
-	};
+		export struct COLOR_CMYK_TAG
+		{
+			float cyan{ 0.0f };
+			float magenta{ 0.0f };
+			float yellow{ 0.0f };
+			float key{ 0.0f };
+		};
 
-	export using COLOR_YUV = struct COLOR_YUV_TAG
-	{
-		float y{ 0.0f };
-		float u{ 0.0f };
-		float vec{ 0.0f };
-	};
+		export struct COLOR_YUV_TAG
+		{
+			float y{ 0.0f };
+			float u{ 0.0f };
+			float vec{ 0.0f };
+		};
 
-	export using COLOR_LAB = struct COLOR_LAB_TAG
-	{
-		float luminance{ 0.0f };
-		float a{ 0.0f };
-		float b{ 0.0f };
-	};
+		export struct COLOR_LAB_TAG
+		{
+			float luminance{ 0.0f };
+			float a{ 0.0f };
+			float b{ 0.0f };
+		};
 
-	export using COLOR_LCH = struct COLOR_LCH_TAG
-	{
-		float luminance{ 0.0f };
-		float chroma{ 0.0f };
-		float hue{ 0.0f };
-	};
+		export struct COLOR_LCH_TAG
+		{
+			float luminance{ 0.0f };
+			float chroma{ 0.0f };
+			float hue{ 0.0f };
+		};
 
-	export using COLOR_XYY = struct COLOR_XYY_TAG
-	{
-		float x{ 0.0f };
-		float y1{ 0.0f };
-		float y2{ 0.0f };
-	};
+		export struct COLOR_XYY_TAG
+		{
+			float x{ 0.0f };
+			float y1{ 0.0f };
+			float y2{ 0.0f };
+		};
+	}
+
+	export using COLOR_RGB = typename INTERNAL::COLOR_RGB_TAG;
+	export using COLOR_HSL = typename INTERNAL::COLOR_HSL_TAG;
+	export using COLOR_HSV = typename INTERNAL::COLOR_HSV_TAG;
+	export using COLOR_CMYK = typename INTERNAL::COLOR_CMYK_TAG;
+	export using COLOR_YUV = typename INTERNAL::COLOR_YUV_TAG;
+	export using COLOR_LAB = typename INTERNAL::COLOR_LAB_TAG;
+	export using COLOR_LCH = typename INTERNAL::COLOR_LCH_TAG;
+	export using COLOR_XYY = typename INTERNAL::COLOR_XYY_TAG;
+
 }
 
 namespace al
@@ -136,7 +149,7 @@ namespace al
 
 	export inline auto color_yuv(const ALLEGRO::COLOR_YUV& yuv) -> ALLEGRO::COLOR
 	{
-		return (ALLEGRO::COLOR)al_color_yuv(yuv.y, yuv.u, yuv.vec);
+		return static_cast<ALLEGRO::COLOR>(al_color_yuv(yuv.y, yuv.u, yuv.vec));
 	}
 
 	export inline auto color_cmyk(ALLEGRO::COLOR_CMYK& cmyk) -> ALLEGRO::COLOR

@@ -8,9 +8,13 @@ import :memory;
 
 namespace ALLEGRO
 {
-	export using TIMER_DATA = ALLEGRO_TIMER;
-	export using TIMER_DATA_PTR = std::add_pointer<TIMER_DATA>::type;
-	export using TIMER = std::shared_ptr<TIMER_DATA>;
+	namespace INTERNAL
+	{
+		export using TIMER_DATA = ALLEGRO_TIMER;
+		export using TIMER_DATA_PTR = std::add_pointer<TIMER_DATA>::type;
+	}
+
+	export using TIMER = std::shared_ptr<INTERNAL::TIMER_DATA>;
 }
 
 namespace al
@@ -22,7 +26,7 @@ namespace al
 
 	namespace internal
 	{
-		export inline auto destroy_timer(ALLEGRO::TIMER_DATA_PTR data) -> void
+		export inline auto destroy_timer(ALLEGRO::INTERNAL::TIMER_DATA_PTR data) -> void
 		{
 			al_destroy_timer(data);
 		}
@@ -35,51 +39,51 @@ namespace al
 
 	export inline auto start_timer(ALLEGRO::TIMER& timer) -> void
 	{
-		al_start_timer((ALLEGRO::TIMER_DATA_PTR)timer.get());
+		al_start_timer(static_cast<ALLEGRO::INTERNAL::TIMER_DATA_PTR>(timer.get()));
 	}
 
 	export inline auto stop_timer(ALLEGRO::TIMER& timer) -> void
 	{
-		al_stop_timer((ALLEGRO::TIMER_DATA_PTR)timer.get());
+		al_stop_timer(static_cast<ALLEGRO::INTERNAL::TIMER_DATA_PTR>(timer.get()));
 	}
 
 	export inline auto resume_timer(ALLEGRO::TIMER& timer) -> void
 	{
-		al_resume_timer((ALLEGRO::TIMER_DATA_PTR)timer.get());
+		al_resume_timer(static_cast<ALLEGRO::INTERNAL::TIMER_DATA_PTR>(timer.get()));
 	}
 
 	export inline auto get_timer_started(const ALLEGRO::TIMER& timer) -> bool
 	{
-		return al_get_timer_started((ALLEGRO::TIMER_DATA_PTR)timer.get());
+		return al_get_timer_started(static_cast<ALLEGRO::INTERNAL::TIMER_DATA_PTR>(timer.get()));
 	}
 
 	export inline auto get_timer_speed(const ALLEGRO::TIMER& timer) -> double
 	{
-		return al_get_timer_speed((ALLEGRO::TIMER_DATA_PTR)timer.get());
+		return al_get_timer_speed(static_cast<ALLEGRO::INTERNAL::TIMER_DATA_PTR>(timer.get()));
 	}
 
 	export inline auto set_timer_speed(ALLEGRO::TIMER& timer, double speed_secs) -> void
 	{
-		al_set_timer_speed((ALLEGRO::TIMER_DATA_PTR)timer.get(), speed_secs);
+		al_set_timer_speed(static_cast<ALLEGRO::INTERNAL::TIMER_DATA_PTR>(timer.get()), speed_secs);
 	}
 
 	export inline auto get_timer_count(const ALLEGRO::TIMER& timer) -> int64_t
 	{
-		return al_get_timer_count((ALLEGRO::TIMER_DATA_PTR)timer.get());
+		return al_get_timer_count(static_cast<ALLEGRO::INTERNAL::TIMER_DATA_PTR>(timer.get()));
 	}
 
 	export inline auto set_timer_count(ALLEGRO::TIMER& timer, int64_t count) -> void
 	{
-		al_set_timer_count((ALLEGRO::TIMER_DATA_PTR)timer.get(), count);
+		al_set_timer_count(static_cast<ALLEGRO::INTERNAL::TIMER_DATA_PTR>(timer.get()), count);
 	}
 
 	export inline auto add_timer_count(ALLEGRO::TIMER& timer, int64_t diff) -> void
 	{
-		al_add_timer_count((ALLEGRO::TIMER_DATA_PTR)timer.get(), diff);
+		al_add_timer_count(static_cast<ALLEGRO::INTERNAL::TIMER_DATA_PTR>(timer.get()), diff);
 	}
 
 	export inline auto get_timer_event_source(ALLEGRO::TIMER& timer) -> ALLEGRO::EVENT_SOURCE
 	{
-		return ALLEGRO::EVENT_SOURCE(al_get_timer_event_source((ALLEGRO::TIMER_DATA_PTR)timer.get()), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
+		return ALLEGRO::EVENT_SOURCE(al_get_timer_event_source(static_cast<ALLEGRO::INTERNAL::TIMER_DATA_PTR>(timer.get())), al::internal::deleter_empty<ALLEGRO::INTERNAL::EVENT_SOURCE_DATA>);
 	}
 }

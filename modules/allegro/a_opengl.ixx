@@ -19,6 +19,7 @@ namespace ALLEGRO
 {
 #ifdef ALLEGRO_CFG_OPENGL
 	export using OGL_EXT_LIST = ALLEGRO_OGL_EXT_LIST;
+	export using OGL_EXT_LIST_PTR = std::add_pointer<ALLEGRO_OGL_EXT_LIST>::type;
 #endif
 }
 
@@ -40,34 +41,34 @@ namespace al
 		return al_get_opengl_proc_address(name);
 	}
 
-	auto get_opengl_extension_list() -> ALLEGRO::OGL_EXT_LIST*
+	auto get_opengl_extension_list() -> ALLEGRO::OGL_EXT_LIST_PTR
 	{
-		return (ALLEGRO::OGL_EXT_LIST*)al_get_opengl_extension_list();
+		return static_cast<ALLEGRO::OGL_EXT_LIST_PTR>(al_get_opengl_extension_list());
 	}
 
 	auto get_opengl_texture(const ALLEGRO::BITMAP& bitmap) -> GLuint
 	{
-		return al_get_opengl_texture((ALLEGRO::BITMAP_DATA_PTR)bitmap.get());
+		return al_get_opengl_texture(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()));
 	}
 
 	auto remove_opengl_fbo(const ALLEGRO::BITMAP& bitmap) -> void
 	{
-		return al_remove_opengl_fbo((ALLEGRO::BITMAP_DATA_PTR)bitmap.get());
+		return al_remove_opengl_fbo(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()));
 	}
 
 	auto get_opengl_fbo(const ALLEGRO::BITMAP& bitmap) -> GLuint
 	{
-		return al_get_opengl_fbo((ALLEGRO::BITMAP_DATA_PTR)bitmap.get());
+		return al_get_opengl_fbo(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()));
 	}
 
 	auto get_opengl_texture_size(const ALLEGRO::BITMAP& bitmap, ALLEGRO::SIZE<int32_t>& size) -> bool
 	{
-		return al_get_opengl_texture_size((ALLEGRO::BITMAP_DATA_PTR)bitmap.get(), &size.width, &size.height);
+		return al_get_opengl_texture_size(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), &size.width, &size.height);
 	}
 
 	auto get_opengl_texture_position(const ALLEGRO::BITMAP& bitmap, ALLEGRO::POINT<int32_t>& position) -> void
 	{
-		return al_get_opengl_texture_position((ALLEGRO::BITMAP_DATA_PTR)bitmap.get(), &position.x, &position.y);
+		return al_get_opengl_texture_position(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), &position.x, &position.y);
 	}
 
 	auto get_opengl_program_object(const ALLEGRO::SHADER& shader) -> GLuint
@@ -77,7 +78,7 @@ namespace al
 
 	auto set_current_opengl_context(const ALLEGRO::DISPLAY& display) -> void
 	{
-		return al_set_current_opengl_context((ALLEGRO::DISPLAY_DATA_PTR)display.get());
+		return al_set_current_opengl_context(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()));
 	}
 
 	auto get_opengl_variant() -> int32_t

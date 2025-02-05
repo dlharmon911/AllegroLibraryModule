@@ -67,6 +67,6 @@ namespace al
 
 	export inline auto get_keyboard_event_source() -> ALLEGRO::EVENT_SOURCE
 	{
-		return ALLEGRO::EVENT_SOURCE(al_get_keyboard_event_source(), al::internal::deleter_empty<ALLEGRO::EVENT_SOURCE_DATA>);
+		return ALLEGRO::EVENT_SOURCE(al_get_keyboard_event_source(), al::internal::deleter_empty<ALLEGRO::INTERNAL::EVENT_SOURCE_DATA>);
 	}
 }

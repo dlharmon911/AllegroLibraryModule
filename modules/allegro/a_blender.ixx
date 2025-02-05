@@ -7,35 +7,34 @@ import :color;
 
 namespace ALLEGRO
 {
-	export enum
+	namespace INTERNAL
 	{
-		BLEND_MODE_ZERO = ALLEGRO_ZERO,
-		BLEND_MODE_ONE = ALLEGRO_ONE,
-		BLEND_MODE_ALPHA = ALLEGRO_ALPHA,
-		BLEND_MODE_INVERSE_ALPHA = ALLEGRO_INVERSE_ALPHA,
-		BLEND_MODE_SRC_COLOR = ALLEGRO_SRC_COLOR,
-		BLEND_MODE_DEST_COLOR = ALLEGRO_DEST_COLOR,
-		BLEND_MODE_INVERSE_SRC_COLOR = ALLEGRO_INVERSE_SRC_COLOR,
-		BLEND_MODE_INVERSE_DEST_COLOR = ALLEGRO_INVERSE_DEST_COLOR,
-		BLEND_MODE_CONST_COLOR = ALLEGRO_CONST_COLOR,
-		BLEND_MODE_INVERSE_CONST_COLOR = ALLEGRO_INVERSE_CONST_COLOR,
-		BLEND_MODE_COUNT
-	};
+		export struct BLENDER_TAG
+		{
+			int32_t operation{ 0 };
+			int32_t source{ 0 };
+			int32_t destination{ 0 };
+		};
+	}
 
-	export enum
-	{
-		BLEND_OPERATION_ADD = ALLEGRO_ADD,
-		BLEND_OPERATION_SRC_MINUS_DEST = ALLEGRO_SRC_MINUS_DEST,
-		BLEND_OPERATION_DEST_MINUS_SRC = ALLEGRO_DEST_MINUS_SRC,
-		BLEND_OPERATION_COUNT
-	};
+	using BLENDER = typename INTERNAL::BLENDER_TAG;
 
-	export using BLENDER = struct BLENDER_TAG
-	{
-		int32_t operation{ 0 };
-		int32_t source{ 0 };
-		int32_t destination{ 0 };
-	};
+	export constexpr int32_t BLEND_MODE_ZERO{ ALLEGRO_ZERO };
+	export constexpr int32_t BLEND_MODE_ONE{ ALLEGRO_ONE };
+	export constexpr int32_t BLEND_MODE_ALPHA{ ALLEGRO_ALPHA };
+	export constexpr int32_t BLEND_MODE_INVERSE_ALPHA{ ALLEGRO_INVERSE_ALPHA };
+	export constexpr int32_t BLEND_MODE_SRC_COLOR{ ALLEGRO_SRC_COLOR };
+	export constexpr int32_t BLEND_MODE_DEST_COLOR{ ALLEGRO_DEST_COLOR };
+	export constexpr int32_t BLEND_MODE_INVERSE_SRC_COLOR{ ALLEGRO_INVERSE_SRC_COLOR };
+	export constexpr int32_t BLEND_MODE_INVERSE_DEST_COLOR{ ALLEGRO_INVERSE_DEST_COLOR };
+	export constexpr int32_t BLEND_MODE_CONST_COLOR{ ALLEGRO_CONST_COLOR };
+	export constexpr int32_t BLEND_MODE_INVERSE_CONST_COLOR{ ALLEGRO_INVERSE_CONST_COLOR };
+	export constexpr int32_t BLEND_MODE_COUNT{ ALLEGRO_NUM_BLEND_MODES };
+
+	export constexpr int32_t BLEND_OPERATION_ADD{ ALLEGRO_ADD };
+	export constexpr int32_t BLEND_OPERATION_SRC_MINUS_DEST{ ALLEGRO_SRC_MINUS_DEST };
+	export constexpr int32_t BLEND_OPERATION_DEST_MINUS_SRC{ ALLEGRO_DEST_MINUS_SRC };
+	export constexpr int32_t BLEND_OPERATION_COUNT{ ALLEGRO_NUM_BLEND_OPERATIONS };
 }
 
 namespace al
@@ -56,12 +55,12 @@ namespace al
 
 	export inline auto set_blend_color(const ALLEGRO::COLOR& color) -> void
 	{
-		al_set_blend_color((ALLEGRO::COLOR_DATA)color);
+		al_set_blend_color(static_cast<ALLEGRO_COLOR>(color));
 	}
 
 	export inline auto get_blend_color() -> ALLEGRO::COLOR
 	{
-		return (ALLEGRO::COLOR)al_get_blend_color();
+		return static_cast<ALLEGRO::COLOR>(al_get_blend_color());
 	}
 
 	export inline auto set_separate_blender(const ALLEGRO::BLENDER& blender, const ALLEGRO::BLENDER& alpha) -> void
