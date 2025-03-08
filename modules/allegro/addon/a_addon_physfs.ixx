@@ -1,6 +1,8 @@
 export module allegro.physfs_addon;
 
 import allegro;
+import <locale>;
+import <string>;
 import <allegro5/allegro_physfs.h>;
 export import <physfs.h>;
 
@@ -12,11 +14,11 @@ namespace al
 
 		auto shutdown() -> void;
 
-		export inline auto init(const char* argv0) -> bool
+		export inline auto init(const std::string& argv0) -> bool
 		{
 			if (!initialized)
 			{
-				if (PHYSFS_init(argv0))
+				if (PHYSFS_init(argv0.c_str()))
 				{
 					atexit(shutdown);
 					initialized = true;
@@ -43,10 +45,40 @@ namespace al
 		{
 			return al_get_allegro_physfs_version();
 		}
+	}
 
-		export inline auto set_file_interface() -> void
+	export inline auto set_physfs_file_interface() -> void
+	{
+		al_set_physfs_file_interface();
+	}
+
+	export inline auto is_physfs_archive_extension(const std::string& extension) -> bool
+	{
+		static std::locale loc{};
+		const PHYSFS_ArchiveInfo** i{ nullptr };
+
+		std::string a(extension);
+
+		for (auto& c : a)
 		{
-			al_set_physfs_file_interface();
+			c = std::tolower(c);
 		}
+
+		for (i = PHYSFS_supportedArchiveTypes(); *i != nullptr; i++)
+		{
+			std::string b{ (*i)->extension };
+
+			for (auto& c : b)
+			{
+				c = std::tolower(c);
+			}
+
+			if (a == b)
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

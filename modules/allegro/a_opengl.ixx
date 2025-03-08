@@ -73,7 +73,7 @@ namespace al
 
 	auto get_opengl_program_object(const ALLEGRO::SHADER& shader) -> GLuint
 	{
-		return al_get_opengl_program_object((ALLEGRO::SHADER_DATA_PTR)shader.get());
+		return al_get_opengl_program_object(static_cast<ALLEGRO::INTERNAL::SHADER_DATA_PTR>(shader.get()));
 	}
 
 	auto set_current_opengl_context(const ALLEGRO::DISPLAY& display) -> void

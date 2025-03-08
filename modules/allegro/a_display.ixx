@@ -95,171 +95,171 @@ namespace ALLEGRO
 }
 
 namespace al
-{ 
+{
 	namespace internal
-	{ 
+	{
 		export inline auto destroy_display(ALLEGRO::INTERNAL::DISPLAY_DATA_PTR data) -> void
-		{ 
+		{
 			al_destroy_display(data);
 		}
 	}
 
 	export inline constexpr auto get_display_max_title_size() -> size_t
-	{ 
+	{
 		return static_cast<size_t>(ALLEGRO_NEW_WINDOW_TITLE_MAX_SIZE);
 	}
 
 	export inline auto set_new_display_refresh_rate(int32_t rate) -> void
-	{ 
+	{
 		al_set_new_display_refresh_rate(rate);
 	}
 
 	export inline auto set_new_display_flags(int32_t flags) -> void
-	{ 
+	{
 		al_set_new_display_flags(flags);
 	}
 
 	export inline auto get_new_display_refresh_rate() -> int32_t
-	{ 
+	{
 		return al_get_new_display_refresh_rate();
 	}
 
 	export inline auto get_new_display_flags() -> int32_t
-	{ 
+	{
 		return al_get_new_display_flags();
 	}
 
 	export inline auto set_window_title(const ALLEGRO::DISPLAY& display, const char* title) -> void
-	{ 
+	{
 		al_set_window_title(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), title);
 	}
 
 	export inline auto set_new_window_title(const char* title) -> void
-	{ 
+	{
 		al_set_new_window_title(title);
 	}
 
 	export inline auto get_new_window_title() -> const char*
-	{ 
+	{
 		return al_get_new_window_title();
 	}
 
 	export inline auto get_display_width(const ALLEGRO::DISPLAY& display) -> int32_t
-	{ 
+	{
 		return al_get_display_width(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()));
 	}
 
 	export inline auto get_display_height(const ALLEGRO::DISPLAY& display) -> int32_t
-	{ 
+	{
 		return al_get_display_height(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()));
 	}
 
 	export inline auto get_display_dimensions(const ALLEGRO::DISPLAY& display) -> ALLEGRO::SIZE<int32_t>
-	{ 
+	{
 		return { ::al_get_display_width(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get())), al_get_display_height(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get())) };
 	}
 
 	export inline auto get_display_format(const ALLEGRO::DISPLAY& display) -> int32_t
-	{ 
+	{
 		return al_get_display_format(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()));
 	}
 
 	export inline auto get_display_refresh_rate(const ALLEGRO::DISPLAY& display) -> int32_t
-	{ 
+	{
 		return al_get_display_refresh_rate(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()));
 	}
 
 	export inline auto get_display_flags(const ALLEGRO::DISPLAY& display) -> int32_t
-	{ 
+	{
 		return al_get_display_flags(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()));
 	}
 
 	export inline auto get_display_orientation(const ALLEGRO::DISPLAY& display) -> int32_t
-	{ 
+	{
 		return al_get_display_orientation(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()));
 	}
 
 	export inline auto set_display_flag(const ALLEGRO::DISPLAY& display, int32_t flag, bool onoff) -> bool
-	{ 
+	{
 		return al_set_display_flag(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), flag, onoff);
 	}
 
 	export inline auto create_display(const ALLEGRO::SIZE<size_t>& size) -> ALLEGRO::DISPLAY
-	{ 
+	{
 		return ALLEGRO::DISPLAY(::al_create_display(static_cast<int32_t>(size.width), static_cast<int32_t>(size.height)), internal::destroy_display);
 	}
 
 	export inline auto get_current_display() -> ALLEGRO::DISPLAY
-	{ 
+	{
 		return ALLEGRO::DISPLAY(al_get_current_display(), al::internal::deleter_empty<ALLEGRO::INTERNAL::DISPLAY_DATA>);
 	}
 
 	export inline auto set_target_bitmap(const ALLEGRO::BITMAP& bitmap) -> void
-	{ 
+	{
 		al_set_target_bitmap(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()));
 	}
 
 	export inline auto set_target_backbuffer(const ALLEGRO::DISPLAY& display) -> void
-	{ 
+	{
 		al_set_target_backbuffer(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()));
 	}
 
 	export inline auto get_backbuffer(const ALLEGRO::DISPLAY& display) -> ALLEGRO::BITMAP
-	{ 
+	{
 		return ALLEGRO::BITMAP(al_get_backbuffer(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get())), al::internal::deleter_empty<ALLEGRO::INTERNAL::BITMAP_DATA>);
 	}
 
 	export inline auto get_target_bitmap() -> ALLEGRO::BITMAP
-	{ 
+	{
 		return ALLEGRO::BITMAP(al_get_target_bitmap(), al::internal::deleter_empty<ALLEGRO::INTERNAL::BITMAP_DATA>);
 	}
 
 	export inline auto acknowledge_resize(const ALLEGRO::DISPLAY& display) -> bool
-	{ 
+	{
 		return al_acknowledge_resize(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()));
 	}
 
 	export inline auto resize_display(const ALLEGRO::DISPLAY& display, const ALLEGRO::SIZE<size_t>& size) -> bool
-	{ 
+	{
 		return al_resize_display(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), (int32_t)size.width, (int32_t)size.height);
 	}
 
 	export inline auto flip_display()
-	{ 
+	{
 		al_flip_display();
 	}
 
 	export inline auto update_display_region(const ALLEGRO::RECTANGLE<int32_t>& region)
-	{ 
+	{
 		al_update_display_region(region.position.x, region.position.y, region.size.width, region.size.height);
 	}
 
 	export inline auto is_compatible_bitmap(const ALLEGRO::BITMAP& bitmap) -> bool
-	{ 
+	{
 		return al_is_compatible_bitmap(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()));
 	}
 
 	export inline auto wait_for_vsync() -> bool
-	{ 
+	{
 		return al_wait_for_vsync();
 	}
 
 	export inline auto get_display_event_source(const ALLEGRO::DISPLAY& display) -> ALLEGRO::EVENT_SOURCE
-	{ 
+	{
 		return ALLEGRO::EVENT_SOURCE(al_get_display_event_source(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get())), al::internal::deleter_empty<ALLEGRO::INTERNAL::EVENT_SOURCE_DATA>);
 	}
 
 	export inline auto set_display_icon(const ALLEGRO::DISPLAY& display, const ALLEGRO::BITMAP& icon)
-	{ 
+	{
 		al_set_display_icon(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), (ALLEGRO::INTERNAL::BITMAP_DATA_PTR)icon.get());
 	}
 
 	export inline auto set_display_icons(ALLEGRO::DISPLAY& display, const std::vector<ALLEGRO::BITMAP>& icons)
-	{ 
+	{
 		std::vector<void*> temp{ icons.size() };
 
 		for (size_t i = 0; i < icons.size(); ++i)
-		{ 
+		{
 			temp[i] = icons[i].get();
 		}
 
@@ -267,22 +267,22 @@ namespace al
 	}
 
 	export inline auto get_new_display_adapter() -> int32_t
-	{ 
+	{
 		return al_get_new_display_adapter();
 	}
 
 	export inline auto set_new_display_adapter(int32_t adapter)
-	{ 
+	{
 		al_set_new_display_adapter(adapter);
 	}
 
 	export inline auto set_new_window_position(const ALLEGRO::POINT<int32_t>& point)
-	{ 
+	{
 		al_set_new_window_position(point.x, point.y);
 	}
 
 	export inline auto get_new_window_position() -> ALLEGRO::POINT<int32_t>
-	{ 
+	{
 		ALLEGRO::POINT<int32_t> point;
 
 		al_get_new_window_position(&point.x, &point.y);
@@ -291,12 +291,12 @@ namespace al
 	}
 
 	export inline auto set_window_position(ALLEGRO::DISPLAY& display, const ALLEGRO::POINT<int32_t>& point)
-	{ 
+	{
 		al_set_window_position(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), point.x, point.y);
 	}
 
 	export inline auto get_window_position(ALLEGRO::DISPLAY& display) -> ALLEGRO::POINT<int32_t>
-	{ 
+	{
 		ALLEGRO::POINT<int32_t> point;
 
 		al_get_window_position(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), &point.x, &point.y);
@@ -306,76 +306,76 @@ namespace al
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
 	export inline auto get_window_borders(ALLEGRO::DISPLAY& display, ALLEGRO::BOX<int32_t>& box) -> bool
-	{ 
+	{
 		return al_get_window_borders(display.get(), &box.top_left.x, &box.top_left.y, &box.bottom_right.x, &box.bottom_right.y);
 	}
 #endif
 
 	export inline auto set_window_constraints(const ALLEGRO::DISPLAY& display, const ALLEGRO::SIZE<int32_t>& min, const ALLEGRO::SIZE<int32_t>& max) -> bool
-	{ 
+	{
 		return al_set_window_constraints(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), min.width, min.height, max.width, max.height);
 	}
 
 	export inline auto get_window_constraints(const ALLEGRO::DISPLAY& display, ALLEGRO::SIZE<int32_t>& min, ALLEGRO::SIZE<int32_t>& max) -> bool
-	{ 
+	{
 		return al_get_window_constraints(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), &min.width, &min.height, &max.width, &max.height);
 	}
 
 	export inline auto apply_window_constraints(const ALLEGRO::DISPLAY& display, bool onoff)
-	{ 
+	{
 		al_apply_window_constraints(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), onoff);
 	}
 
 	export inline auto set_new_display_option(int32_t option, int32_t value, int32_t importance)
-	{ 
+	{
 		al_set_new_display_option(option, value, importance);
 	}
 
 	export inline auto get_new_display_option(int32_t option) -> std::tuple<int32_t, int32_t>
-	{ 
+	{
 		int32_t importance{ 0 };
 		int32_t value{ al_get_new_display_option(option, &importance) };
 		return std::make_tuple(value, importance);
 	}
 
 	export inline auto reset_new_display_options()
-	{ 
+	{
 		al_reset_new_display_options();
 	}
 
 	export inline auto set_display_option(const ALLEGRO::DISPLAY& display, int32_t option, int32_t value)
-	{ 
+	{
 		al_set_display_option(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), option, value);
 	}
 
 	export inline auto get_display_option(const ALLEGRO::DISPLAY& display, int32_t option)
-	{ 
+	{
 		return al_get_display_option(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), option);
 	}
 
 	export inline auto hold_bitmap_drawing(bool hold)
-	{ 
+	{
 		al_hold_bitmap_drawing(hold);
 	}
 
 	export inline auto is_bitmap_drawing_held() -> bool
-	{ 
+	{
 		return al_is_bitmap_drawing_held();
 	}
 
 	export inline auto acknowledge_drawing_halt(const ALLEGRO::DISPLAY& display)
-	{ 
+	{
 		al_acknowledge_drawing_halt(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()));
 	}
 
 	export inline auto acknowledge_drawing_resume(const ALLEGRO::DISPLAY& display)
-	{ 
+	{
 		al_acknowledge_drawing_resume(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()));
 	}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
 	export inline auto backup_dirty_bitmaps(const ALLEGRO::DISPLAY& display)
-	{ 
+	{
 		al_backup_dirty_bitmaps(display.get());
 	}
 #endif

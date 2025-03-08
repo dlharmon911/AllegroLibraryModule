@@ -18,7 +18,6 @@ namespace ALLEGRO
 
 	export using SHADER = typename std::shared_ptr<INTERNAL::SHADER_DATA>;
 
-
 	export inline const char* SHADER_VAR_COLOR{ (const char*)ALLEGRO_SHADER_VAR_COLOR };
 	export inline const char* SHADER_VAR_POS{ (const char*)ALLEGRO_SHADER_VAR_POS };
 	export inline const char* SHADER_VAR_PROJVIEW_MATRIX{ (const char*)ALLEGRO_SHADER_VAR_PROJVIEW_MATRIX };

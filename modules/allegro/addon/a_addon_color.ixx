@@ -74,7 +74,6 @@ namespace ALLEGRO
 	export using COLOR_LAB = typename INTERNAL::COLOR_LAB_TAG;
 	export using COLOR_LCH = typename INTERNAL::COLOR_LCH_TAG;
 	export using COLOR_XYY = typename INTERNAL::COLOR_XYY_TAG;
-
 }
 
 namespace al

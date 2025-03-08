@@ -15,7 +15,6 @@ namespace ALLEGRO
 		export using CONFIG_DATA_PTR = std::add_pointer<CONFIG_DATA>::type;
 	}
 
-
 	export using CONFIG = typename std::shared_ptr<INTERNAL::CONFIG_DATA>;
 	export using CONFIG_SECTION = typename ALLEGRO_CONFIG_SECTION;
 	export using CONFIG_SECTION_PTR = std::add_pointer<CONFIG_SECTION>::type;

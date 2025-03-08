@@ -1,6 +1,7 @@
 export module allegro:bitmap;
 
 import <allegro5/bitmap.h>;
+import <functional>;
 import <memory>;
 import :base;
 import :color;
@@ -165,9 +166,9 @@ namespace al
 		return (ALLEGRO::COLOR)al_get_pixel(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), point.x, point.y);
 	}
 
-	export inline auto create_bitmap(const ALLEGRO::SIZE<size_t>& size) -> ALLEGRO::BITMAP
+	export inline auto create_bitmap(const ALLEGRO::SIZE<int32_t>& size) -> ALLEGRO::BITMAP
 	{
-		return ALLEGRO::BITMAP(::al_create_bitmap(static_cast<int32_t>(size.width), static_cast<int32_t>(size.height)), internal::destroy_bitmap);
+		return ALLEGRO::BITMAP(::al_create_bitmap(size.width, size.height), internal::destroy_bitmap);
 	}
 
 	export inline auto create_sub_bitmap(const ALLEGRO::BITMAP& parent, const ALLEGRO::RECTANGLE<int32_t>& rectangle) -> ALLEGRO::BITMAP

@@ -25,7 +25,6 @@ namespace ALLEGRO
 	export using VERTEX_BUFFER = typename std::shared_ptr<INTERNAL::VERTEX_BUFFER_DATA>;
 	export using INDEX_BUFFER = typename std::shared_ptr<INTERNAL::INDEX_BUFFER_DATA>;
 
-
 	export using PRIM_TYPE = typename ALLEGRO_PRIM_TYPE;
 	export using PRIM_ATTR = typename ALLEGRO_PRIM_ATTR;
 	export using PRIM_STORAGE = typename ALLEGRO_PRIM_STORAGE;

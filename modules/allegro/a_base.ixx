@@ -3,6 +3,7 @@ export module allegro:base;
 import <string>;
 import <cstdint>;
 import <memory>;
+import <functional>;
 import <allegro5/base.h>;
 import <type_traits>;
 
@@ -31,9 +32,9 @@ namespace al
 		return (((a) << 24) | ((b) << 16) | ((c) << 8) | (d));
 	}
 
-	export inline auto run_main(int32_t argc, char** argv, int32_t(*user_main)(int32_t, char**)) -> int32_t
+	export inline auto run_main(int32_t argc, char** argv, std::function<auto(int32_t, char**)->int32_t>& func_main) -> int32_t
 	{
-		return al_run_main(argc, argv, user_main);
+		return al_run_main(argc, argv, func_main.target<auto(int32_t, char**)->int32_t>());
 	}
 }
 
@@ -63,6 +64,36 @@ namespace ALLEGRO
 		}
 
 		auto operator == (const POINT<T>& v) const -> bool = default;
+
+		friend static auto operator * (const ALLEGRO::POINT<T>& a, T b) -> ALLEGRO::POINT<T>
+		{
+			return { a.x * (T)b, a.y * (T)b };
+		}
+
+		friend static auto operator / (const ALLEGRO::POINT<T>& a, const T b) -> ALLEGRO::POINT<T>
+		{
+			return { a.x / (T)b, a.y / (T)b };
+		}
+
+		friend static auto operator + (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
+		{
+			return { a.x + (T)b.x, a.y + (T)b.y };
+		}
+
+		friend static auto operator - (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
+		{
+			return { a.x - (T)b.x, a.y - (T)b.y };
+		}
+
+		friend static auto operator * (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
+		{
+			return { a.x * (T)b.x, a.y * (T)b.y };
+		}
+
+		friend static auto operator / (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
+		{
+			return { a.x / (T)b.x, a.y / (T)b.y };
+		}
 	};
 
 	export template <typename T> struct VECTOR3
@@ -167,36 +198,6 @@ namespace ALLEGRO
 		template <typename Q>
 		explicit constexpr BOX<T>(const BOX<Q>& r) : top_left(POINT<T>(r.top_left)), bottom_right(POINT<T>(r.bottom_right)) {}
 	};
-
-	export template <typename T> inline auto operator * (const ALLEGRO::POINT<T>& a, T b) -> ALLEGRO::POINT<T>
-	{
-		return { a.x * (T)b, a.y * (T)b };
-	}
-
-	export template <typename T> inline auto operator / (const ALLEGRO::POINT<T>& a, const T b) -> ALLEGRO::POINT<T>
-	{
-		return { a.x / (T)b, a.y / (T)b };
-	}
-
-	export template <typename T> inline auto operator + (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
-	{
-		return { a.x + (T)b.x, a.y + (T)b.y };
-	}
-
-	export template <typename T> inline auto operator - (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
-	{
-		return { a.x - (T)b.x, a.y - (T)b.y };
-	}
-
-	export template <typename T> inline auto operator * (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
-	{
-		return { a.x * (T)b.x, a.y * (T)b.y };
-	}
-
-	export template <typename T> inline auto operator / (const ALLEGRO::POINT<T>& a, const ALLEGRO::POINT<T>& b) -> ALLEGRO::POINT<T>
-	{
-		return { a.x / (T)b.x, a.y / (T)b.y };
-	}
 
 	export template <typename T> inline auto operator *= (const ALLEGRO::POINT<T>& a, T b) -> ALLEGRO::POINT<T>&
 	{

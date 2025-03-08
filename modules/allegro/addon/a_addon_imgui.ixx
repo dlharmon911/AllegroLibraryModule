@@ -1,11 +1,18 @@
+module;
+
+//#define ImDrawIdx  int
+#include <imgui.h>
+
 export module allegro.imgui_addon;
 
+import <cstdint>;
 import <string>;
 import <memory>;
 import allegro;
 import <cstdarg>;
-export import <imgui/imgui.h>;
-import <imgui/imgui_impl_allegro5.h>;
+export import <imgui.h>;
+import <imgui_impl_allegro5.h>;
+
 
 namespace al
 {
@@ -13,20 +20,23 @@ namespace al
 
 	namespace imgui_addon
 	{
-		static bool initialized = false;
+		namespace internal
+		{
+			bool initialized = false;
+		}
 
 		void shutdown();
 
-		export inline bool init(ALLEGRO::DISPLAY& display, bool style_light, ImGuiConfigFlags flags = ImGuiConfigFlags_None)
+		export inline bool init(const ALLEGRO::DISPLAY& display, bool style_light, ImGuiConfigFlags flags = ImGuiConfigFlags_None)
 		{
-			bool rv = initialized;
+			bool rv = internal::initialized;
 
 			if (!rv)
 			{
-				IMGUI_CHECKVERSION();
+				ImGui::DebugCheckVersionAndDataLayout(IMGUI_VERSION, sizeof(ImGuiIO), sizeof(ImGuiStyle), sizeof(ImVec2), sizeof(ImVec4), sizeof(ImDrawVert), sizeof(ImDrawIdx));
 				ImGui::CreateContext();
 				ImGuiIO& io = ImGui::GetIO(); (void)io;
-				io.ConfigFlags = flags;
+				io.ConfigFlags |= flags;
 
 				if (style_light)
 				{
@@ -37,7 +47,7 @@ namespace al
 					ImGui::StyleColorsDark();
 				}
 
-				rv = ImGui_ImplAllegro5_Init((ALLEGRO::DISPLAY_DATA*)display.get());
+				rv = ImGui_ImplAllegro5_Init((ALLEGRO::INTERNAL::DISPLAY_DATA_PTR)display.get());
 
 				if (rv)
 				{
@@ -50,16 +60,16 @@ namespace al
 
 		export inline bool is_initialized()
 		{
-			return initialized;
+			return internal::initialized;
 		}
 
 		export inline void shutdown()
 		{
-			if (initialized)
+			if (internal::initialized)
 			{
 				ImGui_ImplAllegro5_Shutdown();
 				ImGui::DestroyContext();
-				initialized = false;
+				internal::initialized = false;
 			}
 		}
 
@@ -69,45 +79,50 @@ namespace al
 		}
 	}
 
-	export void begin_imgui_drawing()
+	export void imgui_begin_drawing()
 	{
 		ImGui_ImplAllegro5_NewFrame();
 	}
 
-	export void new_imgui_frame()
+	export void imgui_new_frame()
 	{
 		ImGui::NewFrame();
 	}
 
-	export void render_imgui_frame()
+	export void imgui_render_frame()
 	{
 		ImGui::Render();
 	}
 
-	export bool process_imgui_event(ALLEGRO::EVENT& event)
+	export bool imgui_process_event(const ALLEGRO::EVENT& event)
 	{
-		return ImGui_ImplAllegro5_ProcessEvent(&event);
+		return ImGui_ImplAllegro5_ProcessEvent(event);
 	}
 
-	export void set_imgui_background_color(ALLEGRO::COLOR color)
+	export void imgui_set_background_color(ALLEGRO::COLOR color)
 	{
 		background = color;
 	}
 
-	export void end_imgui_drawing()
+	export void imgui_end_drawing()
 	{
 		al::clear_to_color(background);
 		ImGui_ImplAllegro5_RenderDrawData(ImGui::GetDrawData());
 	}
 
-	export void invalidate_imgui_device()
+	export void imgui_invalidate_device_objects()
 	{
 		ImGui_ImplAllegro5_InvalidateDeviceObjects();
 	}
 
-	export void create_imgui_device_objects()
+	export void imgui_create_device_objects()
 	{
 		ImGui_ImplAllegro5_CreateDeviceObjects();
 	}
 }
 
+namespace IMGUI
+{
+	export const char* const VERSION{ static_cast<const char*>(IMGUI_VERSION) };
+	export constexpr int32_t VERSION_NUM{ IMGUI_VERSION_NUM };
+}

@@ -2,6 +2,7 @@ export module allegro:system;
 
 import <memory>;
 import <string>;
+import <functional>;
 import <allegro5/system.h>;
 import :base;
 import :config;
@@ -17,7 +18,6 @@ namespace ALLEGRO
 	}
 
 	export using SYSTEM = typename std::shared_ptr<INTERNAL::SYSTEM_DATA>;
-
 
 	export constexpr int32_t SYSTEM_ID_UNKNOWN{ ALLEGRO_SYSTEM_ID_UNKNOWN };
 	export constexpr int32_t SYSTEM_ID_XGLX{ ALLEGRO_SYSTEM_ID_XGLX };
@@ -46,9 +46,9 @@ namespace al
 		return al_install_system(ALLEGRO_VERSION_INT, atexit);
 	}
 
-	export inline bool install_system(int32_t version, int32_t(*atexit_ptr)(void (*)(void)))
+	export inline bool install_system(int32_t version, std::function<int32_t(void (*)(void))>& atexit_function)
 	{
-		return al_install_system(version, atexit_ptr);
+		return al_install_system(version, atexit_function.target<int32_t(void (*)(void))>());
 	}
 
 	export inline void uninstall_system()

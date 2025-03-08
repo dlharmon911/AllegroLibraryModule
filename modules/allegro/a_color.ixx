@@ -37,7 +37,7 @@ namespace ALLEGRO
 			{
 				return ALLEGRO_COLOR(this->red, this->green, this->blue, this->alpha);
 			}
-		 };
+		};
 
 		export using COLOR_DATA = typename ALLEGRO_COLOR;
 	}
