@@ -184,9 +184,9 @@ namespace al
 		return al_set_display_flag(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), flag, onoff);
 	}
 
-	export inline auto create_display(const ALLEGRO::SIZE<size_t>& size) -> ALLEGRO::DISPLAY
+	export inline auto create_display(const ALLEGRO::SIZE<int32_t>& size) -> ALLEGRO::DISPLAY
 	{
-		return ALLEGRO::DISPLAY(::al_create_display(static_cast<int32_t>(size.width), static_cast<int32_t>(size.height)), internal::destroy_display);
+		return ALLEGRO::DISPLAY(::al_create_display(size.width, size.height), internal::destroy_display);
 	}
 
 	export inline auto get_current_display() -> ALLEGRO::DISPLAY

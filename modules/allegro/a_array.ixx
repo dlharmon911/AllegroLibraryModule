@@ -1,4 +1,4 @@
-export module allegro:cpu;
+export module allegro:array;
 
 import <allegro5/cpu.h>;
 import :base;

@@ -124,7 +124,7 @@ namespace al
 			+ 1; // terminating '\0'
 		buffer = (char*)malloc(len * sizeof(char));
 
-		if (NULL != buffer)
+		if (nullptr != buffer)
 		{
 			vsprintf_s(buffer, len, format, args);
 			al_draw_text(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), static_cast<ALLEGRO::INTERNAL::COLOR_DATA>(color), pos.x, pos.y, flags, buffer);
@@ -144,7 +144,7 @@ namespace al
 			+ 1; // terminating '\0'
 		buffer = (char*)malloc(len * sizeof(char));
 
-		if (NULL != buffer)
+		if (nullptr != buffer)
 		{
 			vsprintf_s(buffer, len, format, args);
 			al_draw_justified_text(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), static_cast<ALLEGRO::INTERNAL::COLOR_DATA>(color), x1, x2, y, diff, flags, buffer);
@@ -236,7 +236,7 @@ namespace al
 			+ 1; // terminating '\0'
 		buffer = (char*)malloc(len * sizeof(char));
 
-		if (NULL != buffer)
+		if (nullptr != buffer)
 		{
 			vsprintf_s(buffer, len, format, args);
 			al_draw_multiline_text(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), static_cast<ALLEGRO::INTERNAL::COLOR_DATA>(color), pos.x, pos.y, max_width, line_height, flags, buffer);
