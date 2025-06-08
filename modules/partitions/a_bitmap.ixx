@@ -6,6 +6,8 @@ import <memory>;
 import :base;
 import :color;
 import :memory;
+import :vector_2d;
+import :rectangle;
 
 namespace ALLEGRO
 {
@@ -56,9 +58,14 @@ namespace al
 {
 	namespace internal
 	{
-		export inline auto create_bitmap(const ALLEGRO::SIZE<size_t>& size) -> ALLEGRO::INTERNAL::BITMAP_DATA_PTR
+		export inline auto create_bitmap(int32_t width, int32_t height) -> ALLEGRO::INTERNAL::BITMAP_DATA_PTR
 		{
-			return al_create_bitmap((int32_t)size.width, (int32_t)size.height);
+			return al_create_bitmap(width, height);
+		}
+
+		export inline auto create_bitmap(const ALLEGRO::VECTOR_2D<size_t>& size) -> ALLEGRO::INTERNAL::BITMAP_DATA_PTR
+		{
+			return al_create_bitmap((int32_t)size.get_x(), (int32_t)size.get_y());
 		}
 
 		export inline auto destroy_bitmap(ALLEGRO::INTERNAL::BITMAP_DATA_PTR data) -> void
@@ -156,34 +163,49 @@ namespace al
 		return ::al_get_bitmap_height(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()));
 	}
 
-	export inline auto get_bitmap_dimensions(const ALLEGRO::BITMAP& bitmap) -> ALLEGRO::SIZE<int32_t>
+	export inline auto get_bitmap_dimensions(const ALLEGRO::BITMAP& bitmap) -> ALLEGRO::VECTOR_2D<int32_t>
 	{
 		return { ::al_get_bitmap_width(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get())), al_get_bitmap_height(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get())) };
 	}
 
-	export inline auto get_pixel(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::POINT<float>& point) -> ALLEGRO::COLOR
+	export inline auto get_pixel(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::VECTOR_2D<float>& point) -> ALLEGRO::COLOR
 	{
-		return (ALLEGRO::COLOR)al_get_pixel(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), point.x, point.y);
+		return (ALLEGRO::COLOR)al_get_pixel(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), point.get_x(), point.get_y());
 	}
 
-	export inline auto create_bitmap(const ALLEGRO::SIZE<int32_t>& size) -> ALLEGRO::BITMAP
+	export inline auto create_bitmap(int32_t width, int32_t height) -> ALLEGRO::BITMAP
 	{
-		return ALLEGRO::BITMAP(::al_create_bitmap(size.width, size.height), internal::destroy_bitmap);
+		return ALLEGRO::BITMAP(::al_create_bitmap(width, height), internal::destroy_bitmap);
+	}
+
+	export inline auto create_bitmap(const ALLEGRO::VECTOR_2D<int32_t>& size) -> ALLEGRO::BITMAP
+	{
+		return ALLEGRO::BITMAP(::al_create_bitmap(size.get_x(), size.get_y()), internal::destroy_bitmap);
+	}
+
+	export inline auto create_sub_bitmap(const ALLEGRO::BITMAP& parent, int32_t x, int32_t y, int32_t width, int32_t height) -> ALLEGRO::BITMAP
+	{
+		return ALLEGRO::BITMAP(::al_create_sub_bitmap(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(parent.get()), x, y, width, height), internal::destroy_bitmap);
 	}
 
 	export inline auto create_sub_bitmap(const ALLEGRO::BITMAP& parent, const ALLEGRO::RECTANGLE<int32_t>& rectangle) -> ALLEGRO::BITMAP
 	{
-		return ALLEGRO::BITMAP(::al_create_sub_bitmap(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(parent.get()), rectangle.position.x, rectangle.position.y, rectangle.size.width, rectangle.size.height), internal::destroy_bitmap);
+		return ALLEGRO::BITMAP(::al_create_sub_bitmap(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(parent.get()), rectangle.get_x(), rectangle.get_y(), rectangle.get_width(), rectangle.get_height()), internal::destroy_bitmap);
+	}
+
+	export inline auto reparent_sub_bitmap(const ALLEGRO::BITMAP& bitmap, ALLEGRO::BITMAP& parent, int32_t x, int32_t y, int32_t width, int32_t height) -> void
+	{
+		::al_reparent_bitmap(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(parent.get()), x, y, width, height);
 	}
 
 	export inline auto reparent_sub_bitmap(const ALLEGRO::BITMAP& bitmap, ALLEGRO::BITMAP& parent, const ALLEGRO::RECTANGLE<int32_t>& rectangle) -> void
 	{
-		::al_reparent_bitmap(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(parent.get()), rectangle.position.x, rectangle.position.y, rectangle.size.width, rectangle.size.height);
+		::al_reparent_bitmap(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(parent.get()), rectangle.get_position().get_x(), rectangle.get_position().get_y(), rectangle.get_size().get_x(), rectangle.get_size().get_y());
 	}
 
 	export inline auto convert_mask_to_alpha(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::COLOR& mask_color) -> void
 	{
-		::al_convert_mask_to_alpha(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), static_cast<ALLEGRO::INTERNAL::COLOR_DATA>(mask_color));
+		::al_convert_mask_to_alpha(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), mask_color);
 	}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
@@ -228,16 +250,26 @@ namespace al
 	}
 #endif
 
+	export inline auto get_clipping_rectangle(int32_t& x, int32_t& y, int32_t& width, int32_t& height) -> void
+	{
+		::al_get_clipping_rectangle(&x, &y, &width, &height);
+	}
+
 	export inline auto get_clipping_rectangle() -> ALLEGRO::RECTANGLE<int32_t>
 	{
-		ALLEGRO::RECTANGLE<int32_t> clip{ {0, 0}, {0, 0} };
-		::al_get_clipping_rectangle(&clip.position.x, &clip.position.y, &clip.size.width, &clip.size.height);
-		return clip;
+		std::array<int32_t, ALLEGRO::INTERNAL::RECTANGLE_ARRAY_SIZE> clip{};
+		::al_get_clipping_rectangle(&clip[0], &clip[1], &clip[2], &clip[3]);
+		return ALLEGRO::RECTANGLE<int32_t>(clip);
+	}
+
+	export inline auto set_clipping_rectangle(int32_t x, int32_t y, int32_t width, int32_t height) -> void
+	{
+		::al_set_clipping_rectangle(x, y, width, height);
 	}
 
 	export inline auto set_clipping_rectangle(const ALLEGRO::RECTANGLE<int32_t>& clip) -> void
 	{
-		::al_set_clipping_rectangle(clip.position.x, clip.position.y, clip.size.width, clip.size.height);
+		::al_set_clipping_rectangle(clip.get_position().get_x(), clip.get_position().get_y(), clip.get_size().get_x(), clip.get_size().get_y());
 	}
 
 	export inline auto reset_clipping() -> void

@@ -3,6 +3,7 @@ export module allegro:drawing;
 import <allegro5/drawing.h>;
 import :base;
 import :color;
+import :vector_2d;
 
 namespace al
 {
@@ -16,8 +17,8 @@ namespace al
 		al_clear_depth_buffer(z);
 	}
 
-	export inline auto draw_pixel(const ALLEGRO::POINT<float>& point, const ALLEGRO::COLOR& color) -> void
+	export inline auto draw_pixel(const ALLEGRO::VECTOR_2D<float>& point, const ALLEGRO::COLOR& color) -> void
 	{
-		al_draw_pixel(point.x, point.y, static_cast<ALLEGRO_COLOR>(color));
+		al_draw_pixel(point.get_x(), point.get_y(), static_cast<ALLEGRO_COLOR>(color));
 	}
 }

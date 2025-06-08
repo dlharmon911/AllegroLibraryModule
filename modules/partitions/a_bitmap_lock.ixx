@@ -5,6 +5,8 @@ import <allegro5/bitmap_lock.h>;
 import :base;
 import :bitmap;
 import :memory;
+import :vector_2d;
+import :rectangle;
 
 namespace ALLEGRO
 {
@@ -24,7 +26,7 @@ namespace al
 
 	export inline auto lock_bitmap_region(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::RECTANGLE<int32_t>& region, int32_t format, int32_t flags) -> ALLEGRO::BITMAP_LOCKED_REGION
 	{
-		return ALLEGRO::BITMAP_LOCKED_REGION(al_lock_bitmap_region(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), region.position.x, region.position.y, region.size.width, region.size.height, format, flags), al::internal::deleter_empty<ALLEGRO::BITMAP_LOCKED_REGION_DATA>);
+		return ALLEGRO::BITMAP_LOCKED_REGION(al_lock_bitmap_region(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), region.get_position().get_x(), region.get_position().get_y(), region.get_size().get_x(), region.get_size().get_y(), format, flags), al::internal::deleter_empty<ALLEGRO::BITMAP_LOCKED_REGION_DATA>);
 	}
 
 	export inline auto lock_bitmap_blocked(const ALLEGRO::BITMAP& bitmap, int32_t flags) -> ALLEGRO::BITMAP_LOCKED_REGION
@@ -34,7 +36,7 @@ namespace al
 
 	export inline auto lock_bitmap_region_blocked(const ALLEGRO::BITMAP& bitmap, const ALLEGRO::RECTANGLE<int32_t>& region, int32_t flags) -> ALLEGRO::BITMAP_LOCKED_REGION
 	{
-		return ALLEGRO::BITMAP_LOCKED_REGION(al_lock_bitmap_region_blocked(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), region.position.x, region.position.y, region.size.width, region.size.height, flags), al::internal::deleter_empty<ALLEGRO::BITMAP_LOCKED_REGION_DATA>);
+		return ALLEGRO::BITMAP_LOCKED_REGION(al_lock_bitmap_region_blocked(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), region.get_position().get_x(), region.get_position().get_y(), region.get_size().get_x(), region.get_size().get_y(), flags), al::internal::deleter_empty<ALLEGRO::BITMAP_LOCKED_REGION_DATA>);
 	}
 
 	export inline auto unlock_bitmap(const ALLEGRO::BITMAP& bitmap) -> void

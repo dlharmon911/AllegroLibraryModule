@@ -14,6 +14,7 @@ import :base;
 import :bitmap;
 import :display;
 import :shader;
+import :vector_2d;
 
 namespace ALLEGRO
 {
@@ -61,14 +62,24 @@ namespace al
 		return al_get_opengl_fbo(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()));
 	}
 
-	auto get_opengl_texture_size(const ALLEGRO::BITMAP& bitmap, ALLEGRO::SIZE<int32_t>& size) -> bool
+	auto get_opengl_texture_size(const ALLEGRO::BITMAP& bitmap, ALLEGRO::VECTOR_2D<int32_t>& size) -> bool
 	{
-		return al_get_opengl_texture_size(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), &size.width, &size.height);
+		std::array<int32_t, ALLEGRO::INTERNAL::VECTOR_2D_ARRAY_SIZE> array{};
+		bool rv = al_get_opengl_texture_size(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), &array[0], &array[1]);
+
+		size = array;
+
+		return rv;
 	}
 
-	auto get_opengl_texture_position(const ALLEGRO::BITMAP& bitmap, ALLEGRO::POINT<int32_t>& position) -> void
+	auto get_opengl_texture_position(const ALLEGRO::BITMAP& bitmap, ALLEGRO::VECTOR_2D<int32_t>& position) -> void
 	{
-		return al_get_opengl_texture_position(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), &position.x, &position.y);
+		std::array<int32_t, ALLEGRO::INTERNAL::VECTOR_2D_ARRAY_SIZE> array{};
+
+		al_get_opengl_texture_position(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), &array[0], &array[1]);
+
+		position = array;
+
 	}
 
 	auto get_opengl_program_object(const ALLEGRO::SHADER& shader) -> GLuint

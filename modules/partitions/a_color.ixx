@@ -4,45 +4,11 @@ import <cmath>;
 import <limits>;
 import <allegro5/color.h>;
 import :base;
+import :math;
 
 namespace ALLEGRO
 {
-	namespace INTERNAL
-	{
-		struct COLOR_TAG
-		{
-			float red{ 0.0f };
-			float green{ 0.0f };
-			float blue{ 0.0f };
-			float alpha{ 0.0f };
-			constexpr COLOR_TAG() = default;
-			explicit constexpr COLOR_TAG(const ALLEGRO_COLOR& color) : red(color.r), green(color.g), blue(color.b), alpha(color.a) {}
-			constexpr COLOR_TAG(const float _red, const float _green, const float _blue, const float _alpha) : red(_red), green(_green), blue(_blue), alpha(_alpha) {}
-			constexpr COLOR_TAG(const COLOR_TAG& v) : red(v.red), green(v.green), blue(v.blue), alpha(v.alpha) {}
-
-			auto operator == (const COLOR_TAG& v) -> bool
-			{
-				return (fabsf(v.red - this->red) <= std::numeric_limits<float>::epsilon() &&
-					fabsf(v.green - this->green) <= std::numeric_limits<float>::epsilon() &&
-					fabsf(v.blue - this->blue) <= std::numeric_limits<float>::epsilon() &&
-					fabsf(v.alpha - this->alpha) <= std::numeric_limits<float>::epsilon());
-			}
-
-			auto operator != (const COLOR_TAG& v) -> bool
-			{
-				return !(this->operator==(v));
-			}
-
-			explicit operator ALLEGRO_COLOR () const
-			{
-				return ALLEGRO_COLOR(this->red, this->green, this->blue, this->alpha);
-			}
-		};
-
-		export using COLOR_DATA = typename ALLEGRO_COLOR;
-	}
-
-	export using COLOR = typename INTERNAL::COLOR_TAG;
+	export using COLOR = typename ALLEGRO_COLOR;
 
 	export constexpr int32_t PIXEL_FORMAT_ANY{ ALLEGRO_PIXEL_FORMAT_ANY };
 	export constexpr int32_t PIXEL_FORMAT_ANY_NO_ALPHA{ ALLEGRO_PIXEL_FORMAT_ANY_NO_ALPHA };
@@ -137,21 +103,39 @@ namespace al
 
 	export inline auto unmap_rgba_f(const ALLEGRO::COLOR& color, float& red, float& green, float& blue, float& alpha) -> void
 	{
-		al_unmap_rgba_f(static_cast<ALLEGRO::INTERNAL::COLOR_DATA>(color), &red, &green, &blue, &alpha);
+		al_unmap_rgba_f(color, &red, &green, &blue, &alpha);
 	}
 
 	export inline auto unmap_rgb_f(const ALLEGRO::COLOR& color, float& red, float& green, float& blue) -> void
 	{
-		al_unmap_rgb_f(static_cast<ALLEGRO::INTERNAL::COLOR_DATA>(color), &red, &green, &blue);
+		al_unmap_rgb_f(color, &red, &green, &blue);
 	}
 
 	export inline auto unmap_rgba(const ALLEGRO::COLOR& color, uint8_t& red, uint8_t& green, uint8_t& blue, uint8_t& alpha) -> void
 	{
-		al_unmap_rgba(static_cast<ALLEGRO::INTERNAL::COLOR_DATA>(color), &red, &green, &blue, &alpha);
+		al_unmap_rgba(color, &red, &green, &blue, &alpha);
 	}
 
 	export inline auto unmap_rgb(const ALLEGRO::COLOR& color, uint8_t& red, uint8_t& green, uint8_t& blue) -> void
 	{
-		al_unmap_rgb(static_cast<ALLEGRO::INTERNAL::COLOR_DATA>(color), &red, &green, &blue);
+		al_unmap_rgb(color, &red, &green, &blue);
 	}
+
+	export inline auto equal_colors(const ALLEGRO::COLOR& color1, const ALLEGRO::COLOR& color2)
+	{
+		if (std::fabs(color1.r - color2.r) > std::numeric_limits<float>::epsilon() ||
+			std::fabs(color1.g - color2.g) > std::numeric_limits<float>::epsilon() ||
+			std::fabs(color1.b - color2.b) > std::numeric_limits<float>::epsilon() ||
+			std::fabs(color1.a - color2.a) > std::numeric_limits<float>::epsilon())
+		{
+			return false;
+		}
+
+		return true;
+	}
+}
+
+export auto operator == (const ALLEGRO::COLOR& color1, const ALLEGRO::COLOR& color2) -> bool
+{
+	return al::equal_colors(color1, color2);
 }

@@ -6,6 +6,7 @@ import :base;
 import :events;
 import :display;
 import :memory;
+import :vector_2d;
 
 namespace ALLEGRO
 {
@@ -49,9 +50,9 @@ namespace al
 		return al_get_mouse_num_axes();
 	}
 
-	export inline auto set_mouse_xy(const ALLEGRO::DISPLAY& display, const ALLEGRO::POINT<int32_t>& point) -> bool
+	export inline auto set_mouse_xy(const ALLEGRO::DISPLAY& display, const ALLEGRO::VECTOR_2D<int32_t>& point) -> bool
 	{
-		return al_set_mouse_xy(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), point.x, point.y);
+		return al_set_mouse_xy(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), point.get_x(), point.get_y());
 	}
 
 	export inline auto set_mouse_z(int32_t z) -> bool
@@ -89,9 +90,13 @@ namespace al
 		return al_can_get_mouse_cursor_position();
 	}
 
-	export inline auto get_mouse_cursor_position(ALLEGRO::POINT<int32_t>& point) -> bool
+	export inline auto get_mouse_cursor_position(ALLEGRO::VECTOR_2D<int32_t>& point) -> bool
 	{
-		al_get_mouse_cursor_position(&point.x, &point.y);
+		std::array<int32_t, 2> point_array{};
+
+		al_get_mouse_cursor_position(&point_array[0], &point_array[1]);
+
+		point = point_array;
 	}
 
 	export inline auto grab_mouse(const ALLEGRO::DISPLAY& display) -> bool

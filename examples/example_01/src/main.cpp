@@ -4,10 +4,15 @@ import std;
 
 namespace APP
 {
-	constexpr int32_t SCREEN_W = 800;
-	constexpr int32_t SCREEN_H = 600;
-	constexpr double TIMING = 60.0;
-	const char* const APPNAME = "Module Example";
+	const char* const TITLE{ "Module Example" };
+	constexpr ALLEGRO::VECTOR_2D<int32_t> SCREEN_SIZE{ 800, 600 };
+	constexpr ALLEGRO::VECTOR_2D<float> SCREEN_CENTER{ 400.0f, 300.0f };
+	constexpr double TIMING{ 60.0 };
+	constexpr ALLEGRO::COLOR EIGENGRAU{ 0.0862745098f, 0.0862745098f, 0.0862745098f, 1.0f };
+	constexpr ALLEGRO::COLOR CIRCLE_COLOR_INSIDE{ 1.0f, 1.0f, 0.0f, 1.0f };
+	constexpr ALLEGRO::COLOR CIRCLE_COLOR_BORDER{ 1.0f, 0.5f, 0.0f, 1.0f };
+	constexpr float CIRCLE_RADIUS{ 200.0f };
+	constexpr float CIRCLE_THICKNESS{ 15.0f };
 }
 
 class app_t
@@ -141,14 +146,14 @@ int32_t app_t::init(const std::vector<std::string>& argument_array)
 		return -1;
 	}
 
-	al::set_new_window_title(APP::APPNAME);
+	al::set_new_window_title(APP::TITLE);
 	al::set_new_display_flags(ALLEGRO::DISPLAY_FLAG_RESIZABLE | ALLEGRO::DISPLAY_FLAG_WINDOWED);
-	this->m_display = al::create_display({ APP::SCREEN_W, APP::SCREEN_H });
+	this->m_display = al::create_display(APP::SCREEN_SIZE);
 	if (!this->m_display)
 	{
 		return -1;
 	}
-	al::clear_to_color(al::map_rgb(18, 18, 21));
+	al::clear_to_color(APP::EIGENGRAU);
 	al::flip_display();
 
 	this->m_timer = al::create_timer(APP::TIMING);
@@ -220,10 +225,10 @@ void app_t::loop()
 
 void app_t::draw()
 {
-	al::clear_to_color(al::map_rgb(18, 18, 21));
+	al::clear_to_color(APP::EIGENGRAU);
 
-	al::draw_filled_circle({ static_cast<float>(APP::SCREEN_W) * 0.5f, static_cast<float>(APP::SCREEN_H) * 0.5f }, 200.0f, al::map_rgb(255, 255, 0));
-	al::draw_circle({ static_cast<float>(APP::SCREEN_W) * 0.5f, static_cast<float>(APP::SCREEN_H) * 0.5f }, 200.0f, al::map_rgb(255, 128, 0), 4.0f);
+	al::draw_filled_circle(APP::SCREEN_CENTER, APP::CIRCLE_RADIUS, APP::CIRCLE_COLOR_INSIDE);
+	al::draw_circle(APP::SCREEN_CENTER, APP::CIRCLE_RADIUS - (APP::CIRCLE_THICKNESS * 0.5f), APP::CIRCLE_COLOR_BORDER, APP::CIRCLE_THICKNESS);
 
 	al::flip_display();
 }
