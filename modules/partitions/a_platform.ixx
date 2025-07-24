@@ -18,7 +18,7 @@ module;
 
 export module allegro:platform;
 
-import <string>;
+import std;
 import :base;
 import :bitmap;
 import :display;

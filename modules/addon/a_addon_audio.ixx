@@ -1,8 +1,6 @@
 export module allegro.audio_addon;
 
-import <string>;
-import <cstdint>;
-import <memory>;
+import std;
 import allegro;
 import <allegro5/allegro_audio.h>;
 

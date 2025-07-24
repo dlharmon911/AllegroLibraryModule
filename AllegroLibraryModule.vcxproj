@@ -192,7 +192,6 @@
     <ClCompile Include="modules\partitions\a_rectangle.ixx" />
     <ClCompile Include="modules\partitions\a_render_state.ixx" />
     <ClCompile Include="modules\partitions\a_shader.ixx" />
-    <ClCompile Include="modules\partitions\a_shared.ixx" />
     <ClCompile Include="modules\partitions\a_system.ixx" />
     <ClCompile Include="modules\partitions\a_threads.ixx" />
     <ClCompile Include="modules\partitions\a_timer.ixx" />

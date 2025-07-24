@@ -1,25 +1,37 @@
 export module allegro:error;
 
+import std;
 import <cassert>;
-import <memory>;
 import <allegro5/error.h>;
 import :base;
 
 namespace ALLEGRO
 {
-	export template<typename T> inline auto ASSERT(const std::shared_ptr<T>& x) -> void
+	inline auto do_assert(bool x) -> void
 	{
-		assert((bool)x);
-	}
-
-	export inline auto ASSERT(const void* x) -> void
-	{
-		assert(x);
+#ifdef _MSC_VER
+		__assume(x);
+#else
+		if (!x)
+		{
+			__builtin_unreachable();
+		}
+#endif
 	}
 
 	export inline auto ASSERT(bool x) -> void
 	{
-		assert(x);
+		do_assert(x);
+	}
+
+	export template<typename T> inline auto ASSERT(const std::shared_ptr<T>& x) -> void
+	{
+		do_assert(static_cast<bool>(x));
+	}
+
+	export inline auto ASSERT(const void* x) -> void
+	{
+		do_assert(static_cast<bool>(x));
 	}
 }
 

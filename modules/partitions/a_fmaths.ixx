@@ -1,5 +1,6 @@
 export module allegro:fmaths;
 
+import std;
 import <allegro5/fmaths.h>;
 import :fixed;
 

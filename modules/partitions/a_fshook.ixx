@@ -1,15 +1,13 @@
 export module allegro:fshook;
 
-import <memory>;
-import <string>;
+import std;
 import <allegro5/fshook.h>;
-
-export using ::off_t;
-
 import :base;
 import :file;
 import :path;
 import :memory;
+
+export using ::off_t;
 
 namespace ALLEGRO
 {

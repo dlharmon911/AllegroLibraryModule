@@ -44,16 +44,6 @@ namespace ALLEGRO
 			}
 		}
 
-		~RECTANGLE() = default;
-
-		auto is_inside(const ALLEGRO::VECTOR_2D<T>& point) -> bool
-		{
-			return (point.get_x() >= this->position.get_x() && 
-				point.get_x() < (this->position.get_x() + this->size.get_x()) &&
-				point.get_y() >= this->position.get_y() && 
-				point.get_y() < (this->position.get_y() + this->size.get_y()));
-		}
-
 		template <typename Q> constexpr RECTANGLE(const Q _x, const Q _y, const Q _width, const Q _height)
 		{
 			this->m_position = VECTOR_2D<T>(_x, _y);
@@ -84,6 +74,8 @@ namespace ALLEGRO
 			}
 		}
 
+		virtual ~RECTANGLE() {}
+
 		auto operator =(const std::array<T, ALLEGRO::INTERNAL::RECTANGLE_ARRAY_SIZE>& array) -> RECTANGLE&
 		{
 			for (size_t i = 0; i < this->m_array.size(); ++i)
@@ -104,44 +96,98 @@ namespace ALLEGRO
 			return *this;
 		}
 
-		auto set_position(const VECTOR_2D<T>& position) -> void
+		auto get_indexed(size_t index) const -> const T&
 		{
-			this->m_position = position;
+			ALLEGRO::ASSERT(index < this->m_array.size());
+			return this->m_array[index];
 		}
 
-		auto set_position(T x, T y) -> void
+		auto get_indexed(size_t index) -> T&
 		{
-			this->m_position = VECTOR_2D(x, y);
+			ALLEGRO::ASSERT(index < this->m_array.size());
+			return this->m_array[index];
 		}
 
-		auto set_size(const VECTOR_2D<T>& size) -> void
+		auto operator[](size_t index) const -> const T&
 		{
-			this->m_size = size;
+			ALLEGRO::ASSERT(index < this->m_array.size());
+			return this->m_array[index];
 		}
 
-		auto set_size(T width, T height) -> void
+		auto operator[](size_t index)->T&
 		{
-			this->m_position = VECTOR_2D(width, height);
+			ALLEGRO::ASSERT(index < this->m_array.size());
+			return this->m_array[index];
 		}
 
-		auto get_x() const -> T
+		auto get_x() const -> const T&
 		{
 			return this->m_position.get_x();
 		}
 
-		auto get_y() const -> T
+		auto get_x() -> T&
+		{
+			return this->m_position.get_x();
+		}
+
+		auto get_y() const -> const T&
 		{
 			return this->m_position.get_y();
 		}
 
-		auto get_width() const -> T
+		auto get_y() -> T&
+		{
+			return this->m_position.get_y();
+		}
+
+		auto get_width() const -> const T&
 		{
 			return this->m_size.get_x();
 		}
 
-		auto get_height() const -> T
+		auto get_width() -> T&
+		{
+			return this->m_size.get_x();
+		}
+
+		auto get_height() const -> const T&
 		{
 			return this->m_size.get_y();
+		}
+
+		auto get_height() -> T&
+		{
+			return this->m_size.get_y();
+		}
+
+		auto get_position() const -> const VECTOR_2D<T>&
+		{
+			return this->m_position;
+		}
+
+		auto get_position() -> VECTOR_2D<T>&
+		{
+			return this->m_position;
+		}
+
+		auto get_size() const -> const VECTOR_2D<T>&
+		{
+			return this->m_size;
+		}
+
+		auto get_size() -> VECTOR_2D<T>&
+		{
+			return this->m_size;
+		}
+
+		auto get_array() const -> const std::array<T, ALLEGRO::INTERNAL::RECTANGLE_ARRAY_SIZE>&
+		{
+			return this->m_array;
+		}
+
+		auto get_array() -> std::array<T, ALLEGRO::INTERNAL::RECTANGLE_ARRAY_SIZE>&
+		{
+			return this->m_array;
 		}
 
 		auto set_x(T x) -> void
@@ -164,19 +210,24 @@ namespace ALLEGRO
 			this->m_size.set_y(height);
 		}
 
-		auto get_position() const -> const VECTOR_2D<T>&
+		auto set_position(const VECTOR_2D<T>& position) -> void
 		{
-			return this->m_position;
+			this->m_position = position;
 		}
 
-		auto get_size() const -> const VECTOR_2D<T>&
+		auto set_position(T x, T y) -> void
 		{
-			return this->m_size;
+			this->m_position = VECTOR_2D(x, y);
 		}
 
-		auto get_array() const -> const std::array<T, ALLEGRO::INTERNAL::RECTANGLE_ARRAY_SIZE>&
+		auto set_size(const VECTOR_2D<T>& size) -> void
 		{
-			return this->m_array;
+			this->m_size = size;
+		}
+
+		auto set_size(T width, T height) -> void
+		{
+			this->m_position = VECTOR_2D(width, height);
 		}
 
 	private:
@@ -190,4 +241,15 @@ namespace ALLEGRO
 			std::array<T, ALLEGRO::INTERNAL::RECTANGLE_ARRAY_SIZE> m_array{};
 		};
 	};
+}
+
+namespace al
+{
+	export template <typename T> auto is_inside(const ALLEGRO::RECTANGLE<T>& rectangle, const ALLEGRO::VECTOR_2D<T>& point) -> bool
+	{
+		return (point.get_x() >= rectangle.get_x() &&
+			point.get_x() < (rectangle.get_x() + rectangle.get_width()) &&
+			point.get_y() >= rectangle.get_y() &&
+			point.get_y() < (rectangle.get_y() + rectangle.get_height()));
+	}
 }

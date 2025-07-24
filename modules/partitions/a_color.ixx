@@ -1,7 +1,6 @@
 export module allegro:color;
 
-import <cmath>;
-import <limits>;
+import std;
 import <allegro5/color.h>;
 import :base;
 import :math;
@@ -71,19 +70,24 @@ namespace al
 		return ::al_get_pixel_block_height(format);
 	}
 
-	export inline auto map_rgba_f(float red, float green, float blue, float alpha, bool premultiply_alpha = false) -> ALLEGRO::COLOR
+	export inline constexpr auto map_rgba_f(float red, float green, float blue, float alpha, bool premultiply_alpha = false) -> ALLEGRO::COLOR
 	{
+		ALLEGRO::COLOR color{ red, green, blue, 1.0f };
+
 		if (premultiply_alpha)
 		{
-			return static_cast<ALLEGRO::COLOR>(al_premul_rgba_f(red, green, blue, alpha));
+			color.r *= alpha;
+			color.g *= alpha;
+			color.b *= alpha;
 		}
 
-		return static_cast<ALLEGRO::COLOR>(al_map_rgba_f(red, green, blue, alpha));
+		return color;
 	}
 
-	export inline auto map_rgb_f(float red, float green, float blue) -> ALLEGRO::COLOR
+	export inline constexpr auto map_rgb_f(float red, float green, float blue) -> ALLEGRO::COLOR
 	{
-		return static_cast<ALLEGRO::COLOR>(al_map_rgb_f(red, green, blue));
+		ALLEGRO::COLOR color{red, green, blue, 1.0f};
+		return color;
 	}
 
 	export inline auto map_rgba(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha, bool premultiply_alpha = false) -> ALLEGRO::COLOR

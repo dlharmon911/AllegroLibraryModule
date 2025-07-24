@@ -1,9 +1,7 @@
 export module allegro:display;
 
-import <string>;
+import std;
 import <allegro5/display.h>;
-import <vector>;
-import <memory>;
 import :base;
 import :color;
 import :bitmap;
@@ -191,6 +189,11 @@ namespace al
 		return ALLEGRO::DISPLAY(::al_create_display(size.get_x(), size.get_y()), internal::destroy_display);
 	}
 
+	export inline auto create_display(int32_t width, int32_t height) -> ALLEGRO::DISPLAY
+	{
+		return ALLEGRO::DISPLAY(::al_create_display(width, height), internal::destroy_display);
+	}
+
 	export inline auto get_current_display() -> ALLEGRO::DISPLAY
 	{
 		return ALLEGRO::DISPLAY(al_get_current_display(), al::internal::deleter_empty<ALLEGRO::INTERNAL::DISPLAY_DATA>);
@@ -292,9 +295,19 @@ namespace al
 		return ALLEGRO::VECTOR_2D<int32_t>(point[0], point[1]);
 	}
 
+	export inline auto get_new_window_position(int32_t& x, int32_t&y) -> void
+	{
+		al_get_new_window_position(&x, &y);
+	}
+
 	export inline auto set_window_position(ALLEGRO::DISPLAY& display, const ALLEGRO::VECTOR_2D<int32_t>& point)
 	{
 		al_set_window_position(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), point.get_x(), point.get_y());
+	}
+
+	export inline auto set_window_position(ALLEGRO::DISPLAY& display, int32_t x, int32_t y)
+	{
+		al_set_window_position(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), x, y);
 	}
 
 	export inline auto get_window_position(ALLEGRO::DISPLAY& display) -> ALLEGRO::VECTOR_2D<int32_t>
@@ -303,8 +316,12 @@ namespace al
 
 		al_get_window_position(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), &point[0], &point[1]);
 
-
 		return ALLEGRO::VECTOR_2D<int32_t>(point[0], point[1]);
+	}
+
+	export inline auto get_window_position(ALLEGRO::DISPLAY& display, int32_t& x, int32_t& y) -> void
+	{
+		al_get_window_position(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), &x, &y);
 	}
 
 #if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_SRC)
@@ -319,6 +336,11 @@ namespace al
 		return al_set_window_constraints(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), min.get_x(), min.get_y(), max.get_x(), max.get_y());
 	}
 
+	export inline auto set_window_constraints(const ALLEGRO::DISPLAY& display, int32_t min_x, int32_t min_y, int32_t max_x, int32_t max_y) -> bool
+	{
+		return al_set_window_constraints(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), min_x, min_y, max_x, max_y);
+	}
+
 	export inline auto get_window_constraints(const ALLEGRO::DISPLAY& display, ALLEGRO::VECTOR_2D<int32_t>& min, ALLEGRO::VECTOR_2D<int32_t>& max) -> bool
 	{
 		std::array<int32_t, 2> min_point{};
@@ -328,6 +350,11 @@ namespace al
 
 		min = ALLEGRO::VECTOR_2D<int32_t>(min_point[0], min_point[1]);
 		max = ALLEGRO::VECTOR_2D<int32_t>(max_point[0], max_point[1]);
+	}
+
+	export inline auto get_window_constraints(const ALLEGRO::DISPLAY& display, int32_t& min_x, int32_t& min_y, int32_t& max_x, int32_t& max_y) -> bool
+	{
+		return al_get_window_constraints(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), &min_x, &min_y, &max_x, &max_y);
 	}
 
 	export inline auto apply_window_constraints(const ALLEGRO::DISPLAY& display, bool onoff)

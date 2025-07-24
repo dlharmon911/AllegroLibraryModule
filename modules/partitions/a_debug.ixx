@@ -1,12 +1,9 @@
 export module allegro:debug;
 
+import std;
 import <allegro5/debug.h>;
-import <cassert>;
-import <map>;
-import <string>;
-import <memory>;
 import <cstdarg>;
-
+import <cstdio>;
 import :base;
 
 namespace al
@@ -16,23 +13,32 @@ namespace al
 		return _al_trace_prefix(channel, level, file, line, function);
 	}
 
-	export inline auto _trace_suffix(const char* msg, ...) -> void
+	export inline auto _trace_suffix(const char* format, va_list vargs) -> void
 	{
-		va_list args{};
-		int32_t len{ -1 };
-		char* buffer{ nullptr };
+		int32_t length{ 0 };
+		std::shared_ptr<char[]> buffer{};
 
-		va_start(args, msg);
-		len = _vscprintf(msg, args) + 1;
-
-		buffer = (char*)malloc(len * sizeof(char));
+		length = 1 + _vscprintf(format, vargs);
+		buffer = std::make_shared<char[]>(length);
 
 		if (buffer)
 		{
-			vsprintf_s(buffer, len, msg, args);
-			_al_trace_suffix("%s", msg);
-			free(buffer);
+			vsprintf_s(buffer.get(), length, format, vargs);
+
+			_al_trace_suffix("%s", buffer);
+
+			buffer.reset();
 		}
+	}
+
+	export inline auto _trace_suffix_args(const char* format, ...) -> void
+	{
+		va_list args{};
+
+		va_start(args, format);
+
+		_trace_suffix(format, args);
+
 		va_end(args);
 	}
 

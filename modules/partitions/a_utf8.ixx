@@ -2,10 +2,9 @@ module;
 
 export module allegro:utf8;
 
-import <map>;
-import <string>;
-import <memory>;
+import std;
 import <cstdarg>;
+import <cstdio>;
 import <allegro5/utf8.h>;
 import :base;
 import :color;

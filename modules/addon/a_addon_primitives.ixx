@@ -1,7 +1,6 @@
 export module allegro.primitives_addon;
 
-import <memory>;
-import <array>;
+import std;
 import allegro;
 import <allegro5/allegro_primitives.h>;
 
@@ -131,22 +130,22 @@ namespace al
 
 	export inline auto draw_prim(const void* vtxs, const ALLEGRO::VERTEX_DECL& decl, ALLEGRO::BITMAP& texture, int32_t start, int32_t end, int32_t type) -> int32_t
 	{
-		return al_draw_prim(vtxs, static_cast<ALLEGRO::INTERNAL::VERTEX_DECL_DATA_PTR>(decl.get()), (ALLEGRO::INTERNAL::BITMAP_DATA_PTR)texture.get(), start, end, type);
+		return al_draw_prim(vtxs, static_cast<ALLEGRO::INTERNAL::VERTEX_DECL_DATA_PTR>(decl.get()), static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(texture.get()), start, end, type);
 	}
 
 	export inline auto draw_indexed_prim(const void* vtxs, const ALLEGRO::VERTEX_DECL& decl, ALLEGRO::BITMAP& texture, const int32_t* indices, int32_t num_vtx, int32_t type) -> int32_t
 	{
-		return al_draw_indexed_prim(vtxs, static_cast<ALLEGRO::INTERNAL::VERTEX_DECL_DATA_PTR>(decl.get()), (ALLEGRO::INTERNAL::BITMAP_DATA_PTR)texture.get(), indices, num_vtx, type);
+		return al_draw_indexed_prim(vtxs, static_cast<ALLEGRO::INTERNAL::VERTEX_DECL_DATA_PTR>(decl.get()), static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(texture.get()), indices, num_vtx, type);
 	}
 
-	export inline auto draw_vertex_buffer(ALLEGRO::VERTEX_BUFFER& vertex_buffer, ALLEGRO::BITMAP& texture, int32_t start, int32_t end, int32_t type) -> int32_t
+	export inline auto draw_vertex_buffer(const ALLEGRO::VERTEX_BUFFER& vertex_buffer, const ALLEGRO::BITMAP& texture, size_t start, size_t end, int32_t type) -> int32_t
 	{
-		return al_draw_vertex_buffer(static_cast<ALLEGRO::INTERNAL::VERTEX_BUFFER_DATA_PTR>(vertex_buffer.get()), (ALLEGRO::INTERNAL::BITMAP_DATA_PTR)texture.get(), start, end, type);
+		return al_draw_vertex_buffer(static_cast<ALLEGRO::INTERNAL::VERTEX_BUFFER_DATA_PTR>(vertex_buffer.get()), static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(texture.get()), static_cast<int32_t>(start), static_cast<int32_t>(end), type);
 	}
 
-	export inline auto draw_indexed_buffer(ALLEGRO::VERTEX_BUFFER& vertex_buffer, ALLEGRO::BITMAP& texture, ALLEGRO::INDEX_BUFFER& index_buffer, int32_t start, int32_t end, int32_t type)
+	export inline auto draw_indexed_buffer(const ALLEGRO::VERTEX_BUFFER& vertex_buffer, const ALLEGRO::BITMAP& texture, const ALLEGRO::INDEX_BUFFER& index_buffer, size_t start, size_t end, int32_t type)
 	{
-		return al_draw_indexed_buffer(static_cast<ALLEGRO::INTERNAL::VERTEX_BUFFER_DATA_PTR>(vertex_buffer.get()), (ALLEGRO::INTERNAL::BITMAP_DATA_PTR)texture.get(), static_cast<ALLEGRO::INTERNAL::INDEX_BUFFER_DATA_PTR>(index_buffer.get()), start, end, type);
+		return al_draw_indexed_buffer(static_cast<ALLEGRO::INTERNAL::VERTEX_BUFFER_DATA_PTR>(vertex_buffer.get()), static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(texture.get()), static_cast<ALLEGRO::INTERNAL::INDEX_BUFFER_DATA_PTR>(index_buffer.get()), static_cast<int32_t>(start), static_cast<int32_t>(end), type);
 	}
 
 	export inline auto create_vertex_decl(const ALLEGRO::INTERNAL::VERTEX_ELEMENT_PTR elements, int32_t stride) -> ALLEGRO::VERTEX_DECL
@@ -154,9 +153,11 @@ namespace al
 		return ALLEGRO::VERTEX_DECL(al_create_vertex_decl(elements, stride), internal::destroy_vertex_decl);
 	}
 
-	export inline auto create_vertex_buffer(ALLEGRO::VERTEX_DECL& decl, const void* initial_data, int32_t num_vertices, int32_t flags) -> ALLEGRO::VERTEX_BUFFER
+	export inline auto create_vertex_buffer(const ALLEGRO::VERTEX_DECL& decl, const void* initial_data, size_t num_vertices, int32_t flags) -> ALLEGRO::VERTEX_BUFFER
 	{
-		return ALLEGRO::VERTEX_BUFFER(al_create_vertex_buffer(static_cast<ALLEGRO::INTERNAL::VERTEX_DECL_DATA_PTR>(decl.get()), initial_data, num_vertices, flags), internal::destroy_vertex_buffer);
+		ALLEGRO::INTERNAL::VERTEX_BUFFER_DATA_PTR data{ al_create_vertex_buffer(static_cast<ALLEGRO::INTERNAL::VERTEX_DECL_DATA_PTR>(decl.get()), initial_data, static_cast<int32_t>(num_vertices), flags) };
+
+		return ALLEGRO::VERTEX_BUFFER(data, internal::destroy_vertex_buffer);
 	}
 
 	export inline auto lock_vertex_buffer(ALLEGRO::VERTEX_BUFFER& vertex_buffer, int32_t offset, int32_t length, int32_t flags) -> void*
@@ -174,9 +175,11 @@ namespace al
 		return al_get_vertex_buffer_size(static_cast<ALLEGRO::INTERNAL::VERTEX_BUFFER_DATA_PTR>(vertex_buffer.get()));
 	}
 
-	export inline auto create_index_buffer(int32_t index_size, const void* initial_data, int32_t num_indices, int32_t flags) -> ALLEGRO::INDEX_BUFFER
+	export inline auto create_index_buffer(size_t index_size, const void* initial_data, size_t num_indices, int32_t flags) -> ALLEGRO::INDEX_BUFFER
 	{
-		return ALLEGRO::INDEX_BUFFER(al_create_index_buffer(index_size, initial_data, num_indices, flags), internal::destroy_index_buffer);
+		ALLEGRO::INTERNAL::INDEX_BUFFER_DATA_PTR data{ al_create_index_buffer(static_cast<int32_t>(index_size), initial_data, static_cast<int32_t>(num_indices), flags) };
+
+		return ALLEGRO::INDEX_BUFFER(data, internal::destroy_index_buffer);
 	}
 
 	export inline auto lock_index_buffer(ALLEGRO::INDEX_BUFFER& index_buffer, int32_t offset, int32_t length, int32_t flags) -> void*
@@ -193,6 +196,7 @@ namespace al
 	{
 		return al_get_index_buffer_size(static_cast<ALLEGRO::INTERNAL::INDEX_BUFFER_DATA_PTR>(index_buffer.get()));
 	}
+
 	export inline auto triangulate_polygon(const float* vertices, size_t vertex_stride, const int32_t* vertex_counts, void (*emit_triangle)(int32_t, int32_t, int32_t, void*), void* userdata) -> bool
 	{
 		return al_triangulate_polygon(vertices, vertex_stride, vertex_counts, emit_triangle, userdata);
@@ -213,6 +217,11 @@ namespace al
 		al_draw_line(pos1.get_x(), pos1.get_y(), pos2.get_x(), pos2.get_y(), color, thickness);
 	}
 
+	export inline auto draw_line(float pos1_x, float pos1_y, float pos2_x, float pos2_y, const ALLEGRO::COLOR& color, float thickness) -> void
+	{
+		al_draw_line(pos1_x, pos1_y, pos2_x, pos2_y, color, thickness);
+	}
+
 	export inline auto draw_triangle(const ALLEGRO::VECTOR_2D<float>& pos1, const ALLEGRO::VECTOR_2D<float>& pos2, const ALLEGRO::VECTOR_2D<float>& pos3, const ALLEGRO::COLOR& color, float thickness) -> void
 	{
 		al_draw_triangle(pos1.get_x(), pos1.get_y(), pos2.get_x(), pos2.get_y(), pos3.get_x(), pos3.get_y(), color, thickness);
@@ -223,9 +232,19 @@ namespace al
 		al_draw_rectangle(pos1.get_x(), pos1.get_y(), pos2.get_x(), pos2.get_y(), color, thickness);
 	}
 
+	export inline auto draw_rectangle(float pos1_x, float pos1_y, float pos2_x, float pos2_y, const ALLEGRO::COLOR& color, float thickness) -> void
+	{
+		al_draw_rectangle(pos1_x, pos1_y, pos2_x, pos2_y, color, thickness);
+	}
+
 	export inline auto draw_rounded_rectangle(const ALLEGRO::VECTOR_2D<float>& pos1, const ALLEGRO::VECTOR_2D<float>& pos2, const ALLEGRO::VECTOR_2D<float>& radii, const ALLEGRO::COLOR& color, float thickness) -> void
 	{
 		al_draw_rounded_rectangle(pos1.get_x(), pos1.get_y(), pos2.get_x(), pos2.get_y(), radii.get_x(), radii.get_y(), color, thickness);
+	}
+
+	export inline auto draw_rounded_rectangle(float pos1_x, float pos1_y, float pos2_x, float pos2_y, float radii_x, float radii_y, const ALLEGRO::COLOR& color, float thickness) -> void
+	{
+		al_draw_rounded_rectangle(pos1_x, pos1_y, pos2_x, pos2_y, radii_x, radii_y, color, thickness);
 	}
 
 	export inline auto calculate_arc(float* dest, int32_t stride, const ALLEGRO::VECTOR_2D<float>& center, const ALLEGRO::VECTOR_2D<float>& radii, float start_theta, float delta_theta, float thickness, int32_t num_points) -> void
@@ -233,9 +252,19 @@ namespace al
 		al_calculate_arc(dest, stride, center.get_x(), center.get_y(), radii.get_x(), radii.get_y(), start_theta, delta_theta, thickness, num_points);
 	}
 
+	export inline auto calculate_arc(float* dest, int32_t stride, float center_x, float center_y, float radii_x, float radii_y, float start_theta, float delta_theta, float thickness, int32_t num_points) -> void
+	{
+		al_calculate_arc(dest, stride, center_x, center_y, radii_x, radii_y, start_theta, delta_theta, thickness, num_points);
+	}
+
 	export inline auto draw_circle(const ALLEGRO::VECTOR_2D<float>& center, float r, const ALLEGRO::COLOR& color, float thickness) -> void
 	{
 		al_draw_circle(center.get_x(), center.get_y(), r, color, thickness);
+	}
+
+	export inline auto draw_circle(float center_x, float center_y, float r, const ALLEGRO::COLOR& color, float thickness) -> void
+	{
+		al_draw_circle(center_x, center_y, r, color, thickness);
 	}
 
 	export inline auto draw_ellipse(const ALLEGRO::VECTOR_2D<float>& center, const ALLEGRO::VECTOR_2D<float>& radii, const ALLEGRO::COLOR& color, float thickness) -> void
@@ -243,9 +272,19 @@ namespace al
 		al_draw_ellipse(center.get_x(), center.get_y(), radii.get_x(), radii.get_y(), color, thickness);
 	}
 
+	export inline auto draw_ellipse(float center_x, float center_y, float radii_x, float radii_y, const ALLEGRO::COLOR& color, float thickness) -> void
+	{
+		al_draw_ellipse(center_x, center_y, radii_x, radii_y, color, thickness);
+	}
+
 	export inline auto draw_arc(const ALLEGRO::VECTOR_2D<float>& center, float r, float start_theta, float delta_theta, const ALLEGRO::COLOR& color, float thickness) -> void
 	{
 		al_draw_arc(center.get_x(), center.get_y(), r, start_theta, delta_theta, color, thickness);
+	}
+
+	export inline auto draw_arc(float center_x, float center_y, float r, float start_theta, float delta_theta, const ALLEGRO::COLOR& color, float thickness) -> void
+	{
+		al_draw_arc(center_x, center_y, r, start_theta, delta_theta, color, thickness);
 	}
 
 	export inline auto draw_elliptical_arc(const ALLEGRO::VECTOR_2D<float>& center, const ALLEGRO::VECTOR_2D<float>& radii, float start_theta, float delta_theta, const ALLEGRO::COLOR& color, float thickness) -> void
@@ -253,9 +292,19 @@ namespace al
 		al_draw_elliptical_arc(center.get_x(), center.get_y(), radii.get_x(), radii.get_y(), start_theta, delta_theta, color, thickness);
 	}
 
+	export inline auto draw_elliptical_arc(float center_x, float center_y, float radii_x, float radii_y, float start_theta, float delta_theta, const ALLEGRO::COLOR& color, float thickness) -> void
+	{
+		al_draw_elliptical_arc(center_x, center_y, radii_x, radii_y, start_theta, delta_theta, color, thickness);
+	}
+
 	export inline auto draw_pieslice(const ALLEGRO::VECTOR_2D<float>& center, float r, float start_theta, float delta_theta, const ALLEGRO::COLOR& color, float thickness) -> void
 	{
 		al_draw_pieslice(center.get_x(), center.get_y(), r, start_theta, delta_theta, color, thickness);
+	}
+
+	export inline auto draw_pieslice(float center_x, float center_y, float r, float start_theta, float delta_theta, const ALLEGRO::COLOR& color, float thickness) -> void
+	{
+		al_draw_pieslice(center_x, center_y, r, start_theta, delta_theta, color, thickness);
 	}
 
 	export inline auto calculate_spline(float* dest, int32_t stride, const std::array<float, 8>& points, float thickness, int32_t num_segments) -> void
@@ -283,9 +332,19 @@ namespace al
 		al_draw_filled_triangle(pos1.get_x(), pos1.get_y(), pos2.get_x(), pos2.get_y(), pos3.get_x(), pos3.get_y(), color);
 	}
 
+	export inline auto draw_filled_triangle(float pos1_x, float pos1_y, float pos2_x, float pos2_y, float pos3_x, float pos3_y, ALLEGRO::COLOR color) -> void
+	{
+		al_draw_filled_triangle(pos1_x, pos1_y, pos2_x, pos2_y, pos3_x, pos3_y, color);
+	}
+
 	export inline auto draw_filled_rectangle(const ALLEGRO::VECTOR_2D<float>& pos1, const ALLEGRO::VECTOR_2D<float>& pos2, ALLEGRO::COLOR color) -> void
 	{
 		al_draw_filled_rectangle(pos1.get_x(), pos1.get_y(), pos2.get_x(), pos2.get_y(), color);
+	}
+
+	export inline auto draw_filled_rectangle(float pos1_x, float pos1_y, float pos2_x, float pos2_y, ALLEGRO::COLOR color) -> void
+	{
+		al_draw_filled_rectangle(pos1_x, pos1_y, pos2_x, pos2_y, color);
 	}
 
 	export inline auto draw_filled_ellipse(const ALLEGRO::VECTOR_2D<float>& center, const ALLEGRO::VECTOR_2D<float>& radii, ALLEGRO::COLOR color) -> void
@@ -293,9 +352,19 @@ namespace al
 		al_draw_filled_ellipse(center.get_x(), center.get_y(), radii.get_x(), radii.get_y(), color);
 	}
 
+	export inline auto draw_filled_ellipse(float center_x, float center_y, float radii_x, float radii_y, ALLEGRO::COLOR color) -> void
+	{
+		al_draw_filled_ellipse(center_x, center_y, radii_x, radii_y, color);
+	}
+
 	export inline auto draw_filled_circle(const ALLEGRO::VECTOR_2D<float>& center, float r, ALLEGRO::COLOR color) -> void
 	{
 		al_draw_filled_circle(center.get_x(), center.get_y(), r, color);
+	}
+
+	export inline auto draw_filled_circle(float center_x, float center_y, float r, ALLEGRO::COLOR color) -> void
+	{
+		al_draw_filled_circle(center_x, center_y, r, color);
 	}
 
 	export inline auto draw_filled_pieslice(const ALLEGRO::VECTOR_2D<float>& center, float r, float start_theta, float delta_theta, ALLEGRO::COLOR color) -> void
@@ -303,24 +372,34 @@ namespace al
 		al_draw_filled_pieslice(center.get_x(), center.get_y(), r, start_theta, delta_theta, color);
 	}
 
+	export inline auto draw_filled_pieslice(float center_x, float center_y, float r, float start_theta, float delta_theta, ALLEGRO::COLOR color) -> void
+	{
+		al_draw_filled_pieslice(center_x, center_y, r, start_theta, delta_theta, color);
+	}
+
 	export inline auto draw_filled_rounded_rectangle(const ALLEGRO::VECTOR_2D<float>& pos1, const ALLEGRO::VECTOR_2D<float>& pos2, const ALLEGRO::VECTOR_2D<float>& radii, ALLEGRO::COLOR color) -> void
 	{
 		al_draw_filled_rounded_rectangle(pos1.get_x(), pos1.get_y(), pos2.get_x(), pos2.get_y(), radii.get_x(), radii.get_y(), color);
 	}
 
-	export inline auto draw_polyline(const float* vertices, int32_t vertex_stride, int32_t vertex_count, int32_t join_style, int32_t cap_style, const ALLEGRO::COLOR& color, float thickness, float miter_limit) -> void
+	export inline auto draw_filled_rounded_rectangle(float pos1_x, float pos1_y, float pos2_x, float pos2_y, float radii_x, float radii_y, ALLEGRO::COLOR color) -> void
 	{
-		al_draw_polyline(vertices, vertex_stride, vertex_count, join_style, cap_style, color, thickness, miter_limit);
+		al_draw_filled_rounded_rectangle(pos1_x, pos1_y, pos2_x, pos2_y, radii_x, radii_y, color);
 	}
 
-	export inline auto draw_polygon(const float* vertices, int32_t vertex_count, int32_t join_style, const ALLEGRO::COLOR& color, float thickness, float miter_limit) -> void
+	export inline auto draw_polyline(const std::span<float>& vertices, int32_t vertex_count, int32_t join_style, int32_t cap_style, const ALLEGRO::COLOR& color, float thickness, float miter_limit) -> void
 	{
-		al_draw_polygon(vertices, vertex_count, join_style, color, thickness, miter_limit);
+		al_draw_polyline(vertices.data(), static_cast<int>(vertices.size()), vertex_count, join_style, cap_style, color, thickness, miter_limit);
 	}
 
-	export inline auto draw_filled_polygon(const float* vertices, int32_t vertex_count, ALLEGRO::COLOR color) -> void
+	export inline auto draw_polygon(const std::span<float>& vertices, int32_t join_style, const ALLEGRO::COLOR& color, float thickness, float miter_limit) -> void
 	{
-		al_draw_filled_polygon(vertices, vertex_count, color);
+		al_draw_polygon(vertices.data(), static_cast<int>(vertices.size()), join_style, color, thickness, miter_limit);
+	}
+
+	export inline auto draw_filled_polygon(const std::span<float>& vertices, ALLEGRO::COLOR color) -> void
+	{
+		al_draw_filled_polygon(vertices.data(), static_cast<int>(vertices.size()), color);
 	}
 
 	export inline auto draw_filled_polygon_with_holes(const float* vertices, const int32_t* vertex_counts, ALLEGRO::COLOR color) -> void

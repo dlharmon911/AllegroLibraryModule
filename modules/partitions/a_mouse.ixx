@@ -1,6 +1,6 @@
 export module allegro:mouse;
 
-import <memory>;
+import std;
 import <allegro5\mouse.h>;
 import :base;
 import :events;
@@ -55,6 +55,11 @@ namespace al
 		return al_set_mouse_xy(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), point.get_x(), point.get_y());
 	}
 
+	export inline auto set_mouse_xy(const ALLEGRO::DISPLAY& display, int32_t x, int32_t y) -> bool
+	{
+		return al_set_mouse_xy(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), x, y);
+	}
+
 	export inline auto set_mouse_z(int32_t z) -> bool
 	{
 		return al_set_mouse_z(z);
@@ -97,6 +102,11 @@ namespace al
 		al_get_mouse_cursor_position(&point_array[0], &point_array[1]);
 
 		point = point_array;
+	}
+
+	export inline auto get_mouse_cursor_position(int32_t& x, int32_t& y) -> bool
+	{
+		return al_get_mouse_cursor_position(&x, &y);
 	}
 
 	export inline auto grab_mouse(const ALLEGRO::DISPLAY& display) -> bool

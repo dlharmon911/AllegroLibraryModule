@@ -1,6 +1,6 @@
 export module allegro:touch_input;
 
-import <memory>;
+import std;
 import <allegro5/touch_input.h>;
 import :base;
 import :events;

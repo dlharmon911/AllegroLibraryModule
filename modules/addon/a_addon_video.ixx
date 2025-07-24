@@ -1,8 +1,6 @@
 export module allegro.video_addon;
 
-import <string>;
-import <cstdint>;
-import <memory>;
+import std;
 import allegro;
 import allegro.audio_addon;
 import <allegro5/allegro_video.h>;

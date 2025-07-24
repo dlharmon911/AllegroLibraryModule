@@ -141,9 +141,6 @@
     <ClCompile Include="modules\partitions\a_shader.ixx">
       <Filter>Modules Files\Partition Files</Filter>
     </ClCompile>
-    <ClCompile Include="modules\partitions\a_shared.ixx">
-      <Filter>Modules Files\Partition Files</Filter>
-    </ClCompile>
     <ClCompile Include="modules\partitions\a_system.ixx">
       <Filter>Modules Files\Partition Files</Filter>
     </ClCompile>

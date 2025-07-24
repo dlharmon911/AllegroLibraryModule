@@ -1,6 +1,6 @@
 export module allegro:blender;
 
-import <tuple>;
+import std;
 import <allegro5/blender.h>;
 import :base;
 import :color;

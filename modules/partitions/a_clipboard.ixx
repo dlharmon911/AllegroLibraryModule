@@ -1,6 +1,6 @@
 export module allegro:clipboard;
 
-import <string>;
+import std;
 import <allegro5/clipboard.h>;
 import :base;
 import :display;

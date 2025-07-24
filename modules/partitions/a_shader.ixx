@@ -1,7 +1,6 @@
 export module allegro:shader;
 
-import <memory>;
-import <string>;
+import std;
 import <allegro5/shader.h>;
 import :base;
 import :bitmap;
@@ -58,17 +57,17 @@ namespace al
 
 	export inline auto create_shader(int32_t platform) -> ALLEGRO::SHADER
 	{
-		return ALLEGRO::SHADER(al_create_shader((ALLEGRO_SHADER_PLATFORM)platform), internal::destroy_shader);
+		return ALLEGRO::SHADER(al_create_shader(static_cast<ALLEGRO_SHADER_PLATFORM>(platform)), internal::destroy_shader);
 	}
 
 	export inline auto attach_shader_source(ALLEGRO::SHADER& shader, int32_t type, const char* source) -> bool
 	{
-		return al_attach_shader_source(static_cast<ALLEGRO::INTERNAL::SHADER_DATA_PTR>(shader.get()), (ALLEGRO_SHADER_TYPE)type, source);
+		return al_attach_shader_source(static_cast<ALLEGRO::INTERNAL::SHADER_DATA_PTR>(shader.get()), static_cast<ALLEGRO_SHADER_TYPE>(type), source);
 	}
 
 	export inline auto attach_shader_source_file(ALLEGRO::SHADER& shader, int32_t type, const char* filename) -> bool
 	{
-		return al_attach_shader_source_file(static_cast<ALLEGRO::INTERNAL::SHADER_DATA_PTR>(shader.get()), (ALLEGRO_SHADER_TYPE)type, filename);
+		return al_attach_shader_source_file(static_cast<ALLEGRO::INTERNAL::SHADER_DATA_PTR>(shader.get()), static_cast<ALLEGRO_SHADER_TYPE>(type), filename);
 	}
 
 	export inline auto build_shader(ALLEGRO::SHADER& shader) -> bool

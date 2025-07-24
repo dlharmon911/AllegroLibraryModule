@@ -1,6 +1,6 @@
 export module allegro:threads;
 
-import <memory>;
+import std;
 import <allegro5/threads.h>;
 import :base;
 import :memory;

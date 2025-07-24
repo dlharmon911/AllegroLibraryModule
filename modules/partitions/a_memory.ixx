@@ -1,6 +1,6 @@
 export module allegro:memory;
 
-import <memory>;
+import std;
 import <allegro5/memory.h>;
 import :base;
 

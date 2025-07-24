@@ -1,6 +1,6 @@
 export module allegro:timer;
 
-import <memory>;
+import std;
 import <allegro5/timer.h>;
 import :base;
 import :events;

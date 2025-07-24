@@ -1,7 +1,6 @@
 export module allegro:config;
 
-import <memory>;
-import <string>;
+import std;
 import <allegro5/config.h>;
 import :base;
 import :memory;

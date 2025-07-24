@@ -69,6 +69,8 @@ namespace ALLEGRO
 			}
 		}
 
+		virtual ~BOX() {}
+
 		constexpr auto operator =(const std::array<T, ALLEGRO::INTERNAL::BOX_ARRAY_SIZE>& array) -> BOX&
 		{
 			for (size_t i = 0; i < this->m_array.size(); ++i)
@@ -89,29 +91,59 @@ namespace ALLEGRO
 			return *this;
 		}
 
-		auto get_x() const -> T
+		auto get_x() -> T&
 		{
 			return this->m_top_left.get_x();
 		}
 
-		auto get_y() const -> T
+		auto get_x() const -> const T&
+		{
+			return this->m_top_left.get_x();
+		}
+
+		auto get_y() -> T&
 		{
 			return this->m_top_left.get_y();
 		}
 
-		auto get_width() const -> T
+		auto get_y() const -> const T&
 		{
-			return this->m_bottom_right.x - this->m_top_left.x + 1;
+			return this->m_top_left.get_y();
 		}
 
-		auto get_height() const -> T
+		auto get_width() -> T&
 		{
-			return this->m_bottom_right.y - this->m_top_left.y + 1;
+			return this->m_bottom_right.get_x() - this->m_top_left.get_x() + 1;
+		}
+
+		auto get_width() const -> const T&
+		{
+			return this->m_bottom_right.get_x() - this->m_top_left.get_x() + 1;
+		}
+
+		auto get_height() -> T&
+		{
+			return this->m_bottom_right.get_y() - this->m_top_left.get_y() + 1;
+		}
+
+		auto get_height() const -> const T&
+		{
+			return this->m_bottom_right.get_y() - this->m_top_left.get_y() + 1;
+		}
+
+		auto get_top_left() -> VECTOR_2D<T>&
+		{
+			return this->m_top_left;
 		}
 
 		auto get_top_left() const -> const VECTOR_2D<T>&
 		{
 			return this->m_top_left;
+		}
+
+		auto get_bottom_right() -> VECTOR_2D<T>&
+		{
+			return this->m_bottom_right;
 		}
 
 		auto get_bottom_right() const -> const VECTOR_2D<T>&
@@ -125,7 +157,7 @@ namespace ALLEGRO
 		}
 
 	private:
-		union 
+		union
 		{
 			struct
 			{

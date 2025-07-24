@@ -1,7 +1,6 @@
 export module allegro:events;
 
-import <vector>;
-import <memory>;
+import std;
 import <allegro5/events.h>;
 import :base;
 import :debug;

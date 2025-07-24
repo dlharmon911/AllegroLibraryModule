@@ -1,6 +1,6 @@
 export module allegro.color_addon;
 
-import <string>;
+import std;
 import allegro;
 import <allegro5/allegro_color.h>;
 

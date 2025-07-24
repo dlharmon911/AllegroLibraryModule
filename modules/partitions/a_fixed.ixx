@@ -1,5 +1,6 @@
 export module allegro:fixed;
 
+import std;
 import <allegro5/fixed.h>;
 
 export using fixed_t = typename al_fixed;

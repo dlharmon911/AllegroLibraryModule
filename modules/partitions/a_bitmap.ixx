@@ -1,8 +1,7 @@
 export module allegro:bitmap;
 
+import std;
 import <allegro5/bitmap.h>;
-import <functional>;
-import <memory>;
 import :base;
 import :color;
 import :memory;
@@ -173,6 +172,11 @@ namespace al
 		return (ALLEGRO::COLOR)al_get_pixel(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), point.get_x(), point.get_y());
 	}
 
+	export inline auto get_pixel(const ALLEGRO::BITMAP& bitmap, float x, float y) -> ALLEGRO::COLOR
+	{
+		return (ALLEGRO::COLOR)al_get_pixel(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), x, y);
+	}
+
 	export inline auto create_bitmap(int32_t width, int32_t height) -> ALLEGRO::BITMAP
 	{
 		return ALLEGRO::BITMAP(::al_create_bitmap(width, height), internal::destroy_bitmap);
@@ -255,11 +259,9 @@ namespace al
 		::al_get_clipping_rectangle(&x, &y, &width, &height);
 	}
 
-	export inline auto get_clipping_rectangle() -> ALLEGRO::RECTANGLE<int32_t>
+	export inline auto get_clipping_rectangle(ALLEGRO::RECTANGLE<int32_t>& clip) -> void
 	{
-		std::array<int32_t, ALLEGRO::INTERNAL::RECTANGLE_ARRAY_SIZE> clip{};
 		::al_get_clipping_rectangle(&clip[0], &clip[1], &clip[2], &clip[3]);
-		return ALLEGRO::RECTANGLE<int32_t>(clip);
 	}
 
 	export inline auto set_clipping_rectangle(int32_t x, int32_t y, int32_t width, int32_t height) -> void

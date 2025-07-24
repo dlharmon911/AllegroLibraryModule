@@ -1,5 +1,6 @@
 export module allegro:render_state;
 
+import std;
 import <allegro5/render_state.h>;
 import :base;
 
@@ -36,8 +37,8 @@ namespace ALLEGRO
 
 namespace al
 {
-	export inline auto set_render_state(const ALLEGRO::RENDER_STATE& state, int32_t value) -> void
+	export inline auto set_render_state(int32_t state, int32_t value) -> void
 	{
-		al_set_render_state(state, value);
+		al_set_render_state(static_cast<ALLEGRO_RENDER_STATE>(state), value);
 	}
 }

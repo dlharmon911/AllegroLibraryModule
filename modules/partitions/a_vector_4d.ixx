@@ -1,15 +1,12 @@
 export module allegro:vector_4d;
 
 import std;
-import <cstdint>;
 import :base;
+import :error;
 
 namespace ALLEGRO
 {
-	namespace INTERNAL
-	{
-		export constexpr size_t VECTOR_4D_ARRAY_SIZE{ 4 };
-	}
+	export constexpr size_t VECTOR_4D_ARRAY_SIZE{ 4 };
 
 	export template <typename T> class VECTOR_4D
 	{
@@ -56,7 +53,7 @@ namespace ALLEGRO
 			this->m_w = static_case<T>(v.m_w);
 		}
 
-		constexpr VECTOR_4D(const std::array<T, ALLEGRO::INTERNAL::VECTOR_4D_ARRAY_SIZE>& array)
+		constexpr VECTOR_4D(const std::array<T, ALLEGRO::VECTOR_4D_ARRAY_SIZE>& array)
 		{
 			for (size_t i = 0; i < this->m_array.size(); ++i)
 			{
@@ -64,7 +61,7 @@ namespace ALLEGRO
 			}
 		}
 
-		constexpr auto operator =(const std::array<T, ALLEGRO::INTERNAL::VECTOR_4D_ARRAY_SIZE>& array) -> VECTOR_4D&
+		constexpr auto operator =(const std::array<T, ALLEGRO::VECTOR_4D_ARRAY_SIZE>& array) -> VECTOR_4D&
 		{
 			for (size_t i = 0; i < this->m_array.size(); ++i)
 			{
@@ -92,6 +89,18 @@ namespace ALLEGRO
 			{
 				this->m_array[i] = static_cast<T>(0);
 			}
+		}
+
+		auto operator[](size_t index) const -> const T&
+		{
+			ALLEGRO::ASSERT(index < this->m_array.size());
+			return this->m_array[index];
+		}
+
+		auto operator[](size_t index)->T&
+		{
+			ALLEGRO::ASSERT(index < this->m_array.size());
+			return this->m_array[index];
 		}
 
 		auto get_x() const -> T
@@ -134,7 +143,7 @@ namespace ALLEGRO
 			this->m_w = w;
 		}
 
-		auto get_array() const -> const std::array<T, ALLEGRO::INTERNAL::VECTOR_4D_ARRAY_SIZE>&
+		auto get_array() const -> const std::array<T, ALLEGRO::VECTOR_4D_ARRAY_SIZE>&
 		{
 			return this->m_array;
 		}
@@ -147,8 +156,7 @@ namespace ALLEGRO
 				T m_z;
 				T m_w;
 			};
-			std::array<T, ALLEGRO::INTERNAL::VECTOR_4D_ARRAY_SIZE> m_array{};
+			std::array<T, ALLEGRO::VECTOR_4D_ARRAY_SIZE> m_array{};
 		};
 	};
-
 }

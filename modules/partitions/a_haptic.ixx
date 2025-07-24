@@ -1,6 +1,6 @@
 export module allegro:haptic;
 
-import <memory>;
+import std;
 import <allegro5/haptic.h>;
 import :base;
 import :memory;

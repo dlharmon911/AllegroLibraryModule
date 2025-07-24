@@ -1,15 +1,12 @@
 export module allegro:vector_3d;
 
 import std;
-import <cstdint>;
 import :base;
+import :error;
 
 namespace ALLEGRO
 {
-	namespace INTERNAL
-	{
-		export constexpr size_t VECTOR_3D_ARRAY_SIZE{ 3 };
-	}
+	export constexpr size_t VECTOR_3D_ARRAY_SIZE{ 3 };
 
 	export template <typename T> class VECTOR_3D
 	{
@@ -18,7 +15,7 @@ namespace ALLEGRO
 
 		constexpr VECTOR_3D()
 		{
-			for (size_t i = 0; i < ALLEGRO::INTERNAL::VECTOR_3D_ARRAY_SIZE; ++i)
+			for (size_t i = 0; i < ALLEGRO::VECTOR_3D_ARRAY_SIZE; ++i)
 			{
 				this->m_array[i] = static_cast<T>(0);
 			}
@@ -52,17 +49,17 @@ namespace ALLEGRO
 			this->m_z = static_case<T>(v.m_z);
 		}
 
-		constexpr VECTOR_3D(const std::array<T, ALLEGRO::INTERNAL::VECTOR_3D_ARRAY_SIZE>& array)
+		constexpr VECTOR_3D(const std::array<T, ALLEGRO::VECTOR_3D_ARRAY_SIZE>& array)
 		{
-			for (size_t i = 0; i < ALLEGRO::INTERNAL::VECTOR_3D_ARRAY_SIZE; ++i)
+			for (size_t i = 0; i < ALLEGRO::VECTOR_3D_ARRAY_SIZE; ++i)
 			{
 				this->m_array[i] = array[i];
 			}
 		}
 
-		constexpr auto operator =(const std::array<T, ALLEGRO::INTERNAL::VECTOR_3D_ARRAY_SIZE>& array) -> VECTOR_3D&
+		constexpr auto operator =(const std::array<T, ALLEGRO::VECTOR_3D_ARRAY_SIZE>& array) -> VECTOR_3D&
 		{
-			for (size_t i = 0; i < ALLEGRO::INTERNAL::VECTOR_3D_ARRAY_SIZE; ++i)
+			for (size_t i = 0; i < ALLEGRO::VECTOR_3D_ARRAY_SIZE; ++i)
 			{
 				this->m_array[i] = array[i];
 			}
@@ -72,7 +69,7 @@ namespace ALLEGRO
 
 		constexpr auto operator =(const VECTOR_3D& vector) -> VECTOR_3D&
 		{
-			for (size_t i = 0; i < ALLEGRO::INTERNAL::VECTOR_3D_ARRAY_SIZE; ++i)
+			for (size_t i = 0; i < ALLEGRO::VECTOR_3D_ARRAY_SIZE; ++i)
 			{
 				this->m_array[i] = vector.m_array[i];
 			}
@@ -90,8 +87,24 @@ namespace ALLEGRO
 			}
 		}
 
+		auto operator[](size_t index) const -> const T&
+		{
+			ALLEGRO::ASSERT(index < this->m_array.size());
+			return this->m_array[index];
+		}
+
+		auto operator[](size_t index)->T&
+		{
+			ALLEGRO::ASSERT(index < this->m_array.size());
+			return this->m_array[index];
+		}
 
 		auto get_x() const -> T
+		{
+			return this->m_x;
+		}
+
+		auto get_x() -> T&
 		{
 			return this->m_x;
 		}
@@ -101,7 +114,17 @@ namespace ALLEGRO
 			return this->m_y;
 		}
 
+		auto get_y() -> T&
+		{
+			return this->m_y;
+		}
+
 		auto get_z() const -> T
+		{
+			return this->m_z;
+		}
+
+		auto get_z() -> T&
 		{
 			return this->m_z;
 		}
@@ -121,11 +144,10 @@ namespace ALLEGRO
 			this->m_z = z;
 		}
 
-		auto get_array() const -> const std::array<T, ALLEGRO::INTERNAL::VECTOR_3D_ARRAY_SIZE>&
+		auto get_array() const -> const std::array<T, ALLEGRO::VECTOR_3D_ARRAY_SIZE>&
 		{
 			return this->m_array;
 		}
-
 
 	private:
 		union {
@@ -134,8 +156,7 @@ namespace ALLEGRO
 				T m_y;
 				T m_z;
 			};
-			std::array<T, ALLEGRO::INTERNAL::VECTOR_3D_ARRAY_SIZE> m_array{};
+			std::array<T, ALLEGRO::VECTOR_3D_ARRAY_SIZE> m_array{};
 		};
 	};
-
 }

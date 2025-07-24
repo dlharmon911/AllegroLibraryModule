@@ -1,5 +1,6 @@
 export module allegro:array;
 
+import std;
 import <allegro5/cpu.h>;
 import :base;
 

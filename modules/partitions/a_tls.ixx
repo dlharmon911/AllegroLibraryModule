@@ -1,5 +1,6 @@
 export module allegro:tls;
 
+import std;
 import <allegro5/tls.h>;
 
 namespace ALLEGRO

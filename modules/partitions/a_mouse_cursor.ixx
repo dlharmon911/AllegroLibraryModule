@@ -1,6 +1,6 @@
 export module allegro:mouse_cursor;
 
-import <memory>;
+import std;
 import <allegro5/mouse_cursor.h>;
 import :base;
 import :bitmap;
@@ -51,6 +51,11 @@ namespace al
 			return al_create_mouse_cursor(bitmap, focus.get_x(), focus.get_y());
 		}
 
+		export inline auto create_mouse_cursor(ALLEGRO::INTERNAL::BITMAP_DATA_PTR bitmap, int32_t focus_x, int32_t focus_y) -> ALLEGRO::INTERNAL::MOUSE_CURSOR_DATA_PTR
+		{
+			return al_create_mouse_cursor(bitmap, focus_x, focus_y);
+		}
+
 		export inline auto destroy_mouse_cursor(ALLEGRO::INTERNAL::MOUSE_CURSOR_DATA_PTR data) -> void
 		{
 			al_destroy_mouse_cursor(data);
@@ -60,6 +65,11 @@ namespace al
 	export inline auto create_mouse_cursor(const ALLEGRO::BITMAP& sprite, const ALLEGRO::VECTOR_2D<int32_t>& focus) -> ALLEGRO::MOUSE_CURSOR
 	{
 		return ALLEGRO::MOUSE_CURSOR(al_create_mouse_cursor(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(sprite.get()), focus.get_x(), focus.get_y()), internal::destroy_mouse_cursor);
+	}
+
+	export inline auto create_mouse_cursor(const ALLEGRO::BITMAP& sprite, int32_t focus_x, int32_t focus_y) -> ALLEGRO::MOUSE_CURSOR
+	{
+		return ALLEGRO::MOUSE_CURSOR(al_create_mouse_cursor(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(sprite.get()), focus_x, focus_y), internal::destroy_mouse_cursor);
 	}
 
 	export inline auto set_mouse_cursor(const ALLEGRO::DISPLAY& display, const ALLEGRO::MOUSE_CURSOR& cursor) -> bool

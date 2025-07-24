@@ -1,5 +1,6 @@
 export module allegro:drawing;
 
+import std;
 import <allegro5/drawing.h>;
 import :base;
 import :color;

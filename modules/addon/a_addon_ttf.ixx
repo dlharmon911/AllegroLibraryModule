@@ -1,7 +1,6 @@
 export module allegro.ttf_addon;
 
-import <cstdint>;
-import <string>;
+import std;
 import allegro;
 import allegro.font_addon;
 import <allegro5/allegro_font.h>;
@@ -54,8 +53,20 @@ namespace al
 		return ALLEGRO::FONT(al_load_ttf_font_stretch(filename, size.get_x(), size.get_y(), flags), internal::destroy_font);
 	}
 
+	export inline auto load_ttf_font_stretch(const char* filename, int32_t size_x, int32_t size_y, int32_t flags) -> ALLEGRO::FONT
+	{
+		return ALLEGRO::FONT(al_load_ttf_font_stretch(filename, size_x, size_y, flags), internal::destroy_font);
+	}
+
 	export inline auto load_ttf_font_stretch_f(ALLEGRO::FILE& file, const char* filename, const ALLEGRO::VECTOR_2D<int32_t>& size, int32_t flags) -> ALLEGRO::FONT
 	{
 		return ALLEGRO::FONT(al_load_ttf_font_stretch_f(static_cast<ALLEGRO::INTERNAL::FILE_DATA_PTR>(file.get()), filename, size.get_x(), size.get_y(), flags), internal::destroy_font);
 	}
+
+	export inline auto load_ttf_font_stretch_f(ALLEGRO::FILE& file, const char* filename, int32_t size_x, int32_t size_y, int32_t flags) -> ALLEGRO::FONT
+	{
+		return ALLEGRO::FONT(al_load_ttf_font_stretch_f(static_cast<ALLEGRO::INTERNAL::FILE_DATA_PTR>(file.get()), filename, size_x, size_y, flags), internal::destroy_font);
+	}
+
+
 }
