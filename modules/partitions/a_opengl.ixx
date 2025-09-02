@@ -47,7 +47,7 @@ namespace al
 		return static_cast<ALLEGRO::OGL_EXT_LIST_PTR>(al_get_opengl_extension_list());
 	}
 
-	export auto get_opengl_texture(const ALLEGRO::BITMAP& bitmap) -> GLuint
+	export auto get_opengl_texture(const ALLEGRO::BITMAP& bitmap) -> uint32_t
 	{
 		return al_get_opengl_texture(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()));
 	}
@@ -57,7 +57,7 @@ namespace al
 		return al_remove_opengl_fbo(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()));
 	}
 
-	export auto get_opengl_fbo(const ALLEGRO::BITMAP& bitmap) -> GLuint
+	export auto get_opengl_fbo(const ALLEGRO::BITMAP& bitmap) -> uint32_t
 	{
 		return al_get_opengl_fbo(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()));
 	}
@@ -91,7 +91,7 @@ namespace al
 		al_get_opengl_texture_position(static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(bitmap.get()), &x, &y);
 	}
 
-	export auto get_opengl_program_object(const ALLEGRO::SHADER& shader) -> GLuint
+	export auto get_opengl_program_object(const ALLEGRO::SHADER& shader) -> uint32_t
 	{
 		return al_get_opengl_program_object(static_cast<ALLEGRO::INTERNAL::SHADER_DATA_PTR>(shader.get()));
 	}

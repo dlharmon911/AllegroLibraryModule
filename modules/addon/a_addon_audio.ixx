@@ -669,7 +669,7 @@ namespace al
 		return al_restore_default_mixer();
 	}
 
-	export inline auto play_sample(ALLEGRO::SAMPLE& data, float gain, float pan, float speed, ALLEGRO::PLAYMODE loop, ALLEGRO::SAMPLE_ID& ret_id) -> bool
+	export inline auto play_sample(const ALLEGRO::SAMPLE& data, float gain, float pan, float speed, ALLEGRO::PLAYMODE loop, ALLEGRO::SAMPLE_ID& ret_id) -> bool
 	{
 		return al_play_sample(static_cast<ALLEGRO::INTERNAL::SAMPLE_DATA_PTR>(data.get()), gain, pan, speed, loop, &ret_id);
 	}

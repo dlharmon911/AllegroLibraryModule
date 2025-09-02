@@ -295,7 +295,7 @@ namespace al
 		return ALLEGRO::VECTOR_2D<int32_t>(point[0], point[1]);
 	}
 
-	export inline auto get_new_window_position(int32_t& x, int32_t&y) -> void
+	export inline auto get_new_window_position(int32_t& x, int32_t& y) -> void
 	{
 		al_get_new_window_position(&x, &y);
 	}

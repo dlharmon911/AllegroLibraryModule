@@ -27,9 +27,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="modules\partitions\a_altime.ixx">
-      <Filter>Modules Files\Partition Files</Filter>
-    </ClCompile>
     <ClCompile Include="modules\partitions\a_array.ixx">
       <Filter>Modules Files\Partition Files</Filter>
     </ClCompile>
@@ -203,6 +200,9 @@
     </ClCompile>
     <ClCompile Include="modules\allegro.ixx">
       <Filter>Modules Files</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_altime.ixx">
+      <Filter>Modules Files\Partition Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

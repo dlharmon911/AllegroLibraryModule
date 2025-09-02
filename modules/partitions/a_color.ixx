@@ -70,7 +70,7 @@ namespace al
 		return ::al_get_pixel_block_height(format);
 	}
 
-	export inline constexpr auto map_rgba_f(float red, float green, float blue, float alpha, bool premultiply_alpha = false) -> ALLEGRO::COLOR
+	export constexpr auto map_rgba_f(float red, float green, float blue, float alpha, bool premultiply_alpha = false) -> ALLEGRO::COLOR
 	{
 		ALLEGRO::COLOR color{ red, green, blue, 1.0f };
 
@@ -84,9 +84,9 @@ namespace al
 		return color;
 	}
 
-	export inline constexpr auto map_rgb_f(float red, float green, float blue) -> ALLEGRO::COLOR
+	export constexpr auto map_rgb_f(float red, float green, float blue) -> ALLEGRO::COLOR
 	{
-		ALLEGRO::COLOR color{red, green, blue, 1.0f};
+		ALLEGRO::COLOR color{ red, green, blue, 1.0f };
 		return color;
 	}
 

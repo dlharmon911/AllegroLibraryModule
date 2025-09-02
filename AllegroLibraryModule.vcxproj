@@ -76,6 +76,12 @@
     <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
     <Allegro_AddonPhysfs>true</Allegro_AddonPhysfs>
     <Allegro_AddonFont>true</Allegro_AddonFont>
+    <PublicModuleDirectories>
+    </PublicModuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PublicModuleDirectories>
+    </PublicModuleDirectories>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,8 +124,11 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <EnableModules>false</EnableModules>
+      <EnableModules>true</EnableModules>
       <BuildStlModules>true</BuildStlModules>
+      <TranslateIncludes>true</TranslateIncludes>
+      <CompileAs>CompileAsCppModule</CompileAs>
+      <ModuleOutputFile>$(IntDir)</ModuleOutputFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -134,6 +143,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+      <EnableModules>true</EnableModules>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <TranslateIncludes>true</TranslateIncludes>
+      <CompileAs>CompileAsCppModule</CompileAs>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,53 +169,147 @@
     <ClCompile Include="modules\addon\a_addon_video.ixx" />
     <ClCompile Include="modules\allegro.ixx" />
     <ClCompile Include="modules\partitions\a_altime.ixx" />
-    <ClCompile Include="modules\partitions\a_array.ixx" />
-    <ClCompile Include="modules\partitions\a_base.ixx" />
-    <ClCompile Include="modules\partitions\a_bitmap.ixx" />
-    <ClCompile Include="modules\partitions\a_bitmap_draw.ixx" />
-    <ClCompile Include="modules\partitions\a_bitmap_io.ixx" />
-    <ClCompile Include="modules\partitions\a_bitmap_lock.ixx" />
-    <ClCompile Include="modules\partitions\a_blender.ixx" />
-    <ClCompile Include="modules\partitions\a_box.ixx" />
-    <ClCompile Include="modules\partitions\a_clipboard.ixx" />
-    <ClCompile Include="modules\partitions\a_color.ixx" />
-    <ClCompile Include="modules\partitions\a_config.ixx" />
-    <ClCompile Include="modules\partitions\a_cpu.ixx" />
-    <ClCompile Include="modules\partitions\a_debug.ixx" />
-    <ClCompile Include="modules\partitions\a_display.ixx" />
-    <ClCompile Include="modules\partitions\a_drawing.ixx" />
-    <ClCompile Include="modules\partitions\a_error.ixx" />
-    <ClCompile Include="modules\partitions\a_events.ixx" />
-    <ClCompile Include="modules\partitions\a_file.ixx" />
-    <ClCompile Include="modules\partitions\a_fixed.ixx" />
-    <ClCompile Include="modules\partitions\a_fmaths.ixx" />
-    <ClCompile Include="modules\partitions\a_fshook.ixx" />
-    <ClCompile Include="modules\partitions\a_fullscreen_mode.ixx" />
-    <ClCompile Include="modules\partitions\a_haptic.ixx" />
-    <ClCompile Include="modules\partitions\a_joystick.ixx" />
-    <ClCompile Include="modules\partitions\a_keyboard.ixx" />
-    <ClCompile Include="modules\partitions\a_keycodes.ixx" />
-    <ClCompile Include="modules\partitions\a_math.ixx" />
-    <ClCompile Include="modules\partitions\a_memory.ixx" />
-    <ClCompile Include="modules\partitions\a_monitor.ixx" />
-    <ClCompile Include="modules\partitions\a_mouse.ixx" />
-    <ClCompile Include="modules\partitions\a_mouse_cursor.ixx" />
-    <ClCompile Include="modules\partitions\a_opengl.ixx" />
-    <ClCompile Include="modules\partitions\a_path.ixx" />
-    <ClCompile Include="modules\partitions\a_platform.ixx" />
-    <ClCompile Include="modules\partitions\a_rectangle.ixx" />
-    <ClCompile Include="modules\partitions\a_render_state.ixx" />
-    <ClCompile Include="modules\partitions\a_shader.ixx" />
-    <ClCompile Include="modules\partitions\a_system.ixx" />
-    <ClCompile Include="modules\partitions\a_threads.ixx" />
-    <ClCompile Include="modules\partitions\a_timer.ixx" />
-    <ClCompile Include="modules\partitions\a_tls.ixx" />
-    <ClCompile Include="modules\partitions\a_touch_input.ixx" />
-    <ClCompile Include="modules\partitions\a_transformations.ixx" />
-    <ClCompile Include="modules\partitions\a_utf8.ixx" />
-    <ClCompile Include="modules\partitions\a_vector_2d.ixx" />
-    <ClCompile Include="modules\partitions\a_vector_3d.ixx" />
-    <ClCompile Include="modules\partitions\a_vector_4d.ixx" />
+    <ClCompile Include="modules\partitions\a_array.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_base.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_bitmap.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_bitmap_draw.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_bitmap_io.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_bitmap_lock.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_blender.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_box.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_clipboard.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_color.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_config.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_cpu.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_debug.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_display.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_drawing.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_error.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_events.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_file.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_fixed.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_fmaths.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_fshook.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_fullscreen_mode.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_haptic.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_joystick.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_keyboard.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_keycodes.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_math.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_memory.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_monitor.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_mouse.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_mouse_cursor.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_opengl.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_path.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_platform.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_rectangle.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_render_state.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_shader.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_system.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_threads.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_timer.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_tls.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_touch_input.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_transformations.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_utf8.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_vector_2d.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_vector_3d.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
+    <ClCompile Include="modules\partitions\a_vector_4d.ixx">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -67,6 +67,4 @@ namespace al
 	{
 		return ALLEGRO::FONT(al_load_ttf_font_stretch_f(static_cast<ALLEGRO::INTERNAL::FILE_DATA_PTR>(file.get()), filename, size_x, size_y, flags), internal::destroy_font);
 	}
-
-
 }

@@ -8,8 +8,6 @@ namespace ALLEGRO
 {
 	namespace INTERNAL
 	{
-		export using VERTEX_ELEMENT = typename ALLEGRO_VERTEX_ELEMENT;
-		export using VERTEX_ELEMENT_PTR = std::add_pointer<VERTEX_ELEMENT>::type;
 		export using VERTEX_DECL_DATA = typename ALLEGRO_VERTEX_DECL;
 		export using VERTEX_DECL_DATA_PTR = std::add_pointer<VERTEX_DECL_DATA>::type;
 		export using VERTEX_BUFFER_DATA = typename ALLEGRO_VERTEX_BUFFER;
@@ -20,6 +18,8 @@ namespace ALLEGRO
 
 	export using VERTEX = typename ALLEGRO_VERTEX;
 
+	export using VERTEX_ELEMENT = typename ALLEGRO_VERTEX_ELEMENT;
+	export using VERTEX_ELEMENT_PTR = std::add_pointer<VERTEX_ELEMENT>::type;
 	export using VERTEX_DECL = typename std::shared_ptr<INTERNAL::VERTEX_DECL_DATA>;
 	export using VERTEX_BUFFER = typename std::shared_ptr<INTERNAL::VERTEX_BUFFER_DATA>;
 	export using INDEX_BUFFER = typename std::shared_ptr<INTERNAL::INDEX_BUFFER_DATA>;
@@ -148,16 +148,19 @@ namespace al
 		return al_draw_indexed_buffer(static_cast<ALLEGRO::INTERNAL::VERTEX_BUFFER_DATA_PTR>(vertex_buffer.get()), static_cast<ALLEGRO::INTERNAL::BITMAP_DATA_PTR>(texture.get()), static_cast<ALLEGRO::INTERNAL::INDEX_BUFFER_DATA_PTR>(index_buffer.get()), static_cast<int32_t>(start), static_cast<int32_t>(end), type);
 	}
 
-	export inline auto create_vertex_decl(const ALLEGRO::INTERNAL::VERTEX_ELEMENT_PTR elements, int32_t stride) -> ALLEGRO::VERTEX_DECL
+	export inline auto create_vertex_decl(const ALLEGRO::VERTEX_ELEMENT_PTR elements, int32_t stride) -> ALLEGRO::VERTEX_DECL
 	{
 		return ALLEGRO::VERTEX_DECL(al_create_vertex_decl(elements, stride), internal::destroy_vertex_decl);
 	}
 
-	export inline auto create_vertex_buffer(const ALLEGRO::VERTEX_DECL& decl, const void* initial_data, size_t num_vertices, int32_t flags) -> ALLEGRO::VERTEX_BUFFER
+	export template <typename T> auto create_vertex_buffer(const ALLEGRO::VERTEX_DECL& decl, const T* initial_data, size_t num_vertices, int32_t flags) -> ALLEGRO::VERTEX_BUFFER
 	{
-		ALLEGRO::INTERNAL::VERTEX_BUFFER_DATA_PTR data{ al_create_vertex_buffer(static_cast<ALLEGRO::INTERNAL::VERTEX_DECL_DATA_PTR>(decl.get()), initial_data, static_cast<int32_t>(num_vertices), flags) };
+		return ALLEGRO::VERTEX_BUFFER(al_create_vertex_buffer(static_cast<ALLEGRO::INTERNAL::VERTEX_DECL_DATA_PTR>(decl.get()), reinterpret_cast<const void*>(initial_data), static_cast<int32_t>(num_vertices), flags), internal::destroy_vertex_buffer);
+	}
 
-		return ALLEGRO::VERTEX_BUFFER(data, internal::destroy_vertex_buffer);
+	export template <typename T> auto create_vertex_buffer(const ALLEGRO::VERTEX_DECL& decl, const std::span<T>& initial_data, int32_t flags) -> ALLEGRO::VERTEX_BUFFER
+	{
+		return ALLEGRO::VERTEX_BUFFER(al_create_vertex_buffer(static_cast<ALLEGRO::INTERNAL::VERTEX_DECL_DATA_PTR>(decl.get()), reinterpret_cast<const void*>(initial_data.data()), static_cast<int32_t>(initial_data.size()), flags), internal::destroy_vertex_buffer);
 	}
 
 	export inline auto lock_vertex_buffer(ALLEGRO::VERTEX_BUFFER& vertex_buffer, int32_t offset, int32_t length, int32_t flags) -> void*
@@ -175,11 +178,14 @@ namespace al
 		return al_get_vertex_buffer_size(static_cast<ALLEGRO::INTERNAL::VERTEX_BUFFER_DATA_PTR>(vertex_buffer.get()));
 	}
 
-	export inline auto create_index_buffer(size_t index_size, const void* initial_data, size_t num_indices, int32_t flags) -> ALLEGRO::INDEX_BUFFER
+	export template <typename T> auto create_index_buffer(size_t index_size, const T* initial_data, size_t num_indices, int32_t flags) -> ALLEGRO::INDEX_BUFFER
 	{
-		ALLEGRO::INTERNAL::INDEX_BUFFER_DATA_PTR data{ al_create_index_buffer(static_cast<int32_t>(index_size), initial_data, static_cast<int32_t>(num_indices), flags) };
+		return ALLEGRO::INDEX_BUFFER(al_create_index_buffer(static_cast<int32_t>(index_size), reinterpret_cast<const void*>(initial_data), static_cast<int32_t>(num_indices), flags), internal::destroy_index_buffer);
+	}
 
-		return ALLEGRO::INDEX_BUFFER(data, internal::destroy_index_buffer);
+	export template <typename T> auto create_index_buffer(size_t index_size, const std::span<T>& initial_data, int32_t flags) -> ALLEGRO::INDEX_BUFFER
+	{
+		return ALLEGRO::INDEX_BUFFER(al_create_index_buffer(static_cast<int32_t>(index_size), reinterpret_cast<const void*>(initial_data.data()), static_cast<int32_t>(initial_data.size()), flags), internal::destroy_index_buffer);
 	}
 
 	export inline auto lock_index_buffer(ALLEGRO::INDEX_BUFFER& index_buffer, int32_t offset, int32_t length, int32_t flags) -> void*

@@ -81,4 +81,9 @@ namespace al
 
 		return multiply_value(a_value, static_cast<T>(1) / b_value);
 	}
+
+	export template <typename T> constexpr auto pi() -> T
+	{
+		return static_cast<T>(ALLEGRO::PI);
+	}
 }

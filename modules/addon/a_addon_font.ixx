@@ -129,8 +129,7 @@ namespace al
 		char* buffer;
 
 		va_start(args, format);
-		len = _vscprintf(format, args) // _vscprintf doesn't count
-			+ 1; // terminating '\0'
+		len = _vscprintf(format, args) + 1;
 		buffer = (char*)malloc(len * sizeof(char));
 
 		if (nullptr != buffer)
@@ -149,8 +148,7 @@ namespace al
 		char* buffer{ nullptr };
 
 		va_start(args, format);
-		len = _vscprintf(format, args) // _vscprintf doesn't count
-			+ 1; // terminating '\0'
+		len = _vscprintf(format, args) + 1;
 		buffer = static_cast<char*>(malloc(len * sizeof(char)));
 
 		if (nullptr != buffer)
@@ -169,8 +167,7 @@ namespace al
 		char* buffer;
 
 		va_start(args, format);
-		len = _vscprintf(format, args) // _vscprintf doesn't count
-			+ 1; // terminating '\0'
+		len = _vscprintf(format, args) + 1;
 		buffer = (char*)malloc(len * sizeof(char));
 
 		if (nullptr != buffer)

@@ -38,11 +38,21 @@ namespace al
 
 	export inline auto ustr_new(const char* string) -> ALLEGRO::USTRING
 	{
+		if (!string)
+		{
+			return nullptr;
+		}
+
 		return ALLEGRO::USTRING(al_ustr_new(string), al_ustr_free);
 	}
 
 	export inline auto ustr_new_from_buffer(const char* string, size_t size) -> ALLEGRO::USTRING
 	{
+		if (!string)
+		{
+			return nullptr;
+		}
+
 		return ALLEGRO::USTRING(al_ustr_new_from_buffer(string, size), al_ustr_free);
 	}
 

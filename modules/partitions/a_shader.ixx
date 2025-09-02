@@ -87,7 +87,7 @@ namespace al
 		return (int32_t)al_get_shader_platform(static_cast<ALLEGRO::INTERNAL::SHADER_DATA_PTR>(shader.get()));
 	}
 
-	export inline auto use_shader(ALLEGRO::SHADER& shader = null_shader) -> bool
+	export inline auto use_shader(const ALLEGRO::SHADER& shader = null_shader) -> bool
 	{
 		return al_use_shader(static_cast<ALLEGRO::INTERNAL::SHADER_DATA_PTR>(shader.get()));
 	}

@@ -34,7 +34,11 @@ namespace ALLEGRO
 	export constexpr int32_t PLATFORM_X11{ 3 };
 
 #ifdef ALLEGRO_WINDOWS
-	using WINDOW_CALLBACK_FUNCTION_PTR = bool (*)(ALLEGRO::INTERNAL::DISPLAY_DATA_PTR display, UINT message, WPARAM wparam, LPARAM lparam, LRESULT* result, void* userdata);
+	// Define a user data type for callbacks (can be customized)
+	struct WINDOWCALLBACKUSERDATA {};
+
+	// Use std::function for the callback type
+	using WINDOW_CALLBACK_FUNCTION = std::function<bool(const ALLEGRO::DISPLAY& display, UINT message, WPARAM wparam, LPARAM lparam, LRESULT* result, WINDOWCALLBACKUSERDATA* userdata)>;
 #endif
 
 #ifdef ALLEGRO_IPHONE
@@ -49,11 +53,11 @@ namespace al
 {
 	export auto get_platform_endianness() -> int32_t
 	{
-		return
 #ifdef ALLEGRO_LITTLE_ENDIAN
-			ALLEGRO::LITTLE_ENDIAN;
+		return ALLEGRO::LITTLE_ENDIAN;
+#else
+		return ALLEGRO::BIG_ENDIAN;
 #endif
-		ALLEGRO::BIG_ENDIAN;
 	}
 
 	export inline auto get_platform_type() -> int32_t
@@ -73,7 +77,6 @@ namespace al
 	}
 
 #ifdef ALLEGRO_WINDOWS
-
 	namespace windows
 	{
 		export inline auto get_window_handle(ALLEGRO::DISPLAY& display) -> HWND
@@ -81,16 +84,23 @@ namespace al
 			return al_get_win_window_handle(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()));
 		}
 
-		export inline auto add_window_callback(ALLEGRO::DISPLAY& display, ALLEGRO::WINDOW_CALLBACK_FUNCTION_PTR callback, void* userdata) -> bool
+		// Template to allow custom user data types, defaulting to WindowCallbackUserData
+		export template<typename UserDataT = ALLEGRO::WINDOWCALLBACKUSERDATA> inline auto add_window_callback(ALLEGRO::DISPLAY& display, const std::function<bool(ALLEGRO::INTERNAL::DISPLAY_DATA_PTR, UINT, WPARAM, LPARAM, LRESULT*, UserDataT*)>& callback, UserDataT* userdata) -> bool
 		{
-			return al_win_add_window_callback(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), callback, userdata);
+			// For legacy API, extract function pointer if possible
+			using RawCallback = bool(*)(ALLEGRO::INTERNAL::DISPLAY_DATA_PTR, UINT, WPARAM, LPARAM, LRESULT*, void*);
+			RawCallback raw_cb = callback.template target<RawCallback>() ? *callback.template target<RawCallback>() : nullptr;
+			return al_win_add_window_callback(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), raw_cb, static_cast<void*>(userdata));
 		}
 
-		export inline auto remove_window_callback(ALLEGRO::DISPLAY& display, ALLEGRO::WINDOW_CALLBACK_FUNCTION_PTR callback, void* userdata) -> bool
+		export template<typename UserDataT = ALLEGRO::WINDOWCALLBACKUSERDATA> inline auto remove_window_callback(ALLEGRO::DISPLAY& display, const std::function<bool(ALLEGRO::INTERNAL::DISPLAY_DATA_PTR, UINT, WPARAM, LPARAM, LRESULT*, UserDataT*)>& callback, UserDataT* userdata) -> bool
 		{
-			return al_win_remove_window_callback(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), callback, userdata);
+			using RawCallback = bool(*)(ALLEGRO::INTERNAL::DISPLAY_DATA_PTR, UINT, WPARAM, LPARAM, LRESULT*, void*);
+			RawCallback raw_cb = callback.template target<RawCallback>() ? *callback.template target<RawCallback>() : nullptr;
+			return al_win_remove_window_callback(static_cast<ALLEGRO::INTERNAL::DISPLAY_DATA_PTR>(display.get()), raw_cb, static_cast<void*>(userdata));
 		}
 	}
+
 #endif //!ALLEGRO_WINDOWS
 
 #ifdef ALLEGRO_ANDROID
