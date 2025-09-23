@@ -12,9 +12,9 @@ namespace ALLEGRO
 {
 	export using BITMAP_LOCKED_REGION_DATA = ALLEGRO_LOCKED_REGION;
 	export using BITMAP_LOCKED_REGION = std::shared_ptr<BITMAP_LOCKED_REGION_DATA>;
-	export constexpr int32_t BITMAP_LOCK_READ_WRITE{ ALLEGRO_LOCK_READWRITE };
-	export constexpr int32_t BITMAP_LOCK_READ_ONLY{ ALLEGRO_LOCK_READONLY };
-	export constexpr int32_t BITMAP_LOCK_WRITE_ONLY{ ALLEGRO_LOCK_WRITEONLY };
+	export constexpr int32_t LOCK_READ_WRITE{ ALLEGRO_LOCK_READWRITE };
+	export constexpr int32_t LOCK_READ_ONLY{ ALLEGRO_LOCK_READONLY };
+	export constexpr int32_t LOCK_WRITE_ONLY{ ALLEGRO_LOCK_WRITEONLY };
 }
 
 namespace al

@@ -13,22 +13,10 @@ namespace al
 {
 	namespace internal
 	{
-		export template <typename T> auto deleter_empty(T* object) -> void {}
-
-		export template <typename T> auto deleter_default(T* object) -> void
+		export template <typename T> auto deleter_empty(T*) -> void
 		{
-			if (object)
-			{
-				delete object;
-			}
-		}
-
-		export template <typename T> auto deleter_array(T* object) -> void
-		{
-			if (object)
-			{
-				delete[] object;
-			}
+			// Intentionally does nothing
+			return;
 		}
 	}
 
