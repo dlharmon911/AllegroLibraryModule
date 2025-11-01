@@ -27,6 +27,12 @@ namespace ALLEGRO
 #endif
 	}
 
+	export constexpr int32_t EVENT_TYPE_AUDIO_STREAM_FRAGMENT{ ALLEGRO_EVENT_AUDIO_STREAM_FRAGMENT };
+	export constexpr int32_t EVENT_TYPE_AUDIO_STREAM_FINISHED{ ALLEGRO_EVENT_AUDIO_STREAM_FINISHED };
+#if defined(ALLEGRO_UNSTABLE) || defined(ALLEGRO_INTERNAL_UNSTABLE) || defined(ALLEGRO_KCM_AUDIO_SRC)
+	export constexpr int32_t EVENT_TYPE_AUDIO_RECORDER_FRAGMENT{ ALLEGRO_EVENT_AUDIO_RECORDER_FRAGMENT };
+#endif
+
 	export using SAMPLE_ID = typename ALLEGRO_SAMPLE_ID;
 	export using SAMPLE = typename std::shared_ptr<INTERNAL::SAMPLE_DATA>;
 	export using SAMPLE_INSTANCE = typename std::shared_ptr<INTERNAL::SAMPLE_INSTANCE_DATA >;

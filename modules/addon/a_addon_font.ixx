@@ -2,8 +2,6 @@ export module allegro.font_addon;
 
 import std;
 import allegro;
-import <cstdarg>;
-import <cstdio>;
 import <allegro5/allegro_font.h>;
 
 namespace ALLEGRO
@@ -56,7 +54,7 @@ namespace al
 
 	namespace internal
 	{
-		export inline auto destroy_font(ALLEGRO::INTERNAL::FONT_DATA_PTR  data) -> void
+		export inline auto destroy_font(ALLEGRO::INTERNAL::FONT_DATA_PTR data) -> void
 		{
 			al_destroy_font(data);
 		}
@@ -122,61 +120,22 @@ namespace al
 		return al_draw_justified_ustr(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), color, x1, x2, y, diff, flags, static_cast<ALLEGRO::INTERNAL::USTRING_DATA_PTR>(ustring.get()));
 	}
 
-	export inline auto draw_textf(const ALLEGRO::FONT& font, const ALLEGRO::COLOR& color, const ALLEGRO::VECTOR_2D<float>& pos, int32_t flags, const char* format, ...) -> void
+	export template <typename... Args> inline auto draw_textf(const ALLEGRO::FONT& font, const ALLEGRO::COLOR& color, const ALLEGRO::VECTOR_2D<float>& pos, int32_t flags, const char* format, Args&&... args) -> void
 	{
-		va_list args;
-		int32_t len;
-		char* buffer;
-
-		va_start(args, format);
-		len = _vscprintf(format, args) + 1;
-		buffer = (char*)malloc(len * sizeof(char));
-
-		if (nullptr != buffer)
-		{
-			vsprintf_s(buffer, len, format, args);
-			al_draw_text(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), color, pos.get_x(), pos.get_y(), flags, buffer);
-			free(buffer);
-		}
-		va_end(args);
+		auto buffer = internal::to_string(format, std::forward<Args>(args)...);
+		al_draw_text(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), color, pos.get_x(), pos.get_y(), flags, buffer.c_str());
 	}
 
-	export inline auto draw_textf(const ALLEGRO::FONT& font, const ALLEGRO::COLOR& color, float x, float y, int32_t flags, const char* format, ...) -> void
+	export template <typename... Args> inline auto draw_textf(const ALLEGRO::FONT& font, const ALLEGRO::COLOR& color, float x, float y, int32_t flags, const char* format, Args&&... args) -> void
 	{
-		va_list args{};
-		int32_t len{ 0 };
-		char* buffer{ nullptr };
-
-		va_start(args, format);
-		len = _vscprintf(format, args) + 1;
-		buffer = static_cast<char*>(malloc(len * sizeof(char)));
-
-		if (nullptr != buffer)
-		{
-			vsprintf_s(buffer, len, format, args);
-			al_draw_text(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), color, x, y, flags, buffer);
-			free(buffer);
-		}
-		va_end(args);
+		auto buffer = internal::to_string(format, std::forward<Args>(args)...);
+		al_draw_text(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), color, x, y, flags, buffer.c_str());
 	}
 
-	export inline auto draw_justified_textf(const ALLEGRO::FONT& font, const ALLEGRO::COLOR& color, float x1, float x2, float y, float diff, int32_t flags, const char* format, ...) -> void
+	export template <typename... Args> inline auto draw_justified_textf(const ALLEGRO::FONT& font, const ALLEGRO::COLOR& color, float x1, float x2, float y, float diff, int32_t flags, const char* format, Args&&... args) -> void
 	{
-		va_list args;
-		int32_t len;
-		char* buffer;
-
-		va_start(args, format);
-		len = _vscprintf(format, args) + 1;
-		buffer = (char*)malloc(len * sizeof(char));
-
-		if (nullptr != buffer)
-		{
-			vsprintf_s(buffer, len, format, args);
-			al_draw_justified_text(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), color, x1, x2, y, diff, flags, buffer);
-			free(buffer);
-		}
-		va_end(args);
+		auto buffer = internal::to_string(format, std::forward<Args>(args)...);
+		al_draw_justified_text(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), color, x1, x2, y, diff, flags, buffer.c_str());
 	}
 
 	export inline auto get_text_width(const ALLEGRO::FONT& font, const char* str) -> int32_t
@@ -291,44 +250,16 @@ namespace al
 		al_draw_multiline_text(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), color, x, y, max_width, line_height, flags, text);
 	}
 
-	export inline auto draw_multiline_textf(const ALLEGRO::FONT& font, const ALLEGRO::COLOR& color, const ALLEGRO::VECTOR_2D<float>& pos, float max_width, float line_height, int32_t flags, const char* format, ...) -> void
+	export template <typename... Args> inline auto draw_multiline_textf(const ALLEGRO::FONT& font, const ALLEGRO::COLOR& color, const ALLEGRO::VECTOR_2D<float>& pos, float max_width, float line_height, int32_t flags, const char* format, Args&&... args) -> void
 	{
-		va_list args;
-		int32_t len;
-		char* buffer;
-
-		va_start(args, format);
-		len = _vscprintf(format, args) // _vscprintf doesn't count
-			+ 1; // terminating '\0'
-		buffer = (char*)malloc(len * sizeof(char));
-
-		if (nullptr != buffer)
-		{
-			vsprintf_s(buffer, len, format, args);
-			al_draw_multiline_text(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), color, pos.get_x(), pos.get_y(), max_width, line_height, flags, buffer);
-			free(buffer);
-		}
-		va_end(args);
+		auto buffer = internal::to_string(format, std::forward<Args>(args)...);
+		al_draw_multiline_text(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), color, pos.get_x(), pos.get_y(), max_width, line_height, flags, buffer.c_str());
 	}
 
-	export inline auto draw_multiline_textf(const ALLEGRO::FONT& font, const ALLEGRO::COLOR& color, float x, float y, float max_width, float line_height, int32_t flags, const char* format, ...) -> void
+	export template <typename... Args> inline auto draw_multiline_textf(const ALLEGRO::FONT& font, const ALLEGRO::COLOR& color, float x, float y, float max_width, float line_height, int32_t flags, const char* format, Args&&... args) -> void
 	{
-		va_list args;
-		int32_t len;
-		char* buffer;
-
-		va_start(args, format);
-		len = _vscprintf(format, args) // _vscprintf doesn't count
-			+ 1; // terminating '\0'
-		buffer = (char*)malloc(len * sizeof(char));
-
-		if (nullptr != buffer)
-		{
-			vsprintf_s(buffer, len, format, args);
-			al_draw_multiline_text(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), color, x, y, max_width, line_height, flags, buffer);
-			free(buffer);
-		}
-		va_end(args);
+		auto buffer = internal::to_string(format, std::forward<Args>(args)...);
+		al_draw_multiline_text(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), color, x, y, max_width, line_height, flags, buffer.c_str());
 	}
 
 	export inline auto draw_multiline_ustr(const ALLEGRO::FONT& font, const ALLEGRO::COLOR& color, const ALLEGRO::VECTOR_2D<float>& pos, float max_width, float line_height, int32_t flags, const ALLEGRO::USTRING& ustring) -> void

@@ -32,4 +32,28 @@ namespace al
 	{
 		return al_run_main(argc, argv, func_main.target<auto(int32_t, char**)->int32_t>());
 	}
+
+	namespace internal
+	{
+		export template <typename... Args> auto to_string(const char* format, Args&&... args) -> std::string
+		{
+			if (!format)
+			{
+				return std::string();
+			}
+			int32_t len = std::snprintf(nullptr, 0, format, std::forward<Args>(args)...) + 1; // _vscprintf doesn't count
+			if (len <= 0)
+			{
+				return std::string();
+			}
+			std::string buffer(len, '\0');
+			std::snprintf(buffer.data(), len, format, std::forward<Args>(args)...);
+			// Remove the null terminator added by snprintf
+			if (!buffer.empty() && buffer.back() == '\0')
+			{
+				buffer.pop_back();
+			}
+			return buffer;
+		}
+	}
 }
