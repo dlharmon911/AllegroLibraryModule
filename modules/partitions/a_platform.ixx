@@ -16,6 +16,15 @@ module;
 #include <allegro5/allegro_x.h>
 #endif //!ALLEGRO_UNIX
 
+#ifdef ALLEGRO_BIG_ENDIAN
+#define IS_BIG_ENDIAN 1
+#define IS_LITTLE_ENDIAN 0
+#else
+#define IS_BIG_ENDIAN ((int32_t)0)
+#define IS_LITTLE_ENDIAN  ((int32_t)1)
+#endif
+
+
 export module allegro:platform;
 
 import std;
@@ -25,8 +34,8 @@ import :display;
 
 namespace ALLEGRO
 {
-	export constexpr int32_t LITTLE_ENDIAN{ 0 };
-	export constexpr int32_t BIG_ENDIAN{ 1 };
+	export constexpr int32_t LITTLE_ENDIAN{ IS_LITTLE_ENDIAN };
+	export constexpr int32_t BIG_ENDIAN{ IS_BIG_ENDIAN };
 
 	export constexpr int32_t PLATFORM_WINDOWS{ 0 };
 	export constexpr int32_t PLATFORM_ANDROID{ 1 };
