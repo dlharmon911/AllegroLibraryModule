@@ -8,8 +8,8 @@ module;
 
 export module allegro:opengl;
 
-import std;
 import <cstdint>;
+import std;
 import :base;
 import :bitmap;
 import :display;

@@ -1,7 +1,7 @@
 export module allegro:array;
 
-import std;
 import <allegro5/cpu.h>;
+import std;
 import :base;
 
 namespace ALLEGRO

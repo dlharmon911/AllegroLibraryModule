@@ -1,7 +1,7 @@
 export module allegro:mouse;
 
-import std;
 import <allegro5\mouse.h>;
+import std;
 import :base;
 import :events;
 import :display;

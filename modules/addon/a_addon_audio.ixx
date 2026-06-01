@@ -1,8 +1,8 @@
 export module allegro.audio_addon;
 
+import <allegro5/allegro_audio.h>;
 import std;
 import allegro;
-import <allegro5/allegro_audio.h>;
 
 namespace ALLEGRO
 {
@@ -767,7 +767,7 @@ namespace al
 		return ALLEGRO::SAMPLE(al_load_sample_f((ALLEGRO::INTERNAL::FILE_DATA_PTR)fp.get(), ident), internal::destroy_sample);
 	}
 
-	export inline auto save_sample_f(ALLEGRO::FILE& fp, const char* ident, ALLEGRO::SAMPLE& sample_instance) -> bool
+	export inline auto save_sample_f(ALLEGRO::FILE& fp, const char* ident, const ALLEGRO::SAMPLE& sample_instance) -> bool
 	{
 		return al_save_sample_f((ALLEGRO::INTERNAL::FILE_DATA_PTR)fp.get(), ident, static_cast<ALLEGRO::INTERNAL::SAMPLE_DATA_PTR>(sample_instance.get()));
 	}

@@ -1,7 +1,7 @@
 export module allegro:shader;
 
-import std;
 import <allegro5/shader.h>;
+import std;
 import :base;
 import :bitmap;
 import :memory;

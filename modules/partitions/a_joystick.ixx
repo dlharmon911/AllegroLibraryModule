@@ -1,7 +1,7 @@
 export module allegro:joystick;
 
-import std;
 import <allegro5/joystick.h>;
+import std;
 import :base;
 import :events;
 import :memory;

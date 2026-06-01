@@ -1,7 +1,7 @@
 export module allegro:display;
 
-import std;
 import <allegro5/display.h>;
+import std;
 import :base;
 import :color;
 import :bitmap;

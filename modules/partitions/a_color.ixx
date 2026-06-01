@@ -1,7 +1,7 @@
 export module allegro:color;
 
-import std;
 import <allegro5/color.h>;
+import std;
 import :base;
 import :math;
 

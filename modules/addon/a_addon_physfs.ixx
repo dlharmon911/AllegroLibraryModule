@@ -1,9 +1,9 @@
 export module allegro.physfs_addon;
 
-import std;
-import allegro;
 import <allegro5/allegro_physfs.h>;
 export import <physfs.h>;
+import std;
+import allegro;
 
 namespace al
 {

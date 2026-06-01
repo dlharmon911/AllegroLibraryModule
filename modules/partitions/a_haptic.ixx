@@ -1,7 +1,7 @@
 export module allegro:haptic;
 
-import std;
 import <allegro5/haptic.h>;
+import std;
 import :base;
 import :memory;
 import :mouse;

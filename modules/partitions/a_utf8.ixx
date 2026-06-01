@@ -2,10 +2,10 @@ module;
 
 export module allegro:utf8;
 
-import std;
 import <cstdarg>;
 import <cstdio>;
 import <allegro5/utf8.h>;
+import std;
 import :base;
 import :color;
 import :memory;
@@ -417,7 +417,7 @@ namespace al
 		return ALLEGRO::USTRING(al_ustr_new(string), al_ustr_free);
 	}
 
-	static auto ustr_get_char_size(int32_t c) -> size_t
+	auto ustr_get_char_size(int32_t c) -> size_t
 	{
 		static const int32_t MinimumValue = 0;
 		static const int32_t MaximumValue = 0x10ffff;

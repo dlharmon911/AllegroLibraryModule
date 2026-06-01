@@ -1,8 +1,8 @@
 export module allegro.primitives_addon;
 
+import <allegro5/allegro_primitives.h>;
 import std;
 import allegro;
-import <allegro5/allegro_primitives.h>;
 
 namespace ALLEGRO
 {

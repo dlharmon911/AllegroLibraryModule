@@ -1,7 +1,7 @@
 export module allegro:threads;
 
-import std;
 import <allegro5/threads.h>;
+import std;
 import :base;
 import :memory;
 import :altime;

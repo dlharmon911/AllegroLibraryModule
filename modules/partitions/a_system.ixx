@@ -1,9 +1,9 @@
 export module allegro:system;
 
+import <allegro5/system.h>;
 import <memory>;
 import <string>;
 import <functional>;
-import <allegro5/system.h>;
 import :base;
 import :config;
 import :path;

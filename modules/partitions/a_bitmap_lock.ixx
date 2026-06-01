@@ -1,7 +1,7 @@
 export module allegro:bitmap.lock;
 
-import std;
 import <allegro5/bitmap_lock.h>;
+import std;
 import :base;
 import :bitmap;
 import :memory;

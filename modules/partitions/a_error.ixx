@@ -1,8 +1,8 @@
 export module allegro:error;
 
-import std;
 import <cassert>;
 import <allegro5/error.h>;
+import std;
 import :base;
 
 namespace ALLEGRO

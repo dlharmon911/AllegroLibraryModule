@@ -1,7 +1,7 @@
 export module allegro:tls;
 
-import std;
 import <allegro5/tls.h>;
+import std;
 
 namespace ALLEGRO
 {

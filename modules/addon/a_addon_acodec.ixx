@@ -1,7 +1,7 @@
 export module allegro.acodec_addon;
 
-import allegro;
 import <allegro5/allegro_acodec.h>;
+import allegro;
 
 namespace al
 {

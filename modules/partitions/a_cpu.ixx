@@ -1,7 +1,7 @@
 export module allegro:cpu;
 
-import std;
 import <allegro5/cpu.h>;
+import std;
 
 namespace al
 {

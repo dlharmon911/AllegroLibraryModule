@@ -1,8 +1,8 @@
 export module allegro.color_addon;
 
+import <allegro5/allegro_color.h>;
 import std;
 import allegro;
-import <allegro5/allegro_color.h>;
 
 namespace ALLEGRO
 {
@@ -86,22 +86,22 @@ namespace al
 		}
 	}
 
-	export inline auto color_hsv_to_rgb(const ALLEGRO::COLOR_HSV hsv, ALLEGRO::COLOR_RGB& rgb) -> void
+	export inline auto color_hsv_to_rgb(const ALLEGRO::COLOR_HSV& hsv, ALLEGRO::COLOR_RGB& rgb) -> void
 	{
 		al_color_hsv_to_rgb(hsv.h, hsv.s, hsv.v, &rgb.r, &rgb.g, &rgb.b);
 	}
 
-	export inline auto color_rgb_to_hsl(const ALLEGRO::COLOR rgb, ALLEGRO::COLOR_HSL& hsl) -> void
+	export inline auto color_rgb_to_hsl(const ALLEGRO::COLOR& rgb, ALLEGRO::COLOR_HSL& hsl) -> void
 	{
 		al_color_rgb_to_hsl(rgb.r, rgb.g, rgb.b, &hsl.h, &hsl.s, &hsl.l);
 	}
 
-	export inline auto color_rgb_to_hsv(const ALLEGRO::COLOR rgb, ALLEGRO::COLOR_HSL& hsl) -> void
+	export inline auto color_rgb_to_hsv(const ALLEGRO::COLOR& rgb, ALLEGRO::COLOR_HSV& hsv) -> void
 	{
-		al_color_rgb_to_hsv(rgb.r, rgb.g, rgb.b, &hsl.h, &hsl.s, &hsl.l);
+		al_color_rgb_to_hsv(rgb.r, rgb.g, rgb.b, &hsv.h, &hsv.s, &hsv.v);
 	}
 
-	export inline auto color_hsl_to_rgb(const ALLEGRO::COLOR_HSL hsl, ALLEGRO::COLOR_RGB& rgb) -> void
+	export inline auto color_hsl_to_rgb(const ALLEGRO::COLOR_HSL& hsl, ALLEGRO::COLOR_RGB& rgb) -> void
 	{
 		al_color_hsl_to_rgb(hsl.h, hsl.s, hsl.l, &rgb.r, &rgb.g, &rgb.b);
 	}
@@ -116,27 +116,27 @@ namespace al
 		return (const char*)al_color_rgb_to_name(rgb.r, rgb.g, rgb.b);
 	}
 
-	export inline auto color_cmyk_to_rgb(const ALLEGRO::COLOR_CMYK cmyk, ALLEGRO::COLOR_RGB& rgb) -> void
+	export inline auto color_cmyk_to_rgb(const ALLEGRO::COLOR_CMYK& cmyk, ALLEGRO::COLOR_RGB& rgb) -> void
 	{
 		al_color_cmyk_to_rgb(cmyk.c, cmyk.m, cmyk.y, cmyk.k, &rgb.r, &rgb.g, &rgb.b);
 	}
 
-	export inline auto color_rgb_to_cmyk(const ALLEGRO::COLOR_RGB rgb, ALLEGRO::COLOR_CMYK& cmyk) -> void
+	export inline auto color_rgb_to_cmyk(const ALLEGRO::COLOR_RGB& rgb, ALLEGRO::COLOR_CMYK& cmyk) -> void
 	{
 		al_color_rgb_to_cmyk(rgb.r, rgb.g, rgb.b, &cmyk.c, &cmyk.m, &cmyk.y, &cmyk.k);
 	}
 
-	export inline auto color_yuv_to_rgb(const ALLEGRO::COLOR_YUV yuv, ALLEGRO::COLOR_RGB& rgb) -> void
+	export inline auto color_yuv_to_rgb(const ALLEGRO::COLOR_YUV& yuv, ALLEGRO::COLOR_RGB& rgb) -> void
 	{
 		al_color_yuv_to_rgb(yuv.y, yuv.u, yuv.v, &rgb.r, &rgb.g, &rgb.b);
 	}
 
-	export inline auto color_rgb_to_yuv(const ALLEGRO::COLOR_RGB rgb, ALLEGRO::COLOR_YUV& yuv) -> void
+	export inline auto color_rgb_to_yuv(const ALLEGRO::COLOR_RGB& rgb, ALLEGRO::COLOR_YUV& yuv) -> void
 	{
 		al_color_rgb_to_yuv(rgb.r, rgb.g, rgb.b, &yuv.y, &yuv.u, &yuv.v);
 	}
 
-	export inline auto color_rgb_to_html(const ALLEGRO::COLOR_RGB rgb, char* string) -> void
+	export inline auto color_rgb_to_html(const ALLEGRO::COLOR_RGB& rgb, char* string) -> void
 	{
 		al_color_rgb_to_html(rgb.r, rgb.g, rgb.b, string);
 	}

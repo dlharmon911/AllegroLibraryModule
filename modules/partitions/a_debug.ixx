@@ -1,7 +1,7 @@
 export module allegro:debug;
 
-import std;
 import <allegro5/debug.h>;
+import std;
 import :base;
 
 namespace al

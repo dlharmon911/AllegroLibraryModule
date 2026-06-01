@@ -1,8 +1,8 @@
 export module allegro:base;
 
-import std;
 import <allegro5/base.h>;
 export import <cstdint>;
+import std;
 
 export using cptr_t = std::add_pointer_t<char>;
 export using vptr_t = std::add_pointer_t<void>;

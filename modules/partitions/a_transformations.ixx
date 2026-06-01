@@ -1,7 +1,7 @@
 export module allegro:transformations;
 
-import std;
 import <allegro5/transformations.h>;
+import std;
 import :base;
 import :bitmap;
 import :vector_2d;

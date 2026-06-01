@@ -1,8 +1,8 @@
 export module allegro.memfile_addon;
 
+import <allegro5/allegro_memfile.h>;
 import std;
 import allegro;
-import <allegro5/allegro_memfile.h>;
 
 namespace al
 {

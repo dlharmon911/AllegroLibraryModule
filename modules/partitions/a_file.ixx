@@ -1,9 +1,9 @@
 export module allegro:file;
 
-import std;
 import <cstdarg>;
 import <cstdio>;
 import <allegro5/file.h>;
+import std;
 import :base;
 import :utf8;
 import :path;

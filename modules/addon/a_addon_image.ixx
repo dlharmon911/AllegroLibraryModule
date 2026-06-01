@@ -1,7 +1,7 @@
 export module allegro.image_addon;
 
-import allegro;
 import <allegro5/allegro_image.h>;
+import allegro;
 
 namespace al
 {

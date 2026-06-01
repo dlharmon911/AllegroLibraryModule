@@ -1,7 +1,7 @@
 export module allegro:memory;
 
-import std;
 import <allegro5/memory.h>;
+import std;
 import :base;
 
 namespace ALLEGRO

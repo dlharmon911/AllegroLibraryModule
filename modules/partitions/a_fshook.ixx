@@ -1,7 +1,7 @@
 export module allegro:fshook;
 
-import std;
 import <allegro5/fshook.h>;
+import std;
 import :base;
 import :file;
 import :path;

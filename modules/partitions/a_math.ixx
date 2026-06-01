@@ -1,7 +1,7 @@
 export module allegro:math;
 
-import std;
 import <allegro5/base.h>;
+import std;
 
 namespace ALLEGRO
 {

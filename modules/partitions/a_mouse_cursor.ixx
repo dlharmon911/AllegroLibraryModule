@@ -1,7 +1,7 @@
 export module allegro:mouse_cursor;
 
-import std;
 import <allegro5/mouse_cursor.h>;
+import std;
 import :base;
 import :bitmap;
 import :display;

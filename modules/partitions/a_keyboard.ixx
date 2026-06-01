@@ -1,7 +1,7 @@
 export module allegro:keyboard;
 
-import std;
 import <allegro5\keyboard.h>;
+import std;
 import :base;
 import :display;
 import :events;

@@ -1,10 +1,10 @@
 export module allegro.ttf_addon;
 
+import <allegro5/allegro_font.h>;
+import <allegro5/allegro_ttf.h>;
 import std;
 import allegro;
 import allegro.font_addon;
-import <allegro5/allegro_font.h>;
-import <allegro5/allegro_ttf.h>;
 
 namespace ALLEGRO
 {

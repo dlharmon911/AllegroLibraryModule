@@ -1,7 +1,7 @@
 export module allegro:drawing;
 
-import std;
 import <allegro5/drawing.h>;
+import std;
 import :base;
 import :color;
 import :vector_2d;

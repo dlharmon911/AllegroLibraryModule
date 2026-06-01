@@ -1,7 +1,7 @@
 export module allegro:altime;
 
-import std;
 import <allegro5/altime.h>;
+import std;
 
 import :base;
 

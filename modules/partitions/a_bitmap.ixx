@@ -1,7 +1,7 @@
 export module allegro:bitmap;
 
-import std;
 import <allegro5/bitmap.h>;
+import std;
 import :base;
 import :color;
 import :memory;

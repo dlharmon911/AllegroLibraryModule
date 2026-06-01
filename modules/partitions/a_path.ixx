@@ -1,7 +1,7 @@
 export module allegro:path;
 
-import std;
 import <allegro5/path.h>;
+import std;
 import :base;
 import :memory;
 import :utf8;

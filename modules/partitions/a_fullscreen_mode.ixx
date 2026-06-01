@@ -1,7 +1,7 @@
 export module allegro:fullscreen_mode;
 
-import std;
 import <allegro5/fullscreen_mode.h>;
+import std;
 import :base;
 import :memory;
 

@@ -1,7 +1,7 @@
 export module allegro:blender;
 
-import std;
 import <allegro5/blender.h>;
+import std;
 import :base;
 import :color;
 

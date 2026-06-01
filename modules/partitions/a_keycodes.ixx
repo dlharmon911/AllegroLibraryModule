@@ -1,7 +1,7 @@
 export module allegro:keycodes;
 
-import std;
 import <allegro5/keyboard.h>;
+import std;
 
 namespace ALLEGRO
 {

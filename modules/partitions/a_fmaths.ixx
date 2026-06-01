@@ -1,7 +1,7 @@
 export module allegro:fmaths;
 
-import std;
 import <allegro5/fmaths.h>;
+import std;
 import :fixed;
 
 namespace al

@@ -1,7 +1,7 @@
 export module allegro:render_state;
 
-import std;
 import <allegro5/render_state.h>;
+import std;
 import :base;
 
 namespace ALLEGRO

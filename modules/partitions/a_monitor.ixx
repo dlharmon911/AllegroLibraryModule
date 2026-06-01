@@ -1,7 +1,7 @@
 export module allegro:monitor;
 
-import std;
 import <allegro5/monitor.h>;
+import std;
 
 namespace ALLEGRO
 {

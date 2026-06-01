@@ -1,8 +1,8 @@
 export module allegro.font_addon;
 
+import <allegro5/allegro_font.h>;
 import std;
 import allegro;
-import <allegro5/allegro_font.h>;
 
 namespace ALLEGRO
 {
@@ -191,7 +191,7 @@ namespace al
 		al_get_text_dimensions(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), text, &x1, &y1, &x2, &y2);
 	}
 
-	export inline auto get_font_ranges(ALLEGRO::FONT& font, int32_t ranges_count, int32_t* ranges) -> int32_t
+	export inline auto get_font_ranges(const ALLEGRO::FONT& font, int32_t ranges_count, int32_t* ranges) -> int32_t
 	{
 		return al_get_font_ranges(static_cast<ALLEGRO::INTERNAL::FONT_DATA_PTR>(font.get()), ranges_count, ranges);
 	}
