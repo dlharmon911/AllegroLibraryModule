@@ -157,6 +157,7 @@
       <TranslateIncludes>true</TranslateIncludes>
       <CompileAs>CompileAsCppModule</CompileAs>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <BuildStlModules>true</BuildStlModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

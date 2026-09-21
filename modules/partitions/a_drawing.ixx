@@ -22,4 +22,9 @@ namespace al
 	{
 		al_draw_pixel(point.get_x(), point.get_y(), static_cast<ALLEGRO_COLOR>(color));
 	}
+
+	export inline auto draw_pixel(float x, float y, const ALLEGRO::COLOR& color) -> void
+	{
+		al_draw_pixel(x, y, static_cast<ALLEGRO_COLOR>(color));
+	}
 }
